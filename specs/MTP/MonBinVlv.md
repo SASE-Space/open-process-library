@@ -74,6 +74,7 @@
 | Ctrl          | x   | Set:                                                                             |                                 |
 |               |     | (SafePosAct AND SafePos AND NOT SafePosEn)                                       | open valve on interlock         |
 |               |     | OR (NOT SafePosAct AND ((OpenAut AND StateAutAct) OR (OpenOp and StateOpAct)))   | open command when no interlock  |
+|               |     | Reset:                                                                                 |                                 |                                                                    
 |               |     | (SafePosAct AND NOT SafePos NOT SafePosEn)                                       | close valve on interlock        |
 |               |     | OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct))) | close command when no interlock |
 | MonStatErr    | x   | Ctrl AND NOT OpenFbk                                                             |                                 |
