@@ -4,99 +4,117 @@
 
 ### Operation Mode
 
-| Variable     | Source | Var Type | Data Type | Description                                                       | Functionality          |
-| ------------ | ------ | -------- | --------- | ----------------------------------------------------------------- | ---------------------- |
-| stateChannel | PEA    | Input    | Bool      | OperationMode selection. 0: operator (..Op), 1: automatic (..Aut) | from HMI               |
-| stateOffAut  | PEA    | Input    | Bool      | Switch Operation Mode to 'Offline' in automatic mode              | from Input             |
-| stateOpAut   | PEA    | Input    | Bool      | Switch Operation Mode to 'Operator' in automatic mode             | from Input             |
-| stateAutAut  | PEA    | Input    | Bool      | Switch Operation Mode to 'Automatic' in automatic mode            | from Input             |
-| stateOffOp   | POL    | Local    | Bool      | Switch Operation Mode to 'Off' by operator                        | from HMI + (2)         |
-| stateOpOp    | POL    | Local    | Bool      | Switch Operation Mode to 'Operator' by operator                   | from HMI + (2)         |
-| stateAutOp   | POL    | Local    | Bool      | Switch Operation Mode to 'Automatic' by operator                  | from HMI + (2)         |
-| stateOpAct   | PEA    | Output   | Bool      | Operator state active                                             | from state machine (1) |
-| stateAutAct  | PEA    | Output   | Bool      | Automatic state active                                            | from state machine (1) |
-| stateOffAct  | PEA    | Output   | Bool      | Offline state active                                              | from state machine (1) |
+| Variable     | Source | Var Type | Data Type | Description                                            |
+| ------------ | ------ | -------- | --------- | ------------------------------------------------------ |
+| StateChannel | PEA    | Input    | Bool      | 0: operator/local, 1: automatic/remote                 |
+| StateOffAut  | PEA    | Input    | Bool      | Switch Operation Mode to 'Offline' in automatic mode   |
+| StateOpAut   | PEA    | Input    | Bool      | Switch Operation Mode to 'Operator' in automatic mode  |
+| StateAutAut  | PEA    | Input    | Bool      | Switch Operation Mode to 'Automatic' in automatic mode |
+| StateOffOp   | POL    | Local    | Bool      | Switch Operation Mode to 'Off' by operator             |
+| StateOpOp    | POL    | Local    | Bool      | Switch Operation Mode to 'Operator' by operator        |
+| StateAutOp   | POL    | Local    | Bool      | Switch Operation Mode to 'Automatic' by operator       |
+| StateOpAct   | PEA    | Output   | Bool      | Operator state active                                  |
+| StateAutAct  | PEA    | Output   | Bool      | Automatic state active                                 |
+| StateOffAct  | PEA    | Output   | Bool      | Offline state active                                   |
 
 ### Interlock
 
-| Variable  | Source | Var Type | Data Type | Description                                                                   | Functionality |
-| --------- | ------ | -------- | --------- | ----------------------------------------------------------------------------- | ------------- |
-| permEn    | PEA    | Input    | Bool      | Enables the Permission Lock. 1 = enabled (info for HMI)                       | from Input    | TODO: if disabled and still some interlock then error. And don't block interlock because might be misconfigured by accident. Better be safe
-| permit    | PEA    | Input    | Bool      | Permit, allows control. Does not activate safe position. 1 = permission given | from Input    |
-| intlEn    | PEA    | Input    | Bool      | Enables the Interlock Lock. 1 = enabled (info for HMI)                        | from Input    |
-| interlock | PEA    | Input    | Bool      | Interlock, sets safe position. 0 = interlock active                           | from Input    |
-| protEn    | PEA    | Input    | Bool      | Enables the Protection Lock. 1 = enabled (info for HMI)                       | from Input    |
-| protect   | PEA    | Input    | Bool      | Protect, sets safe position, sets protectState. 0 = Protect active            | from Input    |
+| Variable  | Source | Var Type | Data Type | Description                                                                |
+| --------- | ------ | -------- | --------- | -------------------------------------------------------------------------- |
+| PermEn    | PEA    | Input    | Bool      | Enables the Permission Lock. 1 = enabled (info for HMI)                    |
+| IntlEn    | PEA    | Input    | Bool      | Enables the Interlock Lock. 1 = enabled (info for HMI)                     |
+| ProtEn    | PEA    | Input    | Bool      | Enables the Protection Lock. 1 = enabled (info for HMI)                    |
+| Permit    | PEA    | Input    | Bool      | Permit, allows control. Does not activate safe position. 0 = no permission |
+| Interlock | PEA    | Input    | Bool      | Interlock, sets safe position. 0 = interlock active                        |
+| Protect   | PEA    | Input    | Bool      | Protect, sets safe position, needs reset. 0 = Protect active               |
 
 ### Specific
 
-| Variable     | Source | Var Type | Data Type | Description                                                               | Functionality      |
-| ------------ | ------ | -------- | --------- | ------------------------------------------------------------------------- | ------------------ |
-| WQC          | PEA    | Input    | Byte      | Worst Quality Code Variable                                               | TODO               |
-| safePos      | PEA    | Input    | Bool      | Safe Position. 0: close, 1: open                                          | from Input         |
-| safePosEn    | PEA    | Input    | Bool      | Safe Position Enable. 0: has safe position, 1: hold position on interlock | from Input         | TODO: what if command changes during interlock? Also 0 has different meaning than on MonAnaVlv?
-| safePosAct   | PEA    | Output   | Bool      | Safe Position Activated. 1: activated                                     | from Epression (4) |
-| openAut      | PEA    | Input    | Bool      | Open command from controller program                                      | from Input         |
-| closeAut     | PEA    | Input    | Bool      | Close command from controller program                                     | from Input         |
-| ctrl         | PEA    | Output   | Bool      | Control command to hardware                                               | from set/reset (3) | 
-| openFbkCalc  | PEA    | Input    | Bool      | Open feedback is Calculated                                               | from Input         |
-| openFbk      | PEA    | Input    | Bool      | Open feedback from the hardware                                           | from Input         |
-| closeFbkCalc | PEA    | Input    | Bool      | Close feedback is calculated                                              | from Input         |
-| closeFbk     | PEA    | Input    | Bool      | Close feedback from the hardware                                          | from Input         |
-| resetAut     | PEA    | Input    | Bool      | Reset command from controller program                                     | from Input         | TODO: should this not be two signals? Which one should we add? see protectState, but that might be wrong
-| monSafePos   | PEA    | Input    | Bool      | Behaviour if monitoring error. 1 = safe pos, 0 = hold pos                 | from Input         |
-| monStatErr   | PEA    | Output   | Bool      | Static monitoring error occurred                                          | TODO               |
-| monDynErr    | PEA    | Output   | Bool      | Dynamic Monitoring error occurred                                         | TODO               |
-| monStatTi    | PEA    | Input    | Real      | monitor time for static changes, in s                                     | from Input         |
-| monDynTi     | PEA    | Input    | Real      | monitor time for dynamic changes, in s                                    | from Input         |
-| oSLevel      | POL    | Input    | Byte      | manual operation permission. 0 = only on-site. >0: only from POL          | TODO               | TODO: how can the controller know who is giving commands? would the tags not be the same?
-| openOp       | POL    | Local    | Bool      | Open command by operator                                                  | from HMI + (2)     |
-| closeOp      | POL    | Local    | Bool      | Close command by operator                                                 | from HMI + (2)     |
-| resetOp      | POL    | Local    | Bool      | Reset command by operator                                                 | from HMI + (2)     |
-| monEn        | POL    | Local    | Bool      | Monitor Enable. 1: enabled                                                | from HMI           | TODO: better output? 
-| protectState |        | Output   | Bool      | Protect state, set by 'protect'. Needs reset. 0 = active                  | from set/reset (5) | TODO: rename to protectActive
-| simulate     |        | Input    | Bool      | Enable simulation                                                         | from Input         | TODO: maybe activate openFbkCalc and closeFbkCalc if simulate is active? Or just add a simulateEn signal?
-| error        |        | Output   | Bool      | Any error active                                                          | TODO               |
-| opened       |        | Output   | Bool      | Valve is opened                                                           | TODO               |
-| closed       |        | Output   | Bool      | Valve is closed                                                           | TODO               |
+| Variable      | Source | Var Type | Data Type | Default | Description                                                               |
+| ------------- | ------ | -------- | --------- | ------- | ------------------------------------------------------------------------- |
+| WQC           | PEA    | Input    | Byte      |         | Worst Quality Code Variable                                               |
+| OSLevel       | POL    | Input    | Byte      |         | manual operation permission. 0 = only on-site. >0: only from POL          |  TODO: (1)
+| SafePos       | PEA    | Input    | Bool      |         | Safe Position. 0: close, 1: open                                          |
+| SafePosEn     | PEA    | Input    | Bool      |         | Safe Position Enable. 0: has safe position, 1: hold position on interlock |  TODO: (2)
+| SafePosAct    | PEA    | Output   | Bool      |         | Safe Position Activated. 1: activated                                     |
+| OpenAut       | PEA    | Input    | Bool      |         | Open command from controller program                                      |
+| CloseAut      | PEA    | Input    | Bool      |         | Close command from controller program                                     |
+| Ctrl          | PEA    | Output   | Bool      |         | Control command to hardware                                               |
+| OpenFbkCalc   | PEA    | Input    | Bool      |         | Open feedback is Calculated                                               |
+| CloseFbkCalc  | PEA    | Input    | Bool      |         | Close feedback is calculated                                              |
+| OpenFbk       | PEA    | Input    | Bool      |         | Open feedback from the hardware                                           |
+| CloseFbk      | PEA    | Input    | Bool      |         | Close feedback from the hardware                                          |
+| MonSafePos    | PEA    | Input    | Bool      |         | Behaviour if monitoring error. 1 = safe pos, 0 = hold pos                 |
+| MonStatErr    | PEA    | Output   | Bool      |         | Static monitoring error occurred                                          |
+| MonDynErr     | PEA    | Output   | Bool      |         | Dynamic Monitoring error occurred                                         |
+| MonStatTi     | PEA    | Input    | Real      | 5       | monitor time for static changes, in s                                     |
+| MonDynTi      | PEA    | Input    | Real      | 2       | monitor time for dynamic changes, in s                                    |
+| OpenOp        | POL    | Local    | Bool      |         | Open command by operator                                                  |
+| CloseOp       | POL    | Local    | Bool      |         | Close command by operator                                                 |
+| ResetAut      | PEA    | Input    | Bool      |         | Reset command from controller program                                     | TODO: (3)
+| ResetOp       | POL    | Local    | Bool      |         | Reset command by operator                                                 |
+| MonEn         | POL    | Local    | Bool      |         | Monitor Enable. 1: enabled                                                |  TODO: (4)
+| OperationMode |        | Output   | Int       |         | 0: Offline, 1: Operator, 2: Automatic                                     |  TODO: (5)
+| OpenedState   |        | Local    | Bool      |         | For tracking the static monitoring error                                  |
+| ClosedState   |        | Local    | Bool      |         | For tracking the static monitoring error                                  |
+
 
 ## Functionality
 
-### (1) OperationMode State Machine
+| Target        | MTP | Expression                                                                       | Comment                         |
+| ------------- | --- | -------------------------------------------------------------------------------- | ------------------------------- |
+| StateOpAct    | x   | OperationMode == 1                                                               |                                 |
+| StateAutAct   | x   | OperationMode == 2                                                               |                                 |
+| StateOffAct   | x   | OperationMode == 0                                                               |                                 |
+| Protect       | x   | Set: ProtectSource                                                               |                                 |
+|               |     | Reset: (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)             |                                 |
+| SafePosAct    | x   | (PermEn AND NOT Permit)                                                          |                                 |
+|               |     | OR (IntlEn AND NOT Interlock)                                                    |                                 |
+|               |     | OR (ProtEn AND NOT Protect)                                                      |                                 |
+| Ctrl          | x   | Set:                                                                             |                                 |
+|               |     | (SafePosAct AND SafePos AND NOT SafePosEn)                                       | open valve on interlock         |
+|               |     | OR (NOT SafePosAct AND ((OpenAut AND StateAutAct) OR (OpenOp and StateOpAct)))   | open command when no interlock  |
+|               |     | (SafePosAct AND NOT SafePos NOT SafePosEn)                                       | close valve on interlock        |
+|               |     | OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct))) | close command when no interlock |
+| MonStatErr    | x   | Ctrl AND NOT OpenFbk                                                             |                                 |
+| MonDynErr     | x   |                                                                                  |                                 |
+| OperationMode |     | OperationMode State Machine                                                      |                                 |
+| OpenedState   |     | Set: Ctrl AND OpenFbk                                                            |                                 |
+|               |     | Reset: NOT Ctrl                                                                  |                                 |
+| ClosedState   |     | Set: NOT Ctrl AND CloseFbk                                                       |                                 |
+|               |     | Reset: Ctrl                                                                      |                                 |
+| MonStatErr    | x   | Set:                                                                             |                                 |
+|               |     | (MonEn AND OpenedState AND NOT OpenFbk)                                          |                                 |
+|               |     | OR ( MonEn AND ClosedState AND NOT CloseFbk) for MonStatTi                       |                                 |
+|               |     | Reset: (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)             |                                 |
+| MonDynErr     | x   | Set:                                                                             |                                 |
+|               |     | MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk)) for MonDynTi     |                                 |
+|               |     | Reset: (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)             |                                 |
+| StateOffOp    | x   | False                                                                            | Reset at the end of the FB      |
+| StateOpOp     | x   | False                                                                            | Reset at the end of the FB      |
+| StateAutOp    | x   | False                                                                            | Reset at the end of the FB      |
+| OpenOp        | x   | False                                                                            | Reset at the end of the FB      |
+| CloseOp       | x   | False                                                                            | Reset at the end of the FB      |
+| ResetOp       | x   | False                                                                            | Reset at the end of the FB      |
 
-State Offline
-- stateOffAct = 1
-- stateOpAct = 0
-- stateAutAct = 0
-- stateOffOp = 0 // reset the HMI command
 
-    Transition to Operator: (stateOpAut AND stateChannel) OR (stateOpOp AND NOT stateChannel)
+### OperationMode State Machine
 
-State Operator
-- stateOffAct = 0
-- stateOpAct = 1
-- stateAutAct = 0
-- stateOpOp = 0 // reset the HMI command
+| State         | Actions | Transition Condition                 | Target |
+| ------------- | ------- | ------------------------------------ | ------ |
+| 0 (Offline)   |         | (StateOpAut AND StateChannel)        |        |
+|               |         | OR (StateOpOp AND NOT StateChannel)  | 1      |
+|               |         |                                      |        |
+| 1 (Operator)  |         | (StateOffAut AND StateChannel)       |        |
+|               |         | OR (StateOffOp AND NOT StateChannel) | 0      |
+|               |         |                                      |        |
+|               |         | (StateAutAut AND StateChannel)       |        |
+|               |         | OR (StateAutOp AND NOT StateChannel) | 2      |
+|               |         |                                      |        |
+| 2 (Automatic) |         | (StateOpAut AND StateChannel)        |        |
+|               |         | OR (StateOpOp AND NOT StateChannel)  | 1      |
+|               |         |                                      |        |
 
-    Transition to Offline: (stateOffAut AND stateChannel) OR (stateOffOp AND NOT stateChannel)
-    Transition to Automatic:(StateAutAut AND stateChannel) OR (StateAutOp AND NOT stateChannel)
-
-State Automatic
-- stateOffAct = 0
-- stateOpAct = 0
-- stateAutAct = 1
-- stateAutOp = 0 // reset the HMI command
-
-    Transition to Operator: (stateOpAut AND stateChannel) OR (stateOpOp AND NOT stateChannel)
-
-### (2) Reset all HMI commands at end of function block
-
-- stateOffOp
-- stateOpOp
-- stateAutOp
-- openOp
-- closeOp
-- resetOp
 
 ### (3) ctrl State
 
@@ -111,3 +129,10 @@ safePosAct = NOT interlock OR NOT protectState
 
 Set: protect
 Reset: resetOp OR resetAut // TODO: need to check stateChannel? Normally reset by operator can always happen. Maybe check for aut?
+
+## TODO
+- (1) how can the controller know who is giving commands? would the tags not be the same?
+- (2) what if command changes during interlock? Also 0 has different meaning than on MonAnaVlv?
+- (3) should this not be two signals? Which one should we add? see protectState, but that might be wrong
+- (4) better output?
+- (5) rename to protectActive
