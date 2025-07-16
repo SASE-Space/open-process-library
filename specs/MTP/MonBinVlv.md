@@ -51,10 +51,10 @@
 | MonDynTi      | PEA    | Input    | Real      | 2       | monitor time for dynamic changes, in s                                    |
 | OpenOp        | POL    | Local    | Bool      |         | Open command by operator                                                  |
 | CloseOp       | POL    | Local    | Bool      |         | Close command by operator                                                 |
-| ResetAut      | PEA    | Input    | Bool      |         | Reset command from controller program                                     | TODO: (3)
+| ResetAut      | PEA    | Input    | Bool      |         | Reset command from controller program                                     | 
 | ResetOp       | POL    | Local    | Bool      |         | Reset command by operator                                                 |
-| MonEn         | POL    | Local    | Bool      |         | Monitor Enable. 1: enabled                                                |  TODO: (4)
-| OperationMode |        | Output   | Int       |         | 0: Offline, 1: Operator, 2: Automatic                                     |  TODO: (5)
+| MonEn         | POL    | Local    | Bool      |         | Monitor Enable. 1: enabled                                                |  
+| OperationMode |        | Output   | Int       |         | 0: Offline, 1: Operator, 2: Automatic                                     |  
 | OpenedState   |        | Local    | Bool      |         | For tracking the static monitoring error                                  |
 | ClosedState   |        | Local    | Bool      |         | For tracking the static monitoring error                                  |
 
@@ -118,23 +118,8 @@
 |               |         |                                      |        |
 
 
-### (3) ctrl State
-
-Set: (stateChannel AND openAut) OR (NOT stateChannel AND openOp) // todo: add interlock
-Reset: (stateChannel AND closeAut) OR (NOT stateChannel AND closeOp) // todo: add interlock
-
-### (4) safePosAct Expression
-
-safePosAct = NOT interlock OR NOT protectState
-
-### (5) protectState State
-
-Set: protect
-Reset: resetOp OR resetAut // TODO: need to check stateChannel? Normally reset by operator can always happen. Maybe check for aut?
 
 ## TODO
 - (1) how can the controller know who is giving commands? would the tags not be the same?
 - (2) what if command changes during interlock? Also 0 has different meaning than on MonAnaVlv?
-- (3) should this not be two signals? Which one should we add? see protectState, but that might be wrong
-- (4) better output?
-- (5) rename to protectActive
+
