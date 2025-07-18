@@ -32,7 +32,7 @@ Contact: #open-process-library on the [SASE Slack](https://sase.space/)
 
 |Company|Description|
 |---|---|
-|[![Acceleer](media/logos/acceleer-logotype-red.svg)](https://acceleer.com)| Collaborative Design & Code Generation for Industrial Process Automation |
+|[![Acceleer](media/logos/acceleer-logotype-red.svg)](https://acceleer.com)| Collaborative Design & Code Generation (DesignOps) for Industrial Process Automation |
 
 Contact us to be added here and under wat form (System Integrator, Automation Vendor, ...)
 
