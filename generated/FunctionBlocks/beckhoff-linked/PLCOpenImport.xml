@@ -1,4 +1,38 @@
-<pou name="MonBinVlv" pouType="functionBlock">
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+    <fileHeader companyName="Beckhoff Automation GmbH" productName="TwinCAT PLC Control" productVersion="3.5.20.50" creationDateTime="2025-07-01T11:02:16.1300929" />
+    <contentHeader name="testproj" modificationDateTime="2025-07-01T11:02:16.1300929">
+        <coordinateInfo>
+        <fbd>
+            <scaling x="1" y="1" />
+        </fbd>
+        <ld>
+            <scaling x="1" y="1" />
+        </ld>
+        <sfc>
+            <scaling x="1" y="1" />
+        </sfc>
+        </coordinateInfo>
+        <addData>
+        <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+            <ProjectInformation />
+        </data>
+        </addData>
+    </contentHeader>
+    <types>
+        <dataTypes />
+        <pous />
+    </types>
+    <instances>
+        <configurations />
+    </instances>
+    <addData>
+        <data name="http://www.3s-software.com/plcopenxml/application" handleUnknown="implementation">
+        <resource name="testproj">
+            <addData>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+                
+                <pou name="MonBinVlv" pouType="functionBlock">
     <interface>
         <inputVars>
 
@@ -328,3 +362,16 @@ ResetOp := False;
         </ST>
     </body>
 </pou>
+                
+            </data>
+            </addData>
+        </resource>
+        </data>
+        <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+        <ProjectStructure>
+            <Object Name="project_name_does_not_matter">
+            </Object>
+        </ProjectStructure>
+        </data>
+    </addData>
+</project>

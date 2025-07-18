@@ -682,7 +682,8 @@ async function generateCode() {
                         const outputPath = `${outputDir}/${outputFileName}`
                         
                         // Store generated code in generatedFunctionBlocks object
-                        generatedFunctionBlocks[outputFileName] = {
+                        const blockKey = `${templateFolderName}/${outputFileName}`
+                        generatedFunctionBlocks[blockKey] = {
                             folder: outputDir,
                             code: rendered
                         }
@@ -709,7 +710,7 @@ async function processImportTemplates() {
             const templateFiles = Deno.readDir(`../templates/${templateFolderName}`)
             
             for await (const templateFile of templateFiles) {
-                if (templateFile.isFile && templateFile.name === 'ImportTemplate.xml') {
+                if (templateFile.isFile && templateFile.name === 'ImportTemplate.nunjucks') {
                     
                     // Configure Nunjucks for ImportTemplate
                     nunjucks.configure([`../templates/${templateFolderName}`], {
@@ -721,7 +722,7 @@ async function processImportTemplates() {
                     const filteredFunctionBlocks: { [key: string]: any } = {}
                     Object.keys(generatedFunctionBlocks).forEach(key => {
                         const block = generatedFunctionBlocks[key]
-                        if (block.folder.includes(`/${templateFolderName}/`)) {
+                        if (key.startsWith(`${templateFolderName}/`)) {
                             filteredFunctionBlocks[key] = block
                         }
                     })
@@ -740,7 +741,7 @@ async function processImportTemplates() {
                     }
                     
                     // Render as Nunjucks template
-                    const rendered = nunjucks.render('ImportTemplate.xml', templateContext)
+                    const rendered = nunjucks.render('ImportTemplate.nunjucks', templateContext)
                     const outputFileName = templateContext._outputFile || 'PLCOpenImport.xml'
                     
                     

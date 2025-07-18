@@ -103,6 +103,8 @@
 | MonDynErr     | x   | Set:                                                                             |                                 |
 |               |     | MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk)) for MonDynTi     |                                 |
 |               |     | Reset: (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)             |                                 |
+|               |     |                                                                                  |                                 |
+|               |     | // reset operator command                                                        |                                 |
 | StateOffOp    | x   | False                                                                            | Reset at the end of the FB      |
 | StateOpOp     | x   | False                                                                            | Reset at the end of the FB      |
 | StateAutOp    | x   | False                                                                            | Reset at the end of the FB      |

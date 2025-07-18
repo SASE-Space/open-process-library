@@ -744,6 +744,36 @@
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
                 },
+                "blankLine8": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation8": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "reset operator command",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
                 "StateOffOp": {
                     "LogicType": "Expression",
                     "Expression": "False",
@@ -834,7 +864,7 @@
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
                 },
-                "blankLine8": {
+                "blankLine9": {
                     "LogicType": "BlankLine",
                     "Expression": null,
                     "Set": null,
