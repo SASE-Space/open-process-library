@@ -264,6 +264,23 @@
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
     
 // State Machine for the OperationMode
+CASE OperationMode OF
+    0: // Offline
+        IF (StateOpAut AND StateChannel) OR (StateOpOp AND NOT StateChannel) THEN
+            OperationMode := 1;
+        END_IF;
+    1: // Operator
+        IF (StateOffAut AND StateChannel) OR (StateOffOp AND NOT StateChannel) THEN
+            OperationMode := 0;
+        END_IF;
+        IF (StateAutAut AND StateChannel) OR (StateAutOp AND NOT StateChannel) THEN
+            OperationMode := 2;
+        END_IF;
+    2: // Automatic
+        IF (StateOpAut AND StateChannel) OR (StateOpOp AND NOT StateChannel) THEN
+            OperationMode := 1;
+        END_IF;
+END_CASE;
     
 // Make boolean indicators for the OperationMode State
 StateOpAct := OperationMode = 1;

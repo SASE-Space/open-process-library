@@ -77,6 +77,27 @@ DelayTimer{{ func.resetDelayTimerNumber }}(IN:= {{ func.reset | safe }}, PT:= RE
 IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe }}{% endif %} THEN
     {{ func.key | replace('_Reset', '') }} := FALSE;
 END_IF;
+    {#-###### STATE MACHINE ######-#}
+    {%- elif func.logicType == 'StateMachine' %}
+        {#- Generate state machine delay timers first -#}
+        {%- for stateName, stateData in func.stateMachine %}
+            {%- for targetState, transitionData in stateData.Transitions %}
+                {%- if transitionData.DelayTimerNumber %}
+DelayTimer{{ transitionData.DelayTimerNumber }}(IN:= {{ transitionData.Condition | safe }}, PT:= REAL_TO_TIME({{ transitionData.DelayVariable }} * 1000));
+                {%- endif %}
+            {%- endfor %}
+        {%- endfor %}
+        {#- Generate state machine CASE statement #}
+CASE {{ func.key }} OF
+        {%- for stateName, stateData in func.stateMachine %}
+    {{ stateName }}: // {{ stateData.Name }}
+            {%- for targetState, transitionData in stateData.Transitions %}
+        IF {% if transitionData.DelayTimerNumber %}DelayTimer{{ transitionData.DelayTimerNumber }}.Q{% else %}{{ transitionData.Condition | safe }}{% endif %} THEN
+            {{ func.key }} := {{ targetState }};
+        END_IF;
+            {%- endfor %}
+        {%- endfor %}
+END_CASE;
     {#-###### BLANK LINE ######-#}
     {%- elif func.logicType == 'BlankLine' %}
     {% endif -%}

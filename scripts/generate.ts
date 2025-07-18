@@ -9,7 +9,7 @@ if (fileFilter) {
 
 const model = { FunctionBlocks: [] }
 // Configure Nunjucks environment
-nunjucks.configure(['../templates'], {
+nunjucks.configure(['templates'], {
     autoescape: false,
     throwOnUndefined: false
 })
@@ -25,14 +25,15 @@ function getVariablesByType(variables: any, varType: string) {
 
 function getAllFunctionality(functionality: any) {
     return Object.keys(functionality)
-        .filter(key => ['Expression', 'Explanation', 'Set', 'Reset', 'BlankLine'].includes(functionality[key].LogicType))
+        .filter(key => ['Expression', 'Explanation', 'Set', 'Reset', 'BlankLine', 'StateMachine'].includes(functionality[key].LogicType))
         .filter(key => {
             const func = functionality[key];
             return (func.LogicType === 'Expression' && func.Expression) || 
                    (func.LogicType === 'Explanation' && func.Comment) ||
                    (func.LogicType === 'Set' && func.Set) ||
                    (func.LogicType === 'Reset' && func.Reset) ||
-                   (func.LogicType === 'BlankLine');
+                   (func.LogicType === 'BlankLine') ||
+                   (func.LogicType === 'StateMachine' && func.StateMachine);
         })
         .map(key => ({
             key,
@@ -41,6 +42,7 @@ function getAllFunctionality(functionality: any) {
             comment: functionality[key].Comment,
             set: functionality[key].Set,
             reset: functionality[key].Reset,
+            stateMachine: functionality[key].StateMachine,
             delayVariable: functionality[key].DelayVariable,
             setDelayVariable: functionality[key].SetDelayVariable,
             resetDelayVariable: functionality[key].ResetDelayVariable,
@@ -149,7 +151,7 @@ function parseStateMachines(content: string, functionBlock: any) {
             }
             
             // Parse the state machine table starting from this point
-            const stateMachine = parseStateMachineTable(lines, i + 1, stateMachineName)
+            const stateMachine = parseStateMachineTable(lines, i + 1, stateMachineName, functionBlock)
             if (stateMachine) {
                 stateMachines[stateMachineName] = stateMachine
             }
@@ -157,7 +159,7 @@ function parseStateMachines(content: string, functionBlock: any) {
     }
 }
 
-function parseStateMachineTable(lines: string[], startIndex: number, stateMachineName: string): any | null {
+function parseStateMachineTable(lines: string[], startIndex: number, stateMachineName: string, functionBlock: any): any | null {
     let tableHeaders: string[] = []
     let currentState = ''
     let currentStateData: any = null
@@ -237,8 +239,12 @@ function parseStateMachineTable(lines: string[], startIndex: number, stateMachin
                 if (targetCell !== '' && currentState !== '') {
                     const combinedCondition = currentTransitionConditions.join(' ').trim()
                     if (combinedCondition) {
+                        // Parse delay variable from the condition
+                        const delayParsed = parseDelayVariable(combinedCondition)
                         currentStateData.Transitions[targetCell] = {
-                            Condition: combinedCondition
+                            Condition: delayParsed.condition,
+                            DelayVariable: delayParsed.delayVariable,
+                            DelayTimerNumber: delayParsed.delayVariable ? assignTimerNumber(functionBlock, delayParsed.delayVariable) : null
                         }
                     }
                     currentTransitionConditions = []
@@ -634,26 +640,26 @@ async function readAndProcessFiles(dirPath: string, isMTP: boolean) {
 }
 
 // read all the Spec files, process each and add to the Model
-await readAndProcessFiles("../specs/MTP", true)
-await readAndProcessFiles("../specs/Library", false)
+await readAndProcessFiles("specs/MTP", true)
+await readAndProcessFiles("specs/Library", false)
 
 // Generate code for each function block using all templates
 async function generateCode() {
     // Scan template folders
-    const templateFolders = Deno.readDir("../templates")
+    const templateFolders = Deno.readDir("templates")
     
     for await (const templateFolder of templateFolders) {
         if (templateFolder.isDirectory) {
             const templateFolderName = templateFolder.name
             
             // Configure Nunjucks for this template folder
-            nunjucks.configure([`../templates/${templateFolderName}`], {
+            nunjucks.configure([`templates/${templateFolderName}`], {
                 autoescape: false,
                 throwOnUndefined: false
             })
             
             // Scan template files in this folder
-            const templateFiles = Deno.readDir(`../templates/${templateFolderName}`)
+            const templateFiles = Deno.readDir(`templates/${templateFolderName}`)
             
             for await (const templateFile of templateFiles) {
                 if (templateFile.isFile && templateFile.name.startsWith('FunctionBlockTemplate')) {
@@ -678,7 +684,7 @@ async function generateCode() {
                         
                         // Create nested directory structure
                         const blockType = functionBlock.isMTP ? "MTP" : "Library"
-                        const outputDir = `../generated/FunctionBlocks/${templateFolderName}/${blockType}`
+                        const outputDir = `generated/FunctionBlocks/${templateFolderName}/${blockType}`
                         const outputPath = `${outputDir}/${outputFileName}`
                         
                         // Store generated code in generatedFunctionBlocks object
@@ -700,20 +706,20 @@ async function generateCode() {
 
 // Second pass: Process ImportTemplate files
 async function processImportTemplates() {
-    const templateFolders = Deno.readDir("../templates")
+    const templateFolders = Deno.readDir("templates")
     
     for await (const templateFolder of templateFolders) {
         if (templateFolder.isDirectory) {
             const templateFolderName = templateFolder.name
             
             // Look for ImportTemplate.xml files
-            const templateFiles = Deno.readDir(`../templates/${templateFolderName}`)
+            const templateFiles = Deno.readDir(`templates/${templateFolderName}`)
             
             for await (const templateFile of templateFiles) {
                 if (templateFile.isFile && templateFile.name === 'ImportTemplate.nunjucks') {
                     
                     // Configure Nunjucks for ImportTemplate
-                    nunjucks.configure([`../templates/${templateFolderName}`], {
+                    nunjucks.configure([`templates/${templateFolderName}`], {
                         autoescape: false,
                         throwOnUndefined: false
                     })
@@ -745,7 +751,7 @@ async function processImportTemplates() {
                     const outputFileName = templateContext._outputFile || 'PLCOpenImport.xml'
                     
                     
-                    const outputDir = `../generated/FunctionBlocks/${templateFolderName}`
+                    const outputDir = `generated/FunctionBlocks/${templateFolderName}`
                     const outputPath = `${outputDir}/${outputFileName}`
                     
                     await Deno.mkdir(outputDir, { recursive: true })
@@ -758,5 +764,5 @@ async function processImportTemplates() {
 
 await generateCode()
 await processImportTemplates()
-await Deno.mkdir("../generated/model", { recursive: true })
-await Deno.writeTextFile("../generated/model/model.json", JSON.stringify(model, null, 4))
+await Deno.mkdir("generated/model", { recursive: true })
+await Deno.writeTextFile("generated/model/model.json", JSON.stringify(model, null, 4))

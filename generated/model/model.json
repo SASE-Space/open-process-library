@@ -304,7 +304,9 @@
                             "Actions": [],
                             "Transitions": {
                                 "1": {
-                                    "Condition": "(StateOpAut AND StateChannel) OR (StateOpOp AND NOT StateChannel)"
+                                    "Condition": "(StateOpAut AND StateChannel) OR (StateOpOp AND NOT StateChannel)",
+                                    "DelayVariable": null,
+                                    "DelayTimerNumber": null
                                 }
                             }
                         },
@@ -313,10 +315,14 @@
                             "Actions": [],
                             "Transitions": {
                                 "0": {
-                                    "Condition": "(StateOffAut AND StateChannel) OR (StateOffOp AND NOT StateChannel)"
+                                    "Condition": "(StateOffAut AND StateChannel) OR (StateOffOp AND NOT StateChannel)",
+                                    "DelayVariable": null,
+                                    "DelayTimerNumber": null
                                 },
                                 "2": {
-                                    "Condition": "(StateAutAut AND StateChannel) OR (StateAutOp AND NOT StateChannel)"
+                                    "Condition": "(StateAutAut AND StateChannel) OR (StateAutOp AND NOT StateChannel)",
+                                    "DelayVariable": null,
+                                    "DelayTimerNumber": null
                                 }
                             }
                         },
@@ -325,7 +331,9 @@
                             "Actions": [],
                             "Transitions": {
                                 "1": {
-                                    "Condition": "(StateOpAut AND StateChannel) OR (StateOpOp AND NOT StateChannel)"
+                                    "Condition": "(StateOpAut AND StateChannel) OR (StateOpOp AND NOT StateChannel)",
+                                    "DelayVariable": null,
+                                    "DelayTimerNumber": null
                                 }
                             }
                         }
