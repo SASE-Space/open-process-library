@@ -1,0 +1,2774 @@
+{
+    "FunctionBlocks": [
+        {
+            "Name": "AnaMon",
+            "isMTP": true,
+            "Variables": {
+                "WQC": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "Worst Quality Code Variable"
+                },
+                "OSLevel": {
+                    "Source": "POL",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "manual operation permission. 0 = only on-site. >0: only from POL"
+                },
+                "V": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Value"
+                },
+                "VSclMin": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Value Scale Low Limit"
+                },
+                "VSclMax": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Value Scale High Limit"
+                },
+                "VUnit": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Int",
+                    "Description": "Value Unit"
+                },
+                "VAHEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "1: Alarm High Limit Enabled"
+                },
+                "VWHEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "1: Warning High Limit Enabled"
+                },
+                "VTHEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "1: Tolerance High Limit Enabled"
+                },
+                "VTLEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "1: Tolerance Low Limit Enabled"
+                },
+                "VWLEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "1: Warning Low Limit Enabled"
+                },
+                "VALEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "1: Alarm Low Limit Enabled"
+                },
+                "VAHLim": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Alarm High"
+                },
+                "VWHLim": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Warning High"
+                },
+                "VTHLim": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Tolerance High"
+                },
+                "VTLLim": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Tolerance Low"
+                },
+                "VWLLim": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Warning Low"
+                },
+                "VALLim": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Alarm Low"
+                },
+                "VAHAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "1: Alarm High Limit Active"
+                },
+                "VWHAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "1: Warning High Limit Active"
+                },
+                "VTHAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "1: Tolerance High Limit Active"
+                },
+                "VTLAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "1: Tolerance Low Limit Active"
+                },
+                "VWLAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "1: Warning Low Limit Active"
+                },
+                "VALAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "1: Alarm Low Limit Active"
+                }
+            },
+            "Functionality": {
+                "VAHAct": {
+                    "LogicType": "Expression",
+                    "Expression": "vOut >= alarmHigh",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VWHAct": {
+                    "LogicType": "Expression",
+                    "Expression": "vOut >= warningHigh",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VTHAct": {
+                    "LogicType": "Expression",
+                    "Expression": "vOut >= toleranceHigh",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VTLAct": {
+                    "LogicType": "Expression",
+                    "Expression": "vOut <= toleranceLow",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VWLAct": {
+                    "LogicType": "Expression",
+                    "Expression": "vOut <= warningLow",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VALAct": {
+                    "LogicType": "Expression",
+                    "Expression": "vOut <= alarmLow",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                }
+            },
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "BinMon",
+            "isMTP": true,
+            "Variables": {
+                "wQC": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "Worst Quality Code Variable",
+                    "Functionality": "TODO"
+                },
+                "vState0": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "String",
+                    "Description": "Text value for False",
+                    "Functionality": ""
+                },
+                "vState1": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "String",
+                    "Description": "Text value for True",
+                    "Functionality": ""
+                },
+                "oSLevel": {
+                    "Source": "POL",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "manual operation permission. 0 = only on-site. >0: only from POL",
+                    "Functionality": "TODO"
+                },
+                "vFlutEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enable Fluttering Recognition",
+                    "Functionality": ""
+                },
+                "vFlutCnt": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Int",
+                    "Description": "Counts of the allowed flutering signals in the defined period vFlutTi",
+                    "Functionality": ""
+                },
+                "vFlutAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Fluttering Signal recognized",
+                    "Functionality": ""
+                },
+                "": {
+                    "Source": "",
+                    "Var Type": "",
+                    "Data Type": "",
+                    "Description": "",
+                    "Functionality": ""
+                }
+            },
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "LockView4",
+            "isMTP": true,
+            "Variables": {
+                "wQC": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "Worst Quality Code Variable",
+                    "Functionality": "TODO"
+                },
+                "logic": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Logical Behaviour. 0: OR, 1: AND",
+                    "Functionality": "TODO"
+                },
+                "in1En": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enable Input. 0: not used",
+                    "Functionality": "TODO"
+                },
+                "in1": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Locking Input Value",
+                    "Functionality": "TODO"
+                },
+                "in1QC": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "Quality Code",
+                    "Functionality": "TODO"
+                },
+                "in1Inv": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Inverted",
+                    "Functionality": "TODO"
+                },
+                "in1Txt": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "String",
+                    "Description": "Additional Text",
+                    "Functionality": "TODO"
+                },
+                "in2En": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enable Input. 0: not used",
+                    "Functionality": "TODO"
+                },
+                "in2": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Locking Input Value",
+                    "Functionality": "TODO"
+                },
+                "in2QC": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "Quality Code",
+                    "Functionality": "TODO"
+                },
+                "in2Inv": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Inverted",
+                    "Functionality": "TODO"
+                },
+                "in2Txt": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "String",
+                    "Description": "Additional Text",
+                    "Functionality": "TODO"
+                },
+                "in3En": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enable Input. 0: not used",
+                    "Functionality": "TODO"
+                },
+                "in3": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Locking Input Value",
+                    "Functionality": "TODO"
+                },
+                "in3QC": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "Quality Code",
+                    "Functionality": "TODO"
+                },
+                "in3Inv": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Inverted",
+                    "Functionality": "TODO"
+                },
+                "in3Txt": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "String",
+                    "Description": "Additional Text",
+                    "Functionality": "TODO"
+                },
+                "in4En": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enable Input. 0: not used",
+                    "Functionality": "TODO"
+                },
+                "in4": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Locking Input Value",
+                    "Functionality": "TODO"
+                },
+                "in4QC": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "Quality Code",
+                    "Functionality": "TODO"
+                },
+                "in4Inv": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Inverted",
+                    "Functionality": "TODO"
+                },
+                "in4Txt": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "String",
+                    "Description": "Additional Text",
+                    "Functionality": "TODO"
+                },
+                "out": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Locking Result Output",
+                    "Functionality": "TODO"
+                },
+                "outQC": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "String",
+                    "Description": "Output Quality Code",
+                    "Functionality": "TODO"
+                },
+                "": {
+                    "Source": "",
+                    "Var Type": "",
+                    "Data Type": "",
+                    "Description": "",
+                    "Functionality": ""
+                }
+            },
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "MonAnaDrv",
+            "isMTP": true,
+            "Variables": {},
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "MonAnaVlv",
+            "isMTP": true,
+            "Variables": {},
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "MonBinDrv",
+            "isMTP": true,
+            "Variables": {
+                "stateChannel": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "OperationMode selection. 0: operator (..Op), 1: automatic (..Aut)",
+                    "Functionality": "from HMI"
+                },
+                "stateOffAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Offline' in automatic mode",
+                    "Functionality": "from Input"
+                },
+                "stateOpAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Operator' in automatic mode",
+                    "Functionality": "from Input"
+                },
+                "stateAutAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Automatic' in automatic mode",
+                    "Functionality": "from Input"
+                },
+                "stateOffOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Off' by operator",
+                    "Functionality": "from HMI + (2)"
+                },
+                "stateOpOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Operator' by operator",
+                    "Functionality": "from HMI + (2)"
+                },
+                "stateAutOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Automatic' by operator",
+                    "Functionality": "from HMI + (2)"
+                },
+                "stateOpAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Operator state active",
+                    "Functionality": "from state machine (1)"
+                },
+                "stateAutAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Automatic state active",
+                    "Functionality": "from state machine (1)"
+                },
+                "stateOffAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Offline state active",
+                    "Functionality": "from state machine (1)"
+                },
+                "permit": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Permit, allows control. Does not activate safe position. 1 = permission given",
+                    "Functionality": "from Input"
+                },
+                "intlEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enables the Interlock Lock. 1 = enabled (info for HMI)",
+                    "Functionality": "from Input"
+                },
+                "interlock": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Interlock, sets safe position. 0 = interlock active",
+                    "Functionality": "from Input"
+                },
+                "protEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enables the Protection Lock. 1 = enabled (info for HMI)",
+                    "Functionality": "from Input"
+                },
+                "protect": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Protect, sets safe position, sets protectState. 0 = Protect active",
+                    "Functionality": "from Input"
+                },
+                "wQC": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "Worst Quality Code Variable",
+                    "Functionality": "TODO"
+                },
+                "oSLevel": {
+                    "Source": "POL",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Description": "manual operation permission. 0 = only on-site. >0: only from POL",
+                    "Functionality": "TODO"
+                },
+                "safePos": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Safe Position. 0: close, 1: running",
+                    "Functionality": "TODO"
+                },
+                "safePosAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Safe Position Activated. 1: activated",
+                    "Functionality": "TODO"
+                },
+                "fwdEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Forward enable",
+                    "Functionality": "TODO"
+                },
+                "revEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Reverse enable",
+                    "Functionality": "TODO"
+                },
+                "stopOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Stop command by operator",
+                    "Functionality": "TODO"
+                },
+                "fwdOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Forward command by operator",
+                    "Functionality": "TODO"
+                },
+                "revOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Reverse command by operator",
+                    "Functionality": "TODO"
+                },
+                "stopAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Open command from controller program",
+                    "Functionality": "TODO"
+                },
+                "fwdAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Forward command from controller program",
+                    "Functionality": "TODO"
+                },
+                "revAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Reverse command from controller program",
+                    "Functionality": "TODO"
+                },
+                "fwdCtrl": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Forward Control command to hardware",
+                    "Functionality": "TODO"
+                },
+                "revCtrl": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Reverse Control command to hardware",
+                    "Functionality": "TODO"
+                },
+                "revFbkCalc": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Reverse feedback is Calculated",
+                    "Functionality": "TODO"
+                },
+                "revFbk": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Reverse feedback from the hardware",
+                    "Functionality": "TODO"
+                },
+                "fwdFbkCalc": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Forward feedback is calculated",
+                    "Functionality": "TODO"
+                },
+                "fwdFbk": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Forward feedback from the hardware",
+                    "Functionality": "TODO"
+                },
+                "trip": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Drive Protection Indicator. 0: tripped, 1: no error",
+                    "Functionality": "TODO"
+                },
+                "resetOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Reset command by operator",
+                    "Functionality": "TODO"
+                },
+                "resetAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Reset command from controller program",
+                    "Functionality": "TODO"
+                },
+                "monEn": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Monitor Enable. 1: enabled",
+                    "Functionality": "TODO"
+                },
+                "monSafePos": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Behaviour if monitoring error. 1 = safe pos, 0 = hold pos",
+                    "Functionality": "TODO"
+                },
+                "monStatErr": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Static monitoring error occurred",
+                    "Functionality": "TODO"
+                },
+                "monDynErr": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Dynamic Monitoring error occurred",
+                    "Functionality": "TODO"
+                },
+                "monStatTi": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "monitor time for static changes, in s",
+                    "Functionality": "TODO"
+                },
+                "monDynTi": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "monitor time for dynamic changes, in s",
+                    "Functionality": "TODO"
+                }
+            },
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "MonBinVlv",
+            "isMTP": true,
+            "Variables": {
+                "StateChannel": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "0: operator/local, 1: automatic/remote"
+                },
+                "StateOffAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Offline' in automatic mode"
+                },
+                "StateOpAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Operator' in automatic mode"
+                },
+                "StateAutAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Automatic' in automatic mode"
+                },
+                "StateOffOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Off' by operator"
+                },
+                "StateOpOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Operator' by operator"
+                },
+                "StateAutOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Automatic' by operator"
+                },
+                "StateOpAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Operator state active"
+                },
+                "StateAutAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Automatic state active"
+                },
+                "StateOffAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Offline state active"
+                },
+                "PermEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enables the Permission Lock. 1 = enabled (info for HMI)"
+                },
+                "IntlEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enables the Interlock Lock. 1 = enabled (info for HMI)"
+                },
+                "ProtEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enables the Protection Lock. 1 = enabled (info for HMI)"
+                },
+                "Permit": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Permit, allows control. Does not activate safe position. 0 = no permission"
+                },
+                "Interlock": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Interlock, sets safe position. 0 = interlock active"
+                },
+                "Protect": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Protect, sets safe position, needs reset. 0 = Protect active"
+                },
+                "WQC": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Default": "",
+                    "Description": "Worst Quality Code Variable"
+                },
+                "SafePos": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Safe Position. 0: close, 1: open"
+                },
+                "SafePosAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Safe Position Activated. 1: activated"
+                },
+                "OpenAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Open command from controller program"
+                },
+                "CloseAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Close command from controller program"
+                },
+                "Ctrl": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Control command to hardware"
+                },
+                "OpenFbkCalc": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Open feedback is Calculated"
+                },
+                "CloseFbkCalc": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Close feedback is calculated"
+                },
+                "OpenFbk": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Open feedback from the hardware"
+                },
+                "CloseFbk": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Close feedback from the hardware"
+                },
+                "MonSafePos": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Behaviour if monitoring error. 1 = safe pos, 0 = hold pos"
+                },
+                "MonStatErr": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Static monitoring error occurred"
+                },
+                "MonDynErr": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Dynamic Monitoring error occurred"
+                },
+                "MonStatTi": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Default": "5",
+                    "Description": "monitor time for static changes, in s"
+                },
+                "MonDynTi": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Default": "2",
+                    "Description": "monitor time for dynamic changes, in s"
+                },
+                "OpenOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Open command by operator"
+                },
+                "CloseOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Close command by operator"
+                },
+                "ResetAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Reset command from controller program"
+                },
+                "ResetOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Reset command by operator"
+                },
+                "MonEn": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Monitor Enable. 1: enabled"
+                },
+                "OperationMode": {
+                    "Source": "",
+                    "Var Type": "Output",
+                    "Data Type": "Int",
+                    "Default": "",
+                    "Description": "0: Offline, 1: Operator, 2: Automatic"
+                },
+                "OpenedState": {
+                    "Source": "",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "For tracking the static monitoring error"
+                },
+                "ClosedState": {
+                    "Source": "",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "For tracking the static monitoring error"
+                }
+            },
+            "Functionality": {
+                "blankLine1": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation1": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "State Machine for the OperationMode",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "OperationMode": {
+                    "LogicType": "StateMachine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": {
+                        "0": {
+                            "Name": "Offline",
+                            "Actions": [],
+                            "Transitions": {
+                                "1": {
+                                    "Condition": "(StateOpAut AND StateChannel) OR (StateOpOp AND NOT StateChannel)",
+                                    "DelayVariable": null,
+                                    "DelayTimerNumber": null
+                                }
+                            }
+                        },
+                        "1": {
+                            "Name": "Operator",
+                            "Actions": [],
+                            "Transitions": {
+                                "0": {
+                                    "Condition": "(StateOffAut AND StateChannel) OR (StateOffOp AND NOT StateChannel)",
+                                    "DelayVariable": null,
+                                    "DelayTimerNumber": null
+                                },
+                                "2": {
+                                    "Condition": "(StateAutAut AND StateChannel) OR (StateAutOp AND NOT StateChannel)",
+                                    "DelayVariable": null,
+                                    "DelayTimerNumber": null
+                                }
+                            }
+                        },
+                        "2": {
+                            "Name": "Automatic",
+                            "Actions": [],
+                            "Transitions": {
+                                "1": {
+                                    "Condition": "(StateOpAut AND StateChannel) OR (StateOpOp AND NOT StateChannel)",
+                                    "DelayVariable": null,
+                                    "DelayTimerNumber": null
+                                }
+                            }
+                        }
+                    },
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "blankLine2": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation2": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Make boolean indicators for the OperationMode State",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "StateOpAct": {
+                    "LogicType": "Expression",
+                    "Expression": "OperationMode = 1",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "StateAutAct": {
+                    "LogicType": "Expression",
+                    "Expression": "OperationMode = 2",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "StateOffAct": {
+                    "LogicType": "Expression",
+                    "Expression": "OperationMode = 0",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "blankLine3": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation3": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "'Protect' is for interlocks that need to be reset",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "Protect": {
+                    "LogicType": "Reset",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": "(ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)",
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "blankLine4": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation4": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "signal indicating that the valve needs to go to the safe position",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "SafePosAct": {
+                    "LogicType": "Expression",
+                    "Expression": "(PermEn AND NOT Permit) OR (IntlEn AND NOT Interlock) OR (ProtEn AND NOT Protect) OR (MonEn AND (MonStatErr OR MonDynErr))",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "blankLine5": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation5": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "control signal to the hardware",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "Ctrl_Set": {
+                    "LogicType": "Set",
+                    "Expression": null,
+                    "Set": "(SafePosAct AND SafePos AND NOT SafePosEn) OR (NOT SafePosAct AND ((OpenAut AND StateAutAct) OR (OpenOp and StateOpAct)))",
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "open valve on interlock\nopen command when no interlock\nclose valve on interlock\nclose command when no interlock",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "Ctrl_Reset": {
+                    "LogicType": "Reset",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": "(SafePosAct AND NOT SafePos NOT SafePosEn) OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct)))",
+                    "StateMachine": null,
+                    "Comment": "open valve on interlock\nopen command when no interlock\nclose valve on interlock\nclose command when no interlock",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "blankLine6": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation6": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Opened and Closed States",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "OpenedState_Set": {
+                    "LogicType": "Set",
+                    "Expression": null,
+                    "Set": "Ctrl AND OpenFbk",
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "OpenedState_Reset": {
+                    "LogicType": "Reset",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": "NOT Ctrl",
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "ClosedState_Set": {
+                    "LogicType": "Set",
+                    "Expression": null,
+                    "Set": "NOT Ctrl AND CloseFbk",
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "ClosedState_Reset": {
+                    "LogicType": "Reset",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": "Ctrl",
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "blankLine7": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation7": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Static and Dynamic Monitoring",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "MonStatErr_Set": {
+                    "LogicType": "Set",
+                    "Expression": null,
+                    "Set": "(MonEn AND OpenedState AND NOT OpenFbk) OR ( MonEn AND ClosedState AND NOT CloseFbk)",
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": "MonStatTi",
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": 1,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "MonStatErr_Reset": {
+                    "LogicType": "Reset",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": "(ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)",
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "MonDynErr_Set": {
+                    "LogicType": "Set",
+                    "Expression": null,
+                    "Set": "MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk))",
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": "MonDynTi",
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": 2,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "MonDynErr_Reset": {
+                    "LogicType": "Reset",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": "(ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)",
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "blankLine8": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation8": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "reset operator command",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "StateOffOp": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Reset at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "StateOpOp": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Reset at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "StateAutOp": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Reset at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "OpenOp": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Reset at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "CloseOp": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Reset at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "ResetOp": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Reset at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "blankLine9": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                }
+            },
+            "DelayTimerCount": 2
+        },
+        {
+            "Name": "PIDCtrl",
+            "isMTP": true,
+            "Variables": {},
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "AnalogInput",
+            "isMTP": false,
+            "Variables": {
+                "rawValue": {
+                    "Var Type": "Input",
+                    "Data Type": "Word",
+                    "Description": ""
+                },
+                "valueUnit": {
+                    "Var Type": "Input",
+                    "Data Type": "Int",
+                    "Description": "Value Unit"
+                },
+                "scaleMin": {
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Scale Min Limit"
+                },
+                "scaleMax": {
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Scale Max Limit"
+                },
+                "alarmHigh": {
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Alarm High"
+                },
+                "warningHigh": {
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Warning High"
+                },
+                "toleranceHigh": {
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Tolerance High"
+                },
+                "toleranceLow": {
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Tolerance Low"
+                },
+                "warningLow": {
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Warning Low"
+                },
+                "alarmLow": {
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Description": "Limit Value for Alarm Low"
+                },
+                "alarmHighEn": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Alarm High Limit Enabled"
+                },
+                "warningHighEn": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Warning High Limit Enabled"
+                },
+                "toleranceHighEn": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Tolerance High Limit Enabled"
+                },
+                "toleranceLowEn": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Tolerance Low Limit Enabled"
+                },
+                "warningLowEn": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Warning Low Limit Enabled"
+                },
+                "alarmLowEn": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Alarm Low Limit Enabled"
+                },
+                "alarmHighAct": {
+                    "Var Type": "Output",
+                    "Data Type": "Real",
+                    "Description": "Alarm High Limit Active"
+                },
+                "warningHighAct": {
+                    "Var Type": "Output",
+                    "Data Type": "Real",
+                    "Description": "Alarm High Limit Active"
+                },
+                "toleranceHighAct": {
+                    "Var Type": "Output",
+                    "Data Type": "Real",
+                    "Description": "Alarm High Limit Active"
+                },
+                "toleranceLowAct": {
+                    "Var Type": "Output",
+                    "Data Type": "Real",
+                    "Description": "Alarm High Limit Active"
+                },
+                "warningLowAct": {
+                    "Var Type": "Output",
+                    "Data Type": "Real",
+                    "Description": "Alarm High Limit Active"
+                },
+                "alarmLowAct": {
+                    "Var Type": "Output",
+                    "Data Type": "Real",
+                    "Description": "Alarm High Limit Active"
+                }
+            },
+            "Functionality": {
+                "WQC": {
+                    "LogicType": "Expression",
+                    "Expression": "16#FF",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "no QC available (default)",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "OSLevel": {
+                    "LogicType": "Expression",
+                    "Expression": "TODO",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "V": {
+                    "LogicType": "Expression",
+                    "Expression": "scaleMin + (REAL(RawInput) / 27648.0) * (scaleMax - scaleMin)",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "vOut": {
+                    "LogicType": "Expression",
+                    "Expression": "V",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "VSclMin": {
+                    "LogicType": "Expression",
+                    "Expression": "scaleMin",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VSclMax": {
+                    "LogicType": "Expression",
+                    "Expression": "scaleMax",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VUnit": {
+                    "LogicType": "Expression",
+                    "Expression": "valueUnit",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "alarmHigh": {
+                    "LogicType": "Expression",
+                    "Expression": "VAHLim",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "synchronize (1)",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "warningHigh": {
+                    "LogicType": "Expression",
+                    "Expression": "VWHLim",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "synchronize (1)",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "toleranceHigh": {
+                    "LogicType": "Expression",
+                    "Expression": "VTHLim",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "synchronize (1)",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "toleranceLow": {
+                    "LogicType": "Expression",
+                    "Expression": "VTLLim",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "synchronize (1)",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "warningLow": {
+                    "LogicType": "Expression",
+                    "Expression": "VWLLim",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "synchronize (1)",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "alarmLow": {
+                    "LogicType": "Expression",
+                    "Expression": "VALLim",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "synchronize (1)",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "VAHEn": {
+                    "LogicType": "Expression",
+                    "Expression": "alarmHighEn",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VWHEn": {
+                    "LogicType": "Expression",
+                    "Expression": "warningHighEn",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VTHEn": {
+                    "LogicType": "Expression",
+                    "Expression": "toleranceHighEn",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VTLEn": {
+                    "LogicType": "Expression",
+                    "Expression": "toleranceLowEn",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VWLEn": {
+                    "LogicType": "Expression",
+                    "Expression": "warningLowEn",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "VALEn": {
+                    "LogicType": "Expression",
+                    "Expression": "alarmLowEn",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "blankLine1": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "blankLine2": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                }
+            },
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "AnalogValve",
+            "isMTP": false,
+            "Variables": {},
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "DigitalInput",
+            "isMTP": false,
+            "Variables": {},
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "Interlock4",
+            "isMTP": false,
+            "Variables": {},
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "PIDController",
+            "isMTP": false,
+            "Variables": {},
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "ReversingMotor",
+            "isMTP": false,
+            "Variables": {},
+            "Functionality": {},
+            "DelayTimerCount": 0
+        },
+        {
+            "Name": "SolenoidValve",
+            "isMTP": false,
+            "Variables": {
+                "MTPBase": {
+                    "Var Type": "InOut",
+                    "Data Type": "MonBinVlv",
+                    "Default": "",
+                    "Description": ""
+                },
+                "id": {
+                    "Var Type": "Input",
+                    "Data Type": "Int",
+                    "Default": "",
+                    "Description": "unique project-wide ID to uniquely identify and track objects"
+                },
+                "open": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "open command"
+                },
+                "close": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "close command"
+                },
+                "feedbackOpen": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "True",
+                    "Description": "feedback open"
+                },
+                "feedbackClose": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "True",
+                    "Description": "feedback close"
+                },
+                "hasFbOpen": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "has open feedback"
+                },
+                "hasFbClose": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "hase close feedback"
+                },
+                "safeOpen": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Safe Position Open"
+                },
+                "safeHold": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Holds Position on interlock (priority over safeOpen)"
+                },
+                "monitor": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "True",
+                    "Description": "Enables errors on the feedback monitoring"
+                },
+                "simulate": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Enable simulation"
+                },
+                "simulateDelay": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "1",
+                    "Description": "Simulated delay to set the feedback signals, in s"
+                },
+                "interlockIn": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "allows control. Does not activate safe position. 0 = no permission"
+                },
+                "permitIn": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "sets safe position. 0 = interlock active"
+                },
+                "protectIn": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Protect, sets safe position, sets protectState. 0 = Protect active"
+                },
+                "reset": {
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "will try to reset itself"
+                },
+                "remote": {
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "0: operator/local, 1: automatic/remote"
+                },
+                "operator": {
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Operator Mode"
+                },
+                "automatic": {
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Automatic Mode"
+                },
+                "offline": {
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Offline Mode"
+                },
+                "error": {
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Any error active"
+                },
+                "opened": {
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Valve is opened"
+                },
+                "closed": {
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Valve is closed"
+                },
+                "fbOpenSimulated": {
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Simulated open feedback"
+                },
+                "fbCloseSimulated": {
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Simulated Close feedback"
+                },
+                "": {
+                    "Var Type": "",
+                    "Data Type": "",
+                    "Default": "",
+                    "Description": ""
+                }
+            },
+            "Functionality": {
+                "WQC": {
+                    "LogicType": "Expression",
+                    "Expression": "16#FF",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "no QC available (default)",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "OSLevel": {
+                    "LogicType": "Expression",
+                    "Expression": "TODO",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "remote": {
+                    "LogicType": "Expression",
+                    "Expression": "StateChannel",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "operator": {
+                    "LogicType": "Expression",
+                    "Expression": "StateOpAct",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "automatic": {
+                    "LogicType": "Expression",
+                    "Expression": "StateAutAct",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "offline": {
+                    "LogicType": "Expression",
+                    "Expression": "StateOffAct",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "PermEn": {
+                    "LogicType": "Expression",
+                    "Expression": "True",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Always Enable, Configure permitIn = 0 if no permits",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "IntlEn": {
+                    "LogicType": "Expression",
+                    "Expression": "True",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Always Enable, Configure interlockIn = 0 if no interlocks",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "ProtEn": {
+                    "LogicType": "Expression",
+                    "Expression": "True",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Always Enable, Configure protectIn = 0 if no protections",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "Permit": {
+                    "LogicType": "Expression",
+                    "Expression": "permitIn",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "Interlock": {
+                    "LogicType": "Expression",
+                    "Expression": "interlockIn",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "Protect": {
+                    "LogicType": "Set",
+                    "Expression": null,
+                    "Set": "protectIn",
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Reset happens inside MTP block",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "SafePos": {
+                    "LogicType": "Expression",
+                    "Expression": "safeOpen",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "MonSafePos": {
+                    "LogicType": "Expression",
+                    "Expression": "safeOpen",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "SafePosEn": {
+                    "LogicType": "Expression",
+                    "Expression": "safeHold",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "OpenAut": {
+                    "LogicType": "Expression",
+                    "Expression": "open",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "CloseAut": {
+                    "LogicType": "Expression",
+                    "Expression": "close",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "OpenFbkCalc": {
+                    "LogicType": "Expression",
+                    "Expression": "simulation OR NOT feedbackOpen",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "CloseFbkCalc": {
+                    "LogicType": "Expression",
+                    "Expression": "simulation OR NOT feedbackClose",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "fbOpenSimulated": {
+                    "LogicType": "Expression",
+                    "Expression": "(simulate OR NOT hasFbOpen) AND Ctrl",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "if no FbOpen connected then treat it as a simulation",
+                    "DelayVariable": "simulateDelay",
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": 1,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "fbCloseSimulated": {
+                    "LogicType": "Expression",
+                    "Expression": "(simulate OR NOT hasFbClose) AND NOT Ctrl",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "if no FbClose connected then treat it as a simulation",
+                    "DelayVariable": "simulateDelay",
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": 2,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "OpenFbk": {
+                    "LogicType": "Expression",
+                    "Expression": "feedbackOpen OR fbOpenSimulated",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "CloseFbk": {
+                    "LogicType": "Expression",
+                    "Expression": "feedbackClose OR fbCloseSimulated",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "opened": {
+                    "LogicType": "Expression",
+                    "Expression": "Ctrl AND OpenFbk",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "closed": {
+                    "LogicType": "Expression",
+                    "Expression": "NOT Ctrl AND CloseFbk",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "ResetAut": {
+                    "LogicType": "Expression",
+                    "Expression": "reset",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "MonEn": {
+                    "LogicType": "Expression",
+                    "Expression": "monitor",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": true
+                },
+                "reset": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "reset at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                }
+            },
+            "DelayTimerCount": 2
+        },
+        {
+            "Name": "VFD",
+            "isMTP": false,
+            "Variables": {},
+            "Functionality": {},
+            "DelayTimerCount": 0
+        }
+    ]
+}

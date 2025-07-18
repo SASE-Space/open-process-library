@@ -1,0 +1,59 @@
+<pou name="AnalogInput" pouType="functionBlock">
+    <interface>
+        <inputVars>
+            <variable name="rawValue"><type><WORD /></type></variable>
+            <variable name="valueUnit"><type><INT /></type></variable>
+            <variable name="scaleMin"><type><REAL /></type></variable>
+            <variable name="scaleMax"><type><REAL /></type></variable>
+            <variable name="alarmHigh"><type><REAL /></type></variable>
+            <variable name="warningHigh"><type><REAL /></type></variable>
+            <variable name="toleranceHigh"><type><REAL /></type></variable>
+            <variable name="toleranceLow"><type><REAL /></type></variable>
+            <variable name="warningLow"><type><REAL /></type></variable>
+            <variable name="alarmLow"><type><REAL /></type></variable>
+            <variable name="alarmHighEn"><type><BOOL /></type></variable>
+            <variable name="warningHighEn"><type><BOOL /></type></variable>
+            <variable name="toleranceHighEn"><type><BOOL /></type></variable>
+            <variable name="toleranceLowEn"><type><BOOL /></type></variable>
+            <variable name="warningLowEn"><type><BOOL /></type></variable>
+            <variable name="alarmLowEn"><type><BOOL /></type></variable>
+        </inputVars>
+        <outputVars>
+            <variable name="alarmHighAct"><type><REAL /></type></variable>
+            <variable name="warningHighAct"><type><REAL /></type></variable>
+            <variable name="toleranceHighAct"><type><REAL /></type></variable>
+            <variable name="toleranceLowAct"><type><REAL /></type></variable>
+            <variable name="warningLowAct"><type><REAL /></type></variable>
+            <variable name="alarmLowAct"><type><REAL /></type></variable>
+        </outputVars>
+        <localVars>
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+WQC := 16#FF;
+OSLevel := TODO;
+V := scaleMin + (REAL(RawInput) / 27648.0) * (scaleMax - scaleMin);
+vOut := V;
+VSclMin := scaleMin;
+VSclMax := scaleMax;
+VUnit := valueUnit;
+alarmHigh := VAHLim;
+warningHigh := VWHLim;
+toleranceHigh := VTHLim;
+toleranceLow := VTLLim;
+warningLow := VWLLim;
+alarmLow := VALLim;
+VAHEn := alarmHighEn;
+VWHEn := warningHighEn;
+VTHEn := toleranceHighEn;
+VTLEn := toleranceLowEn;
+VWLEn := warningLowEn;
+VALEn := alarmLowEn;
+    
+    
+]]></xhtml>
+        </ST>
+    </body>
+</pou>

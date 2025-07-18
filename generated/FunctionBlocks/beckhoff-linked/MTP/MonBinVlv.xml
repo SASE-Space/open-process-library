@@ -1,0 +1,136 @@
+<pou name="MonBinVlv" pouType="functionBlock">
+    <interface>
+        <inputVars>
+            <variable name="StateChannel"><type><BOOL /></type></variable>
+            <variable name="StateOffAut"><type><BOOL /></type></variable>
+            <variable name="StateOpAut"><type><BOOL /></type></variable>
+            <variable name="StateAutAut"><type><BOOL /></type></variable>
+            <variable name="PermEn"><type><BOOL /></type></variable>
+            <variable name="IntlEn"><type><BOOL /></type></variable>
+            <variable name="ProtEn"><type><BOOL /></type></variable>
+            <variable name="Permit"><type><BOOL /></type></variable>
+            <variable name="Interlock"><type><BOOL /></type></variable>
+            <variable name="Protect"><type><BOOL /></type></variable>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="SafePos"><type><BOOL /></type></variable>
+            <variable name="OpenAut"><type><BOOL /></type></variable>
+            <variable name="CloseAut"><type><BOOL /></type></variable>
+            <variable name="OpenFbkCalc"><type><BOOL /></type></variable>
+            <variable name="CloseFbkCalc"><type><BOOL /></type></variable>
+            <variable name="OpenFbk"><type><BOOL /></type></variable>
+            <variable name="CloseFbk"><type><BOOL /></type></variable>
+            <variable name="MonSafePos"><type><BOOL /></type></variable>
+            <variable name="MonStatTi"><type><REAL /></type></variable>
+            <variable name="MonDynTi"><type><REAL /></type></variable>
+            <variable name="ResetAut"><type><BOOL /></type></variable>
+        </inputVars>
+        <outputVars>
+            <variable name="StateOpAct"><type><BOOL /></type></variable>
+            <variable name="StateAutAct"><type><BOOL /></type></variable>
+            <variable name="StateOffAct"><type><BOOL /></type></variable>
+            <variable name="SafePosAct"><type><BOOL /></type></variable>
+            <variable name="Ctrl"><type><BOOL /></type></variable>
+            <variable name="MonStatErr"><type><BOOL /></type></variable>
+            <variable name="MonDynErr"><type><BOOL /></type></variable>
+            <variable name="OperationMode"><type><INT /></type></variable>
+        </outputVars>
+        <localVars>
+            <variable name="StateOffOp"><type><BOOL /></type></variable>
+            <variable name="StateOpOp"><type><BOOL /></type></variable>
+            <variable name="StateAutOp"><type><BOOL /></type></variable>
+            <variable name="OpenOp"><type><BOOL /></type></variable>
+            <variable name="CloseOp"><type><BOOL /></type></variable>
+            <variable name="ResetOp"><type><BOOL /></type></variable>
+            <variable name="MonEn"><type><BOOL /></type></variable>
+            <variable name="OpenedState"><type><BOOL /></type></variable>
+            <variable name="ClosedState"><type><BOOL /></type></variable>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable>
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+    
+// State Machine for the OperationMode
+CASE OperationMode OF
+    0: // Offline
+        IF (StateOpAut AND StateChannel) OR (StateOpOp AND NOT StateChannel) THEN
+            OperationMode := 1;
+        END_IF;
+    1: // Operator
+        IF (StateOffAut AND StateChannel) OR (StateOffOp AND NOT StateChannel) THEN
+            OperationMode := 0;
+        END_IF;
+        IF (StateAutAut AND StateChannel) OR (StateAutOp AND NOT StateChannel) THEN
+            OperationMode := 2;
+        END_IF;
+    2: // Automatic
+        IF (StateOpAut AND StateChannel) OR (StateOpOp AND NOT StateChannel) THEN
+            OperationMode := 1;
+        END_IF;
+END_CASE;
+    
+// Make boolean indicators for the OperationMode State
+StateOpAct := OperationMode = 1;
+StateAutAct := OperationMode = 2;
+StateOffAct := OperationMode = 0;
+    
+// 'Protect' is for interlocks that need to be reset
+IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
+    Protect := FALSE;
+END_IF;
+    
+// signal indicating that the valve needs to go to the safe position
+SafePosAct := (PermEn AND NOT Permit) OR (IntlEn AND NOT Interlock) OR (ProtEn AND NOT Protect) OR (MonEn AND (MonStatErr OR MonDynErr));
+    
+// control signal to the hardware
+IF (SafePosAct AND SafePos AND NOT SafePosEn) OR (NOT SafePosAct AND ((OpenAut AND StateAutAct) OR (OpenOp and StateOpAct))) THEN
+    Ctrl := TRUE;
+END_IF;
+IF (SafePosAct AND NOT SafePos NOT SafePosEn) OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct))) THEN
+    Ctrl := FALSE;
+END_IF;
+    
+// Opened and Closed States
+IF Ctrl AND OpenFbk THEN
+    OpenedState := TRUE;
+END_IF;
+IF NOT Ctrl THEN
+    OpenedState := FALSE;
+END_IF;
+IF NOT Ctrl AND CloseFbk THEN
+    ClosedState := TRUE;
+END_IF;
+IF Ctrl THEN
+    ClosedState := FALSE;
+END_IF;
+    
+// Static and Dynamic Monitoring
+DelayTimer1(IN:= (MonEn AND OpenedState AND NOT OpenFbk) OR ( MonEn AND ClosedState AND NOT CloseFbk), PT:= REAL_TO_TIME(MonStatTi * 1000));
+IF DelayTimer1.Q THEN
+    MonStatErr := TRUE;
+END_IF;
+IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
+    MonStatErr := FALSE;
+END_IF;
+DelayTimer2(IN:= MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk)), PT:= REAL_TO_TIME(MonDynTi * 1000));
+IF DelayTimer2.Q THEN
+    MonDynErr := TRUE;
+END_IF;
+IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
+    MonDynErr := FALSE;
+END_IF;
+    
+// reset operator command
+StateOffOp := False;
+StateOpOp := False;
+StateAutOp := False;
+OpenOp := False;
+CloseOp := False;
+ResetOp := False;
+    
+]]></xhtml>
+        </ST>
+    </body>
+</pou>

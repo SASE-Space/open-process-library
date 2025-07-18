@@ -1,0 +1,23 @@
+<pou name="BinMon" pouType="functionBlock">
+    <interface>
+        <inputVars>
+            <variable name="wQC"><type><BYTE /></type></variable>
+            <variable name="vState0"><type><STRING /></type></variable>
+            <variable name="vState1"><type><STRING /></type></variable>
+            <variable name="oSLevel"><type><BYTE /></type></variable>
+            <variable name="vFlutEn"><type><BOOL /></type></variable>
+        </inputVars>
+        <outputVars>
+            <variable name="vFlutAct"><type><BOOL /></type></variable>
+        </outputVars>
+        <localVars>
+            <variable name="vFlutCnt"><type><INT /></type></variable>
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+]]></xhtml>
+        </ST>
+    </body>
+</pou>

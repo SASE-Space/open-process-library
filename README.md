@@ -30,7 +30,11 @@ Contact: #open-process-library on the [SASE Slack](https://sase.space/)
 
 # Supporting Companies
 
-Contact us to be added here
+|Company|Description|
+|---|---|
+|[![Acceleer](media/logos/acceleer-logotype-red.svg)](https://acceleer.com)| Collaborative Design & Code Generation (DesignOps) for Industrial Process Automation |
+
+Contact us to be added here and under wat form (System Integrator, Automation Vendor, ...)
 
 # Introduction
 
@@ -73,6 +77,37 @@ Open Process Library takes the next step, and builds:
 - implements the MTP interface for the Data Assemblies
 - cross-vendor, both for legacy/current systems as well for the new OPA-based systems
 
+# Getting Started
+
+Note: THIS IS WORK IN PROGRESS.
+The draf code generation workflow for the PLC blocks is ready.
+Nothing has been done for the HMI side, except some design concepts.
+
+## Import in Beckhoff TwinCat (early draft version!)
+
+- download this file: [PLCOpenImport.xml](generated/FunctionBlocks/beckhoff-linked/PLCOpenImport.xml)
+- Open TwinCat
+- Right Click on the Project in the tree view > Import PLCOpenXML
+
+Note: this imports the MTP blocks.
+When using Beckhoff's MTP Runtime it will be possible to use Beckhoff's version of the blocks instead: [TwinCAT MTP Runtime](https://infosys.beckhoff.com/english.php?content=../content/1033/tc3_automationinterface/242875147.html&id=)
+
+## Other Systems
+
+coming soon...
+Have an urgent request?
+Come to the Slack: [SASE Slack](https://sase.space/): #open-process-library
+
+## Generate the library
+
+- Clone the project
+- Install Deno
+- Run:
+```
+deno run --allow-read --allow-write ./scripts/generate.ts
+```
+
+
 # Block Priority Table
 
 The initial focus and priority is on these 8 blocks, covering more than 80% of the use cases:  
@@ -113,6 +148,31 @@ Also the scaled value needs to be available both on MTP, as well as an output on
 - [ ] Kick off Automated PLC Engineering Workstream
 
 Want to help? Come talk on the [SASE Slack](https://sase.space/): #open-process-library
+
+# Code Generation Pipeline
+
+There are almost more IEC-61131 dialects than modern programming languages.
+Almost every IDE expects the code in a slightly different format.
+
+A project like Open Process Library that aims to support any system is only feasible if the code gets automatically generated.
+
+SPEC > CODE is where we are coing with coding agents.
+But SPEC > CODE is also possible with a deterministic code generation workflow.
+
+The Function Blocks are described in markdown tables, describing both the interfaces and functionality.
+
+Independently the code generation templates are built for every target system:
+- FunctionBlockTemplate.nunjucks: describes how one FunctionBlock should be generated
+- ImportTemplate.nunjucks: describes how the FunctionBlocks should be combined in a single import file to the target IDE
+
+Then we calls scripts/generate.ts that reads both the markdown Specs + Templates, and generates the library code for each target system.
+
+Try yourself from the root folder: (install deno for it to work)
+```
+deno run --allow-read --allow-write ./scripts/generate.ts
+```
+
+![CodeGenPipeline](media/CodeGenPipeline.png)
 
 # Full Block List
 

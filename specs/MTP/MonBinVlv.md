@@ -61,30 +61,41 @@
 
 ## Functionality
 
-| Target        | MTP | Expression                                                                       | Comment                         |
+| Target        | MTP | Expression / Explanation                                                         | Comment                         |
 | ------------- | --- | -------------------------------------------------------------------------------- | ------------------------------- |
-| StateOpAct    | x   | OperationMode == 1                                                               |                                 |
-| StateAutAct   | x   | OperationMode == 2                                                               |                                 |
-| StateOffAct   | x   | OperationMode == 0                                                               |                                 |
-| Protect       | x   | Set: ProtectSource                                                               |                                 |
-|               |     | Reset: (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)             |                                 |
+|               |     |                                                                                  |                                 |
+|               |     | // State Machine for the OperationMode                                           |                                 |
+| OperationMode |     | OperationMode State Machine                                                      |                                 |
+|               |     |                                                                                  |                                 |
+|               |     | // Make boolean indicators for the OperationMode State                           |                                 |
+| StateOpAct    | x   | OperationMode = 1                                                                |                                 |
+| StateAutAct   | x   | OperationMode = 2                                                                |                                 |
+| StateOffAct   | x   | OperationMode = 0                                                                |                                 |
+|               |     |                                                                                  |                                 |
+|               |     | // 'Protect' is for interlocks that need to be reset                             |                                 |
+| Protect       |     | Reset: (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)             |                                 |
+|               |     |                                                                                  |                                 |
+|               |     | // signal indicating that the valve needs to go to the safe position             |                                 |
 | SafePosAct    | x   | (PermEn AND NOT Permit)                                                          |                                 |
 |               |     | OR (IntlEn AND NOT Interlock)                                                    |                                 |
 |               |     | OR (ProtEn AND NOT Protect)                                                      |                                 |
 |               |     | OR (MonEn AND (MonStatErr OR MonDynErr))                                         |                                 |
+|               |     |                                                                                  |                                 |
+|               |     | // control signal to the hardware                                                |                                 |
 | Ctrl          | x   | Set:                                                                             |                                 |
 |               |     | (SafePosAct AND SafePos AND NOT SafePosEn)                                       | open valve on interlock         |
 |               |     | OR (NOT SafePosAct AND ((OpenAut AND StateAutAct) OR (OpenOp and StateOpAct)))   | open command when no interlock  |
 |               |     | Reset:                                                                           |                                 |
 |               |     | (SafePosAct AND NOT SafePos NOT SafePosEn)                                       | close valve on interlock        |
 |               |     | OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct))) | close command when no interlock |
-| MonStatErr    | x   | Ctrl AND NOT OpenFbk                                                             |                                 |
-| MonDynErr     | x   |                                                                                  |                                 |
-| OperationMode |     | OperationMode State Machine                                                      |                                 |
+|               |     |                                                                                  |                                 |
+|               |     | // Opened and Closed States                                                      |                                 |
 | OpenedState   |     | Set: Ctrl AND OpenFbk                                                            |                                 |
 |               |     | Reset: NOT Ctrl                                                                  |                                 |
 | ClosedState   |     | Set: NOT Ctrl AND CloseFbk                                                       |                                 |
 |               |     | Reset: Ctrl                                                                      |                                 |
+|               |     |                                                                                  |                                 |
+|               |     | // Static and Dynamic Monitoring                                                 |                                 |
 | MonStatErr    | x   | Set:                                                                             |                                 |
 |               |     | (MonEn AND OpenedState AND NOT OpenFbk)                                          |                                 |
 |               |     | OR ( MonEn AND ClosedState AND NOT CloseFbk) for MonStatTi                       |                                 |
@@ -92,12 +103,15 @@
 | MonDynErr     | x   | Set:                                                                             |                                 |
 |               |     | MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk)) for MonDynTi     |                                 |
 |               |     | Reset: (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)             |                                 |
+|               |     |                                                                                  |                                 |
+|               |     | // reset operator command                                                        |                                 |
 | StateOffOp    | x   | False                                                                            | Reset at the end of the FB      |
 | StateOpOp     | x   | False                                                                            | Reset at the end of the FB      |
 | StateAutOp    | x   | False                                                                            | Reset at the end of the FB      |
 | OpenOp        | x   | False                                                                            | Reset at the end of the FB      |
 | CloseOp       | x   | False                                                                            | Reset at the end of the FB      |
 | ResetOp       | x   | False                                                                            | Reset at the end of the FB      |
+|               |     |                                                                                  |                                 |
 
 
 ### OperationMode State Machine

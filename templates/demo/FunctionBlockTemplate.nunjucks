@@ -1,0 +1,5 @@
+{# Output file will be {{ Name }}.demo #}
+DEMO:
+{% for variableName in variableKeys %}
+{{ variableName }}
+{% endfor %}
