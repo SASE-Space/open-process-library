@@ -278,33 +278,42 @@ StateAutAct := OperationMode = 2;
 StateOffAct := OperationMode = 0;
 
 // 'Protect' is for interlocks that need to be reset
+IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
+    Protect := FALSE;
+END_IF;
 SafePosAct := (PermEn AND NOT Permit) OR (IntlEn AND NOT Interlock) OR (ProtEn AND NOT Protect) OR (MonEn AND (MonStatErr OR MonDynErr));
 IF (SafePosAct AND SafePos AND NOT SafePosEn) OR (NOT SafePosAct AND ((OpenAut AND StateAutAct) OR (OpenOp and StateOpAct))) THEN
     Ctrl := TRUE;
-ELSIF (SafePosAct AND NOT SafePos NOT SafePosEn) OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct))) THEN
+END_IF;
+IF (SafePosAct AND NOT SafePos NOT SafePosEn) OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct))) THEN
     Ctrl := FALSE;
+END_IF;
+MonStatErr := Ctrl AND NOT OpenFbk;
+IF Ctrl AND OpenFbk THEN
+    OpenedState := TRUE;
+END_IF;
+IF NOT Ctrl THEN
+    OpenedState := FALSE;
+END_IF;
+IF NOT Ctrl AND CloseFbk THEN
+    ClosedState := TRUE;
+END_IF;
+IF Ctrl THEN
+    ClosedState := FALSE;
 END_IF;
 DelayTimer2(IN:= (MonEn AND OpenedState AND NOT OpenFbk) OR ( MonEn AND ClosedState AND NOT CloseFbk), PT:= REAL_TO_TIME(MonStatTi * 1000));
 IF DelayTimer2.Q THEN
     MonStatErr := TRUE;
-ELSIF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
+END_IF;
+IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
     MonStatErr := FALSE;
 END_IF;
 DelayTimer3(IN:= MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk)), PT:= REAL_TO_TIME(MonDynTi * 1000));
 IF DelayTimer3.Q THEN
     MonDynErr := TRUE;
-ELSIF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
+END_IF;
+IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
     MonDynErr := FALSE;
-END_IF;
-IF Ctrl AND OpenFbk THEN
-    OpenedState := TRUE;
-ELSIF NOT Ctrl THEN
-    OpenedState := FALSE;
-END_IF;
-IF NOT Ctrl AND CloseFbk THEN
-    ClosedState := TRUE;
-ELSIF Ctrl THEN
-    ClosedState := FALSE;
 END_IF;
 StateOffOp := False;
 StateOpOp := False;
