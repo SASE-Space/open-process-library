@@ -1,4 +1,4 @@
-<% it.setOutputFile("PLCOpenImport.xml") %>
+{#- Output file will be PLCOpenImport.xml -#}
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
     <fileHeader companyName="Beckhoff Automation GmbH" productName="TwinCAT PLC Control" productVersion="3.5.20.50" creationDateTime="2025-07-01T11:02:16.1300929" />
@@ -32,9 +32,9 @@
         <resource name="testproj">
             <addData>
             <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
-                <% Object.values(it.generatedFunctionBlocks).forEach(function(block) { _%>
-                <%~ block.code %>
-                <% }); %>
+                {% for block in generatedFunctionBlocks %}
+                {{ block.code | safe }}
+                {% endfor %}
             </data>
             </addData>
         </resource>

@@ -1,103 +1,68 @@
-<%
-    function getVariablesByType(variables, varType) {
-        return Object.keys(variables).filter(name => 
-            variables[name]['Var Type'] === varType
-        ).map(name => ({ name, ...variables[name] }));
-    }
-
-    function getAllFunctionality(functionality) {
-        return Object.keys(functionality)
-            .filter(key => ['Expression', 'Explanation', 'SetReset'].includes(functionality[key].LogicType))
-            .filter(key => {
-                const func = functionality[key];
-                return (func.LogicType === 'Expression' && func.Expression) || 
-                       (func.LogicType === 'Explanation' && func.Comment) ||
-                       (func.LogicType === 'SetReset' && func.Set && func.Reset);
-            })
-            .map(key => ({
-                key,
-                logicType: functionality[key].LogicType,
-                expression: functionality[key].Expression,
-                comment: functionality[key].Comment,
-                set: functionality[key].Set,
-                reset: functionality[key].Reset,
-                delayVariable: functionality[key].DelayVariable,
-                setDelayVariable: functionality[key].SetDelayVariable,
-                resetDelayVariable: functionality[key].ResetDelayVariable,
-                delayTimerNumber: functionality[key].DelayTimerNumber,
-                setDelayTimerNumber: functionality[key].SetDelayTimerNumber,
-                resetDelayTimerNumber: functionality[key].ResetDelayTimerNumber
-            }));
-    }
-
-    const inputVars = getVariablesByType(it.Variables, 'Input');
-    const outputVars = getVariablesByType(it.Variables, 'Output'); 
-    const localVars = getVariablesByType(it.Variables, 'Local');
-    const allFunctionality = getAllFunctionality(it.Functionality);
-%>
-<% it.setOutputFile(it.Name + ".xml") %>
-<pou name="<%= it.Name %>" pouType="functionBlock">
+{#- Template functions - these will be handled in the context -#}
+{#- Set output file name -#}
+{#- The file will be named {{ Name }}.xml -#}
+<pou name="{{ Name }}" pouType="functionBlock">
     <interface>
         <inputVars>
-<% inputVars.forEach(function(variable) { -%>
-            <variable name="<%= variable.name %>">
+{% for variable in inputVars %}
+            <variable name="{{ variable.name }}">
                 <type>
-                    <<%= variable['Data Type'].toUpperCase() %> />
+                    <{{ variable['Data Type'] | upper }} />
                 </type>
             </variable>
-<% }); -%>
+{% endfor %}
         </inputVars>
         <outputVars>
-<% outputVars.forEach(function(variable) { -%>
-            <variable name="<%= variable.name %>">
+{% for variable in outputVars %}
+            <variable name="{{ variable.name }}">
                 <type>
-                    <<%= variable['Data Type'].toUpperCase() %> />
+                    <{{ variable['Data Type'] | upper }} />
                 </type>
             </variable>
-<% }); -%>
+{% endfor %}
         </outputVars>
         <localVars>
-<% localVars.forEach(function(variable) { -%>
-            <variable name="<%= variable.name %>">
+{% for variable in localVars %}
+            <variable name="{{ variable.name }}">
                 <type>
-                    <<%= variable['Data Type'].toUpperCase() %> />
+                    <{{ variable['Data Type'] | upper }} />
                 </type>
             </variable>
-<% }); -%>
-<% if (it.DelayTimerCount > 0) { -%>
-<% for (let i = 1; i <= it.DelayTimerCount; i++) { -%>
-            <variable name="DelayTimer<%= i %>">
+{% endfor %}
+{% if DelayTimerCount > 0 %}
+{% for i in range(1, DelayTimerCount + 1) %}
+            <variable name="DelayTimer{{ i }}">
                 <type>
                     <derived name="TON" />
                 </type>
             </variable>
-<% } -%>
-<% } -%>
+{% endfor %}
+{% endif %}
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
-<%_ allFunctionality.forEach(function(func) { -%> 
-    <%_ if (func.logicType === 'Explanation') { /* ############ EXPLANATION ############ */ -%>
+{%- for func in allFunctionality -%}
+    {%- if func.logicType == 'Explanation' %}
 
-// <%~ func.comment %>
-    <%_ } else if (func.logicType === 'Expression') { /* ############ EXPRESSION ############ */ %>
-        <% if (func.delayTimerNumber) {  /* ############ EXPRESSION WITH DELAY ############ */%>
-DelayTimer<%= func.delayTimerNumber %>(IN:= <%= func.expression %>, PT:= REAL_TO_TIME(<%= func.delayVariable %>S * 1000);
-<%= func.key %> := DelayTimer<%= func.delayTimerNumber %>.Q;
-        <%- } else { /* ############ EXPRESSION WITHOUT DELAY ############ */%>
-<%-= func.key %> := <%= func.expression %>;
-        <%- } -%>
-    <%- } else if (func.logicType === 'SetReset') { /* ############ SetReset ############ */ %>
-IF <%~ func.set %> THEN
-    <%= func.key %> := TRUE;
-ELSIF <%~ func.reset %> THEN
-    <%= func.key %> := FALSE;
+// {{ func.comment }}
+    {%- elif func.logicType == 'Expression' -%}
+        {%- if func.delayTimerNumber %}
+DelayTimer{{ func.delayTimerNumber }}(IN:= {{ func.expression }}, PT:= REAL_TO_TIME({{ func.delayVariable }} * 1000));
+{{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
+        {%- else %}
+{{ func.key }} := {{ func.expression }};
+        {%- endif -%}
+    {%- elif func.logicType == 'SetReset' %}
+IF {{ func.set | safe }} THEN
+    {{ func.key }} := TRUE;
+ELSIF {{ func.reset | safe }} THEN
+    {{ func.key }} := FALSE;
 END_IF;
-    <%- } %>
-<% }); %>
+    {%- endif -%}
+{%- endfor %}
             </xhtml>
         </ST>
     </body>
-</pou> 
+</pou>

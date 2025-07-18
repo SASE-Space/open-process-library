@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:eta.js.org)"
+      "WebFetch(domain:eta.js.org)",
+      "Bash(deno run:*)"
     ],
     "deny": []
   }

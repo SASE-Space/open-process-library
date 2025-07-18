@@ -1,0 +1,5 @@
+<% it.setOutputFile(it.Name + ".demo") %>
+DEMO:
+<% Object.keys(it.Variables).forEach(function(variableName) { _%>    
+<%= variableName %> 
+<% }) -%> 

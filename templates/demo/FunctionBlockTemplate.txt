@@ -1,5 +1,5 @@
-<% it.setOutputFile(it.Name + ".demo") %>
+{# Output file will be {{ Name }}.demo #}
 DEMO:
-<% Object.keys(it.Variables).forEach(function(variableName) { _%>    
-<%= variableName %> 
-<% }) -%> 
+{% for variableName in variableKeys %}
+{{ variableName }}
+{% endfor %}

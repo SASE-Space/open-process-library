@@ -1,4 +1,4 @@
-import { Eta } from "https://deno.land/x/eta@v3.4.0/src/index.ts"
+import nunjucks from "https://esm.sh/nunjucks@3.2.4"
 
 console.log("Hello World")
 
@@ -8,9 +8,45 @@ if (fileFilter) {
 }
 
 const model = { FunctionBlocks: [] }
-const eta = new Eta({ views: "./../templates" })
+// Configure Nunjucks environment
+nunjucks.configure(['./../templates'], {
+    autoescape: false,
+    throwOnUndefined: false
+})
 const stateMachines: { [key: string]: any } = {}
 const generatedFunctionBlocks: { [key: string]: any } = {}
+
+// Helper functions that were previously in ETA templates
+function getVariablesByType(variables: any, varType: string) {
+    return Object.keys(variables).filter(name => 
+        variables[name]['Var Type'] === varType
+    ).map(name => ({ name, ...variables[name] }));
+}
+
+function getAllFunctionality(functionality: any) {
+    return Object.keys(functionality)
+        .filter(key => ['Expression', 'Explanation', 'SetReset'].includes(functionality[key].LogicType))
+        .filter(key => {
+            const func = functionality[key];
+            return (func.LogicType === 'Expression' && func.Expression) || 
+                   (func.LogicType === 'Explanation' && func.Comment) ||
+                   (func.LogicType === 'SetReset' && func.Set && func.Reset);
+        })
+        .map(key => ({
+            key,
+            logicType: functionality[key].LogicType,
+            expression: functionality[key].Expression,
+            comment: functionality[key].Comment,
+            set: functionality[key].Set,
+            reset: functionality[key].Reset,
+            delayVariable: functionality[key].DelayVariable,
+            setDelayVariable: functionality[key].SetDelayVariable,
+            resetDelayVariable: functionality[key].ResetDelayVariable,
+            delayTimerNumber: functionality[key].DelayTimerNumber,
+            setDelayTimerNumber: functionality[key].SetDelayTimerNumber,
+            resetDelayTimerNumber: functionality[key].ResetDelayTimerNumber
+        }));
+}
 
 function parseVariableTable(content: string, functionBlock: any) {
     const lines = content.split('\n')
@@ -503,8 +539,11 @@ async function generateCode() {
         if (templateFolder.isDirectory) {
             const templateFolderName = templateFolder.name
             
-            // Create Eta instance for this template folder
-            const templateEta = new Eta({ views: `./../templates/${templateFolderName}`, autoTrim: false, rmWhitespace: false })
+            // Configure Nunjucks for this template folder
+            nunjucks.configure([`./../templates/${templateFolderName}`], {
+                autoescape: false,
+                throwOnUndefined: false
+            })
             
             // Scan template files in this folder
             const templateFiles = Deno.readDir(`./../templates/${templateFolderName}`)
@@ -517,12 +556,15 @@ async function generateCode() {
                         // Create template context with setOutputFile function
                         const templateContext: any = {
                             ...functionBlock,
-                            setOutputFile: (filename: string) => {
-                                templateContext._outputFile = filename
-                            }
+                            inputVars: getVariablesByType(functionBlock.Variables, 'Input'),
+                            outputVars: getVariablesByType(functionBlock.Variables, 'Output'),
+                            localVars: getVariablesByType(functionBlock.Variables, 'Local'),
+                            allFunctionality: getAllFunctionality(functionBlock.Functionality),
+                            variableKeys: Object.keys(functionBlock.Variables),
+                            _outputFile: templateName.endsWith('.txt') ? `${functionBlock.Name}.demo` : `${functionBlock.Name}.xml`
                         }
                         
-                        const rendered = await templateEta.render(templateName, templateContext)
+                        const rendered = nunjucks.render(templateName, templateContext)
                         
                         // Use template-defined filename or default
                         const outputFileName = templateContext._outputFile || `${functionBlock.Name}.txt`
@@ -562,9 +604,10 @@ async function processImportTemplates() {
             for await (const templateFile of templateFiles) {
                 if (templateFile.isFile && templateFile.name === 'ImportTemplate.xml') {
                     
-                    const templateEta = new Eta({ 
-                        views: `./../templates/${templateFolderName}`,
-                        autoEscape: false
+                    // Configure Nunjucks for ImportTemplate
+                    nunjucks.configure([`./../templates/${templateFolderName}`], {
+                        autoescape: false,
+                        throwOnUndefined: false
                     })
                     
                     // Filter function blocks to only include those from this template folder
@@ -578,15 +621,19 @@ async function processImportTemplates() {
                     
                     
                     // Create template context with filtered function blocks
+                    // Convert object to array for easier iteration in Nunjucks
+                    const functionBlocksArray = Object.keys(filteredFunctionBlocks).map(key => ({
+                        key,
+                        ...filteredFunctionBlocks[key]
+                    }));
+                    
                     const templateContext: any = {
-                        generatedFunctionBlocks: filteredFunctionBlocks,
-                        setOutputFile: (filename: string) => {
-                            templateContext._outputFile = filename
-                        }
+                        generatedFunctionBlocks: functionBlocksArray,
+                        _outputFile: 'PLCOpenImport.xml'
                     }
                     
-                    // Render as Eta template
-                    const rendered = await templateEta.render('ImportTemplate.xml', templateContext)
+                    // Render as Nunjucks template
+                    const rendered = nunjucks.render('ImportTemplate.xml', templateContext)
                     const outputFileName = templateContext._outputFile || 'PLCOpenImport.xml'
                     
                     
