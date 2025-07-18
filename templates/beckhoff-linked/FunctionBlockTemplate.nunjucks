@@ -44,16 +44,21 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
 {%- for func in allFunctionality -%}
+    {#-###### EXPLANATION ######-#}
     {%- if func.logicType == 'Explanation' %}
 
 // {{ func.comment }}
-    {%- elif func.logicType == 'Expression' -%}
+    {#-###### EXPRESSION ######-#}
+    {%- elif func.logicType == 'Expression' -%}    
+        {#-###### EXPRESSION WITH DELAY ######-#}         
         {%- if func.delayTimerNumber %}
 DelayTimer{{ func.delayTimerNumber }}(IN:= {{ func.expression }}, PT:= REAL_TO_TIME({{ func.delayVariable }} * 1000));
 {{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
+        {#-###### EXPRESSION WITHOUT DELAY ######-#}  
         {%- else %}
 {{ func.key }} := {{ func.expression }};
         {%- endif -%}
+    {#-###### SETRESET ######-#}
     {%- elif func.logicType == 'SetReset' %}
 IF {{ func.set | safe }} THEN
     {{ func.key }} := TRUE;
