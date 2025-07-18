@@ -265,8 +265,8 @@
     </interface>
     <body>
         <ST>
-            <xhtml xmlns="http://www.w3.org/1999/xhtml">
-            </xhtml>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+]]></xhtml>
         </ST>
     </body>
 </pou>

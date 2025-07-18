@@ -145,7 +145,7 @@
     </interface>
     <body>
         <ST>
-            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
 WQC := 16#FF;
 OSLevel := TODO;
 V := scaleMin + (REAL(RawInput) / 27648.0) * (scaleMax - scaleMin);
@@ -167,7 +167,7 @@ VWLEn := warningLowEn;
 VALEn := alarmLowEn;
     
     
-            </xhtml>
+]]></xhtml>
         </ST>
     </body>
 </pou>
