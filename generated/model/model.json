@@ -263,6 +263,21 @@
                 }
             },
             "Functionality": {
+                "blankLine1": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
                 "explanation1": {
                     "LogicType": "Explanation",
                     "Expression": null,
@@ -324,6 +339,21 @@
                     "ResetDelayTimerNumber": null,
                     "isMTP": false
                 },
+                "blankLine2": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
                 "explanation2": {
                     "LogicType": "Explanation",
                     "Expression": null,
@@ -345,11 +375,11 @@
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "TODO: remove delay",
-                    "DelayVariable": "MonStatTi",
+                    "Comment": "",
+                    "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
-                    "DelayTimerNumber": 1,
+                    "DelayTimerNumber": null,
                     "SetDelayTimerNumber": null,
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
@@ -384,6 +414,21 @@
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
                 },
+                "blankLine3": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
                 "explanation3": {
                     "LogicType": "Explanation",
                     "Expression": null,
@@ -414,6 +459,36 @@
                     "ResetDelayTimerNumber": null,
                     "isMTP": false
                 },
+                "blankLine4": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation4": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "signal indicating that the valve needs to go to the safe position",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
                 "SafePosAct": {
                     "LogicType": "Expression",
                     "Expression": "(PermEn AND NOT Permit) OR (IntlEn AND NOT Interlock) OR (ProtEn AND NOT Protect) OR (MonEn AND (MonStatErr OR MonDynErr))",
@@ -428,6 +503,36 @@
                     "SetDelayTimerNumber": null,
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
+                },
+                "blankLine5": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation5": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "control signal to the hardware",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
                 },
                 "Ctrl_Set": {
                     "LogicType": "Set",
@@ -459,35 +564,35 @@
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
                 },
-                "MonStatErr": {
-                    "LogicType": "Expression",
-                    "Expression": "Ctrl AND NOT OpenFbk",
-                    "Set": null,
-                    "Reset": null,
-                    "StateMachine": null,
-                    "Comment": "",
-                    "DelayVariable": null,
-                    "SetDelayVariable": null,
-                    "ResetDelayVariable": null,
-                    "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": null,
-                    "ResetDelayTimerNumber": null,
-                    "isMTP": true
-                },
-                "MonDynErr": {
-                    "LogicType": "Expression",
+                "blankLine6": {
+                    "LogicType": "BlankLine",
                     "Expression": null,
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "",
+                    "Comment": null,
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
                     "DelayTimerNumber": null,
                     "SetDelayTimerNumber": null,
                     "ResetDelayTimerNumber": null,
-                    "isMTP": true
+                    "isMTP": false
+                },
+                "explanation6": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Opened and Closed States",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
                 },
                 "OpenedState_Set": {
                     "LogicType": "Set",
@@ -549,6 +654,36 @@
                     "ResetDelayTimerNumber": null,
                     "isMTP": false
                 },
+                "blankLine7": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
+                "explanation7": {
+                    "LogicType": "Explanation",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Static and Dynamic Monitoring",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
+                },
                 "MonStatErr_Set": {
                     "LogicType": "Set",
                     "Expression": null,
@@ -560,7 +695,7 @@
                     "SetDelayVariable": "MonStatTi",
                     "ResetDelayVariable": null,
                     "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": 2,
+                    "SetDelayTimerNumber": 1,
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
                 },
@@ -590,7 +725,7 @@
                     "SetDelayVariable": "MonDynTi",
                     "ResetDelayVariable": null,
                     "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": 3,
+                    "SetDelayTimerNumber": 2,
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
                 },
@@ -698,9 +833,24 @@
                     "SetDelayTimerNumber": null,
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
+                },
+                "blankLine8": {
+                    "LogicType": "BlankLine",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": null,
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "isMTP": false
                 }
             },
-            "DelayTimerCount": 3
+            "DelayTimerCount": 2
         }
     ]
 }

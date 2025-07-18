@@ -25,13 +25,14 @@ function getVariablesByType(variables: any, varType: string) {
 
 function getAllFunctionality(functionality: any) {
     return Object.keys(functionality)
-        .filter(key => ['Expression', 'Explanation', 'Set', 'Reset'].includes(functionality[key].LogicType))
+        .filter(key => ['Expression', 'Explanation', 'Set', 'Reset', 'BlankLine'].includes(functionality[key].LogicType))
         .filter(key => {
             const func = functionality[key];
             return (func.LogicType === 'Expression' && func.Expression) || 
                    (func.LogicType === 'Explanation' && func.Comment) ||
                    (func.LogicType === 'Set' && func.Set) ||
-                   (func.LogicType === 'Reset' && func.Reset);
+                   (func.LogicType === 'Reset' && func.Reset) ||
+                   (func.LogicType === 'BlankLine');
         })
         .map(key => ({
             key,
@@ -261,6 +262,7 @@ function parseFunctionalityTable(content: string, functionBlock: any) {
     let currentTarget = ''
     let targetData: any = {}
     let explanationCounter = 1
+    let blankLineCounter = 1
     
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i].trim()
@@ -305,8 +307,44 @@ function parseFunctionalityTable(content: string, functionBlock: any) {
                     
                     // Handle empty target rows
                     if (targetName === '') {
-                        // If expression starts with //, create a new explanation entry
-                        if (expression.startsWith('//')) {
+                        // Check for completely blank rows (all cells empty or whitespace)
+                        if (expression.trim() === '' && comment.trim() === '' && mtpValue.trim() === '') {
+                            // Save previous target if exists
+                            if (currentTarget !== '') {
+                                const result = processTargetData(targetData, functionBlock)
+                                if (Array.isArray(result)) {
+                                    // If it's an array (Set and Reset), add both with suffixes
+                                    result.forEach((item, index) => {
+                                        const suffix = item.LogicType === 'Set' ? '_Set' : '_Reset'
+                                        functionBlock.Functionality[currentTarget + suffix] = item
+                                    })
+                                } else {
+                                    functionBlock.Functionality[currentTarget] = result
+                                }
+                            }
+                            
+                            // Create blank line entry
+                            const blankLineKey = `blankLine${blankLineCounter++}`
+                            functionBlock.Functionality[blankLineKey] = {
+                                LogicType: 'BlankLine',
+                                Expression: null,
+                                Set: null,
+                                Reset: null,
+                                StateMachine: null,
+                                Comment: null,
+                                DelayVariable: null,
+                                SetDelayVariable: null,
+                                ResetDelayVariable: null,
+                                DelayTimerNumber: null,
+                                SetDelayTimerNumber: null,
+                                ResetDelayTimerNumber: null,
+                                isMTP: false
+                            }
+                            
+                            // Reset current target
+                            currentTarget = ''
+                            targetData = {}
+                        } else if (expression.startsWith('//')) {
                             // Save previous target if exists
                             if (currentTarget !== '') {
                                 const result = processTargetData(targetData, functionBlock)

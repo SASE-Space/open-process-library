@@ -256,39 +256,37 @@
                 </type>
             </variable>
 
-            <variable name="DelayTimer3">
-                <type>
-                    <derived name="TON" />
-                </type>
-            </variable>
-
 
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
-
+    
 // State Machine for the OperationMode
-
+    
 // Make boolean indicators for the OperationMode State
-DelayTimer1(IN:= OperationMode = 1, PT:= REAL_TO_TIME(MonStatTi * 1000));
-StateOpAct := DelayTimer1.Q;
+StateOpAct := OperationMode = 1;
 StateAutAct := OperationMode = 2;
 StateOffAct := OperationMode = 0;
-
+    
 // 'Protect' is for interlocks that need to be reset
 IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
     Protect := FALSE;
 END_IF;
+    
+// signal indicating that the valve needs to go to the safe position
 SafePosAct := (PermEn AND NOT Permit) OR (IntlEn AND NOT Interlock) OR (ProtEn AND NOT Protect) OR (MonEn AND (MonStatErr OR MonDynErr));
+    
+// control signal to the hardware
 IF (SafePosAct AND SafePos AND NOT SafePosEn) OR (NOT SafePosAct AND ((OpenAut AND StateAutAct) OR (OpenOp and StateOpAct))) THEN
     Ctrl := TRUE;
 END_IF;
 IF (SafePosAct AND NOT SafePos NOT SafePosEn) OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct))) THEN
     Ctrl := FALSE;
 END_IF;
-MonStatErr := Ctrl AND NOT OpenFbk;
+    
+// Opened and Closed States
 IF Ctrl AND OpenFbk THEN
     OpenedState := TRUE;
 END_IF;
@@ -301,15 +299,17 @@ END_IF;
 IF Ctrl THEN
     ClosedState := FALSE;
 END_IF;
-DelayTimer2(IN:= (MonEn AND OpenedState AND NOT OpenFbk) OR ( MonEn AND ClosedState AND NOT CloseFbk), PT:= REAL_TO_TIME(MonStatTi * 1000));
-IF DelayTimer2.Q THEN
+    
+// Static and Dynamic Monitoring
+DelayTimer1(IN:= (MonEn AND OpenedState AND NOT OpenFbk) OR ( MonEn AND ClosedState AND NOT CloseFbk), PT:= REAL_TO_TIME(MonStatTi * 1000));
+IF DelayTimer1.Q THEN
     MonStatErr := TRUE;
 END_IF;
 IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
     MonStatErr := FALSE;
 END_IF;
-DelayTimer3(IN:= MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk)), PT:= REAL_TO_TIME(MonDynTi * 1000));
-IF DelayTimer3.Q THEN
+DelayTimer2(IN:= MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk)), PT:= REAL_TO_TIME(MonDynTi * 1000));
+IF DelayTimer2.Q THEN
     MonDynErr := TRUE;
 END_IF;
 IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
@@ -321,6 +321,7 @@ StateAutOp := False;
 OpenOp := False;
 CloseOp := False;
 ResetOp := False;
+    
             </xhtml>
         </ST>
     </body>

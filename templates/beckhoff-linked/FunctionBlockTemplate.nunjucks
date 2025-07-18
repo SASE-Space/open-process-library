@@ -46,7 +46,6 @@
 {%- for func in allFunctionality -%}
     {#-###### EXPLANATION ######-#}
     {%- if func.logicType == 'Explanation' %}
-
 // {{ func.comment }}
     {#-###### EXPRESSION ######-#}
     {%- elif func.logicType == 'Expression' -%}    
@@ -78,7 +77,9 @@ DelayTimer{{ func.resetDelayTimerNumber }}(IN:= {{ func.reset | safe }}, PT:= RE
 IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe }}{% endif %} THEN
     {{ func.key | replace('_Reset', '') }} := FALSE;
 END_IF;
-    {%- endif -%}
+    {#-###### BLANK LINE ######-#}
+    {%- elif func.logicType == 'BlankLine' %}
+    {% endif -%}
 {%- endfor %}
             </xhtml>
         </ST>
