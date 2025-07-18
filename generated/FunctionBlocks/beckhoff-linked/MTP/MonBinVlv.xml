@@ -284,12 +284,14 @@ IF (SafePosAct AND SafePos AND NOT SafePosEn) OR (NOT SafePosAct AND ((OpenAut A
 ELSIF (SafePosAct AND NOT SafePos NOT SafePosEn) OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct))) THEN
     Ctrl := FALSE;
 END_IF;
-IF (MonEn AND OpenedState AND NOT OpenFbk) OR ( MonEn AND ClosedState AND NOT CloseFbk) THEN
+DelayTimer2(IN:= (MonEn AND OpenedState AND NOT OpenFbk) OR ( MonEn AND ClosedState AND NOT CloseFbk), PT:= REAL_TO_TIME(MonStatTi * 1000));
+IF DelayTimer2.Q THEN
     MonStatErr := TRUE;
 ELSIF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
     MonStatErr := FALSE;
 END_IF;
-IF MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk)) THEN
+DelayTimer3(IN:= MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk)), PT:= REAL_TO_TIME(MonDynTi * 1000));
+IF DelayTimer3.Q THEN
     MonDynErr := TRUE;
 ELSIF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
     MonDynErr := FALSE;

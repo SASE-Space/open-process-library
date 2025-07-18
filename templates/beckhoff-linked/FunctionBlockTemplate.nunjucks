@@ -60,9 +60,18 @@ DelayTimer{{ func.delayTimerNumber }}(IN:= {{ func.expression }}, PT:= REAL_TO_T
         {%- endif -%}
     {#-###### SETRESET ######-#}
     {%- elif func.logicType == 'SetReset' %}
-IF {{ func.set | safe }} THEN
+        {#- Handle SET with optional delay -#}
+        {%- if func.setDelayTimerNumber %}
+DelayTimer{{ func.setDelayTimerNumber }}(IN:= {{ func.set | safe }}, PT:= REAL_TO_TIME({{ func.setDelayVariable }} * 1000));
+        {%- endif %}
+        {#- Handle RESET with optional delay -#}
+        {%- if func.resetDelayTimerNumber %}
+DelayTimer{{ func.resetDelayTimerNumber }}(IN:= {{ func.reset | safe }}, PT:= REAL_TO_TIME({{ func.resetDelayVariable }} * 1000));
+        {%- endif %}
+        {#- Generate the actual SetReset logic #}
+IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe }}{% endif %} THEN
     {{ func.key }} := TRUE;
-ELSIF {{ func.reset | safe }} THEN
+ELSIF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe }}{% endif %} THEN
     {{ func.key }} := FALSE;
 END_IF;
     {%- endif -%}
