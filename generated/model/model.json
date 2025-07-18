@@ -345,11 +345,11 @@
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "",
-                    "DelayVariable": null,
+                    "Comment": "TODO: remove delay",
+                    "DelayVariable": "MonStatTi",
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
-                    "DelayTimerNumber": null,
+                    "DelayTimerNumber": 1,
                     "SetDelayTimerNumber": null,
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
@@ -402,7 +402,7 @@
                 "Protect": {
                     "LogicType": "SetReset",
                     "Expression": null,
-                    "Set": "ProtectSource",
+                    "Set": null,
                     "Reset": "(ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)",
                     "StateMachine": null,
                     "Comment": "",
@@ -412,7 +412,7 @@
                     "DelayTimerNumber": null,
                     "SetDelayTimerNumber": null,
                     "ResetDelayTimerNumber": null,
-                    "isMTP": true
+                    "isMTP": false
                 },
                 "SafePosAct": {
                     "LogicType": "Expression",
@@ -455,7 +455,7 @@
                     "SetDelayVariable": "MonStatTi",
                     "ResetDelayVariable": null,
                     "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": 1,
+                    "SetDelayTimerNumber": 2,
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
                 },
@@ -470,7 +470,7 @@
                     "SetDelayVariable": "MonDynTi",
                     "ResetDelayVariable": null,
                     "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": 2,
+                    "SetDelayTimerNumber": 3,
                     "ResetDelayTimerNumber": null,
                     "isMTP": true
                 },
@@ -595,7 +595,7 @@
                     "isMTP": true
                 }
             },
-            "DelayTimerCount": 2
+            "DelayTimerCount": 3
         }
     ]
 }

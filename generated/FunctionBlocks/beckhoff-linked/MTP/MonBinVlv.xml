@@ -1,3 +1,5 @@
+
+
 <pou name="MonBinVlv" pouType="functionBlock">
     <interface>
         <inputVars>
@@ -210,54 +212,92 @@
                     <derived name="TON" />
                 </type>
             </variable>
+            <variable name="DelayTimer3">
+                <type>
+                    <derived name="TON" />
+                </type>
+            </variable>
         </localVars>
     </interface>
     <body>
         <ST>
-            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">    
 // State Machine for the OperationMode
+    
+    
 // Make boolean indicators for the OperationMode State
-StateOpAct := OperationMode = 1;
-StateAutAct := OperationMode = 2;
-StateOffAct := OperationMode = 0;
+    
+
+        
+DelayTimer1(IN:= OperationMode = 1, PT:= REAL_TO_TIME(MonStatTiS * 1000);
+StateOpAct := DelayTimer1.Q;
+            
+
+        StateAutAct := OperationMode = 2;
+            
+
+        StateOffAct := OperationMode = 0;
+            
+    
 // 'Protect' is for interlocks that need to be reset
-IF ProtectSource THEN
-    Protect := TRUE;
-ELSIF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
-    Protect := FALSE;
-END_IF;
-SafePosAct := (PermEn AND NOT Permit) OR (IntlEn AND NOT Interlock) OR (ProtEn AND NOT Protect) OR (MonEn AND (MonStatErr OR MonDynErr));
+    
+
+        SafePosAct := (PermEn AND NOT Permit) OR (IntlEn AND NOT Interlock) OR (ProtEn AND NOT Protect) OR (MonEn AND (MonStatErr OR MonDynErr));
+            
+
 IF (SafePosAct AND SafePos AND NOT SafePosEn) OR (NOT SafePosAct AND ((OpenAut AND StateAutAct) OR (OpenOp and StateOpAct))) THEN
     Ctrl := TRUE;
 ELSIF (SafePosAct AND NOT SafePos NOT SafePosEn) OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct))) THEN
     Ctrl := FALSE;
 END_IF;
+    
+
 IF (MonEn AND OpenedState AND NOT OpenFbk) OR ( MonEn AND ClosedState AND NOT CloseFbk) THEN
     MonStatErr := TRUE;
 ELSIF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
     MonStatErr := FALSE;
 END_IF;
+    
+
 IF MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT ClsFbk)) THEN
     MonDynErr := TRUE;
 ELSIF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
     MonDynErr := FALSE;
 END_IF;
+    
+
 IF Ctrl AND OpenFbk THEN
     OpenedState := TRUE;
 ELSIF NOT Ctrl THEN
     OpenedState := FALSE;
 END_IF;
+    
+
 IF NOT Ctrl AND CloseFbk THEN
     ClosedState := TRUE;
 ELSIF Ctrl THEN
     ClosedState := FALSE;
 END_IF;
-StateOffOp := False;
-StateOpOp := False;
-StateAutOp := False;
-OpenOp := False;
-CloseOp := False;
-ResetOp := False;
+    
+
+        StateOffOp := False;
+            
+
+        StateOpOp := False;
+            
+
+        StateAutOp := False;
+            
+
+        OpenOp := False;
+            
+
+        CloseOp := False;
+            
+
+        ResetOp := False;
+            
+
             </xhtml>
         </ST>
     </body>

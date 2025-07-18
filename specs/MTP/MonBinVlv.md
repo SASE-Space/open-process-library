@@ -66,12 +66,11 @@
 |               |     | // State Machine for the OperationMode                                           |                                 |
 | OperationMode |     | OperationMode State Machine                                                      |                                 |
 |               |     | // Make boolean indicators for the OperationMode State                           |                                 |
-| StateOpAct    | x   | OperationMode = 1                                                                |                                 |
+| StateOpAct    | x   | OperationMode = 1 for MonStatTi                                                  | TODO: remove delay              |
 | StateAutAct   | x   | OperationMode = 2                                                                |                                 |
 | StateOffAct   | x   | OperationMode = 0                                                                |                                 |
 |               |     | // 'Protect' is for interlocks that need to be reset                             |                                 |
-| Protect       | x   | Set: ProtectSource                                                               |                                 |
-|               |     | Reset: (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)             |                                 |
+| Protect       |     | Reset: (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel)             |                                 |
 | SafePosAct    | x   | (PermEn AND NOT Permit)                                                          |                                 |
 |               |     | OR (IntlEn AND NOT Interlock)                                                    |                                 |
 |               |     | OR (ProtEn AND NOT Protect)                                                      |                                 |

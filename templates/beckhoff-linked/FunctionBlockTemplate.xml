@@ -23,7 +23,10 @@
                 reset: functionality[key].Reset,
                 delayVariable: functionality[key].DelayVariable,
                 setDelayVariable: functionality[key].SetDelayVariable,
-                resetDelayVariable: functionality[key].ResetDelayVariable
+                resetDelayVariable: functionality[key].ResetDelayVariable,
+                delayTimerNumber: functionality[key].DelayTimerNumber,
+                setDelayTimerNumber: functionality[key].SetDelayTimerNumber,
+                resetDelayTimerNumber: functionality[key].ResetDelayTimerNumber
             }));
     }
 
@@ -75,20 +78,25 @@
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
-<% allFunctionality.forEach(function(func) { %>
-<% if (func.logicType === 'Explanation') { -%>
-// <%~ func.comment %>
+<%_ allFunctionality.forEach(function(func) { -%> 
+    <%_ if (func.logicType === 'Explanation') { /* ############ EXPLANATION ############ */ -%>
 
-<% } else if (func.logicType === 'Expression') { -%>
-<%= func.key %> := <%= func.expression %>;
-<% } else if (func.logicType === 'SetReset') { -%>
+// <%~ func.comment %>
+    <%_ } else if (func.logicType === 'Expression') { /* ############ EXPRESSION ############ */ %>
+        <% if (func.delayTimerNumber) {  /* ############ EXPRESSION WITH DELAY ############ */%>
+DelayTimer<%= func.delayTimerNumber %>(IN:= <%= func.expression %>, PT:= REAL_TO_TIME(<%= func.delayVariable %>S * 1000);
+<%= func.key %> := DelayTimer<%= func.delayTimerNumber %>.Q;
+        <%- } else { /* ############ EXPRESSION WITHOUT DELAY ############ */%>
+<%-= func.key %> := <%= func.expression %>;
+        <%- } -%>
+    <%- } else if (func.logicType === 'SetReset') { /* ############ SetReset ############ */ %>
 IF <%~ func.set %> THEN
     <%= func.key %> := TRUE;
 ELSIF <%~ func.reset %> THEN
     <%= func.key %> := FALSE;
 END_IF;
-<% } -%>
-<% }); -%>
+    <%- } %>
+<% }); %>
             </xhtml>
         </ST>
     </body>

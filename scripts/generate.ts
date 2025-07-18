@@ -504,7 +504,7 @@ async function generateCode() {
             const templateFolderName = templateFolder.name
             
             // Create Eta instance for this template folder
-            const templateEta = new Eta({ views: `./../templates/${templateFolderName}` })
+            const templateEta = new Eta({ views: `./../templates/${templateFolderName}`, autoTrim: false, rmWhitespace: false })
             
             // Scan template files in this folder
             const templateFiles = Deno.readDir(`./../templates/${templateFolderName}`)
