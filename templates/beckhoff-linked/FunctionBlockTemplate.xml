@@ -61,6 +61,15 @@
                 </type>
             </variable>
 <% }); -%>
+<% if (it.DelayTimerCount > 0) { -%>
+<% for (let i = 1; i <= it.DelayTimerCount; i++) { -%>
+            <variable name="DelayTimer<%= i %>">
+                <type>
+                    <derived name="TON" />
+                </type>
+            </variable>
+<% } -%>
+<% } -%>
         </localVars>
     </interface>
     <body>

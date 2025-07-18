@@ -233,6 +233,16 @@
                     <BOOL />
                 </type>
             </variable>
+            <variable name="DelayTimer1">
+                <type>
+                    <derived name="TON" />
+                </type>
+            </variable>
+            <variable name="DelayTimer2">
+                <type>
+                    <derived name="TON" />
+                </type>
+            </variable>
         </localVars>
     </interface>
     <body>
