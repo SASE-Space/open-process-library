@@ -1,0 +1,86 @@
+<%
+    function getVariablesByType(variables, varType) {
+        return Object.keys(variables).filter(name => 
+            variables[name]['Var Type'] === varType
+        ).map(name => ({ name, ...variables[name] }));
+    }
+
+    function getAllFunctionality(functionality) {
+        return Object.keys(functionality)
+            .filter(key => ['Expression', 'Explanation', 'SetReset'].includes(functionality[key].LogicType))
+            .filter(key => {
+                const func = functionality[key];
+                return (func.LogicType === 'Expression' && func.Expression) || 
+                       (func.LogicType === 'Explanation' && func.Comment) ||
+                       (func.LogicType === 'SetReset' && func.Set && func.Reset);
+            })
+            .map(key => ({
+                key,
+                logicType: functionality[key].LogicType,
+                expression: functionality[key].Expression,
+                comment: functionality[key].Comment,
+                set: functionality[key].Set,
+                reset: functionality[key].Reset,
+                delayVariable: functionality[key].DelayVariable,
+                setDelayVariable: functionality[key].SetDelayVariable,
+                resetDelayVariable: functionality[key].ResetDelayVariable
+            }));
+    }
+
+    const inputVars = getVariablesByType(it.Variables, 'Input');
+    const outputVars = getVariablesByType(it.Variables, 'Output'); 
+    const localVars = getVariablesByType(it.Variables, 'Local');
+    const allFunctionality = getAllFunctionality(it.Functionality);
+%>
+<% it.setOutputFile(it.Name + ".xml") %>
+<pou name="<%= it.Name %>" pouType="functionBlock">
+    <interface>
+        <inputVars>
+<% inputVars.forEach(function(variable) { -%>
+            <variable name="<%= variable.name %>">
+                <type>
+                    <<%= variable['Data Type'].toUpperCase() %> />
+                </type>
+            </variable>
+<% }); -%>
+        </inputVars>
+        <outputVars>
+<% outputVars.forEach(function(variable) { -%>
+            <variable name="<%= variable.name %>">
+                <type>
+                    <<%= variable['Data Type'].toUpperCase() %> />
+                </type>
+            </variable>
+<% }); -%>
+        </outputVars>
+        <localVars>
+<% localVars.forEach(function(variable) { -%>
+            <variable name="<%= variable.name %>">
+                <type>
+                    <<%= variable['Data Type'].toUpperCase() %> />
+                </type>
+            </variable>
+<% }); -%>
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+<% allFunctionality.forEach(function(func) { %>
+<% if (func.logicType === 'Explanation') { -%>
+// <%~ func.comment %>
+
+<% } else if (func.logicType === 'Expression') { -%>
+<%= func.key %> := <%= func.expression %>;
+<% } else if (func.logicType === 'SetReset') { -%>
+IF <%~ func.set %> THEN
+    <%= func.key %> := TRUE;
+ELSIF <%~ func.reset %> THEN
+    <%= func.key %> := FALSE;
+END_IF;
+<% } -%>
+<% }); -%>
+            </xhtml>
+        </ST>
+    </body>
+</pou> 

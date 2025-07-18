@@ -1,0 +1,136 @@
+<pou name="LockView4" pouType="functionBlock">
+    <interface>
+        <inputVars>
+            <variable name="wQC">
+                <type>
+                    <BYTE />
+                </type>
+            </variable>
+            <variable name="logic">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in1En">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in1">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in1QC">
+                <type>
+                    <BYTE />
+                </type>
+            </variable>
+            <variable name="in1Inv">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in1Txt">
+                <type>
+                    <STRING />
+                </type>
+            </variable>
+            <variable name="in2En">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in2">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in2QC">
+                <type>
+                    <BYTE />
+                </type>
+            </variable>
+            <variable name="in2Inv">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in2Txt">
+                <type>
+                    <STRING />
+                </type>
+            </variable>
+            <variable name="in3En">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in3">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in3QC">
+                <type>
+                    <BYTE />
+                </type>
+            </variable>
+            <variable name="in3Inv">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in3Txt">
+                <type>
+                    <STRING />
+                </type>
+            </variable>
+            <variable name="in4En">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in4">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in4QC">
+                <type>
+                    <BYTE />
+                </type>
+            </variable>
+            <variable name="in4Inv">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="in4Txt">
+                <type>
+                    <STRING />
+                </type>
+            </variable>
+        </inputVars>
+        <outputVars>
+            <variable name="out">
+                <type>
+                    <BOOL />
+                </type>
+            </variable>
+            <variable name="outQC">
+                <type>
+                    <STRING />
+                </type>
+            </variable>
+        </outputVars>
+        <localVars>
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+            </xhtml>
+        </ST>
+    </body>
+</pou> 
