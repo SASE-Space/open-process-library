@@ -1,14 +1,10 @@
 <pou name="VFD" pouType="functionBlock">
     <interface>
         <inputVars>
-
         </inputVars>
         <outputVars>
-
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>

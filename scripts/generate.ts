@@ -690,7 +690,9 @@ async function generateCode() {
                         // Store generated code in generatedFunctionBlocks object
                         const blockKey = `${templateFolderName}/${outputFileName}`
                         generatedFunctionBlocks[blockKey] = {
+                            name: functionBlock.Name,
                             folder: outputDir,
+                            blockType: blockType,
                             code: rendered
                         }
                         

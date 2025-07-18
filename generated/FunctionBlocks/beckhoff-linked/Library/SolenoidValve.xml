@@ -1,178 +1,37 @@
 <pou name="SolenoidValve" pouType="functionBlock">
     <interface>
         <inputVars>
-
-            <variable name="id">
-                <type>
-                    <INT />
-                </type>
-            </variable>
-
-            <variable name="open">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="close">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="feedbackOpen">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="feedbackClose">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="hasFbOpen">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="hasFbClose">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="safeOpen">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="safeHold">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="monitor">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="simulate">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="simulateDelay">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="interlockIn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="permitIn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="protectIn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="reset">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="id"><type><INT /></type></variable>
+            <variable name="open"><type><BOOL /></type></variable>
+            <variable name="close"><type><BOOL /></type></variable>
+            <variable name="feedbackOpen"><type><BOOL /></type></variable>
+            <variable name="feedbackClose"><type><BOOL /></type></variable>
+            <variable name="hasFbOpen"><type><BOOL /></type></variable>
+            <variable name="hasFbClose"><type><BOOL /></type></variable>
+            <variable name="safeOpen"><type><BOOL /></type></variable>
+            <variable name="safeHold"><type><BOOL /></type></variable>
+            <variable name="monitor"><type><BOOL /></type></variable>
+            <variable name="simulate"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="interlockIn"><type><BOOL /></type></variable>
+            <variable name="permitIn"><type><BOOL /></type></variable>
+            <variable name="protectIn"><type><BOOL /></type></variable>
+            <variable name="reset"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
-
-            <variable name="remote">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="operator">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="automatic">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="offline">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="error">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="opened">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="closed">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="remote"><type><BOOL /></type></variable>
+            <variable name="operator"><type><BOOL /></type></variable>
+            <variable name="automatic"><type><BOOL /></type></variable>
+            <variable name="offline"><type><BOOL /></type></variable>
+            <variable name="error"><type><BOOL /></type></variable>
+            <variable name="opened"><type><BOOL /></type></variable>
+            <variable name="closed"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
-
-            <variable name="fbOpenSimulated">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="fbCloseSimulated">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-
-
-            <variable name="DelayTimer1">
-                <type>
-                    <derived name="TON" />
-                </type>
-            </variable>
-
-            <variable name="DelayTimer2">
-                <type>
-                    <derived name="TON" />
-                </type>
-            </variable>
-
-
+            <variable name="fbOpenSimulated"><type><BOOL /></type></variable>
+            <variable name="fbCloseSimulated"><type><BOOL /></type></variable>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable>
         </localVars>
     </interface>
     <body>

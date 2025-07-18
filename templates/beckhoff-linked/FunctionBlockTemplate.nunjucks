@@ -4,40 +4,24 @@
 <pou name="{{ Name }}" pouType="functionBlock">
     <interface>
         <inputVars>
-{% for variable in inputVars %}
-            <variable name="{{ variable.name }}">
-                <type>
-                    <{{ variable['Data Type'] | upper }} />
-                </type>
-            </variable>
-{% endfor %}
+{%- for variable in inputVars %}
+            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+{%- endfor %}
         </inputVars>
         <outputVars>
-{% for variable in outputVars %}
-            <variable name="{{ variable.name }}">
-                <type>
-                    <{{ variable['Data Type'] | upper }} />
-                </type>
-            </variable>
-{% endfor %}
+{%- for variable in outputVars %}
+            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+{%- endfor %}
         </outputVars>
         <localVars>
-{% for variable in localVars %}
-            <variable name="{{ variable.name }}">
-                <type>
-                    <{{ variable['Data Type'] | upper }} />
-                </type>
-            </variable>
-{% endfor %}
-{% if DelayTimerCount > 0 %}
-{% for i in range(1, DelayTimerCount + 1) %}
-            <variable name="DelayTimer{{ i }}">
-                <type>
-                    <derived name="TON" />
-                </type>
-            </variable>
-{% endfor %}
-{% endif %}
+{%- for variable in localVars %}
+            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+{%- endfor -%}
+{%- if DelayTimerCount > 0 -%}
+    {%- for i in range(1, DelayTimerCount + 1) %}
+            <variable name="DelayTimer{{ i }}"><type><derived name="TON" /></type></variable>
+    {%- endfor -%}
+{%- endif %}
         </localVars>
     </interface>
     <body>

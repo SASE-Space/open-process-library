@@ -32,18 +32,45 @@
         <resource name="testproj">
             <addData>
             <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
-                {% for block in generatedFunctionBlocks %}
-                {{ block.code | safe }}
-                {% endfor %}
+                {%- for block in generatedFunctionBlocks %}
+{{ block.code | safe }}
+                {%- endfor -%}
             </data>
             </addData>
         </resource>
         </data>
         <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
-        <ProjectStructure>
-            <Object Name="project_name_does_not_matter">
-            </Object>
-        </ProjectStructure>
+            <ProjectStructure>
+                <Object Name="project_name_does_not_matter">
+                    <Folder Name="OpenProcessLibrary">
+                        <Folder Name="POUs">
+                            {%- set mtpBlocks = [] -%}
+                            {%- set libraryBlocks = [] -%}
+                            {%- for block in generatedFunctionBlocks -%}
+                                {%- if block.blockType == "MTP" -%}
+                                    {% set mtpBlocks = (mtpBlocks.push(block), mtpBlocks) %}
+                                {%- else -%}
+                                    {%- set libraryBlocks = (libraryBlocks.push(block), libraryBlocks) -%}
+                                {%- endif -%}
+                            {%- endfor -%}
+                            {%- if mtpBlocks.length > 0 %}
+                            <Folder Name="MTP">
+                                {%- for block in mtpBlocks %}
+                                <Object Name="{{ block.name }}" />
+                                {%- endfor %}
+                            </Folder>
+                            {%- endif -%}
+                            {%- if libraryBlocks.length > 0 %}
+                            <Folder Name="Library">
+                                {%- for block in libraryBlocks %}
+                                <Object Name="{{ block.name }}" />
+                                {%- endfor %}
+                            </Folder>
+                            {%- endif %}
+                        </Folder>
+                    </Folder>
+                </Object>
+            </ProjectStructure>
         </data>
     </addData>
 </project>

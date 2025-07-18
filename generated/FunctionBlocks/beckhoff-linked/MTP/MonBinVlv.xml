@@ -1,262 +1,51 @@
 <pou name="MonBinVlv" pouType="functionBlock">
     <interface>
         <inputVars>
-
-            <variable name="StateChannel">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateOffAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateOpAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateAutAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="PermEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="IntlEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="ProtEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="Permit">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="Interlock">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="Protect">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="WQC">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="SafePos">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OpenAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="CloseAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OpenFbkCalc">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="CloseFbkCalc">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OpenFbk">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="CloseFbk">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="MonSafePos">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="MonStatTi">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="MonDynTi">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="ResetAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="StateChannel"><type><BOOL /></type></variable>
+            <variable name="StateOffAut"><type><BOOL /></type></variable>
+            <variable name="StateOpAut"><type><BOOL /></type></variable>
+            <variable name="StateAutAut"><type><BOOL /></type></variable>
+            <variable name="PermEn"><type><BOOL /></type></variable>
+            <variable name="IntlEn"><type><BOOL /></type></variable>
+            <variable name="ProtEn"><type><BOOL /></type></variable>
+            <variable name="Permit"><type><BOOL /></type></variable>
+            <variable name="Interlock"><type><BOOL /></type></variable>
+            <variable name="Protect"><type><BOOL /></type></variable>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="SafePos"><type><BOOL /></type></variable>
+            <variable name="OpenAut"><type><BOOL /></type></variable>
+            <variable name="CloseAut"><type><BOOL /></type></variable>
+            <variable name="OpenFbkCalc"><type><BOOL /></type></variable>
+            <variable name="CloseFbkCalc"><type><BOOL /></type></variable>
+            <variable name="OpenFbk"><type><BOOL /></type></variable>
+            <variable name="CloseFbk"><type><BOOL /></type></variable>
+            <variable name="MonSafePos"><type><BOOL /></type></variable>
+            <variable name="MonStatTi"><type><REAL /></type></variable>
+            <variable name="MonDynTi"><type><REAL /></type></variable>
+            <variable name="ResetAut"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
-
-            <variable name="StateOpAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateAutAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateOffAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="SafePosAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="Ctrl">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="MonStatErr">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="MonDynErr">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OperationMode">
-                <type>
-                    <INT />
-                </type>
-            </variable>
-
+            <variable name="StateOpAct"><type><BOOL /></type></variable>
+            <variable name="StateAutAct"><type><BOOL /></type></variable>
+            <variable name="StateOffAct"><type><BOOL /></type></variable>
+            <variable name="SafePosAct"><type><BOOL /></type></variable>
+            <variable name="Ctrl"><type><BOOL /></type></variable>
+            <variable name="MonStatErr"><type><BOOL /></type></variable>
+            <variable name="MonDynErr"><type><BOOL /></type></variable>
+            <variable name="OperationMode"><type><INT /></type></variable>
         </outputVars>
         <localVars>
-
-            <variable name="StateOffOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateOpOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateAutOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OpenOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="CloseOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="ResetOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="MonEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OpenedState">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="ClosedState">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-
-
-            <variable name="DelayTimer1">
-                <type>
-                    <derived name="TON" />
-                </type>
-            </variable>
-
-            <variable name="DelayTimer2">
-                <type>
-                    <derived name="TON" />
-                </type>
-            </variable>
-
-
+            <variable name="StateOffOp"><type><BOOL /></type></variable>
+            <variable name="StateOpOp"><type><BOOL /></type></variable>
+            <variable name="StateAutOp"><type><BOOL /></type></variable>
+            <variable name="OpenOp"><type><BOOL /></type></variable>
+            <variable name="CloseOp"><type><BOOL /></type></variable>
+            <variable name="ResetOp"><type><BOOL /></type></variable>
+            <variable name="MonEn"><type><BOOL /></type></variable>
+            <variable name="OpenedState"><type><BOOL /></type></variable>
+            <variable name="ClosedState"><type><BOOL /></type></variable>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable>
         </localVars>
     </interface>
     <body>

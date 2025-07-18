@@ -31,162 +31,37 @@
         <resource name="testproj">
             <addData>
             <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
-                
-                <pou name="AnaMon" pouType="functionBlock">
+<pou name="AnaMon" pouType="functionBlock">
     <interface>
         <inputVars>
-
-            <variable name="WQC">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="OSLevel">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="V">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="VSclMin">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="VSclMax">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="VUnit">
-                <type>
-                    <INT />
-                </type>
-            </variable>
-
-            <variable name="VAHEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="VWHEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="VTHEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="VTLEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="VWLEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="VALEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="OSLevel"><type><BYTE /></type></variable>
+            <variable name="V"><type><REAL /></type></variable>
+            <variable name="VSclMin"><type><REAL /></type></variable>
+            <variable name="VSclMax"><type><REAL /></type></variable>
+            <variable name="VUnit"><type><INT /></type></variable>
+            <variable name="VAHEn"><type><BOOL /></type></variable>
+            <variable name="VWHEn"><type><BOOL /></type></variable>
+            <variable name="VTHEn"><type><BOOL /></type></variable>
+            <variable name="VTLEn"><type><BOOL /></type></variable>
+            <variable name="VWLEn"><type><BOOL /></type></variable>
+            <variable name="VALEn"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
-
-            <variable name="VAHAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="VWHAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="VTHAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="VTLAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="VWLAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="VALAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="VAHAct"><type><BOOL /></type></variable>
+            <variable name="VWHAct"><type><BOOL /></type></variable>
+            <variable name="VTHAct"><type><BOOL /></type></variable>
+            <variable name="VTLAct"><type><BOOL /></type></variable>
+            <variable name="VWLAct"><type><BOOL /></type></variable>
+            <variable name="VALAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
-
-            <variable name="VAHLim">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="VWHLim">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="VTHLim">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="VTLLim">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="VWLLim">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="VALLim">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-
+            <variable name="VAHLim"><type><REAL /></type></variable>
+            <variable name="VWHLim"><type><REAL /></type></variable>
+            <variable name="VTHLim"><type><REAL /></type></variable>
+            <variable name="VTLLim"><type><REAL /></type></variable>
+            <variable name="VWLLim"><type><REAL /></type></variable>
+            <variable name="VALLim"><type><REAL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -202,60 +77,20 @@ VALAct := vOut <= alarmLow;
         </ST>
     </body>
 </pou>
-                
-                <pou name="BinMon" pouType="functionBlock">
+<pou name="BinMon" pouType="functionBlock">
     <interface>
         <inputVars>
-
-            <variable name="wQC">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="vState0">
-                <type>
-                    <STRING />
-                </type>
-            </variable>
-
-            <variable name="vState1">
-                <type>
-                    <STRING />
-                </type>
-            </variable>
-
-            <variable name="oSLevel">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="vFlutEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="wQC"><type><BYTE /></type></variable>
+            <variable name="vState0"><type><STRING /></type></variable>
+            <variable name="vState1"><type><STRING /></type></variable>
+            <variable name="oSLevel"><type><BYTE /></type></variable>
+            <variable name="vFlutEn"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
-
-            <variable name="vFlutAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="vFlutAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
-
-            <variable name="vFlutCnt">
-                <type>
-                    <INT />
-                </type>
-            </variable>
-
-
+            <variable name="vFlutCnt"><type><INT /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -265,162 +100,37 @@ VALAct := vOut <= alarmLow;
         </ST>
     </body>
 </pou>
-                
-                <pou name="LockView4" pouType="functionBlock">
+<pou name="LockView4" pouType="functionBlock">
     <interface>
         <inputVars>
-
-            <variable name="wQC">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="logic">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in1En">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in1">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in1QC">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="in1Inv">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in1Txt">
-                <type>
-                    <STRING />
-                </type>
-            </variable>
-
-            <variable name="in2En">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in2">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in2QC">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="in2Inv">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in2Txt">
-                <type>
-                    <STRING />
-                </type>
-            </variable>
-
-            <variable name="in3En">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in3">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in3QC">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="in3Inv">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in3Txt">
-                <type>
-                    <STRING />
-                </type>
-            </variable>
-
-            <variable name="in4En">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in4">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in4QC">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="in4Inv">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="in4Txt">
-                <type>
-                    <STRING />
-                </type>
-            </variable>
-
+            <variable name="wQC"><type><BYTE /></type></variable>
+            <variable name="logic"><type><BOOL /></type></variable>
+            <variable name="in1En"><type><BOOL /></type></variable>
+            <variable name="in1"><type><BOOL /></type></variable>
+            <variable name="in1QC"><type><BYTE /></type></variable>
+            <variable name="in1Inv"><type><BOOL /></type></variable>
+            <variable name="in1Txt"><type><STRING /></type></variable>
+            <variable name="in2En"><type><BOOL /></type></variable>
+            <variable name="in2"><type><BOOL /></type></variable>
+            <variable name="in2QC"><type><BYTE /></type></variable>
+            <variable name="in2Inv"><type><BOOL /></type></variable>
+            <variable name="in2Txt"><type><STRING /></type></variable>
+            <variable name="in3En"><type><BOOL /></type></variable>
+            <variable name="in3"><type><BOOL /></type></variable>
+            <variable name="in3QC"><type><BYTE /></type></variable>
+            <variable name="in3Inv"><type><BOOL /></type></variable>
+            <variable name="in3Txt"><type><STRING /></type></variable>
+            <variable name="in4En"><type><BOOL /></type></variable>
+            <variable name="in4"><type><BOOL /></type></variable>
+            <variable name="in4QC"><type><BYTE /></type></variable>
+            <variable name="in4Inv"><type><BOOL /></type></variable>
+            <variable name="in4Txt"><type><STRING /></type></variable>
         </inputVars>
         <outputVars>
-
-            <variable name="out">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="outQC">
-                <type>
-                    <STRING />
-                </type>
-            </variable>
-
+            <variable name="out"><type><BOOL /></type></variable>
+            <variable name="outQC"><type><STRING /></type></variable>
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -430,18 +140,13 @@ VALAct := vOut <= alarmLow;
         </ST>
     </body>
 </pou>
-                
-                <pou name="MonAnaDrv" pouType="functionBlock">
+<pou name="MonAnaDrv" pouType="functionBlock">
     <interface>
         <inputVars>
-
         </inputVars>
         <outputVars>
-
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -451,18 +156,13 @@ VALAct := vOut <= alarmLow;
         </ST>
     </body>
 </pou>
-                
-                <pou name="MonAnaVlv" pouType="functionBlock">
+<pou name="MonAnaVlv" pouType="functionBlock">
     <interface>
         <inputVars>
-
         </inputVars>
         <outputVars>
-
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -472,270 +172,55 @@ VALAct := vOut <= alarmLow;
         </ST>
     </body>
 </pou>
-                
-                <pou name="MonBinDrv" pouType="functionBlock">
+<pou name="MonBinDrv" pouType="functionBlock">
     <interface>
         <inputVars>
-
-            <variable name="stateChannel">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="stateOffAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="stateOpAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="stateAutAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="permit">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="intlEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="interlock">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="protEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="protect">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="wQC">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="oSLevel">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="safePos">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="fwdEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="revEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="stopAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="fwdAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="revAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="revFbkCalc">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="revFbk">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="fwdFbkCalc">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="fwdFbk">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="trip">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="resetAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="monSafePos">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="monStatTi">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="monDynTi">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
+            <variable name="stateChannel"><type><BOOL /></type></variable>
+            <variable name="stateOffAut"><type><BOOL /></type></variable>
+            <variable name="stateOpAut"><type><BOOL /></type></variable>
+            <variable name="stateAutAut"><type><BOOL /></type></variable>
+            <variable name="permit"><type><BOOL /></type></variable>
+            <variable name="intlEn"><type><BOOL /></type></variable>
+            <variable name="interlock"><type><BOOL /></type></variable>
+            <variable name="protEn"><type><BOOL /></type></variable>
+            <variable name="protect"><type><BOOL /></type></variable>
+            <variable name="wQC"><type><BYTE /></type></variable>
+            <variable name="oSLevel"><type><BYTE /></type></variable>
+            <variable name="safePos"><type><BOOL /></type></variable>
+            <variable name="fwdEn"><type><BOOL /></type></variable>
+            <variable name="revEn"><type><BOOL /></type></variable>
+            <variable name="stopAut"><type><BOOL /></type></variable>
+            <variable name="fwdAut"><type><BOOL /></type></variable>
+            <variable name="revAut"><type><BOOL /></type></variable>
+            <variable name="revFbkCalc"><type><BOOL /></type></variable>
+            <variable name="revFbk"><type><BOOL /></type></variable>
+            <variable name="fwdFbkCalc"><type><BOOL /></type></variable>
+            <variable name="fwdFbk"><type><BOOL /></type></variable>
+            <variable name="trip"><type><BOOL /></type></variable>
+            <variable name="resetAut"><type><BOOL /></type></variable>
+            <variable name="monSafePos"><type><BOOL /></type></variable>
+            <variable name="monStatTi"><type><REAL /></type></variable>
+            <variable name="monDynTi"><type><REAL /></type></variable>
         </inputVars>
         <outputVars>
-
-            <variable name="stateOpAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="stateAutAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="stateOffAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="safePosAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="fwdCtrl">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="revCtrl">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="monStatErr">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="monDynErr">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="stateOpAct"><type><BOOL /></type></variable>
+            <variable name="stateAutAct"><type><BOOL /></type></variable>
+            <variable name="stateOffAct"><type><BOOL /></type></variable>
+            <variable name="safePosAct"><type><BOOL /></type></variable>
+            <variable name="fwdCtrl"><type><BOOL /></type></variable>
+            <variable name="revCtrl"><type><BOOL /></type></variable>
+            <variable name="monStatErr"><type><BOOL /></type></variable>
+            <variable name="monDynErr"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
-
-            <variable name="stateOffOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="stateOpOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="stateAutOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="stopOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="fwdOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="revOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="resetOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="monEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-
+            <variable name="stateOffOp"><type><BOOL /></type></variable>
+            <variable name="stateOpOp"><type><BOOL /></type></variable>
+            <variable name="stateAutOp"><type><BOOL /></type></variable>
+            <variable name="stopOp"><type><BOOL /></type></variable>
+            <variable name="fwdOp"><type><BOOL /></type></variable>
+            <variable name="revOp"><type><BOOL /></type></variable>
+            <variable name="resetOp"><type><BOOL /></type></variable>
+            <variable name="monEn"><type><BOOL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -745,266 +230,54 @@ VALAct := vOut <= alarmLow;
         </ST>
     </body>
 </pou>
-                
-                <pou name="MonBinVlv" pouType="functionBlock">
+<pou name="MonBinVlv" pouType="functionBlock">
     <interface>
         <inputVars>
-
-            <variable name="StateChannel">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateOffAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateOpAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateAutAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="PermEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="IntlEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="ProtEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="Permit">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="Interlock">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="Protect">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="WQC">
-                <type>
-                    <BYTE />
-                </type>
-            </variable>
-
-            <variable name="SafePos">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OpenAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="CloseAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OpenFbkCalc">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="CloseFbkCalc">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OpenFbk">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="CloseFbk">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="MonSafePos">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="MonStatTi">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="MonDynTi">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="ResetAut">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="StateChannel"><type><BOOL /></type></variable>
+            <variable name="StateOffAut"><type><BOOL /></type></variable>
+            <variable name="StateOpAut"><type><BOOL /></type></variable>
+            <variable name="StateAutAut"><type><BOOL /></type></variable>
+            <variable name="PermEn"><type><BOOL /></type></variable>
+            <variable name="IntlEn"><type><BOOL /></type></variable>
+            <variable name="ProtEn"><type><BOOL /></type></variable>
+            <variable name="Permit"><type><BOOL /></type></variable>
+            <variable name="Interlock"><type><BOOL /></type></variable>
+            <variable name="Protect"><type><BOOL /></type></variable>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="SafePos"><type><BOOL /></type></variable>
+            <variable name="OpenAut"><type><BOOL /></type></variable>
+            <variable name="CloseAut"><type><BOOL /></type></variable>
+            <variable name="OpenFbkCalc"><type><BOOL /></type></variable>
+            <variable name="CloseFbkCalc"><type><BOOL /></type></variable>
+            <variable name="OpenFbk"><type><BOOL /></type></variable>
+            <variable name="CloseFbk"><type><BOOL /></type></variable>
+            <variable name="MonSafePos"><type><BOOL /></type></variable>
+            <variable name="MonStatTi"><type><REAL /></type></variable>
+            <variable name="MonDynTi"><type><REAL /></type></variable>
+            <variable name="ResetAut"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
-
-            <variable name="StateOpAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateAutAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateOffAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="SafePosAct">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="Ctrl">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="MonStatErr">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="MonDynErr">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OperationMode">
-                <type>
-                    <INT />
-                </type>
-            </variable>
-
+            <variable name="StateOpAct"><type><BOOL /></type></variable>
+            <variable name="StateAutAct"><type><BOOL /></type></variable>
+            <variable name="StateOffAct"><type><BOOL /></type></variable>
+            <variable name="SafePosAct"><type><BOOL /></type></variable>
+            <variable name="Ctrl"><type><BOOL /></type></variable>
+            <variable name="MonStatErr"><type><BOOL /></type></variable>
+            <variable name="MonDynErr"><type><BOOL /></type></variable>
+            <variable name="OperationMode"><type><INT /></type></variable>
         </outputVars>
         <localVars>
-
-            <variable name="StateOffOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateOpOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="StateAutOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OpenOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="CloseOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="ResetOp">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="MonEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="OpenedState">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="ClosedState">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-
-
-            <variable name="DelayTimer1">
-                <type>
-                    <derived name="TON" />
-                </type>
-            </variable>
-
-            <variable name="DelayTimer2">
-                <type>
-                    <derived name="TON" />
-                </type>
-            </variable>
-
-
+            <variable name="StateOffOp"><type><BOOL /></type></variable>
+            <variable name="StateOpOp"><type><BOOL /></type></variable>
+            <variable name="StateAutOp"><type><BOOL /></type></variable>
+            <variable name="OpenOp"><type><BOOL /></type></variable>
+            <variable name="CloseOp"><type><BOOL /></type></variable>
+            <variable name="ResetOp"><type><BOOL /></type></variable>
+            <variable name="MonEn"><type><BOOL /></type></variable>
+            <variable name="OpenedState"><type><BOOL /></type></variable>
+            <variable name="ClosedState"><type><BOOL /></type></variable>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -1093,18 +366,13 @@ ResetOp := False;
         </ST>
     </body>
 </pou>
-                
-                <pou name="PIDCtrl" pouType="functionBlock">
+<pou name="PIDCtrl" pouType="functionBlock">
     <interface>
         <inputVars>
-
         </inputVars>
         <outputVars>
-
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -1114,150 +382,35 @@ ResetOp := False;
         </ST>
     </body>
 </pou>
-                
-                <pou name="AnalogInput" pouType="functionBlock">
+<pou name="AnalogInput" pouType="functionBlock">
     <interface>
         <inputVars>
-
-            <variable name="rawValue">
-                <type>
-                    <WORD />
-                </type>
-            </variable>
-
-            <variable name="valueUnit">
-                <type>
-                    <INT />
-                </type>
-            </variable>
-
-            <variable name="scaleMin">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="scaleMax">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="alarmHigh">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="warningHigh">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="toleranceHigh">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="toleranceLow">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="warningLow">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="alarmLow">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="alarmHighEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="warningHighEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="toleranceHighEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="toleranceLowEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="warningLowEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="alarmLowEn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="rawValue"><type><WORD /></type></variable>
+            <variable name="valueUnit"><type><INT /></type></variable>
+            <variable name="scaleMin"><type><REAL /></type></variable>
+            <variable name="scaleMax"><type><REAL /></type></variable>
+            <variable name="alarmHigh"><type><REAL /></type></variable>
+            <variable name="warningHigh"><type><REAL /></type></variable>
+            <variable name="toleranceHigh"><type><REAL /></type></variable>
+            <variable name="toleranceLow"><type><REAL /></type></variable>
+            <variable name="warningLow"><type><REAL /></type></variable>
+            <variable name="alarmLow"><type><REAL /></type></variable>
+            <variable name="alarmHighEn"><type><BOOL /></type></variable>
+            <variable name="warningHighEn"><type><BOOL /></type></variable>
+            <variable name="toleranceHighEn"><type><BOOL /></type></variable>
+            <variable name="toleranceLowEn"><type><BOOL /></type></variable>
+            <variable name="warningLowEn"><type><BOOL /></type></variable>
+            <variable name="alarmLowEn"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
-
-            <variable name="alarmHighAct">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="warningHighAct">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="toleranceHighAct">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="toleranceLowAct">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="warningLowAct">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
-            <variable name="alarmLowAct">
-                <type>
-                    <REAL />
-                </type>
-            </variable>
-
+            <variable name="alarmHighAct"><type><REAL /></type></variable>
+            <variable name="warningHighAct"><type><REAL /></type></variable>
+            <variable name="toleranceHighAct"><type><REAL /></type></variable>
+            <variable name="toleranceLowAct"><type><REAL /></type></variable>
+            <variable name="warningLowAct"><type><REAL /></type></variable>
+            <variable name="alarmLowAct"><type><REAL /></type></variable>
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -1288,18 +441,13 @@ VALEn := alarmLowEn;
         </ST>
     </body>
 </pou>
-                
-                <pou name="AnalogValve" pouType="functionBlock">
+<pou name="AnalogValve" pouType="functionBlock">
     <interface>
         <inputVars>
-
         </inputVars>
         <outputVars>
-
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -1309,18 +457,13 @@ VALEn := alarmLowEn;
         </ST>
     </body>
 </pou>
-                
-                <pou name="DigitalInput" pouType="functionBlock">
+<pou name="DigitalInput" pouType="functionBlock">
     <interface>
         <inputVars>
-
         </inputVars>
         <outputVars>
-
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -1330,18 +473,13 @@ VALEn := alarmLowEn;
         </ST>
     </body>
 </pou>
-                
-                <pou name="Interlock4" pouType="functionBlock">
+<pou name="Interlock4" pouType="functionBlock">
     <interface>
         <inputVars>
-
         </inputVars>
         <outputVars>
-
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -1351,18 +489,13 @@ VALEn := alarmLowEn;
         </ST>
     </body>
 </pou>
-                
-                <pou name="PIDController" pouType="functionBlock">
+<pou name="PIDController" pouType="functionBlock">
     <interface>
         <inputVars>
-
         </inputVars>
         <outputVars>
-
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -1372,18 +505,13 @@ VALEn := alarmLowEn;
         </ST>
     </body>
 </pou>
-                
-                <pou name="ReversingMotor" pouType="functionBlock">
+<pou name="ReversingMotor" pouType="functionBlock">
     <interface>
         <inputVars>
-
         </inputVars>
         <outputVars>
-
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -1393,182 +521,40 @@ VALEn := alarmLowEn;
         </ST>
     </body>
 </pou>
-                
-                <pou name="SolenoidValve" pouType="functionBlock">
+<pou name="SolenoidValve" pouType="functionBlock">
     <interface>
         <inputVars>
-
-            <variable name="id">
-                <type>
-                    <INT />
-                </type>
-            </variable>
-
-            <variable name="open">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="close">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="feedbackOpen">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="feedbackClose">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="hasFbOpen">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="hasFbClose">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="safeOpen">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="safeHold">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="monitor">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="simulate">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="simulateDelay">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="interlockIn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="permitIn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="protectIn">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="reset">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="id"><type><INT /></type></variable>
+            <variable name="open"><type><BOOL /></type></variable>
+            <variable name="close"><type><BOOL /></type></variable>
+            <variable name="feedbackOpen"><type><BOOL /></type></variable>
+            <variable name="feedbackClose"><type><BOOL /></type></variable>
+            <variable name="hasFbOpen"><type><BOOL /></type></variable>
+            <variable name="hasFbClose"><type><BOOL /></type></variable>
+            <variable name="safeOpen"><type><BOOL /></type></variable>
+            <variable name="safeHold"><type><BOOL /></type></variable>
+            <variable name="monitor"><type><BOOL /></type></variable>
+            <variable name="simulate"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="interlockIn"><type><BOOL /></type></variable>
+            <variable name="permitIn"><type><BOOL /></type></variable>
+            <variable name="protectIn"><type><BOOL /></type></variable>
+            <variable name="reset"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
-
-            <variable name="remote">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="operator">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="automatic">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="offline">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="error">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="opened">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="closed">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
+            <variable name="remote"><type><BOOL /></type></variable>
+            <variable name="operator"><type><BOOL /></type></variable>
+            <variable name="automatic"><type><BOOL /></type></variable>
+            <variable name="offline"><type><BOOL /></type></variable>
+            <variable name="error"><type><BOOL /></type></variable>
+            <variable name="opened"><type><BOOL /></type></variable>
+            <variable name="closed"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
-
-            <variable name="fbOpenSimulated">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-            <variable name="fbCloseSimulated">
-                <type>
-                    <BOOL />
-                </type>
-            </variable>
-
-
-
-            <variable name="DelayTimer1">
-                <type>
-                    <derived name="TON" />
-                </type>
-            </variable>
-
-            <variable name="DelayTimer2">
-                <type>
-                    <derived name="TON" />
-                </type>
-            </variable>
-
-
+            <variable name="fbOpenSimulated"><type><BOOL /></type></variable>
+            <variable name="fbCloseSimulated"><type><BOOL /></type></variable>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -1610,18 +596,13 @@ reset := False;
         </ST>
     </body>
 </pou>
-                
-                <pou name="VFD" pouType="functionBlock">
+<pou name="VFD" pouType="functionBlock">
     <interface>
         <inputVars>
-
         </inputVars>
         <outputVars>
-
         </outputVars>
         <localVars>
-
-
         </localVars>
     </interface>
     <body>
@@ -1630,17 +611,39 @@ reset := False;
 ]]></xhtml>
         </ST>
     </body>
-</pou>
-                
-            </data>
+</pou></data>
             </addData>
         </resource>
         </data>
         <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
-        <ProjectStructure>
-            <Object Name="project_name_does_not_matter">
-            </Object>
-        </ProjectStructure>
+            <ProjectStructure>
+                <Object Name="project_name_does_not_matter">
+                    <Folder Name="OpenProcessLibrary">
+                        <Folder Name="POUs">
+                            <Folder Name="MTP">
+                                <Object Name="AnaMon" />
+                                <Object Name="BinMon" />
+                                <Object Name="LockView4" />
+                                <Object Name="MonAnaDrv" />
+                                <Object Name="MonAnaVlv" />
+                                <Object Name="MonBinDrv" />
+                                <Object Name="MonBinVlv" />
+                                <Object Name="PIDCtrl" />
+                            </Folder>
+                            <Folder Name="Library">
+                                <Object Name="AnalogInput" />
+                                <Object Name="AnalogValve" />
+                                <Object Name="DigitalInput" />
+                                <Object Name="Interlock4" />
+                                <Object Name="PIDController" />
+                                <Object Name="ReversingMotor" />
+                                <Object Name="SolenoidValve" />
+                                <Object Name="VFD" />
+                            </Folder>
+                        </Folder>
+                    </Folder>
+                </Object>
+            </ProjectStructure>
         </data>
     </addData>
 </project>
