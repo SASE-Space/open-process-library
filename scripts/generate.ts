@@ -1,4 +1,4 @@
-import nunjucks from "https://esm.sh/nunjucks@3.2.4"
+import nunjucks from "https://esm.sh/nunjucks@3.2.4?target=deno"
 
 const fileFilter = Deno.args[0] // Optional filename filter
 if (fileFilter) {
