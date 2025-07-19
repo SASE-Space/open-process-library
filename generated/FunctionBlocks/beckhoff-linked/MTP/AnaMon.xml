@@ -30,18 +30,23 @@
             <variable name="VTHLim"><type><REAL /></type></variable>
             <variable name="VTLLim"><type><REAL /></type></variable>
             <variable name="VWLLim"><type><REAL /></type></variable>
-            <variable name="VALLim"><type><REAL /></type></variable>
+            <variable name="VALLim"><type><REAL /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
 VAHAct := vOut >= alarmHigh;
 VWHAct := vOut >= warningHigh;
 VTHAct := vOut >= toleranceHigh;
 VTLAct := vOut <= toleranceLow;
 VWLAct := vOut <= warningLow;
 VALAct := vOut <= alarmLow;
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>

@@ -13,12 +13,17 @@
             <variable name="vFlutAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
-            <variable name="vFlutCnt"><type><INT /></type></variable>
+            <variable name="vFlutCnt"><type><INT /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>

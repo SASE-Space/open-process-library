@@ -63,18 +63,23 @@
             <variable name="VTHLim"><type><REAL /></type></variable>
             <variable name="VTLLim"><type><REAL /></type></variable>
             <variable name="VWLLim"><type><REAL /></type></variable>
-            <variable name="VALLim"><type><REAL /></type></variable>
+            <variable name="VALLim"><type><REAL /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
 VAHAct := vOut >= alarmHigh;
 VWHAct := vOut >= warningHigh;
 VTHAct := vOut >= toleranceHigh;
 VTLAct := vOut <= toleranceLow;
 VWLAct := vOut <= warningLow;
 VALAct := vOut <= alarmLow;
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -94,12 +99,17 @@ VALAct := vOut <= alarmLow;
             <variable name="vFlutAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
-            <variable name="vFlutCnt"><type><INT /></type></variable>
+            <variable name="vFlutCnt"><type><INT /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -136,12 +146,17 @@ VALAct := vOut <= alarmLow;
             <variable name="out"><type><BOOL /></type></variable>
             <variable name="outQC"><type><STRING /></type></variable>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -154,12 +169,17 @@ VALAct := vOut <= alarmLow;
         </inputVars>
         <outputVars>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -172,12 +192,17 @@ VALAct := vOut <= alarmLow;
         </inputVars>
         <outputVars>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -232,12 +257,17 @@ VALAct := vOut <= alarmLow;
             <variable name="fwdOp"><type><BOOL /></type></variable>
             <variable name="revOp"><type><BOOL /></type></variable>
             <variable name="resetOp"><type><BOOL /></type></variable>
-            <variable name="monEn"><type><BOOL /></type></variable>
+            <variable name="monEn"><type><BOOL /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -291,12 +321,15 @@ VALAct := vOut <= alarmLow;
             <variable name="OpenedState"><type><BOOL /></type></variable>
             <variable name="ClosedState"><type><BOOL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
-            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
     
 // State Machine for the OperationMode
 CASE OperationMode OF
@@ -376,6 +409,8 @@ OpenOp := False;
 CloseOp := False;
 ResetOp := False;
     
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -388,12 +423,17 @@ ResetOp := False;
         </inputVars>
         <outputVars>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -428,12 +468,15 @@ ResetOp := False;
             <variable name="warningLowAct"><type><REAL /></type></variable>
             <variable name="alarmLowAct"><type><REAL /></type></variable>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
 WQC := 16#FF;
 OSLevel := TODO;
 V := scaleMin + (REAL(RawInput) / 27648.0) * (scaleMax - scaleMin);
@@ -455,6 +498,8 @@ VWLEn := warningLowEn;
 VALEn := alarmLowEn;
     
     
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -467,12 +512,17 @@ VALEn := alarmLowEn;
         </inputVars>
         <outputVars>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -485,12 +535,17 @@ VALEn := alarmLowEn;
         </inputVars>
         <outputVars>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -503,12 +558,17 @@ VALEn := alarmLowEn;
         </inputVars>
         <outputVars>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -521,12 +581,17 @@ VALEn := alarmLowEn;
         </inputVars>
         <outputVars>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -539,12 +604,17 @@ VALEn := alarmLowEn;
         </inputVars>
         <outputVars>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
@@ -585,12 +655,44 @@ VALEn := alarmLowEn;
             <variable name="fbOpenSimulated"><type><BOOL /></type></variable>
             <variable name="fbCloseSimulated"><type><BOOL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
-            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
+            <variable name="StateChannel"><type><BOOL /></type></variable>
+            <variable name="StateOpAct"><type><BOOL /></type></variable>
+            <variable name="StateAutAct"><type><BOOL /></type></variable>
+            <variable name="StateOffAct"><type><BOOL /></type></variable>
+            <variable name="PermEn"><type><BOOL /></type></variable>
+            <variable name="IntlEn"><type><BOOL /></type></variable>
+            <variable name="ProtEn"><type><BOOL /></type></variable>
+            <variable name="Permit"><type><BOOL /></type></variable>
+            <variable name="Interlock"><type><BOOL /></type></variable>
+            <variable name="Protect"><type><BOOL /></type></variable>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="SafePos"><type><BOOL /></type></variable>
+            <variable name="OpenAut"><type><BOOL /></type></variable>
+            <variable name="CloseAut"><type><BOOL /></type></variable>
+            <variable name="Ctrl"><type><BOOL /></type></variable>
+            <variable name="OpenFbkCalc"><type><BOOL /></type></variable>
+            <variable name="CloseFbkCalc"><type><BOOL /></type></variable>
+            <variable name="OpenFbk"><type><BOOL /></type></variable>
+            <variable name="CloseFbk"><type><BOOL /></type></variable>
+            <variable name="MonSafePos"><type><BOOL /></type></variable>
+            <variable name="ResetAut"><type><BOOL /></type></variable>
+            <variable name="MonEn"><type><BOOL /></type></variable>
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+StateChannel := MTPBase.StateChannel;
+StateOpAct := MTPBase.StateOpAct;
+StateAutAct := MTPBase.StateAutAct;
+StateOffAct := MTPBase.StateOffAct;
+Ctrl := MTPBase.Ctrl;
+OpenFbk := MTPBase.OpenFbk;
+CloseFbk := MTPBase.CloseFbk;
+
+
 WQC := 16#FF;
 OSLevel := TODO;
 remote := StateChannel;
@@ -623,6 +725,25 @@ closed := NOT Ctrl AND CloseFbk;
 ResetAut := reset;
 MonEn := monitor;
 reset := False;
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+MTPBase.PermEn := PermEn;
+MTPBase.IntlEn := IntlEn;
+MTPBase.ProtEn := ProtEn;
+MTPBase.Permit := Permit;
+MTPBase.Interlock := Interlock;
+MTPBase.Protect := Protect;
+MTPBase.WQC := WQC;
+MTPBase.SafePos := SafePos;
+MTPBase.OpenAut := OpenAut;
+MTPBase.CloseAut := CloseAut;
+MTPBase.OpenFbkCalc := OpenFbkCalc;
+MTPBase.CloseFbkCalc := CloseFbkCalc;
+MTPBase.OpenFbk := OpenFbk;
+MTPBase.CloseFbk := CloseFbk;
+MTPBase.MonSafePos := MonSafePos;
+MTPBase.ResetAut := ResetAut;
+MTPBase.MonEn := MonEn;
 ]]></xhtml>
         </ST>
     </body>
@@ -635,12 +756,17 @@ reset := False;
         </inputVars>
         <outputVars>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>

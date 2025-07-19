@@ -48,12 +48,17 @@
             <variable name="fwdOp"><type><BOOL /></type></variable>
             <variable name="revOp"><type><BOOL /></type></variable>
             <variable name="resetOp"><type><BOOL /></type></variable>
-            <variable name="monEn"><type><BOOL /></type></variable>
+            <variable name="monEn"><type><BOOL /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>

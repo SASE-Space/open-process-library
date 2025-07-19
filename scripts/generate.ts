@@ -21,6 +21,30 @@ function getVariablesByType(variables: any, varType: string) {
     ).map(name => ({ name, ...variables[name] }));
 }
 
+function getMTPBaseVariablesByReadWrite(mtpBaseVariables: any, isRead: boolean) {
+    return Object.keys(mtpBaseVariables).filter(name => 
+        mtpBaseVariables[name].isRead === isRead || mtpBaseVariables[name].isWrite === isRead
+    ).map(name => ({ name, ...mtpBaseVariables[name] }));
+}
+
+function getMTPBaseVariablesRead(mtpBaseVariables: any) {
+    return Object.keys(mtpBaseVariables).filter(name => 
+        mtpBaseVariables[name].isRead === true
+    ).map(name => ({ name, ...mtpBaseVariables[name] }));
+}
+
+function getMTPBaseVariablesWrite(mtpBaseVariables: any) {
+    return Object.keys(mtpBaseVariables).filter(name => 
+        mtpBaseVariables[name].isWrite === true
+    ).map(name => ({ name, ...mtpBaseVariables[name] }));
+}
+
+function getMTPBaseVariablesUsed(mtpBaseVariables: any) {
+    return Object.keys(mtpBaseVariables).filter(name => 
+        mtpBaseVariables[name].isRead === true || mtpBaseVariables[name].isWrite === true
+    ).map(name => ({ name, ...mtpBaseVariables[name] }));
+}
+
 function getAllFunctionality(functionality: any) {
     return Object.keys(functionality)
         .filter(key => ['Expression', 'Explanation', 'Set', 'Reset', 'BlankLine', 'StateMachine'].includes(functionality[key].LogicType))
@@ -840,6 +864,9 @@ async function generateCode() {
                             localVars: getVariablesByType(functionBlock.Variables, 'Local'),
                             allFunctionality: getAllFunctionality(functionBlock.Functionality),
                             variableKeys: Object.keys(functionBlock.Variables),
+                            mtpBaseVarsRead: getMTPBaseVariablesRead(functionBlock.MTPBaseVariables),
+                            mtpBaseVarsWrite: getMTPBaseVariablesWrite(functionBlock.MTPBaseVariables),
+                            mtpBaseVarsUsed: getMTPBaseVariablesUsed(functionBlock.MTPBaseVariables),
                             _outputFile: templateName.endsWith('.txt') ? `${functionBlock.Name}.demo` : `${functionBlock.Name}.xml`
                         }
                         
