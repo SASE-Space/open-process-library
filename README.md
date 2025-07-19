@@ -33,7 +33,7 @@ Contact: #open-process-library on the [SASE Slack](https://sase.space/)
 |Company|Description|
 |---|---|
 |[![Acceleer](media/logos/acceleer-logotype-red.svg)](https://acceleer.com)| Collaborative Design & Code Generation (DesignOps) for Industrial Process Automation |
-|[![Loupe](media/logos/loupelogo.png)](https://loupe.team/)| Revolutionizing Industrial Automation (and Powering [SASE](https://sase.space/) ) |
+|[![Loupe](media/logos/loupelogo.png)](https://loupe.team/)| Revolutionizing Industrial Automation (and powering [SASE](https://sase.space/) ) |
 
 Contact us to be added here and under wat form (System Integrator, Automation Vendor, ...)
 
@@ -42,7 +42,7 @@ Contact us to be added here and under wat form (System Integrator, Automation Ve
 Process Automation goes back more than 50 years. When the first PLC and DCS systems came to the market they were ahead of their time. They were as advanced as the personal computers of their age. Yet in the last 20 years it feels progress has stalled. Software has eaten the world, yet it has broken its teeth on industrial automation.
 The ecosystem over the years built solid walls around countless closed and proprietary systems, each programmed with an IEC-61131 dialect only running on the specific system.
 
-Today users stare in wonder to these walls that slow down dititization and limit scalability.
+Today users stare in wonder to these walls that slow down digitization and limit scalability.
 Will AI bring a solution?
 But this is industry: we run critical processes that need to be reliable and deterministic at all times. We cannot just let the new AI agents have free reign at it.
 

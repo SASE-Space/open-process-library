@@ -1,7 +1,5 @@
 import nunjucks from "https://esm.sh/nunjucks@3.2.4"
 
-console.log("Hello World")
-
 const fileFilter = Deno.args[0] // Optional filename filter
 if (fileFilter) {
     console.log(`Processing only files matching: ${fileFilter}`)
