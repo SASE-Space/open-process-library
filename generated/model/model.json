@@ -197,6 +197,7 @@
                     "isWrite": true
                 }
             },
+            "MTPBaseVariables": {},
             "Functionality": {
                 "VAHAct": {
                     "LogicType": "Expression",
@@ -369,6 +370,7 @@
                     "isWrite": false
                 }
             },
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -603,6 +605,7 @@
                     "isWrite": false
                 }
             },
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -611,6 +614,7 @@
             "Name": "MonAnaDrv",
             "isMTP": true,
             "Variables": {},
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -619,6 +623,7 @@
             "Name": "MonAnaVlv",
             "isMTP": true,
             "Variables": {},
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -1006,6 +1011,7 @@
                     "isWrite": false
                 }
             },
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -1027,7 +1033,7 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Offline' in automatic mode",
-                    "isRead": true,
+                    "isRead": false,
                     "isWrite": false
                 },
                 "StateOpAut": {
@@ -1035,7 +1041,7 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Operator' in automatic mode",
-                    "isRead": true,
+                    "isRead": false,
                     "isWrite": false
                 },
                 "StateAutAut": {
@@ -1043,7 +1049,7 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Automatic' in automatic mode",
-                    "isRead": true,
+                    "isRead": false,
                     "isWrite": false
                 },
                 "StateOffOp": {
@@ -1051,24 +1057,24 @@
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Off' by operator",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "StateOpOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Operator' by operator",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "StateAutOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Automatic' by operator",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "StateOpAct": {
                     "Source": "PEA",
@@ -1076,7 +1082,7 @@
                     "Data Type": "Bool",
                     "Description": "Operator state active",
                     "isRead": true,
-                    "isWrite": true
+                    "isWrite": false
                 },
                 "StateAutAct": {
                     "Source": "PEA",
@@ -1084,62 +1090,62 @@
                     "Data Type": "Bool",
                     "Description": "Automatic state active",
                     "isRead": true,
-                    "isWrite": true
+                    "isWrite": false
                 },
                 "StateOffAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Offline state active",
-                    "isRead": false,
-                    "isWrite": true
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "PermEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Enables the Permission Lock. 1 = enabled (info for HMI)",
-                    "isRead": true,
-                    "isWrite": false
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "IntlEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Enables the Interlock Lock. 1 = enabled (info for HMI)",
-                    "isRead": true,
-                    "isWrite": false
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "ProtEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Enables the Protection Lock. 1 = enabled (info for HMI)",
-                    "isRead": true,
-                    "isWrite": false
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "Permit": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Permit, allows control. Does not activate safe position. 0 = no permission",
-                    "isRead": true,
-                    "isWrite": false
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "Interlock": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Interlock, sets safe position. 0 = interlock active",
-                    "isRead": true,
-                    "isWrite": false
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "Protect": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Protect, sets safe position, needs reset. 0 = Protect active",
-                    "isRead": true,
+                    "isRead": false,
                     "isWrite": true
                 },
                 "WQC": {
@@ -1149,7 +1155,7 @@
                     "Default": "",
                     "Description": "Worst Quality Code Variable",
                     "isRead": false,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "SafePos": {
                     "Source": "PEA",
@@ -1157,8 +1163,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Safe Position. 0: close, 1: open",
-                    "isRead": true,
-                    "isWrite": false
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "SafePosAct": {
                     "Source": "PEA",
@@ -1166,8 +1172,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Safe Position Activated. 1: activated",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "OpenAut": {
                     "Source": "PEA",
@@ -1175,8 +1181,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Open command from controller program",
-                    "isRead": true,
-                    "isWrite": false
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "CloseAut": {
                     "Source": "PEA",
@@ -1184,8 +1190,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Close command from controller program",
-                    "isRead": true,
-                    "isWrite": false
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "Ctrl": {
                     "Source": "PEA",
@@ -1194,7 +1200,7 @@
                     "Default": "",
                     "Description": "Control command to hardware",
                     "isRead": true,
-                    "isWrite": true
+                    "isWrite": false
                 },
                 "OpenFbkCalc": {
                     "Source": "PEA",
@@ -1203,7 +1209,7 @@
                     "Default": "",
                     "Description": "Open feedback is Calculated",
                     "isRead": false,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "CloseFbkCalc": {
                     "Source": "PEA",
@@ -1212,7 +1218,7 @@
                     "Default": "",
                     "Description": "Close feedback is calculated",
                     "isRead": false,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "OpenFbk": {
                     "Source": "PEA",
@@ -1221,7 +1227,7 @@
                     "Default": "",
                     "Description": "Open feedback from the hardware",
                     "isRead": true,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "CloseFbk": {
                     "Source": "PEA",
@@ -1230,7 +1236,7 @@
                     "Default": "",
                     "Description": "Close feedback from the hardware",
                     "isRead": true,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "MonSafePos": {
                     "Source": "PEA",
@@ -1239,7 +1245,7 @@
                     "Default": "",
                     "Description": "Behaviour if monitoring error. 1 = safe pos, 0 = hold pos",
                     "isRead": false,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "MonStatErr": {
                     "Source": "PEA",
@@ -1247,8 +1253,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Static monitoring error occurred",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "MonDynErr": {
                     "Source": "PEA",
@@ -1256,8 +1262,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Dynamic Monitoring error occurred",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "MonStatTi": {
                     "Source": "PEA",
@@ -1265,7 +1271,7 @@
                     "Data Type": "Real",
                     "Default": "5",
                     "Description": "monitor time for static changes, in s",
-                    "isRead": true,
+                    "isRead": false,
                     "isWrite": false
                 },
                 "MonDynTi": {
@@ -1274,7 +1280,7 @@
                     "Data Type": "Real",
                     "Default": "2",
                     "Description": "monitor time for dynamic changes, in s",
-                    "isRead": true,
+                    "isRead": false,
                     "isWrite": false
                 },
                 "OpenOp": {
@@ -1283,8 +1289,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Open command by operator",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "CloseOp": {
                     "Source": "POL",
@@ -1292,8 +1298,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Close command by operator",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "ResetAut": {
                     "Source": "PEA",
@@ -1301,8 +1307,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Reset command from controller program",
-                    "isRead": true,
-                    "isWrite": false
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "ResetOp": {
                     "Source": "POL",
@@ -1310,8 +1316,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Reset command by operator",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "MonEn": {
                     "Source": "POL",
@@ -1319,8 +1325,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Monitor Enable. 1: enabled",
-                    "isRead": true,
-                    "isWrite": false
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "OperationMode": {
                     "Source": "",
@@ -1328,7 +1334,7 @@
                     "Data Type": "Int",
                     "Default": "",
                     "Description": "0: Offline, 1: Operator, 2: Automatic",
-                    "isRead": true,
+                    "isRead": false,
                     "isWrite": false
                 },
                 "OpenedState": {
@@ -1337,8 +1343,8 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "For tracking the static monitoring error",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "ClosedState": {
                     "Source": "",
@@ -1346,10 +1352,11 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "For tracking the static monitoring error",
-                    "isRead": true,
-                    "isWrite": true
+                    "isRead": false,
+                    "isWrite": false
                 }
             },
+            "MTPBaseVariables": {},
             "Functionality": {
                 "blankLine1": {
                     "LogicType": "BlankLine",
@@ -1983,6 +1990,7 @@
             "Name": "PIDCtrl",
             "isMTP": true,
             "Variables": {},
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -2146,6 +2154,7 @@
                     "isWrite": false
                 }
             },
+            "MTPBaseVariables": {},
             "Functionality": {
                 "WQC": {
                     "LogicType": "Expression",
@@ -2470,6 +2479,7 @@
             "Name": "AnalogValve",
             "isMTP": false,
             "Variables": {},
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -2478,6 +2488,7 @@
             "Name": "DigitalInput",
             "isMTP": false,
             "Variables": {},
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -2486,6 +2497,7 @@
             "Name": "Interlock4",
             "isMTP": false,
             "Variables": {},
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -2494,6 +2506,7 @@
             "Name": "PIDController",
             "isMTP": false,
             "Variables": {},
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -2502,6 +2515,7 @@
             "Name": "ReversingMotor",
             "isMTP": false,
             "Variables": {},
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null
@@ -2723,6 +2737,343 @@
                     "Data Type": "",
                     "Default": "",
                     "Description": "",
+                    "isRead": false,
+                    "isWrite": false
+                }
+            },
+            "MTPBaseVariables": {
+                "StateChannel": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "0: operator/local, 1: automatic/remote",
+                    "isRead": true,
+                    "isWrite": false
+                },
+                "StateOffAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Offline' in automatic mode",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "StateOpAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Operator' in automatic mode",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "StateAutAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Automatic' in automatic mode",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "StateOffOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Off' by operator",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "StateOpOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Operator' by operator",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "StateAutOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Description": "Switch Operation Mode to 'Automatic' by operator",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "StateOpAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Operator state active",
+                    "isRead": true,
+                    "isWrite": false
+                },
+                "StateAutAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Automatic state active",
+                    "isRead": true,
+                    "isWrite": false
+                },
+                "StateOffAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Description": "Offline state active",
+                    "isRead": true,
+                    "isWrite": false
+                },
+                "PermEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enables the Permission Lock. 1 = enabled (info for HMI)",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "IntlEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enables the Interlock Lock. 1 = enabled (info for HMI)",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "ProtEn": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Enables the Protection Lock. 1 = enabled (info for HMI)",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "Permit": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Permit, allows control. Does not activate safe position. 0 = no permission",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "Interlock": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Interlock, sets safe position. 0 = interlock active",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "Protect": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Description": "Protect, sets safe position, needs reset. 0 = Protect active",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "WQC": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Byte",
+                    "Default": "",
+                    "Description": "Worst Quality Code Variable",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "SafePos": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Safe Position. 0: close, 1: open",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "SafePosAct": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Safe Position Activated. 1: activated",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "OpenAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Open command from controller program",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "CloseAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Close command from controller program",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "Ctrl": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Control command to hardware",
+                    "isRead": true,
+                    "isWrite": false
+                },
+                "OpenFbkCalc": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Open feedback is Calculated",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "CloseFbkCalc": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Close feedback is calculated",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "OpenFbk": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Open feedback from the hardware",
+                    "isRead": true,
+                    "isWrite": true
+                },
+                "CloseFbk": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Close feedback from the hardware",
+                    "isRead": true,
+                    "isWrite": true
+                },
+                "MonSafePos": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Behaviour if monitoring error. 1 = safe pos, 0 = hold pos",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "MonStatErr": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Static monitoring error occurred",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "MonDynErr": {
+                    "Source": "PEA",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Dynamic Monitoring error occurred",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "MonStatTi": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Default": "5",
+                    "Description": "monitor time for static changes, in s",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "MonDynTi": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Default": "2",
+                    "Description": "monitor time for dynamic changes, in s",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "OpenOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Open command by operator",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "CloseOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Close command by operator",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "ResetAut": {
+                    "Source": "PEA",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Reset command from controller program",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "ResetOp": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Reset command by operator",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "MonEn": {
+                    "Source": "POL",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Monitor Enable. 1: enabled",
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "OperationMode": {
+                    "Source": "",
+                    "Var Type": "Output",
+                    "Data Type": "Int",
+                    "Default": "",
+                    "Description": "0: Offline, 1: Operator, 2: Automatic",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "OpenedState": {
+                    "Source": "",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "For tracking the static monitoring error",
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "ClosedState": {
+                    "Source": "",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "For tracking the static monitoring error",
                     "isRead": false,
                     "isWrite": false
                 }
@@ -3156,6 +3507,7 @@
             "Name": "VFD",
             "isMTP": false,
             "Variables": {},
+            "MTPBaseVariables": {},
             "Functionality": {},
             "DelayTimerCount": 0,
             "MTPBase": null

@@ -636,6 +636,12 @@ function analyzeVariableUsage(functionBlock: any) {
         functionBlock.Variables[varName].isWrite = false
     }
     
+    // Initialize all MTP base variables with isRead and isWrite as false
+    for (const varName in functionBlock.MTPBaseVariables) {
+        functionBlock.MTPBaseVariables[varName].isRead = false
+        functionBlock.MTPBaseVariables[varName].isWrite = false
+    }
+    
     // Analyze functionality to determine read/write patterns
     for (const targetName in functionBlock.Functionality) {
         const functionality = functionBlock.Functionality[targetName]
@@ -659,6 +665,8 @@ function analyzeVariableUsage(functionBlock: any) {
             // Mark target variable as written if it exists
             if (functionBlock.Variables[actualTarget]) {
                 functionBlock.Variables[actualTarget].isWrite = true
+            } else if (functionBlock.MTPBaseVariables[actualTarget]) {
+                functionBlock.MTPBaseVariables[actualTarget].isWrite = true
             }
         }
         
@@ -696,19 +704,33 @@ function analyzeVariableUsage(functionBlock: any) {
             for (const varName of varsInExpression) {
                 if (functionBlock.Variables[varName]) {
                     functionBlock.Variables[varName].isRead = true
+                } else if (functionBlock.MTPBaseVariables[varName]) {
+                    functionBlock.MTPBaseVariables[varName].isRead = true
                 }
             }
         }
         
         // Handle delay variables as read variables
-        if (functionality.DelayVariable && functionBlock.Variables[functionality.DelayVariable]) {
-            functionBlock.Variables[functionality.DelayVariable].isRead = true
+        if (functionality.DelayVariable) {
+            if (functionBlock.Variables[functionality.DelayVariable]) {
+                functionBlock.Variables[functionality.DelayVariable].isRead = true
+            } else if (functionBlock.MTPBaseVariables[functionality.DelayVariable]) {
+                functionBlock.MTPBaseVariables[functionality.DelayVariable].isRead = true
+            }
         }
-        if (functionality.SetDelayVariable && functionBlock.Variables[functionality.SetDelayVariable]) {
-            functionBlock.Variables[functionality.SetDelayVariable].isRead = true
+        if (functionality.SetDelayVariable) {
+            if (functionBlock.Variables[functionality.SetDelayVariable]) {
+                functionBlock.Variables[functionality.SetDelayVariable].isRead = true
+            } else if (functionBlock.MTPBaseVariables[functionality.SetDelayVariable]) {
+                functionBlock.MTPBaseVariables[functionality.SetDelayVariable].isRead = true
+            }
         }
-        if (functionality.ResetDelayVariable && functionBlock.Variables[functionality.ResetDelayVariable]) {
-            functionBlock.Variables[functionality.ResetDelayVariable].isRead = true
+        if (functionality.ResetDelayVariable) {
+            if (functionBlock.Variables[functionality.ResetDelayVariable]) {
+                functionBlock.Variables[functionality.ResetDelayVariable].isRead = true
+            } else if (functionBlock.MTPBaseVariables[functionality.ResetDelayVariable]) {
+                functionBlock.MTPBaseVariables[functionality.ResetDelayVariable].isRead = true
+            }
         }
     }
 }
@@ -728,6 +750,7 @@ async function processFile(filePath: string, isMTP: boolean) {
         Name: fileName,
         isMTP: isMTP,
         Variables: {},
+        MTPBaseVariables: {},
         Functionality: {},
         DelayTimerCount: 0,
         MTPBase: null
@@ -741,9 +764,6 @@ async function processFile(filePath: string, isMTP: boolean) {
     
     // Parse Functionality Table if it exists
     parseFunctionalityTable(content, functionBlock)
-    
-    // Analyze variable usage to set isRead and isWrite flags
-    analyzeVariableUsage(functionBlock)
     
     // Set MTPBase property if MTPBase variable exists
     setMTPBaseProperty(functionBlock)
@@ -767,6 +787,26 @@ async function readAndProcessFiles(dirPath: string, isMTP: boolean) {
 // read all the Spec files, process each and add to the Model
 await readAndProcessFiles("specs/MTP", true)
 await readAndProcessFiles("specs/Library", false)
+
+// Copy MTP base variables to function blocks that have MTPBase
+for (const functionBlock of model.FunctionBlocks) {
+    if (functionBlock.MTPBase) {
+        // Find the corresponding MTP function block by name
+        const mtpBlock = model.FunctionBlocks.find(block => 
+            block.isMTP && block.Name === functionBlock.MTPBase
+        )
+        
+        if (mtpBlock) {
+            // Copy all variables from MTP base to MTPBaseVariables
+            functionBlock.MTPBaseVariables = { ...mtpBlock.Variables }
+        }
+    }
+}
+
+// Analyze variable usage after MTP base variables have been copied
+for (const functionBlock of model.FunctionBlocks) {
+    analyzeVariableUsage(functionBlock)
+}
 
 // Generate code for each function block using all templates
 async function generateCode() {
