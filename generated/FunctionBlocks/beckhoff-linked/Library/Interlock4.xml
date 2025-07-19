@@ -1,5 +1,7 @@
 <pou name="Interlock4" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>

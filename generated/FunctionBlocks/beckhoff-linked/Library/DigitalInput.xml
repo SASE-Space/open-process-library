@@ -1,5 +1,7 @@
 <pou name="DigitalInput" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>

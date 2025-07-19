@@ -3,6 +3,11 @@
 {#- The file will be named {{ Name }}.xml -#}
 <pou name="{{ Name }}" pouType="functionBlock">
     <interface>
+        <inOutVars>
+{%- for variable in inoutVars %}
+            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+{%- endfor %}
+        </inOutVars>
         <inputVars>
 {%- for variable in inputVars %}
             <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>

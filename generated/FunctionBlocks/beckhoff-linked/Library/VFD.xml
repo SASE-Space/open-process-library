@@ -1,5 +1,7 @@
 <pou name="VFD" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>

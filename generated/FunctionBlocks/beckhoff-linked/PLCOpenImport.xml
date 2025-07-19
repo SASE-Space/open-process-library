@@ -33,6 +33,8 @@
             <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
 <pou name="AnaMon" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="WQC"><type><BYTE /></type></variable>
             <variable name="OSLevel"><type><BYTE /></type></variable>
@@ -79,6 +81,8 @@ VALAct := vOut <= alarmLow;
 </pou>
 <pou name="BinMon" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="wQC"><type><BYTE /></type></variable>
             <variable name="vState0"><type><STRING /></type></variable>
@@ -102,6 +106,8 @@ VALAct := vOut <= alarmLow;
 </pou>
 <pou name="LockView4" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="wQC"><type><BYTE /></type></variable>
             <variable name="logic"><type><BOOL /></type></variable>
@@ -142,6 +148,8 @@ VALAct := vOut <= alarmLow;
 </pou>
 <pou name="MonAnaDrv" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>
@@ -158,6 +166,8 @@ VALAct := vOut <= alarmLow;
 </pou>
 <pou name="MonAnaVlv" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>
@@ -174,6 +184,8 @@ VALAct := vOut <= alarmLow;
 </pou>
 <pou name="MonBinDrv" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="stateChannel"><type><BOOL /></type></variable>
             <variable name="stateOffAut"><type><BOOL /></type></variable>
@@ -232,6 +244,8 @@ VALAct := vOut <= alarmLow;
 </pou>
 <pou name="MonBinVlv" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="StateChannel"><type><BOOL /></type></variable>
             <variable name="StateOffAut"><type><BOOL /></type></variable>
@@ -368,6 +382,8 @@ ResetOp := False;
 </pou>
 <pou name="PIDCtrl" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>
@@ -384,6 +400,8 @@ ResetOp := False;
 </pou>
 <pou name="AnalogInput" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>
@@ -443,6 +461,8 @@ VALEn := alarmLowEn;
 </pou>
 <pou name="AnalogValve" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>
@@ -459,6 +479,8 @@ VALEn := alarmLowEn;
 </pou>
 <pou name="DigitalInput" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>
@@ -475,6 +497,8 @@ VALEn := alarmLowEn;
 </pou>
 <pou name="Interlock4" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>
@@ -491,6 +515,8 @@ VALEn := alarmLowEn;
 </pou>
 <pou name="PIDController" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>
@@ -507,6 +533,8 @@ VALEn := alarmLowEn;
 </pou>
 <pou name="ReversingMotor" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>
@@ -523,6 +551,9 @@ VALEn := alarmLowEn;
 </pou>
 <pou name="SolenoidValve" pouType="functionBlock">
     <interface>
+        <inOutVars>
+            <variable name="MTPBase"><type><MONBINVLV /></type></variable>
+        </inOutVars>
         <inputVars>
             <variable name="id"><type><INT /></type></variable>
             <variable name="open"><type><BOOL /></type></variable>
@@ -598,6 +629,8 @@ reset := False;
 </pou>
 <pou name="VFD" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>

@@ -1,5 +1,7 @@
 <pou name="AnaMon" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="WQC"><type><BYTE /></type></variable>
             <variable name="OSLevel"><type><BYTE /></type></variable>

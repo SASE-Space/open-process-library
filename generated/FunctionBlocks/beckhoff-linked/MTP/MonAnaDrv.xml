@@ -1,5 +1,7 @@
 <pou name="MonAnaDrv" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>

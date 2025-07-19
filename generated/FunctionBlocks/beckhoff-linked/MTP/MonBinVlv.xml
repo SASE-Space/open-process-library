@@ -1,5 +1,7 @@
 <pou name="MonBinVlv" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="StateChannel"><type><BOOL /></type></variable>
             <variable name="StateOffAut"><type><BOOL /></type></variable>

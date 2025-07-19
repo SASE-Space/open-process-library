@@ -1,5 +1,7 @@
 <pou name="MonAnaVlv" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>

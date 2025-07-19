@@ -1,5 +1,8 @@
 <pou name="SolenoidValve" pouType="functionBlock">
     <interface>
+        <inOutVars>
+            <variable name="MTPBase"><type><MONBINVLV /></type></variable>
+        </inOutVars>
         <inputVars>
             <variable name="id"><type><INT /></type></variable>
             <variable name="open"><type><BOOL /></type></variable>

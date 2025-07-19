@@ -1,5 +1,7 @@
 <pou name="AnalogInput" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>

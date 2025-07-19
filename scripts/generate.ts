@@ -669,6 +669,7 @@ async function generateCode() {
                             ...functionBlock,
                             inputVars: getVariablesByType(functionBlock.Variables, 'Input'),
                             outputVars: getVariablesByType(functionBlock.Variables, 'Output'),
+                            inoutVars: getVariablesByType(functionBlock.Variables, 'InOut'),
                             localVars: getVariablesByType(functionBlock.Variables, 'Local'),
                             allFunctionality: getAllFunctionality(functionBlock.Functionality),
                             variableKeys: Object.keys(functionBlock.Variables),

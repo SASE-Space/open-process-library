@@ -1,5 +1,7 @@
 <pou name="MonBinDrv" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="stateChannel"><type><BOOL /></type></variable>
             <variable name="stateOffAut"><type><BOOL /></type></variable>

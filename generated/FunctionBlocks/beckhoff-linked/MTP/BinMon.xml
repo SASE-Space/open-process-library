@@ -1,5 +1,7 @@
 <pou name="BinMon" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="wQC"><type><BYTE /></type></variable>
             <variable name="vState0"><type><STRING /></type></variable>

@@ -1,5 +1,7 @@
 <pou name="PIDCtrl" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
         </inputVars>
         <outputVars>

@@ -1,5 +1,7 @@
 <pou name="LockView4" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="wQC"><type><BYTE /></type></variable>
             <variable name="logic"><type><BOOL /></type></variable>
