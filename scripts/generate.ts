@@ -50,6 +50,35 @@ function getAllFunctionality(functionality: any) {
         }));
 }
 
+function extractVariablesFromExpression(expression: string): string[] {
+    if (!expression || expression.trim() === '') return []
+    
+    // Remove string literals (both single and double quotes)
+    let cleaned = expression.replace(/'[^']*'|"[^"]*"/g, '')
+    
+    // Remove numeric literals (including hex like 16#FF)
+    cleaned = cleaned.replace(/\b\d+#[0-9A-Fa-f]+\b|\b\d+(\.\d+)?\b/g, '')
+    
+    // Remove boolean literals
+    cleaned = cleaned.replace(/\b(true|false|True|False|TRUE|FALSE)\b/g, '')
+    
+    // Remove function calls but keep the parameters
+    // This regex matches function names followed by parentheses
+    cleaned = cleaned.replace(/\b[A-Z][A-Za-z0-9_]*\s*\(/g, '(')
+    
+    // Extract variable names
+    // Variables are identifiers that start with lowercase or can be any case
+    // and are not followed by a parenthesis (to exclude function names)
+    const variablePattern = /\b[a-zA-Z_][a-zA-Z0-9_]*\b(?!\s*\()/g
+    const matches = cleaned.match(variablePattern) || []
+    
+    // Remove duplicates and filter out keywords
+    const keywords = ['AND', 'OR', 'NOT', 'and', 'or', 'not', 'for', 'if', 'then', 'else']
+    const uniqueVars = [...new Set(matches)].filter(v => !keywords.includes(v))
+    
+    return uniqueVars
+}
+
 function parseVariableTable(content: string, functionBlock: any) {
     const lines = content.split('\n')
     let inVariableTable = false
@@ -600,6 +629,90 @@ function processTargetData(targetData: any, functionBlock: any) {
     return processedData
 }
 
+function analyzeVariableUsage(functionBlock: any) {
+    // Initialize all variables with isRead and isWrite as false
+    for (const varName in functionBlock.Variables) {
+        functionBlock.Variables[varName].isRead = false
+        functionBlock.Variables[varName].isWrite = false
+    }
+    
+    // Analyze functionality to determine read/write patterns
+    for (const targetName in functionBlock.Functionality) {
+        const functionality = functionBlock.Functionality[targetName]
+        
+        // Skip blank lines and explanations as they don't read/write variables
+        if (functionality.LogicType === 'BlankLine' || functionality.LogicType === 'Explanation') {
+            continue
+        }
+        
+        // For Expression, Set, Reset types - the target is being written to
+        if (functionality.LogicType === 'Expression' || 
+            functionality.LogicType === 'Set' || 
+            functionality.LogicType === 'Reset') {
+            
+            // Extract actual variable name from target (remove suffixes like _Set, _Reset)
+            let actualTarget = targetName
+            if (targetName.endsWith('_Set') || targetName.endsWith('_Reset')) {
+                actualTarget = targetName.substring(0, targetName.lastIndexOf('_'))
+            }
+            
+            // Mark target variable as written if it exists
+            if (functionBlock.Variables[actualTarget]) {
+                functionBlock.Variables[actualTarget].isWrite = true
+            }
+        }
+        
+        // Extract variables that are read from expressions
+        const expressionsToAnalyze: string[] = []
+        
+        if (functionality.Expression) {
+            expressionsToAnalyze.push(functionality.Expression)
+        }
+        if (functionality.Set) {
+            expressionsToAnalyze.push(functionality.Set)
+        }
+        if (functionality.Reset) {
+            expressionsToAnalyze.push(functionality.Reset)
+        }
+        
+        // For state machines, analyze transition conditions
+        if (functionality.LogicType === 'StateMachine' && functionality.StateMachine) {
+            for (const state in functionality.StateMachine) {
+                const stateData = functionality.StateMachine[state]
+                if (stateData.Transitions) {
+                    for (const target in stateData.Transitions) {
+                        const transition = stateData.Transitions[target]
+                        if (transition.Condition) {
+                            expressionsToAnalyze.push(transition.Condition)
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Extract and mark variables as read
+        for (const expression of expressionsToAnalyze) {
+            const varsInExpression = extractVariablesFromExpression(expression)
+            for (const varName of varsInExpression) {
+                if (functionBlock.Variables[varName]) {
+                    functionBlock.Variables[varName].isRead = true
+                }
+            }
+        }
+        
+        // Handle delay variables as read variables
+        if (functionality.DelayVariable && functionBlock.Variables[functionality.DelayVariable]) {
+            functionBlock.Variables[functionality.DelayVariable].isRead = true
+        }
+        if (functionality.SetDelayVariable && functionBlock.Variables[functionality.SetDelayVariable]) {
+            functionBlock.Variables[functionality.SetDelayVariable].isRead = true
+        }
+        if (functionality.ResetDelayVariable && functionBlock.Variables[functionality.ResetDelayVariable]) {
+            functionBlock.Variables[functionality.ResetDelayVariable].isRead = true
+        }
+    }
+}
+
 async function processFile(filePath: string, isMTP: boolean) {
     const fileName = filePath.split('/').pop()?.replace('.md', '') || ''
     const content = await Deno.readTextFile(filePath)
@@ -620,6 +733,9 @@ async function processFile(filePath: string, isMTP: boolean) {
     
     // Parse Functionality Table if it exists
     parseFunctionalityTable(content, functionBlock)
+    
+    // Analyze variable usage to set isRead and isWrite flags
+    analyzeVariableUsage(functionBlock)
     
     model.FunctionBlocks.push(functionBlock)
 }

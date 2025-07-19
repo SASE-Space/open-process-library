@@ -8,145 +8,193 @@
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Byte",
-                    "Description": "Worst Quality Code Variable"
+                    "Description": "Worst Quality Code Variable",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "OSLevel": {
                     "Source": "POL",
                     "Var Type": "Input",
                     "Data Type": "Byte",
-                    "Description": "manual operation permission. 0 = only on-site. >0: only from POL"
+                    "Description": "manual operation permission. 0 = only on-site. >0: only from POL",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "V": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Value"
+                    "Description": "Value",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VSclMin": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Value Scale Low Limit"
+                    "Description": "Value Scale Low Limit",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VSclMax": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Value Scale High Limit"
+                    "Description": "Value Scale High Limit",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VUnit": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Int",
-                    "Description": "Value Unit"
+                    "Description": "Value Unit",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VAHEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "1: Alarm High Limit Enabled"
+                    "Description": "1: Alarm High Limit Enabled",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VWHEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "1: Warning High Limit Enabled"
+                    "Description": "1: Warning High Limit Enabled",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VTHEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "1: Tolerance High Limit Enabled"
+                    "Description": "1: Tolerance High Limit Enabled",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VTLEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "1: Tolerance Low Limit Enabled"
+                    "Description": "1: Tolerance Low Limit Enabled",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VWLEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "1: Warning Low Limit Enabled"
+                    "Description": "1: Warning Low Limit Enabled",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VALEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "1: Alarm Low Limit Enabled"
+                    "Description": "1: Alarm Low Limit Enabled",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VAHLim": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Alarm High"
+                    "Description": "Limit Value for Alarm High",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VWHLim": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Warning High"
+                    "Description": "Limit Value for Warning High",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VTHLim": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Tolerance High"
+                    "Description": "Limit Value for Tolerance High",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VTLLim": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Tolerance Low"
+                    "Description": "Limit Value for Tolerance Low",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VWLLim": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Warning Low"
+                    "Description": "Limit Value for Warning Low",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VALLim": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Alarm Low"
+                    "Description": "Limit Value for Alarm Low",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "VAHAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
-                    "Description": "1: Alarm High Limit Active"
+                    "Description": "1: Alarm High Limit Active",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "VWHAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
-                    "Description": "1: Warning High Limit Active"
+                    "Description": "1: Warning High Limit Active",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "VTHAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
-                    "Description": "1: Tolerance High Limit Active"
+                    "Description": "1: Tolerance High Limit Active",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "VTLAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
-                    "Description": "1: Tolerance Low Limit Active"
+                    "Description": "1: Tolerance Low Limit Active",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "VWLAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
-                    "Description": "1: Warning Low Limit Active"
+                    "Description": "1: Warning Low Limit Active",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "VALAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
-                    "Description": "1: Alarm Low Limit Active"
+                    "Description": "1: Alarm Low Limit Active",
+                    "isRead": false,
+                    "isWrite": true
                 }
             },
             "Functionality": {
@@ -252,56 +300,72 @@
                     "Var Type": "Input",
                     "Data Type": "Byte",
                     "Description": "Worst Quality Code Variable",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "vState0": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "String",
                     "Description": "Text value for False",
-                    "Functionality": ""
+                    "Functionality": "",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "vState1": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "String",
                     "Description": "Text value for True",
-                    "Functionality": ""
+                    "Functionality": "",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "oSLevel": {
                     "Source": "POL",
                     "Var Type": "Input",
                     "Data Type": "Byte",
                     "Description": "manual operation permission. 0 = only on-site. >0: only from POL",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "vFlutEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Enable Fluttering Recognition",
-                    "Functionality": ""
+                    "Functionality": "",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "vFlutCnt": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Int",
                     "Description": "Counts of the allowed flutering signals in the defined period vFlutTi",
-                    "Functionality": ""
+                    "Functionality": "",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "vFlutAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Fluttering Signal recognized",
-                    "Functionality": ""
+                    "Functionality": "",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "": {
                     "Source": "",
                     "Var Type": "",
                     "Data Type": "",
                     "Description": "",
-                    "Functionality": ""
+                    "Functionality": "",
+                    "isRead": false,
+                    "isWrite": false
                 }
             },
             "Functionality": {},
@@ -316,175 +380,225 @@
                     "Var Type": "Input",
                     "Data Type": "Byte",
                     "Description": "Worst Quality Code Variable",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "logic": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Logical Behaviour. 0: OR, 1: AND",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in1En": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Enable Input. 0: not used",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in1": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Locking Input Value",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in1QC": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Byte",
                     "Description": "Quality Code",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in1Inv": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Inverted",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in1Txt": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "String",
                     "Description": "Additional Text",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in2En": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Enable Input. 0: not used",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in2": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Locking Input Value",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in2QC": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Byte",
                     "Description": "Quality Code",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in2Inv": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Inverted",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in2Txt": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "String",
                     "Description": "Additional Text",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in3En": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Enable Input. 0: not used",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in3": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Locking Input Value",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in3QC": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Byte",
                     "Description": "Quality Code",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in3Inv": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Inverted",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in3Txt": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "String",
                     "Description": "Additional Text",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in4En": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Enable Input. 0: not used",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in4": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Locking Input Value",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in4QC": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Byte",
                     "Description": "Quality Code",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in4Inv": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Inverted",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "in4Txt": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "String",
                     "Description": "Additional Text",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "out": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Locking Result Output",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "outQC": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "String",
                     "Description": "Output Quality Code",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "": {
                     "Source": "",
                     "Var Type": "",
                     "Data Type": "",
                     "Description": "",
-                    "Functionality": ""
+                    "Functionality": "",
+                    "isRead": false,
+                    "isWrite": false
                 }
             },
             "Functionality": {},
@@ -513,294 +627,378 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "OperationMode selection. 0: operator (..Op), 1: automatic (..Aut)",
-                    "Functionality": "from HMI"
+                    "Functionality": "from HMI",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stateOffAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Offline' in automatic mode",
-                    "Functionality": "from Input"
+                    "Functionality": "from Input",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stateOpAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Operator' in automatic mode",
-                    "Functionality": "from Input"
+                    "Functionality": "from Input",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stateAutAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Automatic' in automatic mode",
-                    "Functionality": "from Input"
+                    "Functionality": "from Input",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stateOffOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Off' by operator",
-                    "Functionality": "from HMI + (2)"
+                    "Functionality": "from HMI + (2)",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stateOpOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Operator' by operator",
-                    "Functionality": "from HMI + (2)"
+                    "Functionality": "from HMI + (2)",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stateAutOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Switch Operation Mode to 'Automatic' by operator",
-                    "Functionality": "from HMI + (2)"
+                    "Functionality": "from HMI + (2)",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stateOpAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Operator state active",
-                    "Functionality": "from state machine (1)"
+                    "Functionality": "from state machine (1)",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stateAutAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Automatic state active",
-                    "Functionality": "from state machine (1)"
+                    "Functionality": "from state machine (1)",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stateOffAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Offline state active",
-                    "Functionality": "from state machine (1)"
+                    "Functionality": "from state machine (1)",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "permit": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Permit, allows control. Does not activate safe position. 1 = permission given",
-                    "Functionality": "from Input"
+                    "Functionality": "from Input",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "intlEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Enables the Interlock Lock. 1 = enabled (info for HMI)",
-                    "Functionality": "from Input"
+                    "Functionality": "from Input",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "interlock": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Interlock, sets safe position. 0 = interlock active",
-                    "Functionality": "from Input"
+                    "Functionality": "from Input",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "protEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Enables the Protection Lock. 1 = enabled (info for HMI)",
-                    "Functionality": "from Input"
+                    "Functionality": "from Input",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "protect": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Protect, sets safe position, sets protectState. 0 = Protect active",
-                    "Functionality": "from Input"
+                    "Functionality": "from Input",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "wQC": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Byte",
                     "Description": "Worst Quality Code Variable",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "oSLevel": {
                     "Source": "POL",
                     "Var Type": "Input",
                     "Data Type": "Byte",
                     "Description": "manual operation permission. 0 = only on-site. >0: only from POL",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "safePos": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Safe Position. 0: close, 1: running",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "safePosAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Safe Position Activated. 1: activated",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "fwdEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Forward enable",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "revEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Reverse enable",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stopOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Stop command by operator",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "fwdOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Forward command by operator",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "revOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Reverse command by operator",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "stopAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Open command from controller program",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "fwdAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Forward command from controller program",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "revAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Reverse command from controller program",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "fwdCtrl": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Forward Control command to hardware",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "revCtrl": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Reverse Control command to hardware",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "revFbkCalc": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Reverse feedback is Calculated",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "revFbk": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Reverse feedback from the hardware",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "fwdFbkCalc": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Forward feedback is calculated",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "fwdFbk": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Forward feedback from the hardware",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "trip": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Drive Protection Indicator. 0: tripped, 1: no error",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "resetOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Reset command by operator",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "resetAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Reset command from controller program",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "monEn": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Description": "Monitor Enable. 1: enabled",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "monSafePos": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Description": "Behaviour if monitoring error. 1 = safe pos, 0 = hold pos",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "monStatErr": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Static monitoring error occurred",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "monDynErr": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Description": "Dynamic Monitoring error occurred",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "monStatTi": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Description": "monitor time for static changes, in s",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "monDynTi": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Description": "monitor time for dynamic changes, in s",
-                    "Functionality": "TODO"
+                    "Functionality": "TODO",
+                    "isRead": false,
+                    "isWrite": false
                 }
             },
             "Functionality": {},
@@ -814,258 +1012,336 @@
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "0: operator/local, 1: automatic/remote"
+                    "Description": "0: operator/local, 1: automatic/remote",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "StateOffAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Switch Operation Mode to 'Offline' in automatic mode"
+                    "Description": "Switch Operation Mode to 'Offline' in automatic mode",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "StateOpAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Switch Operation Mode to 'Operator' in automatic mode"
+                    "Description": "Switch Operation Mode to 'Operator' in automatic mode",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "StateAutAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Switch Operation Mode to 'Automatic' in automatic mode"
+                    "Description": "Switch Operation Mode to 'Automatic' in automatic mode",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "StateOffOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
-                    "Description": "Switch Operation Mode to 'Off' by operator"
+                    "Description": "Switch Operation Mode to 'Off' by operator",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "StateOpOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
-                    "Description": "Switch Operation Mode to 'Operator' by operator"
+                    "Description": "Switch Operation Mode to 'Operator' by operator",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "StateAutOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
-                    "Description": "Switch Operation Mode to 'Automatic' by operator"
+                    "Description": "Switch Operation Mode to 'Automatic' by operator",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "StateOpAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
-                    "Description": "Operator state active"
+                    "Description": "Operator state active",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "StateAutAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
-                    "Description": "Automatic state active"
+                    "Description": "Automatic state active",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "StateOffAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
-                    "Description": "Offline state active"
+                    "Description": "Offline state active",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "PermEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Enables the Permission Lock. 1 = enabled (info for HMI)"
+                    "Description": "Enables the Permission Lock. 1 = enabled (info for HMI)",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "IntlEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Enables the Interlock Lock. 1 = enabled (info for HMI)"
+                    "Description": "Enables the Interlock Lock. 1 = enabled (info for HMI)",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "ProtEn": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Enables the Protection Lock. 1 = enabled (info for HMI)"
+                    "Description": "Enables the Protection Lock. 1 = enabled (info for HMI)",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "Permit": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Permit, allows control. Does not activate safe position. 0 = no permission"
+                    "Description": "Permit, allows control. Does not activate safe position. 0 = no permission",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "Interlock": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Interlock, sets safe position. 0 = interlock active"
+                    "Description": "Interlock, sets safe position. 0 = interlock active",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "Protect": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Protect, sets safe position, needs reset. 0 = Protect active"
+                    "Description": "Protect, sets safe position, needs reset. 0 = Protect active",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "WQC": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Byte",
                     "Default": "",
-                    "Description": "Worst Quality Code Variable"
+                    "Description": "Worst Quality Code Variable",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "SafePos": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Safe Position. 0: close, 1: open"
+                    "Description": "Safe Position. 0: close, 1: open",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "SafePosAct": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Safe Position Activated. 1: activated"
+                    "Description": "Safe Position Activated. 1: activated",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "OpenAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Open command from controller program"
+                    "Description": "Open command from controller program",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "CloseAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Close command from controller program"
+                    "Description": "Close command from controller program",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "Ctrl": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Control command to hardware"
+                    "Description": "Control command to hardware",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "OpenFbkCalc": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Open feedback is Calculated"
+                    "Description": "Open feedback is Calculated",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "CloseFbkCalc": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Close feedback is calculated"
+                    "Description": "Close feedback is calculated",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "OpenFbk": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Open feedback from the hardware"
+                    "Description": "Open feedback from the hardware",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "CloseFbk": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Close feedback from the hardware"
+                    "Description": "Close feedback from the hardware",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "MonSafePos": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Behaviour if monitoring error. 1 = safe pos, 0 = hold pos"
+                    "Description": "Behaviour if monitoring error. 1 = safe pos, 0 = hold pos",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "MonStatErr": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Static monitoring error occurred"
+                    "Description": "Static monitoring error occurred",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "MonDynErr": {
                     "Source": "PEA",
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Dynamic Monitoring error occurred"
+                    "Description": "Dynamic Monitoring error occurred",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "MonStatTi": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Default": "5",
-                    "Description": "monitor time for static changes, in s"
+                    "Description": "monitor time for static changes, in s",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "MonDynTi": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Default": "2",
-                    "Description": "monitor time for dynamic changes, in s"
+                    "Description": "monitor time for dynamic changes, in s",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "OpenOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Open command by operator"
+                    "Description": "Open command by operator",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "CloseOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Close command by operator"
+                    "Description": "Close command by operator",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "ResetAut": {
                     "Source": "PEA",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Reset command from controller program"
+                    "Description": "Reset command from controller program",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "ResetOp": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Reset command by operator"
+                    "Description": "Reset command by operator",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "MonEn": {
                     "Source": "POL",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Monitor Enable. 1: enabled"
+                    "Description": "Monitor Enable. 1: enabled",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "OperationMode": {
                     "Source": "",
                     "Var Type": "Output",
                     "Data Type": "Int",
                     "Default": "",
-                    "Description": "0: Offline, 1: Operator, 2: Automatic"
+                    "Description": "0: Offline, 1: Operator, 2: Automatic",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "OpenedState": {
                     "Source": "",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "For tracking the static monitoring error"
+                    "Description": "For tracking the static monitoring error",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "ClosedState": {
                     "Source": "",
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "For tracking the static monitoring error"
+                    "Description": "For tracking the static monitoring error",
+                    "isRead": true,
+                    "isWrite": true
                 }
             },
             "Functionality": {
@@ -1710,112 +1986,156 @@
                 "rawValue": {
                     "Var Type": "Input",
                     "Data Type": "Word",
-                    "Description": ""
+                    "Description": "",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "valueUnit": {
                     "Var Type": "Input",
                     "Data Type": "Int",
-                    "Description": "Value Unit"
+                    "Description": "Value Unit",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "scaleMin": {
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Scale Min Limit"
+                    "Description": "Scale Min Limit",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "scaleMax": {
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Scale Max Limit"
+                    "Description": "Scale Max Limit",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "alarmHigh": {
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Alarm High"
+                    "Description": "Limit Value for Alarm High",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "warningHigh": {
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Warning High"
+                    "Description": "Limit Value for Warning High",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "toleranceHigh": {
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Tolerance High"
+                    "Description": "Limit Value for Tolerance High",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "toleranceLow": {
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Tolerance Low"
+                    "Description": "Limit Value for Tolerance Low",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "warningLow": {
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Warning Low"
+                    "Description": "Limit Value for Warning Low",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "alarmLow": {
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Description": "Limit Value for Alarm Low"
+                    "Description": "Limit Value for Alarm Low",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "alarmHighEn": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Alarm High Limit Enabled"
+                    "Description": "Alarm High Limit Enabled",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "warningHighEn": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Warning High Limit Enabled"
+                    "Description": "Warning High Limit Enabled",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "toleranceHighEn": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Tolerance High Limit Enabled"
+                    "Description": "Tolerance High Limit Enabled",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "toleranceLowEn": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Tolerance Low Limit Enabled"
+                    "Description": "Tolerance Low Limit Enabled",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "warningLowEn": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Warning Low Limit Enabled"
+                    "Description": "Warning Low Limit Enabled",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "alarmLowEn": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Description": "Alarm Low Limit Enabled"
+                    "Description": "Alarm Low Limit Enabled",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "alarmHighAct": {
                     "Var Type": "Output",
                     "Data Type": "Real",
-                    "Description": "Alarm High Limit Active"
+                    "Description": "Alarm High Limit Active",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "warningHighAct": {
                     "Var Type": "Output",
                     "Data Type": "Real",
-                    "Description": "Alarm High Limit Active"
+                    "Description": "Alarm High Limit Active",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "toleranceHighAct": {
                     "Var Type": "Output",
                     "Data Type": "Real",
-                    "Description": "Alarm High Limit Active"
+                    "Description": "Alarm High Limit Active",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "toleranceLowAct": {
                     "Var Type": "Output",
                     "Data Type": "Real",
-                    "Description": "Alarm High Limit Active"
+                    "Description": "Alarm High Limit Active",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "warningLowAct": {
                     "Var Type": "Output",
                     "Data Type": "Real",
-                    "Description": "Alarm High Limit Active"
+                    "Description": "Alarm High Limit Active",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "alarmLowAct": {
                     "Var Type": "Output",
                     "Data Type": "Real",
-                    "Description": "Alarm High Limit Active"
+                    "Description": "Alarm High Limit Active",
+                    "isRead": false,
+                    "isWrite": false
                 }
             },
             "Functionality": {
@@ -2180,163 +2500,217 @@
                     "Var Type": "InOut",
                     "Data Type": "MonBinVlv",
                     "Default": "",
-                    "Description": ""
+                    "Description": "",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "id": {
                     "Var Type": "Input",
                     "Data Type": "Int",
                     "Default": "",
-                    "Description": "unique project-wide ID to uniquely identify and track objects"
+                    "Description": "unique project-wide ID to uniquely identify and track objects",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "open": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "open command"
+                    "Description": "open command",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "close": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "close command"
+                    "Description": "close command",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "feedbackOpen": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "True",
-                    "Description": "feedback open"
+                    "Description": "feedback open",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "feedbackClose": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "True",
-                    "Description": "feedback close"
+                    "Description": "feedback close",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "hasFbOpen": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "has open feedback"
+                    "Description": "has open feedback",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "hasFbClose": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "hase close feedback"
+                    "Description": "hase close feedback",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "safeOpen": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Safe Position Open"
+                    "Description": "Safe Position Open",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "safeHold": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Holds Position on interlock (priority over safeOpen)"
+                    "Description": "Holds Position on interlock (priority over safeOpen)",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "monitor": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "True",
-                    "Description": "Enables errors on the feedback monitoring"
+                    "Description": "Enables errors on the feedback monitoring",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "simulate": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Enable simulation"
+                    "Description": "Enable simulation",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "simulateDelay": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "1",
-                    "Description": "Simulated delay to set the feedback signals, in s"
+                    "Description": "Simulated delay to set the feedback signals, in s",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "interlockIn": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "allows control. Does not activate safe position. 0 = no permission"
+                    "Description": "allows control. Does not activate safe position. 0 = no permission",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "permitIn": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "sets safe position. 0 = interlock active"
+                    "Description": "sets safe position. 0 = interlock active",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "protectIn": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Protect, sets safe position, sets protectState. 0 = Protect active"
+                    "Description": "Protect, sets safe position, sets protectState. 0 = Protect active",
+                    "isRead": true,
+                    "isWrite": false
                 },
                 "reset": {
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "will try to reset itself"
+                    "Description": "will try to reset itself",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "remote": {
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "0: operator/local, 1: automatic/remote"
+                    "Description": "0: operator/local, 1: automatic/remote",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "operator": {
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Operator Mode"
+                    "Description": "Operator Mode",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "automatic": {
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Automatic Mode"
+                    "Description": "Automatic Mode",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "offline": {
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Offline Mode"
+                    "Description": "Offline Mode",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "error": {
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Any error active"
+                    "Description": "Any error active",
+                    "isRead": false,
+                    "isWrite": false
                 },
                 "opened": {
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Valve is opened"
+                    "Description": "Valve is opened",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "closed": {
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Valve is closed"
+                    "Description": "Valve is closed",
+                    "isRead": false,
+                    "isWrite": true
                 },
                 "fbOpenSimulated": {
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Simulated open feedback"
+                    "Description": "Simulated open feedback",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "fbCloseSimulated": {
                     "Var Type": "Local",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Simulated Close feedback"
+                    "Description": "Simulated Close feedback",
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "": {
                     "Var Type": "",
                     "Data Type": "",
                     "Default": "",
-                    "Description": ""
+                    "Description": "",
+                    "isRead": false,
+                    "isWrite": false
                 }
             },
             "Functionality": {
