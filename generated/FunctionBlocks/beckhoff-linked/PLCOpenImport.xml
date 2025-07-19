@@ -622,7 +622,7 @@ VALEn := alarmLowEn;
 <pou name="SolenoidValve" pouType="functionBlock">
     <interface>
         <inOutVars>
-            <variable name="MTPBase"><type><MONBINVLV /></type></variable>
+            <variable name="MTPBase"><type><derived name="MonBinVlv" /></type></variable>
         </inOutVars>
         <inputVars>
             <variable name="id"><type><INT /></type></variable>

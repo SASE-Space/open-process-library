@@ -5,22 +5,22 @@
     <interface>
         <inOutVars>
 {%- for variable in inoutVars %}
-            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
 {%- endfor %}
         </inOutVars>
         <inputVars>
 {%- for variable in inputVars %}
-            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
 {%- endfor %}
         </inputVars>
         <outputVars>
 {%- for variable in outputVars %}
-            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
 {%- endfor %}
         </outputVars>
         <localVars>
 {%- for variable in localVars %}
-            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
 {%- endfor -%}
 {%- if DelayTimerCount > 0 -%}
     {%- for i in range(1, DelayTimerCount + 1) %}
@@ -29,7 +29,7 @@
 {%- endif -%}
             <!-- Temporary variables for MTP base interface access -->
 {%- for variable in mtpBaseVarsUsed %}
-            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
 {%- endfor %}
         </localVars>
     </interface>

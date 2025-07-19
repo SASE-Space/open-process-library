@@ -6,6 +6,7 @@ if (fileFilter) {
 }
 
 const model = { FunctionBlocks: [] }
+const standardTypes = ['Bool', 'Int', 'Real', 'Byte', 'String', 'Word', 'Time']
 // Configure Nunjucks environment
 nunjucks.configure(['templates'], {
     autoescape: false,
@@ -159,6 +160,12 @@ function parseVariableTable(content: string, functionBlock: any) {
                     // Add all other columns as properties
                     for (let j = 1; j < tableHeaders.length; j++) {
                         variableData[tableHeaders[j]] = cells[j]
+                    }
+                    
+                    // Check if this is a derived data type
+                    const dataType = variableData['Data Type']
+                    if (dataType) {
+                        variableData.isDerived = !standardTypes.includes(dataType)
                     }
                     
                     functionBlock.Variables[variableName] = variableData
