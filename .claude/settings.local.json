@@ -4,7 +4,8 @@
       "WebFetch(domain:eta.js.org)",
       "Bash(deno run:*)",
       "Bash(rm:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }

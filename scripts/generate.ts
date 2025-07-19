@@ -848,6 +848,17 @@ async function generateCode() {
         if (templateFolder.isDirectory) {
             const templateFolderName = templateFolder.name
             
+            // Load template config if it exists
+            let templateConfig: { description?: string, postGenerate?: string } = {}
+            try {
+                const configPath = `templates/${templateFolderName}/config.json`
+                const configContent = await Deno.readTextFile(configPath)
+                templateConfig = JSON.parse(configContent)
+                console.log(`Loaded config for template '${templateFolderName}': ${templateConfig.description || 'No description'}`)
+            } catch {
+                // Config file is optional, continue without it
+            }
+            
             // Configure Nunjucks for this template folder
             nunjucks.configure([`templates/${templateFolderName}`], {
                 autoescape: false,
@@ -900,6 +911,26 @@ async function generateCode() {
                         await Deno.mkdir(outputDir, { recursive: true })
                         await Deno.writeTextFile(outputPath, rendered)
                     }
+                }
+            }
+            
+            // Execute post-generation processing if configured
+            if (templateConfig.postGenerate) {
+                console.log(`Running post-generation processing for template '${templateFolderName}'...`)
+                const outputDir = `generated/FunctionBlocks/${templateFolderName}`
+                
+                try {
+                    // Handle specific template post-processing
+                    if (templateFolderName === 'beckhoff-linked') {
+                        // Import and call the Beckhoff post-generation function
+                        const { postGenerateBeckhoff } = await import('./post-generate-beckhoff.ts')
+                        await postGenerateBeckhoff(templateFolderName, outputDir)
+                    }
+                    // Add other template-specific processing here as needed
+                    
+                    console.log(`Post-generation processing completed successfully for '${templateFolderName}'`)
+                } catch (error) {
+                    console.error(`Error during post-generation processing for '${templateFolderName}':`, error)
                 }
             }
         }
