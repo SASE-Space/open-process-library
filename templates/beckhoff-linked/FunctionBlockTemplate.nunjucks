@@ -3,31 +3,45 @@
 {#- The file will be named {{ Name }}.xml -#}
 <pou name="{{ Name }}" pouType="functionBlock">
     <interface>
+        <inOutVars>
+{%- for variable in inoutVars %}
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
+{%- endfor %}
+        </inOutVars>
         <inputVars>
 {%- for variable in inputVars %}
-            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
 {%- endfor %}
         </inputVars>
         <outputVars>
 {%- for variable in outputVars %}
-            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
 {%- endfor %}
         </outputVars>
         <localVars>
 {%- for variable in localVars %}
-            <variable name="{{ variable.name }}"><type><{{ variable['Data Type'] | upper }} /></type></variable>
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
 {%- endfor -%}
 {%- if DelayTimerCount > 0 -%}
     {%- for i in range(1, DelayTimerCount + 1) %}
             <variable name="DelayTimer{{ i }}"><type><derived name="TON" /></type></variable>
     {%- endfor -%}
-{%- endif %}
+{%- endif -%}
+            <!-- Temporary variables for MTP base interface access -->
+{%- for variable in mtpBaseVarsUsed %}
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
+{%- endfor %}
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
-{%- for func in allFunctionality -%}
+// Copy MTP base variables to local temporaries (READ access)
+{%- for variable in mtpBaseVarsRead %}
+{{ variable.name }} := MTPBase.{{ variable.name }};
+{%- endfor %}
+
+{% for func in allFunctionality -%}
     {#-###### EXPLANATION ######-#}
     {%- if func.logicType == 'Explanation' %}
 // {{ func.comment }}
@@ -85,6 +99,11 @@ END_CASE;
     {#-###### BLANK LINE ######-#}
     {%- elif func.logicType == 'BlankLine' %}
     {% endif -%}
+{%- endfor %}
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+{%- for variable in mtpBaseVarsWrite %}
+MTPBase.{{ variable.name }} := {{ variable.name }};
 {%- endfor %}
 ]]></xhtml>
         </ST>

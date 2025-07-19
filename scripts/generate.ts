@@ -1,4 +1,4 @@
-import nunjucks from "https://esm.sh/nunjucks@3.2.4"
+import nunjucks from "https://esm.sh/nunjucks@3.2.4?target=deno"
 
 const fileFilter = Deno.args[0] // Optional filename filter
 if (fileFilter) {
@@ -6,6 +6,7 @@ if (fileFilter) {
 }
 
 const model = { FunctionBlocks: [] }
+const standardTypes = ['Bool', 'Int', 'Real', 'Byte', 'String', 'Word', 'Time']
 // Configure Nunjucks environment
 nunjucks.configure(['templates'], {
     autoescape: false,
@@ -19,6 +20,30 @@ function getVariablesByType(variables: any, varType: string) {
     return Object.keys(variables).filter(name => 
         variables[name]['Var Type'] === varType
     ).map(name => ({ name, ...variables[name] }));
+}
+
+function getMTPBaseVariablesByReadWrite(mtpBaseVariables: any, isRead: boolean) {
+    return Object.keys(mtpBaseVariables).filter(name => 
+        mtpBaseVariables[name].isRead === isRead || mtpBaseVariables[name].isWrite === isRead
+    ).map(name => ({ name, ...mtpBaseVariables[name] }));
+}
+
+function getMTPBaseVariablesRead(mtpBaseVariables: any) {
+    return Object.keys(mtpBaseVariables).filter(name => 
+        mtpBaseVariables[name].isRead === true
+    ).map(name => ({ name, ...mtpBaseVariables[name] }));
+}
+
+function getMTPBaseVariablesWrite(mtpBaseVariables: any) {
+    return Object.keys(mtpBaseVariables).filter(name => 
+        mtpBaseVariables[name].isWrite === true
+    ).map(name => ({ name, ...mtpBaseVariables[name] }));
+}
+
+function getMTPBaseVariablesUsed(mtpBaseVariables: any) {
+    return Object.keys(mtpBaseVariables).filter(name => 
+        mtpBaseVariables[name].isRead === true || mtpBaseVariables[name].isWrite === true
+    ).map(name => ({ name, ...mtpBaseVariables[name] }));
 }
 
 function getAllFunctionality(functionality: any) {
@@ -48,6 +73,35 @@ function getAllFunctionality(functionality: any) {
             setDelayTimerNumber: functionality[key].SetDelayTimerNumber,
             resetDelayTimerNumber: functionality[key].ResetDelayTimerNumber
         }));
+}
+
+function extractVariablesFromExpression(expression: string): string[] {
+    if (!expression || expression.trim() === '') return []
+    
+    // Remove string literals (both single and double quotes)
+    let cleaned = expression.replace(/'[^']*'|"[^"]*"/g, '')
+    
+    // Remove numeric literals (including hex like 16#FF)
+    cleaned = cleaned.replace(/\b\d+#[0-9A-Fa-f]+\b|\b\d+(\.\d+)?\b/g, '')
+    
+    // Remove boolean literals
+    cleaned = cleaned.replace(/\b(true|false|True|False|TRUE|FALSE)\b/g, '')
+    
+    // Remove function calls but keep the parameters
+    // This regex matches function names followed by parentheses
+    cleaned = cleaned.replace(/\b[A-Z][A-Za-z0-9_]*\s*\(/g, '(')
+    
+    // Extract variable names
+    // Variables are identifiers that start with lowercase or can be any case
+    // and are not followed by a parenthesis (to exclude function names)
+    const variablePattern = /\b[a-zA-Z_][a-zA-Z0-9_]*\b(?!\s*\()/g
+    const matches = cleaned.match(variablePattern) || []
+    
+    // Remove duplicates and filter out keywords
+    const keywords = ['AND', 'OR', 'NOT', 'and', 'or', 'not', 'for', 'if', 'then', 'else']
+    const uniqueVars = [...new Set(matches)].filter(v => !keywords.includes(v))
+    
+    return uniqueVars
 }
 
 function parseVariableTable(content: string, functionBlock: any) {
@@ -106,6 +160,12 @@ function parseVariableTable(content: string, functionBlock: any) {
                     // Add all other columns as properties
                     for (let j = 1; j < tableHeaders.length; j++) {
                         variableData[tableHeaders[j]] = cells[j]
+                    }
+                    
+                    // Check if this is a derived data type
+                    const dataType = variableData['Data Type']
+                    if (dataType) {
+                        variableData.isDerived = !standardTypes.includes(dataType)
                     }
                     
                     functionBlock.Variables[variableName] = variableData
@@ -600,6 +660,119 @@ function processTargetData(targetData: any, functionBlock: any) {
     return processedData
 }
 
+function analyzeVariableUsage(functionBlock: any) {
+    // Initialize all variables with isRead and isWrite as false
+    for (const varName in functionBlock.Variables) {
+        functionBlock.Variables[varName].isRead = false
+        functionBlock.Variables[varName].isWrite = false
+    }
+    
+    // Initialize all MTP base variables with isRead and isWrite as false
+    for (const varName in functionBlock.MTPBaseVariables) {
+        functionBlock.MTPBaseVariables[varName].isRead = false
+        functionBlock.MTPBaseVariables[varName].isWrite = false
+    }
+    
+    // Analyze functionality to determine read/write patterns
+    for (const targetName in functionBlock.Functionality) {
+        const functionality = functionBlock.Functionality[targetName]
+        
+        // Skip blank lines and explanations as they don't read/write variables
+        if (functionality.LogicType === 'BlankLine' || functionality.LogicType === 'Explanation') {
+            continue
+        }
+        
+        // For Expression, Set, Reset types - the target is being written to
+        if (functionality.LogicType === 'Expression' || 
+            functionality.LogicType === 'Set' || 
+            functionality.LogicType === 'Reset') {
+            
+            // Extract actual variable name from target (remove suffixes like _Set, _Reset)
+            let actualTarget = targetName
+            if (targetName.endsWith('_Set') || targetName.endsWith('_Reset')) {
+                actualTarget = targetName.substring(0, targetName.lastIndexOf('_'))
+            }
+            
+            // Mark target variable as written if it exists
+            if (functionBlock.Variables[actualTarget]) {
+                functionBlock.Variables[actualTarget].isWrite = true
+            } else if (functionBlock.MTPBaseVariables[actualTarget]) {
+                functionBlock.MTPBaseVariables[actualTarget].isWrite = true
+            }
+        }
+        
+        // Extract variables that are read from expressions
+        const expressionsToAnalyze: string[] = []
+        
+        if (functionality.Expression) {
+            expressionsToAnalyze.push(functionality.Expression)
+        }
+        if (functionality.Set) {
+            expressionsToAnalyze.push(functionality.Set)
+        }
+        if (functionality.Reset) {
+            expressionsToAnalyze.push(functionality.Reset)
+        }
+        
+        // For state machines, analyze transition conditions
+        if (functionality.LogicType === 'StateMachine' && functionality.StateMachine) {
+            for (const state in functionality.StateMachine) {
+                const stateData = functionality.StateMachine[state]
+                if (stateData.Transitions) {
+                    for (const target in stateData.Transitions) {
+                        const transition = stateData.Transitions[target]
+                        if (transition.Condition) {
+                            expressionsToAnalyze.push(transition.Condition)
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Extract and mark variables as read
+        for (const expression of expressionsToAnalyze) {
+            const varsInExpression = extractVariablesFromExpression(expression)
+            for (const varName of varsInExpression) {
+                if (functionBlock.Variables[varName]) {
+                    functionBlock.Variables[varName].isRead = true
+                } else if (functionBlock.MTPBaseVariables[varName]) {
+                    functionBlock.MTPBaseVariables[varName].isRead = true
+                }
+            }
+        }
+        
+        // Handle delay variables as read variables
+        if (functionality.DelayVariable) {
+            if (functionBlock.Variables[functionality.DelayVariable]) {
+                functionBlock.Variables[functionality.DelayVariable].isRead = true
+            } else if (functionBlock.MTPBaseVariables[functionality.DelayVariable]) {
+                functionBlock.MTPBaseVariables[functionality.DelayVariable].isRead = true
+            }
+        }
+        if (functionality.SetDelayVariable) {
+            if (functionBlock.Variables[functionality.SetDelayVariable]) {
+                functionBlock.Variables[functionality.SetDelayVariable].isRead = true
+            } else if (functionBlock.MTPBaseVariables[functionality.SetDelayVariable]) {
+                functionBlock.MTPBaseVariables[functionality.SetDelayVariable].isRead = true
+            }
+        }
+        if (functionality.ResetDelayVariable) {
+            if (functionBlock.Variables[functionality.ResetDelayVariable]) {
+                functionBlock.Variables[functionality.ResetDelayVariable].isRead = true
+            } else if (functionBlock.MTPBaseVariables[functionality.ResetDelayVariable]) {
+                functionBlock.MTPBaseVariables[functionality.ResetDelayVariable].isRead = true
+            }
+        }
+    }
+}
+
+function setMTPBaseProperty(functionBlock: any) {
+    // Check if there's a variable named 'MTPBase'
+    if (functionBlock.Variables['MTPBase'] && functionBlock.Variables['MTPBase']['Data Type']) {
+        functionBlock.MTPBase = functionBlock.Variables['MTPBase']['Data Type']
+    }
+}
+
 async function processFile(filePath: string, isMTP: boolean) {
     const fileName = filePath.split('/').pop()?.replace('.md', '') || ''
     const content = await Deno.readTextFile(filePath)
@@ -608,8 +781,10 @@ async function processFile(filePath: string, isMTP: boolean) {
         Name: fileName,
         isMTP: isMTP,
         Variables: {},
+        MTPBaseVariables: {},
         Functionality: {},
-        DelayTimerCount: 0
+        DelayTimerCount: 0,
+        MTPBase: null
     }
     
     // Parse Variable Table if it exists
@@ -620,6 +795,9 @@ async function processFile(filePath: string, isMTP: boolean) {
     
     // Parse Functionality Table if it exists
     parseFunctionalityTable(content, functionBlock)
+    
+    // Set MTPBase property if MTPBase variable exists
+    setMTPBaseProperty(functionBlock)
     
     model.FunctionBlocks.push(functionBlock)
 }
@@ -641,6 +819,26 @@ async function readAndProcessFiles(dirPath: string, isMTP: boolean) {
 await readAndProcessFiles("specs/MTP", true)
 await readAndProcessFiles("specs/Library", false)
 
+// Copy MTP base variables to function blocks that have MTPBase
+for (const functionBlock of model.FunctionBlocks) {
+    if (functionBlock.MTPBase) {
+        // Find the corresponding MTP function block by name
+        const mtpBlock = model.FunctionBlocks.find(block => 
+            block.isMTP && block.Name === functionBlock.MTPBase
+        )
+        
+        if (mtpBlock) {
+            // Copy all variables from MTP base to MTPBaseVariables
+            functionBlock.MTPBaseVariables = { ...mtpBlock.Variables }
+        }
+    }
+}
+
+// Analyze variable usage after MTP base variables have been copied
+for (const functionBlock of model.FunctionBlocks) {
+    analyzeVariableUsage(functionBlock)
+}
+
 // Generate code for each function block using all templates
 async function generateCode() {
     // Scan template folders
@@ -649,6 +847,17 @@ async function generateCode() {
     for await (const templateFolder of templateFolders) {
         if (templateFolder.isDirectory) {
             const templateFolderName = templateFolder.name
+            
+            // Load template config if it exists
+            let templateConfig: { description?: string, postGenerate?: string } = {}
+            try {
+                const configPath = `templates/${templateFolderName}/config.json`
+                const configContent = await Deno.readTextFile(configPath)
+                templateConfig = JSON.parse(configContent)
+                console.log(`Loaded config for template '${templateFolderName}': ${templateConfig.description || 'No description'}`)
+            } catch {
+                // Config file is optional, continue without it
+            }
             
             // Configure Nunjucks for this template folder
             nunjucks.configure([`templates/${templateFolderName}`], {
@@ -669,9 +878,13 @@ async function generateCode() {
                             ...functionBlock,
                             inputVars: getVariablesByType(functionBlock.Variables, 'Input'),
                             outputVars: getVariablesByType(functionBlock.Variables, 'Output'),
+                            inoutVars: getVariablesByType(functionBlock.Variables, 'InOut'),
                             localVars: getVariablesByType(functionBlock.Variables, 'Local'),
                             allFunctionality: getAllFunctionality(functionBlock.Functionality),
                             variableKeys: Object.keys(functionBlock.Variables),
+                            mtpBaseVarsRead: getMTPBaseVariablesRead(functionBlock.MTPBaseVariables),
+                            mtpBaseVarsWrite: getMTPBaseVariablesWrite(functionBlock.MTPBaseVariables),
+                            mtpBaseVarsUsed: getMTPBaseVariablesUsed(functionBlock.MTPBaseVariables),
                             _outputFile: templateName.endsWith('.txt') ? `${functionBlock.Name}.demo` : `${functionBlock.Name}.xml`
                         }
                         
@@ -698,6 +911,26 @@ async function generateCode() {
                         await Deno.mkdir(outputDir, { recursive: true })
                         await Deno.writeTextFile(outputPath, rendered)
                     }
+                }
+            }
+            
+            // Execute post-generation processing if configured
+            if (templateConfig.postGenerate) {
+                console.log(`Running post-generation processing for template '${templateFolderName}'...`)
+                const outputDir = `generated/FunctionBlocks/${templateFolderName}`
+                
+                try {
+                    // Handle specific template post-processing
+                    if (templateFolderName === 'beckhoff-linked') {
+                        // Import and call the Beckhoff post-generation function
+                        const { postGenerateBeckhoff } = await import('./post-generate-beckhoff.ts')
+                        await postGenerateBeckhoff(templateFolderName, outputDir)
+                    }
+                    // Add other template-specific processing here as needed
+                    
+                    console.log(`Post-generation processing completed successfully for '${templateFolderName}'`)
+                } catch (error) {
+                    console.error(`Error during post-generation processing for '${templateFolderName}':`, error)
                 }
             }
         }

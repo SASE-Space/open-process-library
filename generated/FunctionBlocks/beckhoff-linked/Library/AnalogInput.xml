@@ -1,5 +1,7 @@
 <pou name="AnalogInput" pouType="functionBlock">
     <interface>
+        <inOutVars>
+        </inOutVars>
         <inputVars>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>
@@ -26,12 +28,15 @@
             <variable name="warningLowAct"><type><REAL /></type></variable>
             <variable name="alarmLowAct"><type><REAL /></type></variable>
         </outputVars>
-        <localVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
 WQC := 16#FF;
 OSLevel := TODO;
 V := scaleMin + (REAL(RawInput) / 27648.0) * (scaleMax - scaleMin);
@@ -53,6 +58,8 @@ VWLEn := warningLowEn;
 VALEn := alarmLowEn;
     
     
+
+// Copy local temporaries back to MTP base variables (WRITE access)
 ]]></xhtml>
         </ST>
     </body>
