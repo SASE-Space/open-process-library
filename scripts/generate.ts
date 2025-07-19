@@ -713,6 +713,13 @@ function analyzeVariableUsage(functionBlock: any) {
     }
 }
 
+function setMTPBaseProperty(functionBlock: any) {
+    // Check if there's a variable named 'MTPBase'
+    if (functionBlock.Variables['MTPBase'] && functionBlock.Variables['MTPBase']['Data Type']) {
+        functionBlock.MTPBase = functionBlock.Variables['MTPBase']['Data Type']
+    }
+}
+
 async function processFile(filePath: string, isMTP: boolean) {
     const fileName = filePath.split('/').pop()?.replace('.md', '') || ''
     const content = await Deno.readTextFile(filePath)
@@ -722,7 +729,8 @@ async function processFile(filePath: string, isMTP: boolean) {
         isMTP: isMTP,
         Variables: {},
         Functionality: {},
-        DelayTimerCount: 0
+        DelayTimerCount: 0,
+        MTPBase: null
     }
     
     // Parse Variable Table if it exists
@@ -736,6 +744,9 @@ async function processFile(filePath: string, isMTP: boolean) {
     
     // Analyze variable usage to set isRead and isWrite flags
     analyzeVariableUsage(functionBlock)
+    
+    // Set MTPBase property if MTPBase variable exists
+    setMTPBaseProperty(functionBlock)
     
     model.FunctionBlocks.push(functionBlock)
 }
