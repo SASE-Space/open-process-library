@@ -4,39 +4,67 @@
 
 [AnaMon](./../MTP/MonBinVlv.md)
 
+
+
+
 ## Variable Table
 
-| Variable         | Var Type | Data Type | Default | Description                                                        |
-| ---------------- | -------- | --------- | ------- | ------------------------------------------------------------------ |
-| MTPBase          | InOut    | MonBinVlv |         |                                                                    |
-| id               | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects      |
-| open             | Input    | Bool      |         | open command                                                       |
-| close            | Input    | Bool      |         | close command                                                      |
-| feedbackOpen     | Input    | Bool      | True    | feedback open                                                      |
-| feedbackClose    | Input    | Bool      | True    | feedback close                                                     |
-| hasFbOpen        | Input    | Bool      |         | has open feedback                                                  |
-| hasFbClose       | Input    | Bool      |         | hase close feedback                                                |
-| safeOpen         | Input    | Bool      |         | Safe Position Open                                                 |
-| safeHold         | Input    | Bool      |         | Holds Position on interlock (priority over safeOpen)               |
-| monitor          | Input    | Bool      | True    | Enables errors on the feedback monitoring                          |
-| simulate         | Input    | Bool      |         | Enable simulation                                                  |
-| simulateDelay    | Input    | Bool      | 1       | Simulated delay to set the feedback signals, in s                  |
-| interlockIn      | Input    | Bool      |         | allows control. Does not activate safe position. 0 = no permission |
-| permitIn         | Input    | Bool      |         | sets safe position. 0 = interlock active                           |
-| protectIn        | Input    | Bool      |         | Protect, sets safe position, sets protectState. 0 = Protect active |
-| reset            | Input    | Bool      |         | will try to reset itself                                           |
-| remote           | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                             |
-| operator         | Output   | Bool      |         | Operator Mode                                                      |
-| automatic        | Output   | Bool      |         | Automatic Mode                                                     |
-| offline          | Output   | Bool      |         | Offline Mode                                                       |
-| error            | Output   | Bool      |         | Any error active                                                   |
-| opened           | Output   | Bool      |         | Valve is opened                                                    |
-| closed           | Output   | Bool      |         | Valve is closed                                                    |
-| fbOpenSimulated  | Local    | Bool      |         | Simulated open feedback                                            |
-| fbCloseSimulated | Local    | Bool      |         | Simulated Close feedback                                           |
-|                  |          |           |         |                                                                    |
-|                  |          |           |         |                                                                    |
-|                  |          |           |         |                                                                    |
+- MTP: variable available on the MTP-first blocks
+- SCD: variable available on the SCD-first blocks          
+
+| Variable         | MTP | SCD | Var Type | Data Type | Default | Description                                                                   | SCD Name | SCD Terminal Name                  |
+| ---------------- | --- | --- | -------- | --------- | ------- | ----------------------------------------------------------------------------- | -------- | ---------------------------------- |
+| MTPBase          | x   | x   | InOut    | MonBinVlv |         |                                                                               |          |                                    |
+| id               | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects                 |          |                                    |
+| open             | x   | x   | Input    | Bool      |         | open command                                                                  | XH       | External set high                  |
+| close            | x   | x   | Input    | Bool      |         | close command                                                                 | XL       | External set low                   |
+| outsideOpen      | x   | x   | Input    | Bool      |         | open command from local panel                                                 | XOH      | External outside set high          |
+| outsideClose     | x   | x   | Input    | Bool      |         | close command from local panel                                                | XOL      | External outside set low           |
+| feedbackOpen     | x   | x   | Input    | Bool      | True    | feedback open                                                                 | XGH      | Position high feedback             |
+| feedbackClose    | x   | x   | Input    | Bool      | True    | feedback close                                                                | XGL      | Position low feedback              |
+| hasFbOpen        | x   | x   | Input    | Bool      |         | has open feedback                                                             |          |                                    |
+| hasFbClose       | x   | x   | Input    | Bool      |         | hase close feedback                                                           |          |                                    |
+| safeOpen         | x   | x   | Input    | Bool      |         | Safe Position is Open                                                         |          |                                    |
+| safeHold         | x   | x   | Input    | Bool      |         | Holds Position on interlock (priority over safeOpen)                          |          |                                    |
+| monitor          | x   | x   | Input    | Bool      | True    | Enables errors on the feedback monitoring                                     |          |                                    |
+| simulate         | x   | x   | Input    | Bool      |         | Enable simulation                                                             |          |                                    |
+| simulateDelay    | x   | x   | Input    | Bool      | 1       | Simulated delay to set the feedback signals, in s                             |          |                                    |
+| interlockIn      | x   |     | Input    | Bool      |         | forces safe position. 0 = interlock active                                    |          |                                    |
+| permitIn         | x   |     | Input    | Bool      | 1       | permission to control. Does not activate safe position. 0 = no permission     |          |                                    |
+| protectIn        | x   |     | Input    | Bool      |         | Protect, sets safe position, sets protectState. 0 = Protect active            |          |                                    |
+| reset            | x   | x   | Input    | Bool      |         | will try to reset itself                                                      |          |                                    |
+| externalFault    | x   | x   | Input    | Bool      |         | Loop failure-e.g. I/O card broken.                                            | XF       | ExternalFault                      |
+| lockOpen         |     | x   | Input    | Bool      |         | locks in open position, and switches to manual mode, subject to blockForcing  | LSH      | Lock safeguarding high             |
+| lockClose        |     | x   | Input    | Bool      |         | locks in close position, and switches to manual mode, subject to blockForcing | LSL      | Lock safeguarding low              |
+| forceOpen        |     | x   | Input    | Bool      |         | forces open position, no reset needed, subject to blockForcing                | FSH      | Force safeguarding high            |
+| forceClose       |     | x   | Input    | Bool      |         | forces open position, no reset needed, subject to blockForcing                | FSL      | Force safeguarding low             |
+| disableOpen      |     | x   | Input    | Bool      |         | disable transition to open, subject to blockForcing                           | FDH      | Force disable transition high      |
+| disableClose     |     | x   | Input    | Bool      |         | disable transition to close, subject to blockForcing                          | FDL      | Force disable transition low       |
+| block            |     | x   | Input    | Bool      |         | lock, force and disables Open/Close will have no effect when active (1)       | FB       | Force blocking                     |
+| surpressAlarms   | x   | x   | Input    | Bool      |         | surpresses alarms                                                             | FU       | Force suppression                  |
+| setAuto          | x   | x   | Input    | Bool      |         | sets auto mode                                                                | LA       | Lock auto                          |
+| setManual        | x   | x   | Input    | Bool      |         | sets manual mode                                                              | LM       | Lock manual                        |
+| setOutside       | x   | x   | Input    | Bool      |         | sets outside mode                                                             | LO       | Lock outside                       |
+| openCommand      | x   | x   | Output   | Bool      |         | open command to device                                                        | Y        | Normal function output             |
+| pulseOpen        | x   | x   | Output   | Bool      |         | one cycle pulse when starting open command                                    | YH       | Pulsed normal function output high |
+| pulseClose       | x   | x   | Output   | Bool      |         | one cycle pulse when ending open command                                      | YL       | Pulsed normal function output low  |
+| remote           | x   | x   | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                        |          |                                    |
+| operator         | x   | x   | Output   | Bool      |         | Operator Mode                                                                 |          |                                    |
+| automatic        | x   | x   | Output   | Bool      |         | Automatic Mode                                                                | BA       | Status auto/man                    |
+| offline          | x   | x   | Output   | Bool      |         | Offline Mode                                                                  | BO       | Status outside                     |
+| outside          | x   | x   | Output   | Boold     |         | Outside mode                                                                  |          |                                    |
+| error            | x   | x   | Output   | Bool      |         | Any error active                                                              | YF       | Function failed                    |
+| opened           | x   | x   | Output   | Bool      |         | Valve is opened                                                               | BCH      | Output position high confirmed     |
+| closed           | x   | x   | Output   | Bool      |         | Valve is closed                                                               | BCL      | Output position low confirmed      |
+| fbOpenSimulated  | x   | x   | Local    | Bool      |         | Simulated open feedback                                                       |          |                                    |
+| fbCloseSimulated | x   | x   | Local    | Bool      |         | Simulated Close feedback                                                      |          |                                    |
+| forceActive      | x   | x   | Output   | Bool      |         | Any forcing or safeguarding active                                            | BS       | Status safeguarding                |
+| blocked          |     | x   | Output   | Bool      |         | block active                                                                  | BB       | Status blocked                     |
+| surpressed       | x   | x   | Output   | Bool      |         | alarms surpressed                                                             | BU       | Status surpressed                  |
+|                  |     |     |          |           |         |                                                                               |          |                                    |
+
+
+
 
 
 
