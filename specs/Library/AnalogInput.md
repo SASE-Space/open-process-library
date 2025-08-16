@@ -8,7 +8,7 @@
 
 | Variable         | Var Type | Data Type | Description                    |
 | ---------------- | -------- | --------- | ------------------------------ |
-| rawValue         | Input    | Word      |                                |
+| rawValue         | Input    | Word      | Raw Input Value                |
 | valueUnit        | Input    | Int       | Value Unit                     |
 | scaleMin         | Input    | Real      | Scale Min Limit                |
 | scaleMax         | Input    | Real      | Scale Max Limit                |
@@ -26,12 +26,12 @@
 | alarmLowEn       | Input    | Bool      | Alarm Low Limit Enabled        |
 | deadband         | Input    | Real      | Deadband for alarms/warnings   | TODO (3)
 | vOut             | Output   | Real      | Value                          | TODO (1)
-| alarmHighAct     | Output   | Real      | Alarm High Limit Active        |
-| warningHighAct   | Output   | Real      | Alarm High Limit Active        |
-| toleranceHighAct | Output   | Real      | Alarm High Limit Active        |
-| toleranceLowAct  | Output   | Real      | Alarm High Limit Active        |
-| warningLowAct    | Output   | Real      | Alarm High Limit Active        |
-| alarmLowAct      | Output   | Real      | Alarm High Limit Active        |
+| alarmHighAct     | Output   | Bool      | Alarm High Limit Active        |
+| warningHighAct   | Output   | Bool      | Alarm High Limit Active        |
+| toleranceHighAct | Output   | Bool      | Alarm High Limit Active        |
+| toleranceLowAct  | Output   | Bool      | Alarm High Limit Active        |
+| warningLowAct    | Output   | Bool      | Alarm High Limit Active        |
+| alarmLowAct      | Output   | Bool      | Alarm High Limit Active        |
 
 
 (3) absolute value or %? Also need to add alarms that use this deadband

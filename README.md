@@ -91,7 +91,7 @@ Nothing has been done for the HMI side, except some design concepts.
 - Right Click on the Project in the tree view > Import PLCOpenXML
 
 Note: 
-When using Beckhoff's MTP Runtime it is possible to use Beckhoff's version of the blocks instead: [TwinCAT MTP Runtime](https://infosys.beckhoff.com/english.php?content=../content/1033/tc3_automationinterface/242875147.html&id=)
+When using Beckhoff's MTP Runtime it is possible to use Beckhoff's version of the blocks instead: [TwinCAT MTP Runtime](https://infosys.beckhoff.com/content/1033/tf8400_tc3_mtp_runtime/14869060363.html?id=1772271480501640677)
 These get auto-generated.
 In that case use this file to import OPL instead: [PLCOpenImport_UsingTwinCAT_MTP_Blocks.xml](generated/FunctionBlocks/beckhoff-linked/PLCOpenImport_UsingTwinCAT_MTP_Blocks.xml)
 
