@@ -34,7 +34,7 @@
 | interlockIn      | x   |     | Input    | Bool      |         | forces safe position. 0 = interlock active                                    |          |                                    |
 | permitIn         | x   |     | Input    | Bool      | 1       | permission to control. Does not activate safe position. 0 = no permission     |          |                                    |
 | protectIn        | x   |     | Input    | Bool      |         | Protect, sets safe position, sets protectState. 0 = Protect active            |          |                                    |
-| reset            | x   | x   | Input    | Bool      |         | will try to reset itself                                                      |          |                                    |
+| reset            | x   | x   | Input    | Bool      |         | will try to reset itself TODO: better description                             |          |                                    |
 | externalFault    | x   | x   | Input    | Bool      |         | Loop failure-e.g. I/O card broken.                                            | XF       | ExternalFault                      |
 | lockOpen         |     | x   | Input    | Bool      |         | locks in open position, and switches to manual mode, subject to blockForcing  | LSH      | Lock safeguarding high             |
 | lockClose        |     | x   | Input    | Bool      |         | locks in close position, and switches to manual mode, subject to blockForcing | LSL      | Lock safeguarding low              |
@@ -44,8 +44,8 @@
 | disableClose     |     | x   | Input    | Bool      |         | disable transition to close, subject to blockForcing                          | FDL      | Force disable transition low       |
 | block            |     | x   | Input    | Bool      |         | lock, force and disables Open/Close will have no effect when active (1)       | FB       | Force blocking                     |
 | surpressAlarms   | x   | x   | Input    | Bool      |         | surpresses alarms                                                             | FU       | Force suppression                  |
-| setAuto          | x   | x   | Input    | Bool      |         | sets auto mode                                                                | LA       | Lock auto                          |
-| setManual        | x   | x   | Input    | Bool      |         | sets manual mode                                                              | LM       | Lock manual                        |
+| setAuto          | x   | x   | Input    | Bool      |         | sets auto mode (TODO: not linked?)                                            | LA       | Lock auto                          |
+| setManual        | x   | x   | Input    | Bool      |         | sets manual mode (TODO: not linked?)                                          | LM       | Lock manual                        |
 | setOutside       | x   | x   | Input    | Bool      |         | sets outside mode                                                             | LO       | Lock outside                       |
 | openCommand      | x   | x   | Output   | Bool      |         | open command to device                                                        | Y        | Normal function output             |
 | pulseOpen        | x   | x   | Output   | Bool      |         | one cycle pulse when starting open command                                    | YH       | Pulsed normal function output high |
@@ -53,8 +53,8 @@
 | remote           | x   | x   | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                        |          |                                    |
 | operator         | x   | x   | Output   | Bool      |         | Operator Mode                                                                 |          |                                    |
 | automatic        | x   | x   | Output   | Bool      |         | Automatic Mode                                                                | BA       | Status auto/man                    |
-| offline          | x   | x   | Output   | Bool      |         | Offline Mode                                                                  | BO       | Status outside                     |
-| outside          | x   | x   | Output   | Bool      |         | Outside mode                                                                  |          |                                    |
+| offline          | x   | x   | Output   | Bool      |         | Offline Mode                                                                  |          |                                    |
+| outside          | x   | x   | Output   | Bool      |         | Outside mode                                                                  | BO       | Status outside                     |
 | error            | x   | x   | Output   | Bool      |         | Any error active                                                              | YF       | Function failed                    |
 | opened           | x   | x   | Output   | Bool      |         | Valve is opened                                                               | BCH      | Output position high confirmed     |
 | closed           | x   | x   | Output   | Bool      |         | Valve is closed                                                               | BCL      | Output position low confirmed      |
@@ -92,8 +92,8 @@
 | SafePosEn        | x          | x   |     | safeHold                                                    |                                                           |
 | OpenAut          | x          | x   |     | open                                                        |                                                           |
 | CloseAut         | x          | x   |     | close                                                       |                                                           |
-| OpenFbkCalc      | x          | x   |     | simulation OR NOT feedbackOpen                              |                                                           |
-| CloseFbkCalc     | x          | x   |     | simulation OR NOT feedbackClose                             |                                                           |
+| OpenFbkCalc      | x          | x   |     | simulation OR NOT feedbackOpen                              | TODO: review logic, probably need to use hasFbOpen        |
+| CloseFbkCalc     | x          | x   |     | simulation OR NOT feedbackClose                             | TODO: review logic                                        |
 | fbOpenSimulated  |            | x   |     | (simulate OR NOT hasFbOpen) AND Ctrl for simulateDelay      | if no FbOpen connected then treat it as a simulation      |
 | fbCloseSimulated |            | x   |     | (simulate OR NOT hasFbClose) AND NOT Ctrl for simulateDelay | if no FbClose connected then treat it as a simulation     |
 | OpenFbk          | x          | x   |     | feedbackOpen OR fbOpenSimulated                             |                                                           |
@@ -104,7 +104,7 @@
 | MonEn            | x          | x   |     | monitor                                                     |                                                           |
 | MonStatTi        | x          | x   |     | staticTimeout                                               |                                                           |
 | MonDynTi         | x          | x   |     | dynamicTimeout                                              |                                                           |
-| reset            |            | x   |     | False                                                       | reset at the end of the FB                                |
+| reset            |            | x   |     | False                                                       | reset = False at the end of the FB                        |
 |                  |            |     |     |                                                             |                                                           |
 
 

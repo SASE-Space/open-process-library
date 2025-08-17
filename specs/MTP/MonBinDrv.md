@@ -34,7 +34,7 @@
 | ---------- | ------ | -------- | --------- | ---------------------------------------------------------------- | ------------- |
 | WQC        | PEA    | Input    | Byte      | Worst Quality Code Variable                                      | TODO          |
 | OSLevel    | POL    | Input    | Byte      | manual operation permission. 0 = only on-site. >0: only from POL | TODO          |
-| SafePos    | PEA    | Input    | Bool      | Safe Position. 0: close, 1: running                              | TODO          |
+| SafePos    | PEA    | Input    | Bool      | Safe Position. 0: stop, 1: energize                              | TODO          |
 | SafePosAct | PEA    | Output   | Bool      | Safe Position Activated. 1: activated                            | TODO          |
 | FwdEn      | PEA    | Input    | Bool      | Forward enable                                                   | TODO          |
 | RevEn      | PEA    | Input    | Bool      | Reverse enable                                                   | TODO          |
