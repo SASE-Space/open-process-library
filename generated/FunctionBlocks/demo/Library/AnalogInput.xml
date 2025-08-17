@@ -1,6 +1,8 @@
 
 DEMO:
 
+MTPBase
+
 rawValue
 
 valueUnit
@@ -33,14 +35,18 @@ warningLowEn
 
 alarmLowEn
 
-alarmHighAct
+externalFault
 
-warningHighAct
+error
 
-toleranceHighAct
+alarmHighStatus
 
-toleranceLowAct
+warningHighStatus
 
-warningLowAct
+toleranceHighStatus
 
-alarmLowAct
+toleranceLowStatus
+
+warningLowStatus
+
+alarmLowStatus

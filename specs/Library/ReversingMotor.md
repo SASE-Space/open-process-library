@@ -2,7 +2,7 @@
 
 ## MTP Interface
 
-[AnaMon](./../MTP/MonBinDrv.md)
+[MonBinDrv](./../MTP/MonBinDrv.md)
 
 ## Variable Table
 

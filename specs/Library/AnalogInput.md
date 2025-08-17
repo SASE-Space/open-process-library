@@ -59,7 +59,7 @@
 
 ## Functionality
 
-| Target        | MTP signal | MTP | SCD | Expression                                                    | Comment                   |
+| Target        | MTP Signal | MTP | SCD | Expression                                                    | Comment                   |
 | ------------- | ---------- | --- | --- | ------------------------------------------------------------- | ------------------------- |
 | WQC           | x          | x   |     | 16#FF                                                         | no QC available (default) |
 | OSLevel       |            | x   |     | TODO                                                          |                           |

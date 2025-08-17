@@ -5,7 +5,8 @@
       "Bash(deno run:*)",
       "Bash(rm:*)",
       "Bash(python:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

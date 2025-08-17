@@ -2,7 +2,7 @@
 
 ## MTP Interface
 
-[AnaMon](./../MTP/MonBinVlv.md)
+[MonBinVlv](./../MTP/MonBinVlv.md)
 
 
 

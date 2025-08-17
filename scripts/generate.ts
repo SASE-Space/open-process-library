@@ -364,15 +364,25 @@ function parseFunctionalityTable(content: string, functionBlock: any) {
                 // Process data row
                 if (cells.length > 0 && tableHeaders[0].toLowerCase() === 'target') {
                     const targetName = cells[0]
-                    const mtpValue = cells[1] || ''
-                    const expression = cells[2] || ''
-                    const comment = cells[3] || ''
+                    
+                    // Use dynamic column mapping instead of hardcoded indices
+                    const mtpSignalIndex = tableHeaders.findIndex(h => h.toLowerCase().includes('mtp signal'))
+                    const mtpIndex = tableHeaders.findIndex(h => h.toLowerCase() === 'mtp')
+                    const scdIndex = tableHeaders.findIndex(h => h.toLowerCase() === 'scd')
+                    const expressionIndex = tableHeaders.findIndex(h => h.toLowerCase() === 'expression')
+                    const commentIndex = tableHeaders.findIndex(h => h.toLowerCase() === 'comment')
+                    
+                    const mtpSignal = mtpSignalIndex >= 0 ? (cells[mtpSignalIndex] || '') : ''
+                    const mtpFlag = mtpIndex >= 0 ? (cells[mtpIndex] || '') : ''
+                    const scdFlag = scdIndex >= 0 ? (cells[scdIndex] || '') : ''
+                    const expression = expressionIndex >= 0 ? (cells[expressionIndex] || '') : ''
+                    const comment = commentIndex >= 0 ? (cells[commentIndex] || '') : ''
                     
                     
                     // Handle empty target rows
                     if (targetName === '') {
                         // Check for completely blank rows (all cells empty or whitespace)
-                        if (expression.trim() === '' && comment.trim() === '' && mtpValue.trim() === '') {
+                        if (expression.trim() === '' && comment.trim() === '' && mtpSignal.trim() === '' && mtpFlag.trim() === '' && scdFlag.trim() === '') {
                             // Save previous target if exists
                             if (currentTarget !== '') {
                                 const result = processTargetData(targetData, functionBlock)
@@ -428,7 +438,9 @@ function parseFunctionalityTable(content: string, functionBlock: any) {
                             const explanationData = {
                                 expressions: [expression],
                                 comments: [comment],
-                                isMTP: mtpValue.toLowerCase() === 'x'
+                                mtpSignal: mtpSignal.toLowerCase() === 'x',
+                                mtpFlag: mtpFlag.toLowerCase() === 'x',
+                                scdFlag: scdFlag.toLowerCase() === 'x'
                             }
                             functionBlock.Functionality[explanationKey] = processTargetData(explanationData)
                             
@@ -464,7 +476,9 @@ function parseFunctionalityTable(content: string, functionBlock: any) {
                         targetData = {
                             expressions: [expression],
                             comments: [comment],
-                            isMTP: mtpValue.toLowerCase() === 'x'
+                            mtpSignal: mtpSignal.toLowerCase() === 'x',
+                            mtpFlag: mtpFlag.toLowerCase() === 'x',
+                            scdFlag: scdFlag.toLowerCase() === 'x'
                         }
                     }
                 }
@@ -539,7 +553,10 @@ function processTargetData(targetData: any, functionBlock: any) {
         DelayTimerNumber: null,
         SetDelayTimerNumber: null,
         ResetDelayTimerNumber: null,
-        isMTP: targetData.isMTP
+        mtpSignal: targetData.mtpSignal || false,
+        mtpFlag: targetData.mtpFlag || false,
+        scdFlag: targetData.scdFlag || false,
+        isMTP: targetData.mtpSignal || false  // For backward compatibility
     }
     
     // Check for Explanation (expressions starting with //)
@@ -616,7 +633,10 @@ function processTargetData(targetData: any, functionBlock: any) {
                 DelayTimerNumber: null,
                 SetDelayTimerNumber: assignTimerNumber(functionBlock, setParsed.delayVariable),
                 ResetDelayTimerNumber: null,
-                isMTP: targetData.isMTP
+                mtpSignal: targetData.mtpSignal || false,
+                mtpFlag: targetData.mtpFlag || false,
+                scdFlag: targetData.scdFlag || false,
+                isMTP: targetData.mtpSignal || false
             }
         }
         
@@ -635,7 +655,10 @@ function processTargetData(targetData: any, functionBlock: any) {
                 DelayTimerNumber: null,
                 SetDelayTimerNumber: null,
                 ResetDelayTimerNumber: assignTimerNumber(functionBlock, resetParsed.delayVariable),
-                isMTP: targetData.isMTP
+                mtpSignal: targetData.mtpSignal || false,
+                mtpFlag: targetData.mtpFlag || false,
+                scdFlag: targetData.scdFlag || false,
+                isMTP: targetData.mtpSignal || false
             }
         }
         
@@ -773,6 +796,66 @@ function setMTPBaseProperty(functionBlock: any) {
     }
 }
 
+function filterByVariant(functionBlock: any, variant: string) {
+    // Create a new filtered function block
+    const filtered = {
+        ...functionBlock,
+        Variables: {},
+        MTPBaseVariables: {},
+        Functionality: {}
+    }
+    
+    // Filter Variables based on variant column
+    for (const [varName, varData] of Object.entries(functionBlock.Variables)) {
+        const variableData = varData as any
+        if (variant === 'MTP') {
+            // Keep variables marked with 'x' in MTP column
+            if (variableData.MTP === 'x') {
+                filtered.Variables[varName] = variableData
+            }
+        } else if (variant === 'SCD') {
+            // Keep variables marked with 'x' in SCD column  
+            if (variableData.SCD === 'x') {
+                filtered.Variables[varName] = variableData
+            }
+        }
+    }
+    
+    // Filter MTPBaseVariables based on variant column
+    for (const [varName, varData] of Object.entries(functionBlock.MTPBaseVariables)) {
+        const variableData = varData as any
+        if (variant === 'MTP') {
+            // Keep variables marked with 'x' in MTP column
+            if (variableData.MTP === 'x') {
+                filtered.MTPBaseVariables[varName] = variableData
+            }
+        } else if (variant === 'SCD') {
+            // Keep variables marked with 'x' in SCD column
+            if (variableData.SCD === 'x') {
+                filtered.MTPBaseVariables[varName] = variableData
+            }
+        }
+    }
+    
+    // Filter Functionality based on variant column
+    for (const [funcName, funcData] of Object.entries(functionBlock.Functionality)) {
+        const functionalityData = funcData as any
+        if (variant === 'MTP') {
+            // Keep functionality marked with 'x' in MTP column
+            if (functionalityData.mtpFlag === true) {
+                filtered.Functionality[funcName] = functionalityData
+            }
+        } else if (variant === 'SCD') {
+            // Keep functionality marked with 'x' in SCD column
+            if (functionalityData.scdFlag === true) {
+                filtered.Functionality[funcName] = functionalityData
+            }
+        }
+    }
+    
+    return filtered
+}
+
 async function processFile(filePath: string, isMTP: boolean) {
     const fileName = filePath.split('/').pop()?.replace('.md', '') || ''
     const content = await Deno.readTextFile(filePath)
@@ -837,6 +920,13 @@ for (const functionBlock of model.FunctionBlocks) {
 // Analyze variable usage after MTP base variables have been copied
 for (const functionBlock of model.FunctionBlocks) {
     analyzeVariableUsage(functionBlock)
+}
+
+// Apply MTP filtering (hardcoded for now)
+const variant = 'MTP'
+console.log(`Applying ${variant} filtering...`)
+for (let i = 0; i < model.FunctionBlocks.length; i++) {
+    model.FunctionBlocks[i] = filterByVariant(model.FunctionBlocks[i], variant)
 }
 
 // Generate code for each function block using all templates

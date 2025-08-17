@@ -2,7 +2,7 @@
 
 ## MTP Interface
 
-[AnaMon](./../MTP/PIDCtrl.md)
+[PIDCtrl](./../MTP/PIDCtrl.md)
 
 ## Variable Table
 
