@@ -8,6 +8,7 @@
 
 | Variable            | MTP | SCD | Var Type | Data Type | Description                                                    | SCD Name | SCD Terminal Name          |
 | ------------------- | --- | --- | -------- | --------- | -------------------------------------------------------------- | -------- | -------------------------- |
+| MTPBase             | x   | x   | InOut    | AnaMon    |                                                                |          |                            |
 | rawValue            | x   | x   | Input    | Word      | Raw Input Value                                                | X        | Normal function input      |
 | valueUnit           | x   | x   | Input    | Int       | Value Unit                                                     |          |                            |
 | scaleMin            | x   | x   | Input    | Real      | Scale Min Limit                                                |          |                            |
@@ -50,7 +51,7 @@
 | warningHighEvent    |     | x   | Output   | Bool      | WH, ignoring suppression                                       | BXH      | Status event H             |
 | warningLowEvent     |     | x   | Output   | Bool      | WL, ignoring suppression                                       | BXL      | Status event L             |
 | alarmLowEvent       |     | x   | Output   | Bool      | LL, ignoring suppression                                       | BXLL     | Status event LL            |
-|                     |     |     |          |           |                                                                |          |                            |
+
 
 
 
@@ -58,29 +59,29 @@
 
 ## Functionality
 
-| Target        | MTP | Expression                                                    | Comment                   |
-| ------------- | --- | ------------------------------------------------------------- | ------------------------- |
-| WQC           | x   | 16#FF                                                         | no QC available (default) |
-| OSLevel       |     | TODO                                                          |                           |
-| V             | x   | scaleMin + (REAL(RawInput) / 27648.0) * (scaleMax - scaleMin) |                           |
-| vOut          |     | V                                                             |                           |
-| VSclMin       | x   | scaleMin                                                      |                           |
-| VSclMax       | x   | scaleMax                                                      |                           |
-| VUnit         | x   | valueUnit                                                     |                           |
-| alarmHigh     |     | VAHLim                                                        | synchronize (1)           |
-| warningHigh   |     | VWHLim                                                        | synchronize (1)           |
-| toleranceHigh |     | VTHLim                                                        | synchronize (1)           |
-| toleranceLow  |     | VTLLim                                                        | synchronize (1)           |
-| warningLow    |     | VWLLim                                                        | synchronize (1)           |
-| alarmLow      |     | VALLim                                                        | synchronize (1)           |
-| VAHEn         | x   | alarmHighEn                                                   |                           |
-| VWHEn         | x   | warningHighEn                                                 |                           |
-| VTHEn         | x   | toleranceHighEn                                               |                           |
-| VTLEn         | x   | toleranceLowEn                                                |                           |
-| VWLEn         | x   | warningLowEn                                                  |                           |
-| VALEn         | x   | alarmLowEn                                                    |                           |
-|               |     |                                                               |                           |
-|               |     |                                                               |                           |
+| Target        | MTP signal | MTP | SCD | Expression                                                    | Comment                   |
+| ------------- | ---------- | --- | --- | ------------------------------------------------------------- | ------------------------- |
+| WQC           | x          | x   |     | 16#FF                                                         | no QC available (default) |
+| OSLevel       |            | x   |     | TODO                                                          |                           |
+| V             | x          | x   |     | scaleMin + (REAL(RawInput) / 27648.0) * (scaleMax - scaleMin) |                           |
+| vOut          |            | x   |     | V                                                             |                           |
+| VSclMin       | x          | x   |     | scaleMin                                                      |                           |
+| VSclMax       | x          | x   |     | scaleMax                                                      |                           |
+| VUnit         | x          | x   |     | valueUnit                                                     |                           |
+| alarmHigh     |            | x   |     | VAHLim                                                        | synchronize (1)           |
+| warningHigh   |            | x   |     | VWHLim                                                        | synchronize (1)           |
+| toleranceHigh |            | x   |     | VTHLim                                                        | synchronize (1)           |
+| toleranceLow  |            | x   |     | VTLLim                                                        | synchronize (1)           |
+| warningLow    |            | x   |     | VWLLim                                                        | synchronize (1)           |
+| alarmLow      |            | x   |     | VALLim                                                        | synchronize (1)           |
+| VAHEn         | x          | x   |     | alarmHighEn                                                   |                           |
+| VWHEn         | x          | x   |     | warningHighEn                                                 |                           |
+| VTHEn         | x          | x   |     | toleranceHighEn                                               |                           |
+| VTLEn         | x          | x   |     | toleranceLowEn                                                |                           |
+| VWLEn         | x          | x   |     | warningLowEn                                                  |                           |
+| VALEn         | x          | x   |     | alarmLowEn                                                    |                           |
+|               |            |     |     |                                                               |                           |
+|               |            |     |     |                                                               |                           |
 
 ## Synchronize (1)
 
