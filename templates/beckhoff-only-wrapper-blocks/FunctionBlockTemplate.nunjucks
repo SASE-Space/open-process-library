@@ -5,7 +5,7 @@
     <interface>
         <inOutVars>
 {%- for variable in inoutVars %}
-            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="FB_MTP_{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
 {%- endfor %}
         </inOutVars>
         <inputVars>

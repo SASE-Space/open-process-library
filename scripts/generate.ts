@@ -939,7 +939,7 @@ async function generateCode() {
             const templateFolderName = templateFolder.name
             
             // Load template config if it exists
-            let templateConfig: { description?: string, postGenerate?: string } = {}
+            let templateConfig: { description?: string, 'generate-mtp-blocks'?: boolean } = {}
             try {
                 const configPath = `templates/${templateFolderName}/config.json`
                 const configContent = await Deno.readTextFile(configPath)
@@ -948,6 +948,9 @@ async function generateCode() {
             } catch {
                 // Config file is optional, continue without it
             }
+            
+            // Default generate-mtp-blocks to true if not specified
+            const shouldGenerateMTPBlocks = templateConfig['generate-mtp-blocks'] !== false
             
             // Configure Nunjucks for this template folder
             nunjucks.configure([`templates/${templateFolderName}`], {
@@ -963,6 +966,11 @@ async function generateCode() {
                     const templateName = templateFile.name
                         // Generate code for each function block
                     for (const functionBlock of model.FunctionBlocks) {
+                        // Skip MTP blocks if template config says not to generate them
+                        if (functionBlock.isMTP && !shouldGenerateMTPBlocks) {
+                            continue
+                        }
+                        
                         // Create template context with setOutputFile function
                         const templateContext: any = {
                             ...functionBlock,
@@ -997,30 +1005,10 @@ async function generateCode() {
                             code: rendered
                         }
                         
-                        
+                        // Create directory and write file
                         await Deno.mkdir(outputDir, { recursive: true })
                         await Deno.writeTextFile(outputPath, rendered)
                     }
-                }
-            }
-            
-            // Execute post-generation processing if configured
-            if (templateConfig.postGenerate) {
-                console.log(`Running post-generation processing for template '${templateFolderName}'...`)
-                const outputDir = `generated/FunctionBlocks/${templateFolderName}`
-                
-                try {
-                    // Handle specific template post-processing
-                    if (templateFolderName === 'beckhoff-linked') {
-                        // Import and call the Beckhoff post-generation function
-                        const { postGenerateBeckhoff } = await import('./post-generate-beckhoff.ts')
-                        await postGenerateBeckhoff(templateFolderName, outputDir)
-                    }
-                    // Add other template-specific processing here as needed
-                    
-                    console.log(`Post-generation processing completed successfully for '${templateFolderName}'`)
-                } catch (error) {
-                    console.error(`Error during post-generation processing for '${templateFolderName}':`, error)
                 }
             }
         }
@@ -1034,6 +1022,17 @@ async function processImportTemplates() {
     for await (const templateFolder of templateFolders) {
         if (templateFolder.isDirectory) {
             const templateFolderName = templateFolder.name
+            
+            // Load template config for ImportTemplate processing
+            let templateConfig: { 'generate-mtp-blocks'?: boolean } = {}
+            try {
+                const configPath = `templates/${templateFolderName}/config.json`
+                const configContent = await Deno.readTextFile(configPath)
+                templateConfig = JSON.parse(configContent)
+            } catch {
+                // Config file is optional, continue without it
+            }
+            const shouldGenerateMTPBlocks = templateConfig['generate-mtp-blocks'] !== false
             
             // Look for ImportTemplate.xml files
             const templateFiles = Deno.readDir(`templates/${templateFolderName}`)
@@ -1052,6 +1051,10 @@ async function processImportTemplates() {
                     Object.keys(generatedFunctionBlocks).forEach(key => {
                         const block = generatedFunctionBlocks[key]
                         if (key.startsWith(`${templateFolderName}/`)) {
+                            // Also filter out MTP blocks if template config says not to generate them
+                            if (block.blockType === "MTP" && !shouldGenerateMTPBlocks) {
+                                return // Skip MTP blocks when not generating them
+                            }
                             filteredFunctionBlocks[key] = block
                         }
                     })
