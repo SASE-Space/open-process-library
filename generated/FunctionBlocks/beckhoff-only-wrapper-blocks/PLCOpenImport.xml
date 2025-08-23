@@ -157,6 +157,7 @@ MTPBase.VALEn := VALEn;
             <variable name="safeOpen"><type><BOOL /></type></variable>
             <variable name="safeHold"><type><BOOL /></type></variable>
             <variable name="simulate"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><REAL /></type></variable>
             <variable name="interlockIn"><type><BOOL /></type></variable>
             <variable name="permitIn"><type><BOOL /></type></variable>
             <variable name="protectIn"><type><BOOL /></type></variable>
@@ -172,15 +173,48 @@ MTPBase.VALEn := VALEn;
             <variable name="error"><type><BOOL /></type></variable>
             <variable name="opened"><type><BOOL /></type></variable>
             <variable name="closed"><type><BOOL /></type></variable>
-            <variable name="remoteSource"><type><derived name="Output" /></type></variable>
-            <variable name="internalSourceAct"><type><derived name="Output" /></type></variable>
-            <variable name="manualSourceAct"><type><derived name="Output" /></type></variable>
+            <variable name="remoteSource"><type><BOOL /></type></variable>
+            <variable name="internalSourceAct"><type><BOOL /></type></variable>
+            <variable name="manualSourceAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
             <variable name="fbOpenSimulated"><type><BOOL /></type></variable>
             <variable name="fbCloseSimulated"><type><BOOL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
             <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
+            <variable name="StateChannel"><type><BOOL /></type></variable>
+            <variable name="StateOpAct"><type><BOOL /></type></variable>
+            <variable name="StateAutAct"><type><BOOL /></type></variable>
+            <variable name="StateOffAct"><type><BOOL /></type></variable>
+            <variable name="SrcChannel"><type><BOOL /></type></variable>
+            <variable name="SrcIntAct"><type><BOOL /></type></variable>
+            <variable name="SrcManAct"><type><BOOL /></type></variable>
+            <variable name="PermEn"><type><BOOL /></type></variable>
+            <variable name="Permit"><type><BOOL /></type></variable>
+            <variable name="IntlEn"><type><BOOL /></type></variable>
+            <variable name="Interlock"><type><BOOL /></type></variable>
+            <variable name="ProtEn"><type><BOOL /></type></variable>
+            <variable name="Protect"><type><BOOL /></type></variable>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="OSLevel"><type><BYTE /></type></variable>
+            <variable name="SafePos"><type><BOOL /></type></variable>
+            <variable name="SafePosEn"><type><BOOL /></type></variable>
+            <variable name="OpenAut"><type><BOOL /></type></variable>
+            <variable name="CloseAut"><type><BOOL /></type></variable>
+            <variable name="PosSclMin"><type><REAL /></type></variable>
+            <variable name="PosSclMax"><type><REAL /></type></variable>
+            <variable name="PosUnit"><type><INT /></type></variable>
+            <variable name="PosMin"><type><REAL /></type></variable>
+            <variable name="PosMax"><type><REAL /></type></variable>
+            <variable name="PosInt"><type><REAL /></type></variable>
+            <variable name="Pos"><type><REAL /></type></variable>
+            <variable name="OpenFbkCalc"><type><BOOL /></type></variable>
+            <variable name="OpenFbk"><type><BOOL /></type></variable>
+            <variable name="CloseFbkCalc"><type><BOOL /></type></variable>
+            <variable name="CloseFbk"><type><BOOL /></type></variable>
+            <variable name="PosFbkCalc"><type><BOOL /></type></variable>
+            <variable name="PosFbk"><type><REAL /></type></variable>
+            <variable name="ResetAut"><type><BOOL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -188,6 +222,19 @@ MTPBase.VALEn := VALEn;
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
+StateChannel := MTPBase.StateChannel;
+StateOpAct := MTPBase.StateOpAct;
+StateAutAct := MTPBase.StateAutAct;
+StateOffAct := MTPBase.StateOffAct;
+SrcChannel := MTPBase.SrcChannel;
+SrcIntAct := MTPBase.SrcIntAct;
+SrcManAct := MTPBase.SrcManAct;
+OpenAut := MTPBase.OpenAut;
+PosSclMin := MTPBase.PosSclMin;
+PosSclMax := MTPBase.PosSclMax;
+Pos := MTPBase.Pos;
+OpenFbk := MTPBase.OpenFbk;
+CloseFbk := MTPBase.CloseFbk;
 
 // Functionality
 
@@ -210,18 +257,18 @@ IF protectIn THEN
 END_IF;
 SafePos := safeOpen;
 SafePosEn := safeHold;
-OpenAut := open;
-CloseAut := close;
-OpenFbkCalc := simulation OR NOT feedbackOpen;
-CloseFbkCalc := simulation OR NOT feedbackClose;
-DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+OpenAut := targetPosition > 0;
+CloseAut := NOT OpenAut;
+OpenFbkCalc := simulate OR NOT feedbackOpen;
+CloseFbkCalc := simulate OR NOT feedbackClose;
+DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbOpenSimulated := DelayTimer1.Q;
-DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbCloseSimulated := DelayTimer2.Q;
 OpenFbk := feedbackOpen OR fbOpenSimulated;
 CloseFbk := feedbackClose OR fbCloseSimulated;
-opened := Ctrl AND OpenFbk;
-closed := NOT Ctrl AND CloseFbk;
+opened := OpenAut AND OpenFbk;
+closed := NOT OpenAut AND CloseFbk;
 ResetAut := reset;
 PosSclMin := scaleMin;
 PosSclMax := scaleMax;
@@ -234,6 +281,31 @@ positionOut := Pos;
 reset := False;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
+MTPBase.PermEn := PermEn;
+MTPBase.Permit := Permit;
+MTPBase.IntlEn := IntlEn;
+MTPBase.Interlock := Interlock;
+MTPBase.ProtEn := ProtEn;
+MTPBase.Protect := Protect;
+MTPBase.WQC := WQC;
+MTPBase.OSLevel := OSLevel;
+MTPBase.SafePos := SafePos;
+MTPBase.SafePosEn := SafePosEn;
+MTPBase.OpenAut := OpenAut;
+MTPBase.CloseAut := CloseAut;
+MTPBase.PosSclMin := PosSclMin;
+MTPBase.PosSclMax := PosSclMax;
+MTPBase.PosUnit := PosUnit;
+MTPBase.PosMin := PosMin;
+MTPBase.PosMax := PosMax;
+MTPBase.PosInt := PosInt;
+MTPBase.OpenFbkCalc := OpenFbkCalc;
+MTPBase.OpenFbk := OpenFbk;
+MTPBase.CloseFbkCalc := CloseFbkCalc;
+MTPBase.CloseFbk := CloseFbk;
+MTPBase.PosFbkCalc := PosFbkCalc;
+MTPBase.PosFbk := PosFbk;
+MTPBase.ResetAut := ResetAut;
                 ]]>
             </xhtml>
         </ST>
@@ -256,8 +328,8 @@ reset := False;
             <variable name="lastValue"><type><BOOL /></type></variable><!-- Temporary variables for MTP base interface access -->
             <variable name="WQC"><type><BYTE /></type></variable>
             <variable name="V"><type><BOOL /></type></variable>
-            <variable name="VState0"><type><STRING /></type></variable>
-            <variable name="VState1"><type><STRING /></type></variable>
+            <variable name="VState0"><type><derived name="string" /></type></variable>
+            <variable name="VState1"><type><derived name="string" /></type></variable>
             <variable name="OSLevel"><type><BYTE /></type></variable>
             <variable name="VFlutEn"><type><BOOL /></type></variable>
         </localVars>
@@ -273,11 +345,11 @@ reset := False;
 WQC := 16#FF;
 OSLevel := 16#00;
 V := value;
-VState0 := "False";
-VState1 := "True";
+VState0 := 'False';
+VState1 := 'True';
 VFlutEn := False;
-risingEdge := value != lastValue and value = True;
-fallingEdge := value != lastValue and value = Valse;
+risingEdge := value <> lastValue and value = True;
+fallingEdge := value <> lastValue and value = False;
 lastValue := value;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
@@ -324,6 +396,7 @@ MTPBase.VFlutEn := VFlutEn;
             <variable name="MTPBase"><type><derived name="FB_MTP_PIDCtrl" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="setpoint"><type><REAL /></type></variable>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>
             <variable name="manipulatedValueUnit"><type><INT /></type></variable>
@@ -353,6 +426,10 @@ MTPBase.VFlutEn := VFlutEn;
             <variable name="setpointOut"><type><REAL /></type></variable>
             <variable name="valueOut"><type><REAL /></type></variable>
             <variable name="manipulatedValue"><type><REAL /></type></variable>
+            <variable name="remote"><type><BOOL /></type></variable>
+            <variable name="operator"><type><BOOL /></type></variable>
+            <variable name="automatic"><type><BOOL /></type></variable>
+            <variable name="offline"><type><BOOL /></type></variable>
             <variable name="error"><type><BOOL /></type></variable>
             <variable name="alarmHighStatus"><type><BOOL /></type></variable>
             <variable name="warningHighStatus"><type><BOOL /></type></variable>
@@ -360,8 +437,42 @@ MTPBase.VFlutEn := VFlutEn;
             <variable name="toleranceLowStatus"><type><BOOL /></type></variable>
             <variable name="warningLowStatus"><type><BOOL /></type></variable>
             <variable name="alarmLowStatus"><type><BOOL /></type></variable>
+            <variable name="remoteSource"><type><BOOL /></type></variable>
+            <variable name="internalSourceAct"><type><BOOL /></type></variable>
+            <variable name="manualSourceAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars><!-- Temporary variables for MTP base interface access -->
+            <variable name="StateChannel"><type><BOOL /></type></variable>
+            <variable name="StateOpAct"><type><BOOL /></type></variable>
+            <variable name="StateAutAct"><type><BOOL /></type></variable>
+            <variable name="StateOffAct"><type><BOOL /></type></variable>
+            <variable name="SrcChannel"><type><BOOL /></type></variable>
+            <variable name="SrcIntAct"><type><BOOL /></type></variable>
+            <variable name="SrcManAct"><type><BOOL /></type></variable>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="OSLevel"><type><BYTE /></type></variable>
+            <variable name="PV"><type><REAL /></type></variable>
+            <variable name="PVSclMin"><type><REAL /></type></variable>
+            <variable name="PVSclMax"><type><REAL /></type></variable>
+            <variable name="PVUnit"><type><INT /></type></variable>
+            <variable name="SPInt"><type><REAL /></type></variable>
+            <variable name="SPSclMin"><type><REAL /></type></variable>
+            <variable name="SPSclMax"><type><REAL /></type></variable>
+            <variable name="SPUnit"><type><INT /></type></variable>
+            <variable name="SPIntMin"><type><REAL /></type></variable>
+            <variable name="SPIntMax"><type><REAL /></type></variable>
+            <variable name="SPManMin"><type><REAL /></type></variable>
+            <variable name="SPManMax"><type><REAL /></type></variable>
+            <variable name="SP"><type><REAL /></type></variable>
+            <variable name="MV"><type><REAL /></type></variable>
+            <variable name="MVMin"><type><REAL /></type></variable>
+            <variable name="MVMax"><type><REAL /></type></variable>
+            <variable name="MVUnit"><type><INT /></type></variable>
+            <variable name="MVSclMin"><type><REAL /></type></variable>
+            <variable name="MVSclMax"><type><REAL /></type></variable>
+            <variable name="P"><type><REAL /></type></variable>
+            <variable name="Ti"><type><REAL /></type></variable>
+            <variable name="Td"><type><REAL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -369,9 +480,24 @@ MTPBase.VFlutEn := VFlutEn;
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
+StateChannel := MTPBase.StateChannel;
+StateOpAct := MTPBase.StateOpAct;
+StateAutAct := MTPBase.StateAutAct;
+StateOffAct := MTPBase.StateOffAct;
+SrcChannel := MTPBase.SrcChannel;
+SrcIntAct := MTPBase.SrcIntAct;
+SrcManAct := MTPBase.SrcManAct;
+PV := MTPBase.PV;
+SP := MTPBase.SP;
+MV := MTPBase.MV;
+P := MTPBase.P;
+Ti := MTPBase.Ti;
+Td := MTPBase.Td;
 
 // Functionality
 
+WQC := 16#FF;
+OSLevel := 16#00;
 remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;
@@ -379,7 +505,7 @@ offline := StateOffAct;
 remoteSource := SrcChannel;
 internalSourceAct := SrcIntAct;
 manualSourceAct := SrcManAct;
-PV := scaleMin + (REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
+PV := scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
 valueOut := PV;
 PVSclMin := scaleMin;
 PVSclMax := scaleMax;
@@ -404,6 +530,25 @@ integration := Ti;
 derivation := Td;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
+MTPBase.WQC := WQC;
+MTPBase.OSLevel := OSLevel;
+MTPBase.PV := PV;
+MTPBase.PVSclMin := PVSclMin;
+MTPBase.PVSclMax := PVSclMax;
+MTPBase.PVUnit := PVUnit;
+MTPBase.SPInt := SPInt;
+MTPBase.SPSclMin := SPSclMin;
+MTPBase.SPSclMax := SPSclMax;
+MTPBase.SPUnit := SPUnit;
+MTPBase.SPIntMin := SPIntMin;
+MTPBase.SPIntMax := SPIntMax;
+MTPBase.SPManMin := SPManMin;
+MTPBase.SPManMax := SPManMax;
+MTPBase.MVMin := MVMin;
+MTPBase.MVMax := MVMax;
+MTPBase.MVUnit := MVUnit;
+MTPBase.MVSclMin := MVSclMin;
+MTPBase.MVSclMax := MVSclMax;
                 ]]>
             </xhtml>
         </ST>
@@ -424,13 +569,16 @@ derivation := Td;
             <variable name="hasRevFeedback"><type><BOOL /></type></variable>
             <variable name="enableForward"><type><BOOL /></type></variable>
             <variable name="enableReverse"><type><BOOL /></type></variable>
-            <variable name="trip"><type><BOOL /></type></variable>
+            <variable name="driveTrip"><type><BOOL /></type></variable>
             <variable name="safeHold"><type><BOOL /></type></variable>
             <variable name="monitor"><type><BOOL /></type></variable>
             <variable name="staticTimeout"><type><REAL /></type></variable>
             <variable name="dynamicTimeout"><type><REAL /></type></variable>
             <variable name="simulate"><type><BOOL /></type></variable>
-            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><REAL /></type></variable>
+            <variable name="interlockIn"><type><BOOL /></type></variable>
+            <variable name="permitIn"><type><BOOL /></type></variable>
+            <variable name="protectIn"><type><BOOL /></type></variable>
             <variable name="reset"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
@@ -438,8 +586,14 @@ derivation := Td;
             <variable name="revCommand"><type><BOOL /></type></variable>
             <variable name="forwardActive"><type><BOOL /></type></variable>
             <variable name="reverseActive"><type><BOOL /></type></variable>
+            <variable name="remote"><type><BOOL /></type></variable>
+            <variable name="operator"><type><BOOL /></type></variable>
+            <variable name="automatic"><type><BOOL /></type></variable>
+            <variable name="offline"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
+            <variable name="fwdFbkSimulated"><type><BOOL /></type></variable>
+            <variable name="revFbkSimulated"><type><BOOL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
             <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
             <variable name="StateChannel"><type><BOOL /></type></variable>
@@ -507,17 +661,17 @@ RevEn := enableReverse;
 StopAut := stop;
 FwdAut := forward;
 RevAut := reverse;
-forwardCommand := FwdCtrl;
-reverseCommad := RevCtrl;
+fwdCommand := FwdCtrl;
+revCommand := RevCtrl;
 FwdFbkCalc := simulate OR NOT hasFwdFeedback;
 RevFbkCalc := simulate OR NOT hasRevFeedback;
 DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
-fwdFeedbackSimulated := DelayTimer1.Q;
+fwdFbkSimulated := DelayTimer1.Q;
 DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
-refFeedbackSimulated := DelayTimer2.Q;
-FwdFbk := forwardFeedback OR fwdFeedbackSimulated;
-RevFbk := reverseFeedback OR refFeedbackSimulated;
-Trip := trip;
+revFbkSimulated := DelayTimer2.Q;
+FwdFbk := forwardFeedback OR fwdFbkSimulated;
+RevFbk := reverseFeedback OR revFbkSimulated;
+Trip := driveTrip;
 ResetAut := reset;
 MonSafePos := safeHold;
 MonStatTi := staticTimeout;
@@ -574,7 +728,7 @@ MTPBase.MonDynTi := MonDynTi;
             <variable name="staticTimeout"><type><REAL /></type></variable>
             <variable name="dynamicTimeout"><type><REAL /></type></variable>
             <variable name="simulate"><type><BOOL /></type></variable>
-            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><REAL /></type></variable>
             <variable name="interlockIn"><type><BOOL /></type></variable>
             <variable name="permitIn"><type><BOOL /></type></variable>
             <variable name="protectIn"><type><BOOL /></type></variable>
@@ -665,8 +819,8 @@ MonSafePos := safeOpen;
 SafePosEn := safeHold;
 OpenAut := open;
 CloseAut := close;
-OpenFbkCalc := simulation OR NOT feedbackOpen;
-CloseFbkCalc := simulation OR NOT feedbackClose;
+OpenFbkCalc := simulate OR NOT feedbackOpen;
+CloseFbkCalc := simulate OR NOT feedbackClose;
 DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbOpenSimulated := DelayTimer1.Q;
 DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
@@ -734,19 +888,67 @@ MTPBase.MonEn := MonEn;
             <variable name="staticTimeout"><type><REAL /></type></variable>
             <variable name="dynamicTimeout"><type><REAL /></type></variable>
             <variable name="simulate"><type><BOOL /></type></variable>
-            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><REAL /></type></variable>
+            <variable name="interlockIn"><type><BOOL /></type></variable>
+            <variable name="permitIn"><type><BOOL /></type></variable>
+            <variable name="protectIn"><type><BOOL /></type></variable>
             <variable name="reset"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
-            <variable name="forwardCommand"><type><BOOL /></type></variable>
-            <variable name="reverseCommad"><type><BOOL /></type></variable>
+            <variable name="fwdCommand"><type><BOOL /></type></variable>
+            <variable name="revCommand"><type><BOOL /></type></variable>
             <variable name="forwardActive"><type><BOOL /></type></variable>
             <variable name="reverseActive"><type><BOOL /></type></variable>
             <variable name="actualSpeed"><type><REAL /></type></variable>
+            <variable name="remote"><type><BOOL /></type></variable>
+            <variable name="operator"><type><BOOL /></type></variable>
+            <variable name="automatic"><type><BOOL /></type></variable>
+            <variable name="offline"><type><BOOL /></type></variable>
+            <variable name="remoteSource"><type><BOOL /></type></variable>
+            <variable name="internalSourceAct"><type><BOOL /></type></variable>
+            <variable name="manualSourceAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
+            <variable name="fwdFbkSimulated"><type><BOOL /></type></variable>
+            <variable name="revFbkSimulated"><type><BOOL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
             <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
+            <variable name="StateChannel"><type><BOOL /></type></variable>
+            <variable name="StateOpAct"><type><BOOL /></type></variable>
+            <variable name="StateAutAct"><type><BOOL /></type></variable>
+            <variable name="StateOffAct"><type><BOOL /></type></variable>
+            <variable name="SrcChannel"><type><BOOL /></type></variable>
+            <variable name="SrcIntAct"><type><BOOL /></type></variable>
+            <variable name="SrcManAct"><type><BOOL /></type></variable>
+            <variable name="PermEn"><type><BOOL /></type></variable>
+            <variable name="Permit"><type><BOOL /></type></variable>
+            <variable name="IntlEn"><type><BOOL /></type></variable>
+            <variable name="Interlock"><type><BOOL /></type></variable>
+            <variable name="ProtEn"><type><BOOL /></type></variable>
+            <variable name="Protect"><type><BOOL /></type></variable>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="OSLevel"><type><BYTE /></type></variable>
+            <variable name="SafePos"><type><BOOL /></type></variable>
+            <variable name="FwdAut"><type><BOOL /></type></variable>
+            <variable name="RevAut"><type><BOOL /></type></variable>
+            <variable name="FwdCtrl"><type><BOOL /></type></variable>
+            <variable name="RevCtrl"><type><BOOL /></type></variable>
+            <variable name="RpmSclMin"><type><REAL /></type></variable>
+            <variable name="RpmSclMax"><type><REAL /></type></variable>
+            <variable name="RpmUnit"><type><INT /></type></variable>
+            <variable name="RpmMin"><type><REAL /></type></variable>
+            <variable name="RpmMax"><type><REAL /></type></variable>
+            <variable name="RpmRbk"><type><REAL /></type></variable>
+            <variable name="Rpm"><type><REAL /></type></variable>
+            <variable name="RevFbkCalc"><type><BOOL /></type></variable>
+            <variable name="RevFbk"><type><BOOL /></type></variable>
+            <variable name="FwdFbkCalc"><type><BOOL /></type></variable>
+            <variable name="FwdFbk"><type><BOOL /></type></variable>
+            <variable name="Trip"><type><BOOL /></type></variable>
+            <variable name="ResetAut"><type><BOOL /></type></variable>
+            <variable name="MonSafePos"><type><BOOL /></type></variable>
+            <variable name="MonStatTi"><type><REAL /></type></variable>
+            <variable name="MonDynTi"><type><REAL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -754,9 +956,21 @@ MTPBase.MonEn := MonEn;
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
+StateChannel := MTPBase.StateChannel;
+StateOpAct := MTPBase.StateOpAct;
+StateAutAct := MTPBase.StateAutAct;
+StateOffAct := MTPBase.StateOffAct;
+SrcChannel := MTPBase.SrcChannel;
+SrcIntAct := MTPBase.SrcIntAct;
+SrcManAct := MTPBase.SrcManAct;
+FwdCtrl := MTPBase.FwdCtrl;
+RevCtrl := MTPBase.RevCtrl;
+Rpm := MTPBase.Rpm;
 
 // Functionality
 
+WQC := 16#FF;
+OSLevel := 16#00;
 remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;
@@ -773,19 +987,18 @@ IF protectIn THEN
     Protect := TRUE;
 END_IF;
 SafePos := False;
-SafePosEn := safeHold;
-FwdAut := open;
-RevAut := close;
-forwardCommand := FwdCtrl;
-reverseCommad := RevCtrl;
+FwdAut := forward;
+RevAut := reverse;
+fwdCommand := FwdCtrl;
+revCommand := RevCtrl;
 FwdFbkCalc := simulate OR NOT hasFwdFeedback;
 RevFbkCalc := simulate OR NOT hasRevFeedback;
 DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
-fwdFeedbackSimulated := DelayTimer1.Q;
+fwdFbkSimulated := DelayTimer1.Q;
 DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
-refFeedbackSimulated := DelayTimer2.Q;
-FwdFbk := forwardFeedback OR fwdFeedbackSimulated;
-RevFbk := reverseFeedback OR refFeedbackSimulated;
+revFbkSimulated := DelayTimer2.Q;
+FwdFbk := forwardFeedback OR fwdFbkSimulated;
+RevFbk := reverseFeedback OR revFbkSimulated;
 Trip := trip;
 ResetAut := reset;
 RpmSclMin := speedMin;
@@ -793,15 +1006,40 @@ RpmSclMax := speedMax;
 RpmUnit := speedUnit;
 RpmMin := speedMin;
 RpmMax := speedMax;
-PosInt := targetPosition;
 RpmRbk := speedFeedback;
-speedOut := Rpm;
+actualSpeed := Rpm;
 reset := False;
 MonSafePos := safeHold;
 MonStatTi := staticTimeout;
 MonDynTi := dynamicTimeout;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
+MTPBase.PermEn := PermEn;
+MTPBase.Permit := Permit;
+MTPBase.IntlEn := IntlEn;
+MTPBase.Interlock := Interlock;
+MTPBase.ProtEn := ProtEn;
+MTPBase.Protect := Protect;
+MTPBase.WQC := WQC;
+MTPBase.OSLevel := OSLevel;
+MTPBase.SafePos := SafePos;
+MTPBase.FwdAut := FwdAut;
+MTPBase.RevAut := RevAut;
+MTPBase.RpmSclMin := RpmSclMin;
+MTPBase.RpmSclMax := RpmSclMax;
+MTPBase.RpmUnit := RpmUnit;
+MTPBase.RpmMin := RpmMin;
+MTPBase.RpmMax := RpmMax;
+MTPBase.RpmRbk := RpmRbk;
+MTPBase.RevFbkCalc := RevFbkCalc;
+MTPBase.RevFbk := RevFbk;
+MTPBase.FwdFbkCalc := FwdFbkCalc;
+MTPBase.FwdFbk := FwdFbk;
+MTPBase.Trip := Trip;
+MTPBase.ResetAut := ResetAut;
+MTPBase.MonSafePos := MonSafePos;
+MTPBase.MonStatTi := MonStatTi;
+MTPBase.MonDynTi := MonDynTi;
                 ]]>
             </xhtml>
         </ST>

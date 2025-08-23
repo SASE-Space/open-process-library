@@ -13,13 +13,16 @@
             <variable name="hasRevFeedback"><type><BOOL /></type></variable>
             <variable name="enableForward"><type><BOOL /></type></variable>
             <variable name="enableReverse"><type><BOOL /></type></variable>
-            <variable name="trip"><type><BOOL /></type></variable>
+            <variable name="driveTrip"><type><BOOL /></type></variable>
             <variable name="safeHold"><type><BOOL /></type></variable>
             <variable name="monitor"><type><BOOL /></type></variable>
             <variable name="staticTimeout"><type><REAL /></type></variable>
             <variable name="dynamicTimeout"><type><REAL /></type></variable>
             <variable name="simulate"><type><BOOL /></type></variable>
-            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><REAL /></type></variable>
+            <variable name="interlockIn"><type><BOOL /></type></variable>
+            <variable name="permitIn"><type><BOOL /></type></variable>
+            <variable name="protectIn"><type><BOOL /></type></variable>
             <variable name="reset"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
@@ -27,8 +30,14 @@
             <variable name="revCommand"><type><BOOL /></type></variable>
             <variable name="forwardActive"><type><BOOL /></type></variable>
             <variable name="reverseActive"><type><BOOL /></type></variable>
+            <variable name="remote"><type><BOOL /></type></variable>
+            <variable name="operator"><type><BOOL /></type></variable>
+            <variable name="automatic"><type><BOOL /></type></variable>
+            <variable name="offline"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
+            <variable name="fwdFbkSimulated"><type><BOOL /></type></variable>
+            <variable name="revFbkSimulated"><type><BOOL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
             <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
             <variable name="StateChannel"><type><BOOL /></type></variable>
@@ -96,17 +105,17 @@ RevEn := enableReverse;
 StopAut := stop;
 FwdAut := forward;
 RevAut := reverse;
-forwardCommand := FwdCtrl;
-reverseCommad := RevCtrl;
+fwdCommand := FwdCtrl;
+revCommand := RevCtrl;
 FwdFbkCalc := simulate OR NOT hasFwdFeedback;
 RevFbkCalc := simulate OR NOT hasRevFeedback;
 DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
-fwdFeedbackSimulated := DelayTimer1.Q;
+fwdFbkSimulated := DelayTimer1.Q;
 DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
-refFeedbackSimulated := DelayTimer2.Q;
-FwdFbk := forwardFeedback OR fwdFeedbackSimulated;
-RevFbk := reverseFeedback OR refFeedbackSimulated;
-Trip := trip;
+revFbkSimulated := DelayTimer2.Q;
+FwdFbk := forwardFeedback OR fwdFbkSimulated;
+RevFbk := reverseFeedback OR revFbkSimulated;
+Trip := driveTrip;
 ResetAut := reset;
 MonSafePos := safeHold;
 MonStatTi := staticTimeout;

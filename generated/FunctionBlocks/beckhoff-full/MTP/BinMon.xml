@@ -5,8 +5,8 @@
         <inputVars>
             <variable name="WQC"><type><BYTE /></type></variable>
             <variable name="V"><type><BOOL /></type></variable>
-            <variable name="VState0"><type><STRING /></type></variable>
-            <variable name="VState1"><type><STRING /></type></variable>
+            <variable name="VState0"><type><derived name="string" /></type></variable>
+            <variable name="VState1"><type><derived name="string" /></type></variable>
             <variable name="OSLevel"><type><BYTE /></type></variable>
             <variable name="VFlutEn"><type><BOOL /></type></variable>
         </inputVars>

@@ -25,6 +25,8 @@ safeHold
 
 simulate
 
+simulateDelay
+
 interlockIn
 
 permitIn

@@ -21,7 +21,7 @@ enableForward
 
 enableReverse
 
-trip
+driveTrip
 
 safeHold
 
@@ -35,6 +35,12 @@ simulate
 
 simulateDelay
 
+interlockIn
+
+permitIn
+
+protectIn
+
 reset
 
 fwdCommand
@@ -44,3 +50,15 @@ revCommand
 forwardActive
 
 reverseActive
+
+fwdFbkSimulated
+
+revFbkSimulated
+
+remote
+
+operator
+
+automatic
+
+offline

@@ -30,7 +30,7 @@
 | staticTimeout    | x   | x   | Input    | Real      | 2       | Amount of time before a static monitoring error is triggered                  |          |                                    |
 | dynamicTimeout   | x   | x   | Input    | Real      | 5       | Amount of time before a dynamic monitoring error is triggered                 |          |                                    |
 | simulate         | x   | x   | Input    | Bool      |         | Enable simulation                                                             |          |                                    |
-| simulateDelay    | x   | x   | Input    | Bool      | 1       | Simulated delay to set the feedback signals, in s                             |          |                                    |
+| simulateDelay    | x   | x   | Input    | Real      | 1       | Simulated delay to set the feedback signals, in s                             |          |                                    |
 | interlockIn      | x   |     | Input    | Bool      |         | forces safe position. 0 = interlock active                                    |          |                                    |
 | permitIn         | x   |     | Input    | Bool      | 1       | permission to control. Does not activate safe position. 0 = no permission     |          |                                    |
 | protectIn        | x   |     | Input    | Bool      |         | Protect, sets safe position, sets protectState. 0 = Protect active            |          |                                    |
@@ -91,8 +91,8 @@
 | SafePosEn        | x          | x   |     | safeHold                                                    |                                                           |
 | OpenAut          | x          | x   |     | open                                                        |                                                           |
 | CloseAut         | x          | x   |     | close                                                       |                                                           |
-| OpenFbkCalc      | x          | x   |     | simulation OR NOT feedbackOpen                              | TODO: review logic, probably need to use hasFbOpen        |
-| CloseFbkCalc     | x          | x   |     | simulation OR NOT feedbackClose                             | TODO: review logic                                        |
+| OpenFbkCalc      | x          | x   |     | simulate OR NOT feedbackOpen                                | TODO: review logic, probably need to use hasFbOpen        |
+| CloseFbkCalc     | x          | x   |     | simulate OR NOT feedbackClose                               | TODO: review logic                                        |
 | fbOpenSimulated  |            | x   |     | (simulate OR NOT hasFbOpen) AND Ctrl for simulateDelay      | if no FbOpen connected then treat it as a simulation      |
 | fbCloseSimulated |            | x   |     | (simulate OR NOT hasFbClose) AND NOT Ctrl for simulateDelay | if no FbClose connected then treat it as a simulation     |
 | OpenFbk          | x          | x   |     | feedbackOpen OR fbOpenSimulated                             |                                                           |

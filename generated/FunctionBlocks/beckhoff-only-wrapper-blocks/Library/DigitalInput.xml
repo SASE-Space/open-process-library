@@ -15,8 +15,8 @@
             <variable name="lastValue"><type><BOOL /></type></variable><!-- Temporary variables for MTP base interface access -->
             <variable name="WQC"><type><BYTE /></type></variable>
             <variable name="V"><type><BOOL /></type></variable>
-            <variable name="VState0"><type><STRING /></type></variable>
-            <variable name="VState1"><type><STRING /></type></variable>
+            <variable name="VState0"><type><derived name="string" /></type></variable>
+            <variable name="VState1"><type><derived name="string" /></type></variable>
             <variable name="OSLevel"><type><BYTE /></type></variable>
             <variable name="VFlutEn"><type><BOOL /></type></variable>
         </localVars>
@@ -32,11 +32,11 @@
 WQC := 16#FF;
 OSLevel := 16#00;
 V := value;
-VState0 := "False";
-VState1 := "True";
+VState0 := 'False';
+VState1 := 'True';
 VFlutEn := False;
-risingEdge := value != lastValue and value = True;
-fallingEdge := value != lastValue and value = Valse;
+risingEdge := value <> lastValue and value = True;
+fallingEdge := value <> lastValue and value = False;
 lastValue := value;
 
 // Copy local temporaries back to MTP base variables (WRITE access)

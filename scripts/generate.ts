@@ -185,8 +185,15 @@ function parseVariableTable(content: string, functionBlock: any) {
             } else if (line.startsWith('#')) {
                 // Check stopping condition based on mode
                 if (inVariableTable) {
-                    // Singular case: stop at any heading
-                    break
+                    // Check if this is a ### subheader - if so, treat like plural mode
+                    if (line.startsWith('###')) {
+                        tableHeaders = []  // Reset for new sub-table
+                        continue
+                    }
+                    // Stop only at ## level headings (major sections)
+                    if (line.startsWith('##') && !line.startsWith('###') && !line.toLowerCase().includes('variable')) {
+                        break
+                    }
                 } else if (inVariableTablesSection) {
                     // Plural case: only stop at ## level headings (major sections)
                     if (line.startsWith('##') && !line.startsWith('###') && !line.toLowerCase().includes('variable')) {

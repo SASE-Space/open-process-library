@@ -4,6 +4,7 @@
             <variable name="MTPBase"><type><derived name="PIDCtrl" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="setpoint"><type><REAL /></type></variable>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>
             <variable name="manipulatedValueUnit"><type><INT /></type></variable>
@@ -33,6 +34,10 @@
             <variable name="setpointOut"><type><REAL /></type></variable>
             <variable name="valueOut"><type><REAL /></type></variable>
             <variable name="manipulatedValue"><type><REAL /></type></variable>
+            <variable name="remote"><type><BOOL /></type></variable>
+            <variable name="operator"><type><BOOL /></type></variable>
+            <variable name="automatic"><type><BOOL /></type></variable>
+            <variable name="offline"><type><BOOL /></type></variable>
             <variable name="error"><type><BOOL /></type></variable>
             <variable name="alarmHighStatus"><type><BOOL /></type></variable>
             <variable name="warningHighStatus"><type><BOOL /></type></variable>
@@ -40,8 +45,42 @@
             <variable name="toleranceLowStatus"><type><BOOL /></type></variable>
             <variable name="warningLowStatus"><type><BOOL /></type></variable>
             <variable name="alarmLowStatus"><type><BOOL /></type></variable>
+            <variable name="remoteSource"><type><BOOL /></type></variable>
+            <variable name="internalSourceAct"><type><BOOL /></type></variable>
+            <variable name="manualSourceAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars><!-- Temporary variables for MTP base interface access -->
+            <variable name="StateChannel"><type><BOOL /></type></variable>
+            <variable name="StateOpAct"><type><BOOL /></type></variable>
+            <variable name="StateAutAct"><type><BOOL /></type></variable>
+            <variable name="StateOffAct"><type><BOOL /></type></variable>
+            <variable name="SrcChannel"><type><BOOL /></type></variable>
+            <variable name="SrcIntAct"><type><BOOL /></type></variable>
+            <variable name="SrcManAct"><type><BOOL /></type></variable>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="OSLevel"><type><BYTE /></type></variable>
+            <variable name="PV"><type><REAL /></type></variable>
+            <variable name="PVSclMin"><type><REAL /></type></variable>
+            <variable name="PVSclMax"><type><REAL /></type></variable>
+            <variable name="PVUnit"><type><INT /></type></variable>
+            <variable name="SPInt"><type><REAL /></type></variable>
+            <variable name="SPSclMin"><type><REAL /></type></variable>
+            <variable name="SPSclMax"><type><REAL /></type></variable>
+            <variable name="SPUnit"><type><INT /></type></variable>
+            <variable name="SPIntMin"><type><REAL /></type></variable>
+            <variable name="SPIntMax"><type><REAL /></type></variable>
+            <variable name="SPManMin"><type><REAL /></type></variable>
+            <variable name="SPManMax"><type><REAL /></type></variable>
+            <variable name="SP"><type><REAL /></type></variable>
+            <variable name="MV"><type><REAL /></type></variable>
+            <variable name="MVMin"><type><REAL /></type></variable>
+            <variable name="MVMax"><type><REAL /></type></variable>
+            <variable name="MVUnit"><type><INT /></type></variable>
+            <variable name="MVSclMin"><type><REAL /></type></variable>
+            <variable name="MVSclMax"><type><REAL /></type></variable>
+            <variable name="P"><type><REAL /></type></variable>
+            <variable name="Ti"><type><REAL /></type></variable>
+            <variable name="Td"><type><REAL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -49,8 +88,23 @@
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
+StateChannel := MTPBase.StateChannel;
+StateOpAct := MTPBase.StateOpAct;
+StateAutAct := MTPBase.StateAutAct;
+StateOffAct := MTPBase.StateOffAct;
+SrcChannel := MTPBase.SrcChannel;
+SrcIntAct := MTPBase.SrcIntAct;
+SrcManAct := MTPBase.SrcManAct;
+PV := MTPBase.PV;
+SP := MTPBase.SP;
+MV := MTPBase.MV;
+P := MTPBase.P;
+Ti := MTPBase.Ti;
+Td := MTPBase.Td;
 
 
+WQC := 16#FF;
+OSLevel := 16#00;
 remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;
@@ -58,7 +112,7 @@ offline := StateOffAct;
 remoteSource := SrcChannel;
 internalSourceAct := SrcIntAct;
 manualSourceAct := SrcManAct;
-PV := scaleMin + (REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
+PV := scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
 valueOut := PV;
 PVSclMin := scaleMin;
 PVSclMax := scaleMax;
@@ -83,6 +137,25 @@ integration := Ti;
 derivation := Td;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
+MTPBase.WQC := WQC;
+MTPBase.OSLevel := OSLevel;
+MTPBase.PV := PV;
+MTPBase.PVSclMin := PVSclMin;
+MTPBase.PVSclMax := PVSclMax;
+MTPBase.PVUnit := PVUnit;
+MTPBase.SPInt := SPInt;
+MTPBase.SPSclMin := SPSclMin;
+MTPBase.SPSclMax := SPSclMax;
+MTPBase.SPUnit := SPUnit;
+MTPBase.SPIntMin := SPIntMin;
+MTPBase.SPIntMax := SPIntMax;
+MTPBase.SPManMin := SPManMin;
+MTPBase.SPManMax := SPManMax;
+MTPBase.MVMin := MVMin;
+MTPBase.MVMax := MVMax;
+MTPBase.MVUnit := MVUnit;
+MTPBase.MVSclMin := MVSclMin;
+MTPBase.MVSclMax := MVSclMax;
                 ]]>
             </xhtml>
         </ST>

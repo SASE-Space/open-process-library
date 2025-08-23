@@ -24,10 +24,10 @@
 | WQC         | x          | x   |     | 16#FF                                | no QC available (default)                       |
 | OSLevel     |            | x   |     | 16#00                                | TODO                                            |
 | V           | x          | x   |     | value                                |                                                 |
-| VState0     | x          | x   |     | "False"                              | TODO: hardcoded for now                         |
-| VState1     | x          | x   |     | "True"                               | TODO: hardcoded for now                         |
+| VState0     | x          | x   |     | 'False'                              | TODO: hardcoded for now                         |
+| VState1     | x          | x   |     | 'True'                               | TODO: hardcoded for now                         |
 | VFlutEn     | x          | x   |     | False                                | TODO: hardcoded for now                         |
-| risingEdge  |            | x   |     | value != lastValue and value = True  |                                                 |
-| fallingEdge |            | x   |     | value != lastValue and value = Valse |                                                 |
+| risingEdge  |            | x   |     | value <> lastValue and value = True  |                                                 |
+| fallingEdge |            | x   |     | value <> lastValue and value = False |                                                 |
 | lastValue   |            | x   |     | value                                | copy value to lastValue at the end of the block |
 |             |            |     |     |                                      |                                                 |

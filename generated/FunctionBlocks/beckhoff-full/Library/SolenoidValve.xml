@@ -19,7 +19,7 @@
             <variable name="staticTimeout"><type><REAL /></type></variable>
             <variable name="dynamicTimeout"><type><REAL /></type></variable>
             <variable name="simulate"><type><BOOL /></type></variable>
-            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><REAL /></type></variable>
             <variable name="interlockIn"><type><BOOL /></type></variable>
             <variable name="permitIn"><type><BOOL /></type></variable>
             <variable name="protectIn"><type><BOOL /></type></variable>
@@ -109,8 +109,8 @@ MonSafePos := safeOpen;
 SafePosEn := safeHold;
 OpenAut := open;
 CloseAut := close;
-OpenFbkCalc := simulation OR NOT feedbackOpen;
-CloseFbkCalc := simulation OR NOT feedbackClose;
+OpenFbkCalc := simulate OR NOT feedbackOpen;
+CloseFbkCalc := simulate OR NOT feedbackClose;
 DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbOpenSimulated := DelayTimer1.Q;
 DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));

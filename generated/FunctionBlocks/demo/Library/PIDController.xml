@@ -3,6 +3,8 @@ DEMO:
 
 MTPBase
 
+setpoint
+
 rawValue
 
 valueUnit
@@ -57,6 +59,14 @@ valueOut
 
 manipulatedValue
 
+remote
+
+operator
+
+automatic
+
+offline
+
 error
 
 alarmHighStatus
@@ -70,3 +80,9 @@ toleranceLowStatus
 warningLowStatus
 
 alarmLowStatus
+
+remoteSource
+
+internalSourceAct
+
+manualSourceAct

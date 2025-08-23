@@ -47,14 +47,38 @@ simulate
 
 simulateDelay
 
+interlockIn
+
+permitIn
+
+protectIn
+
 reset
 
-forwardCommand
+fwdCommand
 
-reverseCommad
+revCommand
 
 forwardActive
 
 reverseActive
 
+fwdFbkSimulated
+
+revFbkSimulated
+
 actualSpeed
+
+remote
+
+operator
+
+automatic
+
+offline
+
+remoteSource
+
+internalSourceAct
+
+manualSourceAct

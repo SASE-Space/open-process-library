@@ -6,8 +6,8 @@
 | -------- | ------ | -------- | --------- | --------------------------------------------------------------------- | 
 | WQC      | PEA    | Input    | Byte      | Worst Quality Code Variable                                           | 
 | V        | PEA    | Input    | Bool      | Value                                                                 |               
-| VState0  | PEA    | Input    | String    | Text value for False                                                  |               
-| VState1  | PEA    | Input    | String    | Text value for True                                                   |               
+| VState0  | PEA    | Input    | string    | Text value for False                                                  |               
+| VState1  | PEA    | Input    | string    | Text value for True                                                   |               
 | OSLevel  | POL    | Input    | Byte      | manual operation permission. 0 = only on-site. >0: only from POL      |           
 | VFlutEn  | PEA    | Input    | Bool      | Enable Fluttering Recognition                                         |               
 | VFlutTi  | POL    | Local    | Real      | Period of active signal before it is flutter-free, in s               |                

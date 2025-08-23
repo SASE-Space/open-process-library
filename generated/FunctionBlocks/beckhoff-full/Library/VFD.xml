@@ -25,19 +25,67 @@
             <variable name="staticTimeout"><type><REAL /></type></variable>
             <variable name="dynamicTimeout"><type><REAL /></type></variable>
             <variable name="simulate"><type><BOOL /></type></variable>
-            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><REAL /></type></variable>
+            <variable name="interlockIn"><type><BOOL /></type></variable>
+            <variable name="permitIn"><type><BOOL /></type></variable>
+            <variable name="protectIn"><type><BOOL /></type></variable>
             <variable name="reset"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
-            <variable name="forwardCommand"><type><BOOL /></type></variable>
-            <variable name="reverseCommad"><type><BOOL /></type></variable>
+            <variable name="fwdCommand"><type><BOOL /></type></variable>
+            <variable name="revCommand"><type><BOOL /></type></variable>
             <variable name="forwardActive"><type><BOOL /></type></variable>
             <variable name="reverseActive"><type><BOOL /></type></variable>
             <variable name="actualSpeed"><type><REAL /></type></variable>
+            <variable name="remote"><type><BOOL /></type></variable>
+            <variable name="operator"><type><BOOL /></type></variable>
+            <variable name="automatic"><type><BOOL /></type></variable>
+            <variable name="offline"><type><BOOL /></type></variable>
+            <variable name="remoteSource"><type><BOOL /></type></variable>
+            <variable name="internalSourceAct"><type><BOOL /></type></variable>
+            <variable name="manualSourceAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
+            <variable name="fwdFbkSimulated"><type><BOOL /></type></variable>
+            <variable name="revFbkSimulated"><type><BOOL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
             <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
+            <variable name="StateChannel"><type><BOOL /></type></variable>
+            <variable name="StateOpAct"><type><BOOL /></type></variable>
+            <variable name="StateAutAct"><type><BOOL /></type></variable>
+            <variable name="StateOffAct"><type><BOOL /></type></variable>
+            <variable name="SrcChannel"><type><BOOL /></type></variable>
+            <variable name="SrcIntAct"><type><BOOL /></type></variable>
+            <variable name="SrcManAct"><type><BOOL /></type></variable>
+            <variable name="PermEn"><type><BOOL /></type></variable>
+            <variable name="Permit"><type><BOOL /></type></variable>
+            <variable name="IntlEn"><type><BOOL /></type></variable>
+            <variable name="Interlock"><type><BOOL /></type></variable>
+            <variable name="ProtEn"><type><BOOL /></type></variable>
+            <variable name="Protect"><type><BOOL /></type></variable>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="OSLevel"><type><BYTE /></type></variable>
+            <variable name="SafePos"><type><BOOL /></type></variable>
+            <variable name="FwdAut"><type><BOOL /></type></variable>
+            <variable name="RevAut"><type><BOOL /></type></variable>
+            <variable name="FwdCtrl"><type><BOOL /></type></variable>
+            <variable name="RevCtrl"><type><BOOL /></type></variable>
+            <variable name="RpmSclMin"><type><REAL /></type></variable>
+            <variable name="RpmSclMax"><type><REAL /></type></variable>
+            <variable name="RpmUnit"><type><INT /></type></variable>
+            <variable name="RpmMin"><type><REAL /></type></variable>
+            <variable name="RpmMax"><type><REAL /></type></variable>
+            <variable name="RpmRbk"><type><REAL /></type></variable>
+            <variable name="Rpm"><type><REAL /></type></variable>
+            <variable name="RevFbkCalc"><type><BOOL /></type></variable>
+            <variable name="RevFbk"><type><BOOL /></type></variable>
+            <variable name="FwdFbkCalc"><type><BOOL /></type></variable>
+            <variable name="FwdFbk"><type><BOOL /></type></variable>
+            <variable name="Trip"><type><BOOL /></type></variable>
+            <variable name="ResetAut"><type><BOOL /></type></variable>
+            <variable name="MonSafePos"><type><BOOL /></type></variable>
+            <variable name="MonStatTi"><type><REAL /></type></variable>
+            <variable name="MonDynTi"><type><REAL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -45,8 +93,20 @@
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
+StateChannel := MTPBase.StateChannel;
+StateOpAct := MTPBase.StateOpAct;
+StateAutAct := MTPBase.StateAutAct;
+StateOffAct := MTPBase.StateOffAct;
+SrcChannel := MTPBase.SrcChannel;
+SrcIntAct := MTPBase.SrcIntAct;
+SrcManAct := MTPBase.SrcManAct;
+FwdCtrl := MTPBase.FwdCtrl;
+RevCtrl := MTPBase.RevCtrl;
+Rpm := MTPBase.Rpm;
 
 
+WQC := 16#FF;
+OSLevel := 16#00;
 remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;
@@ -63,19 +123,18 @@ IF protectIn THEN
     Protect := TRUE;
 END_IF;
 SafePos := False;
-SafePosEn := safeHold;
-FwdAut := open;
-RevAut := close;
-forwardCommand := FwdCtrl;
-reverseCommad := RevCtrl;
+FwdAut := forward;
+RevAut := reverse;
+fwdCommand := FwdCtrl;
+revCommand := RevCtrl;
 FwdFbkCalc := simulate OR NOT hasFwdFeedback;
 RevFbkCalc := simulate OR NOT hasRevFeedback;
 DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
-fwdFeedbackSimulated := DelayTimer1.Q;
+fwdFbkSimulated := DelayTimer1.Q;
 DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
-refFeedbackSimulated := DelayTimer2.Q;
-FwdFbk := forwardFeedback OR fwdFeedbackSimulated;
-RevFbk := reverseFeedback OR refFeedbackSimulated;
+revFbkSimulated := DelayTimer2.Q;
+FwdFbk := forwardFeedback OR fwdFbkSimulated;
+RevFbk := reverseFeedback OR revFbkSimulated;
 Trip := trip;
 ResetAut := reset;
 RpmSclMin := speedMin;
@@ -83,15 +142,40 @@ RpmSclMax := speedMax;
 RpmUnit := speedUnit;
 RpmMin := speedMin;
 RpmMax := speedMax;
-PosInt := targetPosition;
 RpmRbk := speedFeedback;
-speedOut := Rpm;
+actualSpeed := Rpm;
 reset := False;
 MonSafePos := safeHold;
 MonStatTi := staticTimeout;
 MonDynTi := dynamicTimeout;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
+MTPBase.PermEn := PermEn;
+MTPBase.Permit := Permit;
+MTPBase.IntlEn := IntlEn;
+MTPBase.Interlock := Interlock;
+MTPBase.ProtEn := ProtEn;
+MTPBase.Protect := Protect;
+MTPBase.WQC := WQC;
+MTPBase.OSLevel := OSLevel;
+MTPBase.SafePos := SafePos;
+MTPBase.FwdAut := FwdAut;
+MTPBase.RevAut := RevAut;
+MTPBase.RpmSclMin := RpmSclMin;
+MTPBase.RpmSclMax := RpmSclMax;
+MTPBase.RpmUnit := RpmUnit;
+MTPBase.RpmMin := RpmMin;
+MTPBase.RpmMax := RpmMax;
+MTPBase.RpmRbk := RpmRbk;
+MTPBase.RevFbkCalc := RevFbkCalc;
+MTPBase.RevFbk := RevFbk;
+MTPBase.FwdFbkCalc := FwdFbkCalc;
+MTPBase.FwdFbk := FwdFbk;
+MTPBase.Trip := Trip;
+MTPBase.ResetAut := ResetAut;
+MTPBase.MonSafePos := MonSafePos;
+MTPBase.MonStatTi := MonStatTi;
+MTPBase.MonDynTi := MonDynTi;
                 ]]>
             </xhtml>
         </ST>
