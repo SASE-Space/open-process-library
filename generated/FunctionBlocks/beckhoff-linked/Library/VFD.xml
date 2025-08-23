@@ -1,23 +1,101 @@
 <pou name="VFD" pouType="functionBlock">
     <interface>
         <inOutVars>
+            <variable name="MTPBase"><type><derived name="MonAnaDrv" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="forward"><type><BOOL /></type></variable>
+            <variable name="reverse"><type><BOOL /></type></variable>
+            <variable name="speed"><type><REAL /></type></variable>
+            <variable name="speedUnit"><type><INT /></type></variable>
+            <variable name="speedMin"><type><REAL /></type></variable>
+            <variable name="speedMax"><type><REAL /></type></variable>
+            <variable name="forwardFeedback"><type><BOOL /></type></variable>
+            <variable name="reverseFeedback"><type><BOOL /></type></variable>
+            <variable name="speedFeedback"><type><WORD /></type></variable>
+            <variable name="speedScaleMin"><type><REAL /></type></variable>
+            <variable name="speedScaleMax"><type><REAL /></type></variable>
+            <variable name="hasFwdFeedback"><type><BOOL /></type></variable>
+            <variable name="hasRevFeedback"><type><BOOL /></type></variable>
+            <variable name="enableForward"><type><BOOL /></type></variable>
+            <variable name="enableReverse"><type><BOOL /></type></variable>
+            <variable name="trip"><type><BOOL /></type></variable>
+            <variable name="safeHold"><type><BOOL /></type></variable>
+            <variable name="monitor"><type><BOOL /></type></variable>
+            <variable name="staticTimeout"><type><REAL /></type></variable>
+            <variable name="dynamicTimeout"><type><REAL /></type></variable>
+            <variable name="simulate"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="reset"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
+            <variable name="forwardCommand"><type><BOOL /></type></variable>
+            <variable name="reverseCommad"><type><BOOL /></type></variable>
+            <variable name="forwardActive"><type><BOOL /></type></variable>
+            <variable name="reverseActive"><type><BOOL /></type></variable>
+            <variable name="actualSpeed"><type><REAL /></type></variable>
         </outputVars>
-        <localVars><!-- Temporary variables for MTP base interface access -->
+        <localVars>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
-            <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
 
 
+WQC := 16#FF;
+OSLevel := TODO;
+remote := StateChannel;
+operator := StateOpAct;
+automatic := StateAutAct;
+offline := StateOffAct;
+remoteSource := SrcChannel;
+internalSourceAct := SrcIntAct;
+manualSourceAct := SrcManAct;
+PermEn := True;
+IntlEn := True;
+ProtEn := True;
+Permit := permitIn;
+Interlock := interlockIn;
+IF protectIn THEN
+    Protect := TRUE;
+END_IF;
+SafePos := False;
+SafePosEn := safeHold;
+FwdAut := open;
+RevAut := close;
+forwardCommand := FwdCtrl;
+reverseCommad := RevCtrl;
+FwdFbkCalc := simulate OR NOT hasFwdFeedback;
+RevFbkCalc := simulate OR NOT hasRevFeedback;
+DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+fwdFeedbackSimulated := DelayTimer1.Q;
+DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+refFeedbackSimulated := DelayTimer2.Q;
+FwdFbk := forwardFeedback OR fwdFeedbackSimulated;
+RevFbk := reverseFeedback OR refFeedbackSimulated;
+Trip := trip;
+ResetAut := reset;
+RpmSclMin := speedMin;
+RpmSclMax := speedMax;
+RpmUnit := speedUnit;
+RpmMin := speedMin;
+RpmMax := speedMax;
+PosInt := targetPosition;
+RpmRbk := speedFeedback;
+speedOut := Rpm;
+reset := False;
+MonSafePos := safeHold;
+MonStatTi := staticTimeout;
+MonDynTi := dynamicTimeout;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
-]]></xhtml>
+                ]]>
+            </xhtml>
         </ST>
     </body>
 </pou>

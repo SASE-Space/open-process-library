@@ -9,6 +9,10 @@ open
 
 close
 
+outsideOpen
+
+outsideClose
+
 feedbackOpen
 
 feedbackClose
@@ -23,6 +27,10 @@ safeHold
 
 monitor
 
+staticTimeout
+
+dynamicTimeout
+
 simulate
 
 simulateDelay
@@ -35,6 +43,22 @@ protectIn
 
 reset
 
+externalFault
+
+surpressAlarms
+
+setAuto
+
+setManual
+
+setOutside
+
+openCommand
+
+pulseOpen
+
+pulseClose
+
 remote
 
 operator
@@ -42,6 +66,8 @@ operator
 automatic
 
 offline
+
+outside
 
 error
 
@@ -53,4 +79,6 @@ fbOpenSimulated
 
 fbCloseSimulated
 
+forceActive
 
+surpressed

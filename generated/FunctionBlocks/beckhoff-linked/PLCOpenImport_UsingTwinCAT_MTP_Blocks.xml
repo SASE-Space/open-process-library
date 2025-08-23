@@ -31,6 +31,212 @@
         <resource name="testproj">
             <addData>
             <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+<pou name="AnaMon" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+        </inOutVars>
+        <inputVars>
+        </inputVars>
+        <outputVars>
+        </outputVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+VAHAct := vOut >= alarmHigh;
+VWHAct := vOut >= warningHigh;
+VTHAct := vOut >= toleranceHigh;
+VTLAct := vOut <= toleranceLow;
+VWLAct := vOut <= warningLow;
+VALAct := vOut <= alarmLow;
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="BinMon" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+        </inOutVars>
+        <inputVars>
+        </inputVars>
+        <outputVars>
+        </outputVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="LockView4" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+        </inOutVars>
+        <inputVars>
+        </inputVars>
+        <outputVars>
+        </outputVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="MonAnaDrv" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+        </inOutVars>
+        <inputVars>
+        </inputVars>
+        <outputVars>
+        </outputVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="MonAnaVlv" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+        </inOutVars>
+        <inputVars>
+        </inputVars>
+        <outputVars>
+        </outputVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="MonBinDrv" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+        </inOutVars>
+        <inputVars>
+        </inputVars>
+        <outputVars>
+        </outputVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="MonBinVlv" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+        </inOutVars>
+        <inputVars>
+        </inputVars>
+        <outputVars>
+        </outputVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="PIDCtrl" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+        </inOutVars>
+        <inputVars>
+        </inputVars>
+        <outputVars>
+        </outputVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
 <pou name="AnalogInput" pouType="functionBlock">
     <interface>
         <inOutVars>
@@ -70,7 +276,7 @@
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
-                <[CDATA[
+                <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
 
 
@@ -99,6 +305,549 @@ VALEn := alarmLowEn;
             </xhtml>
         </ST>
     </body>
+</pou>
+<pou name="AnalogValve" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+            <variable name="MTPBase"><type><derived name="FB_MTP_MonAnaVlv" /></type></variable>
+        </inOutVars>
+        <inputVars>
+            <variable name="targetPosition"><type><REAL /></type></variable>
+            <variable name="feedbackPosition"><type><WORD /></type></variable>
+            <variable name="scaleMin"><type><REAL /></type></variable>
+            <variable name="scaleMax"><type><REAL /></type></variable>
+            <variable name="feedbackOpen"><type><BOOL /></type></variable>
+            <variable name="feedbackClose"><type><BOOL /></type></variable>
+            <variable name="hasFbOpen"><type><BOOL /></type></variable>
+            <variable name="hasFbClose"><type><BOOL /></type></variable>
+            <variable name="safeOpen"><type><BOOL /></type></variable>
+            <variable name="safeHold"><type><BOOL /></type></variable>
+            <variable name="simulate"><type><BOOL /></type></variable>
+            <variable name="interlockIn"><type><BOOL /></type></variable>
+            <variable name="permitIn"><type><BOOL /></type></variable>
+            <variable name="protectIn"><type><BOOL /></type></variable>
+            <variable name="reset"><type><BOOL /></type></variable>
+        </inputVars>
+        <outputVars>
+            <variable name="positionOutDevice"><type><WORD /></type></variable>
+            <variable name="positionOut"><type><REAL /></type></variable>
+            <variable name="remote"><type><BOOL /></type></variable>
+            <variable name="operator"><type><BOOL /></type></variable>
+            <variable name="automatic"><type><BOOL /></type></variable>
+            <variable name="offline"><type><BOOL /></type></variable>
+            <variable name="error"><type><BOOL /></type></variable>
+            <variable name="opened"><type><BOOL /></type></variable>
+            <variable name="closed"><type><BOOL /></type></variable>
+            <variable name="remoteSource"><type><derived name="Output" /></type></variable>
+            <variable name="internalSourceAct"><type><derived name="Output" /></type></variable>
+            <variable name="manualSourceAct"><type><derived name="Output" /></type></variable>
+        </outputVars>
+        <localVars>
+            <variable name="fbOpenSimulated"><type><BOOL /></type></variable>
+            <variable name="fbCloseSimulated"><type><BOOL /></type></variable>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+WQC := 16#FF;
+OSLevel := TODO;
+remote := StateChannel;
+operator := StateOpAct;
+automatic := StateAutAct;
+offline := StateOffAct;
+remoteSource := SrcChannel;
+internalSourceAct := SrcIntAct;
+manualSourceAct := SrcManAct;
+PermEn := True;
+IntlEn := True;
+ProtEn := True;
+Permit := permitIn;
+Interlock := interlockIn;
+IF protectIn THEN
+    Protect := TRUE;
+END_IF;
+SafePos := safeOpen;
+SafePosEn := safeHold;
+OpenAut := open;
+CloseAut := close;
+OpenFbkCalc := simulation OR NOT feedbackOpen;
+CloseFbkCalc := simulation OR NOT feedbackClose;
+DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+fbOpenSimulated := DelayTimer1.Q;
+DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+fbCloseSimulated := DelayTimer2.Q;
+OpenFbk := feedbackOpen OR fbOpenSimulated;
+CloseFbk := feedbackClose OR fbCloseSimulated;
+opened := Ctrl AND OpenFbk;
+closed := NOT Ctrl AND CloseFbk;
+ResetAut := reset;
+PosSclMin := scaleMin;
+PosSclMax := scaleMax;
+PosUnit := 0;
+PosMin := PosSclMin;
+PosMax := PosSclMax;
+PosInt := targetPosition;
+PosFbk := feedbackPosition;
+positionOut := Pos;
+reset := False;
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="DigitalInput" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+            <variable name="MTPBase"><type><derived name="FB_MTP_BinMon" /></type></variable>
+        </inOutVars>
+        <inputVars>
+            <variable name="value"><type><BOOL /></type></variable>
+        </inputVars>
+        <outputVars>
+            <variable name="valueOut"><type><BOOL /></type></variable>
+            <variable name="risingEdge"><type><BOOL /></type></variable>
+            <variable name="fallingEdge"><type><BOOL /></type></variable>
+        </outputVars>
+        <localVars>
+            <variable name="lastValue"><type><BOOL /></type></variable><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+WQC := 16#FF;
+OSLevel := TODO;
+V := value;
+VState0 := "False";
+VState1 := "True";
+VFlutEn := False;
+risingEdge := value != lastValue and value = True;
+fallingEdge := value != lastValue and value = Valse;
+lastValue := value;
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="Interlock4" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+        </inOutVars>
+        <inputVars>
+        </inputVars>
+        <outputVars>
+        </outputVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="PIDController" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+            <variable name="MTPBase"><type><derived name="FB_MTP_PIDCtrl" /></type></variable>
+        </inOutVars>
+        <inputVars>
+            <variable name="rawValue"><type><WORD /></type></variable>
+            <variable name="valueUnit"><type><INT /></type></variable>
+            <variable name="manipulatedValueUnit"><type><INT /></type></variable>
+            <variable name="scaleMin"><type><REAL /></type></variable>
+            <variable name="scaleMax"><type><REAL /></type></variable>
+            <variable name="scaleMinMV"><type><REAL /></type></variable>
+            <variable name="scaleMaxMV"><type><REAL /></type></variable>
+            <variable name="proportional"><type><REAL /></type></variable>
+            <variable name="integration"><type><REAL /></type></variable>
+            <variable name="derivation"><type><REAL /></type></variable>
+            <variable name="alarmHigh"><type><REAL /></type></variable>
+            <variable name="warningHigh"><type><REAL /></type></variable>
+            <variable name="toleranceHigh"><type><REAL /></type></variable>
+            <variable name="toleranceLow"><type><REAL /></type></variable>
+            <variable name="warningLow"><type><REAL /></type></variable>
+            <variable name="alarmLow"><type><REAL /></type></variable>
+            <variable name="alarmHighEn"><type><BOOL /></type></variable>
+            <variable name="warningHighEn"><type><BOOL /></type></variable>
+            <variable name="toleranceHighEn"><type><BOOL /></type></variable>
+            <variable name="toleranceLowEn"><type><BOOL /></type></variable>
+            <variable name="warningLowEn"><type><BOOL /></type></variable>
+            <variable name="alarmLowEn"><type><BOOL /></type></variable>
+            <variable name="deadband"><type><REAL /></type></variable>
+            <variable name="externalFault"><type><BOOL /></type></variable>
+        </inputVars>
+        <outputVars>
+            <variable name="setpointOut"><type><REAL /></type></variable>
+            <variable name="valueOut"><type><REAL /></type></variable>
+            <variable name="manipulatedValue"><type><REAL /></type></variable>
+            <variable name="error"><type><BOOL /></type></variable>
+            <variable name="alarmHighStatus"><type><BOOL /></type></variable>
+            <variable name="warningHighStatus"><type><BOOL /></type></variable>
+            <variable name="toleranceHighStatus"><type><BOOL /></type></variable>
+            <variable name="toleranceLowStatus"><type><BOOL /></type></variable>
+            <variable name="warningLowStatus"><type><BOOL /></type></variable>
+            <variable name="alarmLowStatus"><type><BOOL /></type></variable>
+        </outputVars>
+        <localVars><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+WQC := 16#FF;
+OSLevel := TODO;
+remote := StateChannel;
+operator := StateOpAct;
+automatic := StateAutAct;
+offline := StateOffAct;
+remoteSource := SrcChannel;
+internalSourceAct := SrcIntAct;
+manualSourceAct := SrcManAct;
+PV := scaleMin + (REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
+valueOut := PV;
+PVSclMin := scaleMin;
+PVSclMax := scaleMax;
+PVUnit := valueUnit;
+SPInt := setpoint;
+SPSclMin := scaleMin;
+SPSclMax := scaleMax;
+SPUnit := valueUnit;
+SPIntMin := scaleMin;
+SPIntMax := scaleMax;
+SPManMin := scaleMin;
+SPManMax := scaleMax;
+setpointOut := SP;
+manipulatedValue := MV;
+MVMin := scaleMinMV;
+MVMax := scaleMaxMV;
+MVUnit := manipulatedValueUnit;
+MVSclMin := scaleMinMV;
+MVSclMax := scaleMaxMV;
+proportional := P;
+integration := Ti;
+derivation := Td;
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="ReversingMotor" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+            <variable name="MTPBase"><type><derived name="FB_MTP_MonBinDrv" /></type></variable>
+        </inOutVars>
+        <inputVars>
+            <variable name="stop"><type><BOOL /></type></variable>
+            <variable name="forward"><type><BOOL /></type></variable>
+            <variable name="reverse"><type><BOOL /></type></variable>
+            <variable name="forwardFeedback"><type><BOOL /></type></variable>
+            <variable name="reverseFeedback"><type><BOOL /></type></variable>
+            <variable name="hasFwdFeedback"><type><BOOL /></type></variable>
+            <variable name="hasRevFeedback"><type><BOOL /></type></variable>
+            <variable name="enableForward"><type><BOOL /></type></variable>
+            <variable name="enableReverse"><type><BOOL /></type></variable>
+            <variable name="trip"><type><BOOL /></type></variable>
+            <variable name="safeHold"><type><BOOL /></type></variable>
+            <variable name="monitor"><type><BOOL /></type></variable>
+            <variable name="staticTimeout"><type><REAL /></type></variable>
+            <variable name="dynamicTimeout"><type><REAL /></type></variable>
+            <variable name="simulate"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="reset"><type><BOOL /></type></variable>
+        </inputVars>
+        <outputVars>
+            <variable name="fwdCommand"><type><BOOL /></type></variable>
+            <variable name="revCommand"><type><BOOL /></type></variable>
+            <variable name="forwardActive"><type><BOOL /></type></variable>
+            <variable name="reverseActive"><type><BOOL /></type></variable>
+        </outputVars>
+        <localVars>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+WQC := 16#FF;
+OSLevel := TODO;
+remote := StateChannel;
+operator := StateOpAct;
+automatic := StateAutAct;
+offline := StateOffAct;
+PermEn := True;
+IntlEn := True;
+ProtEn := True;
+Permit := permitIn;
+Interlock := interlockIn;
+IF protectIn THEN
+    Protect := TRUE;
+END_IF;
+SafePos := false;
+FwdEn := enableForward;
+RevEn := enableReverse;
+StopAut := stop;
+FwdAut := forward;
+RevAut := reverse;
+forwardCommand := FwdCtrl;
+reverseCommad := RevCtrl;
+FwdFbkCalc := simulate OR NOT hasFwdFeedback;
+RevFbkCalc := simulate OR NOT hasRevFeedback;
+DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+fwdFeedbackSimulated := DelayTimer1.Q;
+DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+refFeedbackSimulated := DelayTimer2.Q;
+FwdFbk := forwardFeedback OR fwdFeedbackSimulated;
+RevFbk := reverseFeedback OR refFeedbackSimulated;
+Trip := trip;
+ResetAut := reset;
+MonSafePos := safeHold;
+MonStatTi := staticTimeout;
+MonDynTi := dynamicTimeout;
+reset := False;
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="SolenoidValve" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+            <variable name="MTPBase"><type><derived name="FB_MTP_MonBinVlv" /></type></variable>
+        </inOutVars>
+        <inputVars>
+            <variable name="id"><type><INT /></type></variable>
+            <variable name="open"><type><BOOL /></type></variable>
+            <variable name="close"><type><BOOL /></type></variable>
+            <variable name="outsideOpen"><type><BOOL /></type></variable>
+            <variable name="outsideClose"><type><BOOL /></type></variable>
+            <variable name="feedbackOpen"><type><BOOL /></type></variable>
+            <variable name="feedbackClose"><type><BOOL /></type></variable>
+            <variable name="hasFbOpen"><type><BOOL /></type></variable>
+            <variable name="hasFbClose"><type><BOOL /></type></variable>
+            <variable name="safeOpen"><type><BOOL /></type></variable>
+            <variable name="safeHold"><type><BOOL /></type></variable>
+            <variable name="monitor"><type><BOOL /></type></variable>
+            <variable name="staticTimeout"><type><REAL /></type></variable>
+            <variable name="dynamicTimeout"><type><REAL /></type></variable>
+            <variable name="simulate"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="interlockIn"><type><BOOL /></type></variable>
+            <variable name="permitIn"><type><BOOL /></type></variable>
+            <variable name="protectIn"><type><BOOL /></type></variable>
+            <variable name="reset"><type><BOOL /></type></variable>
+            <variable name="externalFault"><type><BOOL /></type></variable>
+            <variable name="surpressAlarms"><type><BOOL /></type></variable>
+            <variable name="setAuto"><type><BOOL /></type></variable>
+            <variable name="setManual"><type><BOOL /></type></variable>
+            <variable name="setOutside"><type><BOOL /></type></variable>
+        </inputVars>
+        <outputVars>
+            <variable name="openCommand"><type><BOOL /></type></variable>
+            <variable name="pulseOpen"><type><BOOL /></type></variable>
+            <variable name="pulseClose"><type><BOOL /></type></variable>
+            <variable name="remote"><type><BOOL /></type></variable>
+            <variable name="operator"><type><BOOL /></type></variable>
+            <variable name="automatic"><type><BOOL /></type></variable>
+            <variable name="offline"><type><BOOL /></type></variable>
+            <variable name="outside"><type><BOOL /></type></variable>
+            <variable name="error"><type><BOOL /></type></variable>
+            <variable name="opened"><type><BOOL /></type></variable>
+            <variable name="closed"><type><BOOL /></type></variable>
+            <variable name="forceActive"><type><BOOL /></type></variable>
+            <variable name="surpressed"><type><BOOL /></type></variable>
+        </outputVars>
+        <localVars>
+            <variable name="fbOpenSimulated"><type><BOOL /></type></variable>
+            <variable name="fbCloseSimulated"><type><BOOL /></type></variable>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+WQC := 16#FF;
+OSLevel := TODO;
+remote := StateChannel;
+operator := StateOpAct;
+automatic := StateAutAct;
+offline := StateOffAct;
+PermEn := True;
+IntlEn := True;
+ProtEn := True;
+Permit := permitIn;
+Interlock := interlockIn;
+IF protectIn THEN
+    Protect := TRUE;
+END_IF;
+SafePos := safeOpen;
+MonSafePos := safeOpen;
+SafePosEn := safeHold;
+OpenAut := open;
+CloseAut := close;
+OpenFbkCalc := simulation OR NOT feedbackOpen;
+CloseFbkCalc := simulation OR NOT feedbackClose;
+DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+fbOpenSimulated := DelayTimer1.Q;
+DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+fbCloseSimulated := DelayTimer2.Q;
+OpenFbk := feedbackOpen OR fbOpenSimulated;
+CloseFbk := feedbackClose OR fbCloseSimulated;
+opened := Ctrl AND OpenFbk;
+closed := NOT Ctrl AND CloseFbk;
+ResetAut := reset;
+MonEn := monitor;
+MonStatTi := staticTimeout;
+MonDynTi := dynamicTimeout;
+reset := False;
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
+<pou name="VFD" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+            <variable name="MTPBase"><type><derived name="FB_MTP_MonAnaDrv" /></type></variable>
+        </inOutVars>
+        <inputVars>
+            <variable name="forward"><type><BOOL /></type></variable>
+            <variable name="reverse"><type><BOOL /></type></variable>
+            <variable name="speed"><type><REAL /></type></variable>
+            <variable name="speedUnit"><type><INT /></type></variable>
+            <variable name="speedMin"><type><REAL /></type></variable>
+            <variable name="speedMax"><type><REAL /></type></variable>
+            <variable name="forwardFeedback"><type><BOOL /></type></variable>
+            <variable name="reverseFeedback"><type><BOOL /></type></variable>
+            <variable name="speedFeedback"><type><WORD /></type></variable>
+            <variable name="speedScaleMin"><type><REAL /></type></variable>
+            <variable name="speedScaleMax"><type><REAL /></type></variable>
+            <variable name="hasFwdFeedback"><type><BOOL /></type></variable>
+            <variable name="hasRevFeedback"><type><BOOL /></type></variable>
+            <variable name="enableForward"><type><BOOL /></type></variable>
+            <variable name="enableReverse"><type><BOOL /></type></variable>
+            <variable name="trip"><type><BOOL /></type></variable>
+            <variable name="safeHold"><type><BOOL /></type></variable>
+            <variable name="monitor"><type><BOOL /></type></variable>
+            <variable name="staticTimeout"><type><REAL /></type></variable>
+            <variable name="dynamicTimeout"><type><REAL /></type></variable>
+            <variable name="simulate"><type><BOOL /></type></variable>
+            <variable name="simulateDelay"><type><BOOL /></type></variable>
+            <variable name="reset"><type><BOOL /></type></variable>
+        </inputVars>
+        <outputVars>
+            <variable name="forwardCommand"><type><BOOL /></type></variable>
+            <variable name="reverseCommad"><type><BOOL /></type></variable>
+            <variable name="forwardActive"><type><BOOL /></type></variable>
+            <variable name="reverseActive"><type><BOOL /></type></variable>
+            <variable name="actualSpeed"><type><REAL /></type></variable>
+        </outputVars>
+        <localVars>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+
+
+WQC := 16#FF;
+OSLevel := TODO;
+remote := StateChannel;
+operator := StateOpAct;
+automatic := StateAutAct;
+offline := StateOffAct;
+remoteSource := SrcChannel;
+internalSourceAct := SrcIntAct;
+manualSourceAct := SrcManAct;
+PermEn := True;
+IntlEn := True;
+ProtEn := True;
+Permit := permitIn;
+Interlock := interlockIn;
+IF protectIn THEN
+    Protect := TRUE;
+END_IF;
+SafePos := False;
+SafePosEn := safeHold;
+FwdAut := open;
+RevAut := close;
+forwardCommand := FwdCtrl;
+reverseCommad := RevCtrl;
+FwdFbkCalc := simulate OR NOT hasFwdFeedback;
+RevFbkCalc := simulate OR NOT hasRevFeedback;
+DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+fwdFeedbackSimulated := DelayTimer1.Q;
+DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+refFeedbackSimulated := DelayTimer2.Q;
+FwdFbk := forwardFeedback OR fwdFeedbackSimulated;
+RevFbk := reverseFeedback OR refFeedbackSimulated;
+Trip := trip;
+ResetAut := reset;
+RpmSclMin := speedMin;
+RpmSclMax := speedMax;
+RpmUnit := speedUnit;
+RpmMin := speedMin;
+RpmMax := speedMax;
+PosInt := targetPosition;
+RpmRbk := speedFeedback;
+speedOut := Rpm;
+reset := False;
+MonSafePos := safeHold;
+MonStatTi := staticTimeout;
+MonDynTi := dynamicTimeout;
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
 </pou></data>
             </addData>
         </resource>
@@ -108,8 +857,25 @@ VALEn := alarmLowEn;
                 <Object Name="project_name_does_not_matter">
                     <Folder Name="OpenProcessLibrary">
                         <Folder Name="POUs">
+                            <Folder Name="MTP">
+                                <Object Name="AnaMon" />
+                                <Object Name="BinMon" />
+                                <Object Name="LockView4" />
+                                <Object Name="MonAnaDrv" />
+                                <Object Name="MonAnaVlv" />
+                                <Object Name="MonBinDrv" />
+                                <Object Name="MonBinVlv" />
+                                <Object Name="PIDCtrl" />
+                            </Folder>
                             <Folder Name="Library">
                                 <Object Name="AnalogInput" />
+                                <Object Name="AnalogValve" />
+                                <Object Name="DigitalInput" />
+                                <Object Name="Interlock4" />
+                                <Object Name="PIDController" />
+                                <Object Name="ReversingMotor" />
+                                <Object Name="SolenoidValve" />
+                                <Object Name="VFD" />
                             </Folder>
                         </Folder>
                     </Folder>

@@ -1089,3 +1089,44 @@ await generateCode()
 await processImportTemplates()
 await Deno.mkdir("generated/model", { recursive: true })
 await Deno.writeTextFile("generated/model/model.json", JSON.stringify(model, null, 4))
+
+// Check for post-generate config and execute if found
+console.log('Reading post-generate configuration...')
+
+// Step 1: Read config file
+let configContent: string
+try {
+    configContent = await Deno.readTextFile('post-generate-config.json')
+    
+    // Step 2: Parse config file
+    let config: any
+    try {
+        config = JSON.parse(configContent)
+        
+        // Step 3: Check if post-generate script is specified
+        if (config['post-generate']) {
+            const scriptPath = config['post-generate']
+            console.log(`Found post-generate script: ${scriptPath}`)
+            
+            // Step 4: Import the script
+            try {
+                const postGenerateModule = await import(`../${scriptPath}`)
+                
+                // Step 5: Execute the script
+                try {
+                    await postGenerateModule.postGenerate()
+                } catch (error) {
+                    console.error('Post-generate script execution failed:', error.message)
+                }
+            } catch (error) {
+                console.error(`Failed to import post-generate script '${scriptPath}':`, error.message)
+            }
+        } else {
+            console.log('No post-generate script specified in config')
+        }
+    } catch (error) {
+        console.error('Post-generate config file is invalid JSON:', error.message)
+    }
+} catch (error) {
+    console.log('Post-generate config file not found')
+}

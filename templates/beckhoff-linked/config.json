@@ -1,4 +1,0 @@
-{
-  "description": "Generates PLCopen XML for Beckhoff TwinCAT",
-  "postGenerate": "scripts/post-generate-beckhoff.ts"
-}

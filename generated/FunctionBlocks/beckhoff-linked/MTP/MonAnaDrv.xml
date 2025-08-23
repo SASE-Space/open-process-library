@@ -11,13 +11,15 @@
     </interface>
     <body>
         <ST>
-            <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
 
 
 
 // Copy local temporaries back to MTP base variables (WRITE access)
-]]></xhtml>
+                ]]>
+            </xhtml>
         </ST>
     </body>
 </pou>

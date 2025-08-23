@@ -1,23 +1,92 @@
 <pou name="PIDController" pouType="functionBlock">
     <interface>
         <inOutVars>
+            <variable name="MTPBase"><type><derived name="PIDCtrl" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="rawValue"><type><WORD /></type></variable>
+            <variable name="valueUnit"><type><INT /></type></variable>
+            <variable name="manipulatedValueUnit"><type><INT /></type></variable>
+            <variable name="scaleMin"><type><REAL /></type></variable>
+            <variable name="scaleMax"><type><REAL /></type></variable>
+            <variable name="scaleMinMV"><type><REAL /></type></variable>
+            <variable name="scaleMaxMV"><type><REAL /></type></variable>
+            <variable name="proportional"><type><REAL /></type></variable>
+            <variable name="integration"><type><REAL /></type></variable>
+            <variable name="derivation"><type><REAL /></type></variable>
+            <variable name="alarmHigh"><type><REAL /></type></variable>
+            <variable name="warningHigh"><type><REAL /></type></variable>
+            <variable name="toleranceHigh"><type><REAL /></type></variable>
+            <variable name="toleranceLow"><type><REAL /></type></variable>
+            <variable name="warningLow"><type><REAL /></type></variable>
+            <variable name="alarmLow"><type><REAL /></type></variable>
+            <variable name="alarmHighEn"><type><BOOL /></type></variable>
+            <variable name="warningHighEn"><type><BOOL /></type></variable>
+            <variable name="toleranceHighEn"><type><BOOL /></type></variable>
+            <variable name="toleranceLowEn"><type><BOOL /></type></variable>
+            <variable name="warningLowEn"><type><BOOL /></type></variable>
+            <variable name="alarmLowEn"><type><BOOL /></type></variable>
+            <variable name="deadband"><type><REAL /></type></variable>
+            <variable name="externalFault"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
+            <variable name="setpointOut"><type><REAL /></type></variable>
+            <variable name="valueOut"><type><REAL /></type></variable>
+            <variable name="manipulatedValue"><type><REAL /></type></variable>
+            <variable name="error"><type><BOOL /></type></variable>
+            <variable name="alarmHighStatus"><type><BOOL /></type></variable>
+            <variable name="warningHighStatus"><type><BOOL /></type></variable>
+            <variable name="toleranceHighStatus"><type><BOOL /></type></variable>
+            <variable name="toleranceLowStatus"><type><BOOL /></type></variable>
+            <variable name="warningLowStatus"><type><BOOL /></type></variable>
+            <variable name="alarmLowStatus"><type><BOOL /></type></variable>
         </outputVars>
         <localVars><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
         <ST>
-            <xhtml xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
 
 
+WQC := 16#FF;
+OSLevel := TODO;
+remote := StateChannel;
+operator := StateOpAct;
+automatic := StateAutAct;
+offline := StateOffAct;
+remoteSource := SrcChannel;
+internalSourceAct := SrcIntAct;
+manualSourceAct := SrcManAct;
+PV := scaleMin + (REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
+valueOut := PV;
+PVSclMin := scaleMin;
+PVSclMax := scaleMax;
+PVUnit := valueUnit;
+SPInt := setpoint;
+SPSclMin := scaleMin;
+SPSclMax := scaleMax;
+SPUnit := valueUnit;
+SPIntMin := scaleMin;
+SPIntMax := scaleMax;
+SPManMin := scaleMin;
+SPManMax := scaleMax;
+setpointOut := SP;
+manipulatedValue := MV;
+MVMin := scaleMinMV;
+MVMax := scaleMaxMV;
+MVUnit := manipulatedValueUnit;
+MVSclMin := scaleMinMV;
+MVSclMax := scaleMaxMV;
+proportional := P;
+integration := Ti;
+derivation := Td;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
-]]></xhtml>
+                ]]>
+            </xhtml>
         </ST>
     </body>
 </pou>

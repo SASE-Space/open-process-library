@@ -1,0 +1,113 @@
+{#- Template functions - these will be handled in the context -#}
+{#- Set output file name -#}
+{#- The file will be named {{ Name }}.xml -#}
+<pou name="{{ Name }}" pouType="functionBlock">
+    <interface>
+        <inOutVars>
+{%- for variable in inoutVars %}
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
+{%- endfor %}
+        </inOutVars>
+        <inputVars>
+{%- for variable in inputVars %}
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
+{%- endfor %}
+        </inputVars>
+        <outputVars>
+{%- for variable in outputVars %}
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
+{%- endfor %}
+        </outputVars>
+        <localVars>
+{%- for variable in localVars %}
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
+{%- endfor -%}
+{%- if DelayTimerCount > 0 -%}
+    {%- for i in range(1, DelayTimerCount + 1) %}
+            <variable name="DelayTimer{{ i }}"><type><derived name="TON" /></type></variable>
+    {%- endfor -%}
+{%- endif -%}
+            <!-- Temporary variables for MTP base interface access -->
+{%- for variable in mtpBaseVarsUsed %}
+            <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
+{%- endfor %}
+        </localVars>
+    </interface>
+    <body>
+        <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+                <![CDATA[
+// Copy MTP base variables to local temporaries (READ access)
+{%- for variable in mtpBaseVarsRead %}
+{{ variable.name }} := MTPBase.{{ variable.name }};
+{%- endfor %}
+
+{% for func in allFunctionality -%}
+    {#-###### EXPLANATION ######-#}
+    {%- if func.logicType == 'Explanation' %}
+// {{ func.comment }}
+    {#-###### EXPRESSION ######-#}
+    {%- elif func.logicType == 'Expression' -%}    
+        {#-###### EXPRESSION WITH DELAY ######-#}         
+        {%- if func.delayTimerNumber %}
+DelayTimer{{ func.delayTimerNumber }}(IN:= {{ func.expression }}, PT:= REAL_TO_TIME({{ func.delayVariable }} * 1000));
+{{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
+        {#-###### EXPRESSION WITHOUT DELAY ######-#}  
+        {%- else %}
+{{ func.key }} := {{ func.expression }};
+        {%- endif -%}
+    {#-###### SET ######-#}
+    {%- elif func.logicType == 'Set' %}
+        {#- Handle SET with optional delay -#}
+        {%- if func.setDelayTimerNumber %}
+DelayTimer{{ func.setDelayTimerNumber }}(IN:= {{ func.set | safe }}, PT:= REAL_TO_TIME({{ func.setDelayVariable }} * 1000));
+        {%- endif %}
+        {#- Generate the actual Set logic #}
+IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe }}{% endif %} THEN
+    {{ func.key | replace('_Set', '') }} := TRUE;
+END_IF;
+    {#-###### RESET ######-#}
+    {%- elif func.logicType == 'Reset' %}
+        {#- Handle RESET with optional delay -#}
+        {%- if func.resetDelayTimerNumber %}
+DelayTimer{{ func.resetDelayTimerNumber }}(IN:= {{ func.reset | safe }}, PT:= REAL_TO_TIME({{ func.resetDelayVariable }} * 1000));
+        {%- endif %}
+        {#- Generate the actual Reset logic #}
+IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe }}{% endif %} THEN
+    {{ func.key | replace('_Reset', '') }} := FALSE;
+END_IF;
+    {#-###### STATE MACHINE ######-#}
+    {%- elif func.logicType == 'StateMachine' %}
+        {#- Generate state machine delay timers first -#}
+        {%- for stateName, stateData in func.stateMachine %}
+            {%- for targetState, transitionData in stateData.Transitions %}
+                {%- if transitionData.DelayTimerNumber %}
+DelayTimer{{ transitionData.DelayTimerNumber }}(IN:= {{ transitionData.Condition | safe }}, PT:= REAL_TO_TIME({{ transitionData.DelayVariable }} * 1000));
+                {%- endif %}
+            {%- endfor %}
+        {%- endfor %}
+        {#- Generate state machine CASE statement #}
+CASE {{ func.key }} OF
+        {%- for stateName, stateData in func.stateMachine %}
+    {{ stateName }}: // {{ stateData.Name }}
+            {%- for targetState, transitionData in stateData.Transitions %}
+        IF {% if transitionData.DelayTimerNumber %}DelayTimer{{ transitionData.DelayTimerNumber }}.Q{% else %}{{ transitionData.Condition | safe }}{% endif %} THEN
+            {{ func.key }} := {{ targetState }};
+        END_IF;
+            {%- endfor %}
+        {%- endfor %}
+END_CASE;
+    {#-###### BLANK LINE ######-#}
+    {%- elif func.logicType == 'BlankLine' %}
+    {% endif -%}
+{%- endfor %}
+
+// Copy local temporaries back to MTP base variables (WRITE access)
+{%- for variable in mtpBaseVarsWrite %}
+MTPBase.{{ variable.name }} := {{ variable.name }};
+{%- endfor %}
+                ]]>
+            </xhtml>
+        </ST>
+    </body>
+</pou>
