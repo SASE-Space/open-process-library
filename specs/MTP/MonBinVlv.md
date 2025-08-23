@@ -34,9 +34,9 @@
 | Variable      | Source | Var Type | Data Type | Default | Description                                                               |
 | ------------- | ------ | -------- | --------- | ------- | ------------------------------------------------------------------------- |
 | WQC           | PEA    | Input    | Byte      |         | Worst Quality Code Variable                                               |
-| OSLevel       | POL    | Input    | Byte      |         | manual operation permission. 0 = only on-site. >0: only from POL          |  TODO: (1)
+| OSLevel       | POL    | Input    | Byte      |         | manual operation permission. 0 = only on-site. >0: only from POL          |  
 | SafePos       | PEA    | Input    | Bool      |         | Safe Position. 0: close, 1: open                                          |
-| SafePosEn     | PEA    | Input    | Bool      |         | Safe Position Enable. 0: has safe position, 1: hold position on interlock |  TODO: (2)
+| SafePosEn     | PEA    | Input    | Bool      |         | Safe Position Enable. 0: has safe position, 1: hold position on interlock | 
 | SafePosAct    | PEA    | Output   | Bool      |         | Safe Position Activated. 1: activated                                     |
 | OpenAut       | PEA    | Input    | Bool      |         | Open command from controller program                                      |
 | CloseAut      | PEA    | Input    | Bool      |         | Close command from controller program                                     |
@@ -135,6 +135,6 @@
 
 
 ## TODO
-- (1) how can the controller know who is giving commands? would the tags not be the same?
-- (2) what if command changes during interlock? Also 0 has different meaning than on MonAnaVlv?
+- (1) OSLevel: how can the controller know who is giving commands? would the tags not be the same?
+- (2) SafePosEn: what if command changes during interlock? Also 0 has different meaning than on MonAnaVlv?
 

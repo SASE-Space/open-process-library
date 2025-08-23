@@ -3,10 +3,19 @@
         <inOutVars>
         </inOutVars>
         <inputVars>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="V"><type><BOOL /></type></variable>
+            <variable name="VState0"><type><STRING /></type></variable>
+            <variable name="VState1"><type><STRING /></type></variable>
+            <variable name="OSLevel"><type><BYTE /></type></variable>
+            <variable name="VFlutEn"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
+            <variable name="VFlutAct"><type><BOOL /></type></variable>
         </outputVars>
-        <localVars><!-- Temporary variables for MTP base interface access -->
+        <localVars>
+            <variable name="VFlutTi"><type><REAL /></type></variable>
+            <variable name="VFlutCnt"><type><INT /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>

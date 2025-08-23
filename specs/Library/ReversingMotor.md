@@ -37,7 +37,7 @@
 | Target               | MTP signal | MTP | SCD | Expression                                                            | Comment                                                   |
 | -------------------- | ---------- | --- | --- | --------------------------------------------------------------------- | --------------------------------------------------------- |
 | WQC                  | x          | x   |     | 16#FF                                                                 | no QC available (default)                                 |
-| OSLevel              | x          | x   |     | TODO                                                                  |                                                           |
+| OSLevel              |            | x   |     | 16#00                                                                 | TODO                                                      |
 | remote               |            | x   |     | StateChannel                                                          |                                                           |
 | operator             |            | x   |     | StateOpAct                                                            |                                                           |
 | automatic            |            | x   |     | StateAutAct                                                           |                                                           |
@@ -67,5 +67,5 @@
 | MonSafePos           | x          | x   |     | safeHold                                                              |                                                           |
 | MonStatTi            | x          | x   |     | staticTimeout                                                         |                                                           |
 | MonDynTi             | x          | x   |     | dynamicTimeout                                                        |                                                           |
-| reset                |            | x   |     | False                                                                 | reset = False at the end of the FB                        |                      |            |     |     
+| reset                |            | x   |     | False                                                                 | reset = False at the end of the FB                        |                      |            |     
 |                      |            |     |     |                                                                       |                                                           |

@@ -20,9 +20,11 @@
             <variable name="toleranceLowEn"><type><BOOL /></type></variable>
             <variable name="warningLowEn"><type><BOOL /></type></variable>
             <variable name="alarmLowEn"><type><BOOL /></type></variable>
+            <variable name="deadband"><type><REAL /></type></variable>
             <variable name="externalFault"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
+            <variable name="vOut"><type><REAL /></type></variable>
             <variable name="error"><type><BOOL /></type></variable>
             <variable name="alarmHighStatus"><type><BOOL /></type></variable>
             <variable name="warningHighStatus"><type><BOOL /></type></variable>
@@ -32,6 +34,24 @@
             <variable name="alarmLowStatus"><type><BOOL /></type></variable>
         </outputVars>
         <localVars><!-- Temporary variables for MTP base interface access -->
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="OSLevel"><type><BYTE /></type></variable>
+            <variable name="V"><type><REAL /></type></variable>
+            <variable name="VSclMin"><type><REAL /></type></variable>
+            <variable name="VSclMax"><type><REAL /></type></variable>
+            <variable name="VUnit"><type><INT /></type></variable>
+            <variable name="VAHEn"><type><BOOL /></type></variable>
+            <variable name="VWHEn"><type><BOOL /></type></variable>
+            <variable name="VTHEn"><type><BOOL /></type></variable>
+            <variable name="VTLEn"><type><BOOL /></type></variable>
+            <variable name="VWLEn"><type><BOOL /></type></variable>
+            <variable name="VALEn"><type><BOOL /></type></variable>
+            <variable name="VAHLim"><type><REAL /></type></variable>
+            <variable name="VWHLim"><type><REAL /></type></variable>
+            <variable name="VTHLim"><type><REAL /></type></variable>
+            <variable name="VTLLim"><type><REAL /></type></variable>
+            <variable name="VWLLim"><type><REAL /></type></variable>
+            <variable name="VALLim"><type><REAL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -39,11 +59,18 @@
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
+V := MTPBase.V;
+VAHLim := MTPBase.VAHLim;
+VWHLim := MTPBase.VWHLim;
+VTHLim := MTPBase.VTHLim;
+VTLLim := MTPBase.VTLLim;
+VWLLim := MTPBase.VWLLim;
+VALLim := MTPBase.VALLim;
 
 
 WQC := 16#FF;
-OSLevel := TODO;
-V := scaleMin + (REAL(RawInput) / 27648.0) * (scaleMax - scaleMin);
+OSLevel := 16#00;
+V := scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
 vOut := V;
 VSclMin := scaleMin;
 VSclMax := scaleMax;
@@ -62,6 +89,18 @@ VWLEn := warningLowEn;
 VALEn := alarmLowEn;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
+MTPBase.WQC := WQC;
+MTPBase.OSLevel := OSLevel;
+MTPBase.V := V;
+MTPBase.VSclMin := VSclMin;
+MTPBase.VSclMax := VSclMax;
+MTPBase.VUnit := VUnit;
+MTPBase.VAHEn := VAHEn;
+MTPBase.VWHEn := VWHEn;
+MTPBase.VTHEn := VTHEn;
+MTPBase.VTLEn := VTLEn;
+MTPBase.VWLEn := VWLEn;
+MTPBase.VALEn := VALEn;
                 ]]>
             </xhtml>
         </ST>

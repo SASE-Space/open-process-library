@@ -3,10 +3,34 @@
         <inOutVars>
         </inOutVars>
         <inputVars>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="OSLevel"><type><BYTE /></type></variable>
+            <variable name="V"><type><REAL /></type></variable>
+            <variable name="VSclMin"><type><REAL /></type></variable>
+            <variable name="VSclMax"><type><REAL /></type></variable>
+            <variable name="VUnit"><type><INT /></type></variable>
+            <variable name="VAHEn"><type><BOOL /></type></variable>
+            <variable name="VWHEn"><type><BOOL /></type></variable>
+            <variable name="VTHEn"><type><BOOL /></type></variable>
+            <variable name="VTLEn"><type><BOOL /></type></variable>
+            <variable name="VWLEn"><type><BOOL /></type></variable>
+            <variable name="VALEn"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
+            <variable name="VAHAct"><type><BOOL /></type></variable>
+            <variable name="VWHAct"><type><BOOL /></type></variable>
+            <variable name="VTHAct"><type><BOOL /></type></variable>
+            <variable name="VTLAct"><type><BOOL /></type></variable>
+            <variable name="VWLAct"><type><BOOL /></type></variable>
+            <variable name="VALAct"><type><BOOL /></type></variable>
         </outputVars>
-        <localVars><!-- Temporary variables for MTP base interface access -->
+        <localVars>
+            <variable name="VAHLim"><type><REAL /></type></variable>
+            <variable name="VWHLim"><type><REAL /></type></variable>
+            <variable name="VTHLim"><type><REAL /></type></variable>
+            <variable name="VTLLim"><type><REAL /></type></variable>
+            <variable name="VWLLim"><type><REAL /></type></variable>
+            <variable name="VALLim"><type><REAL /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>

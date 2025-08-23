@@ -49,7 +49,7 @@
 
 
 WQC := 16#FF;
-OSLevel := TODO;
+OSLevel := 16#00;
 remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;

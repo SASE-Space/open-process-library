@@ -51,8 +51,6 @@
 // Copy MTP base variables to local temporaries (READ access)
 
 
-WQC := 16#FF;
-OSLevel := TODO;
 remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;

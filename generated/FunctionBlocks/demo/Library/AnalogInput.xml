@@ -35,7 +35,11 @@ warningLowEn
 
 alarmLowEn
 
+deadband
+
 externalFault
+
+vOut
 
 error
 

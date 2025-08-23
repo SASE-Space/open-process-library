@@ -44,8 +44,6 @@
 
 | Target               | MTP signal | MTP | SCD | Expression                                                            | Comment                                                   |
 | -------------------- | ---------- | --- | --- | --------------------------------------------------------------------- | --------------------------------------------------------- |
-| WQC                  | x          | x   |     | 16#FF                                                                 | no QC available (default)                                 |
-| OSLevel              |            | x   |     | TODO                                                                  |                                                           |
 | remote               |            | x   |     | StateChannel                                                          |                                                           |
 | operator             |            | x   |     | StateOpAct                                                            |                                                           |
 | automatic            |            | x   |     | StateAutAct                                                           |                                                           |

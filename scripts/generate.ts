@@ -162,6 +162,18 @@ function parseVariableTable(content: string, functionBlock: any) {
                         variableData[tableHeaders[j]] = cells[j]
                     }
                     
+                    // Handle different column schemas between Library and MTP specs
+                    if (functionBlock.isMTP) {
+                        // For MTP specs: automatically mark all variables as MTP interface
+                        if (!variableData['MTP']) {
+                            variableData['MTP'] = 'x'
+                        }
+                        // Set default SCD to empty if not present
+                        if (!variableData['SCD']) {
+                            variableData['SCD'] = ''
+                        }
+                    }
+                    
                     // Check if this is a derived data type
                     const dataType = variableData['Data Type']
                     if (dataType) {

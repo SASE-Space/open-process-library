@@ -22,7 +22,7 @@
 | Target      | MTP signal | MTP | SCD | Expression                           | Comment                                         |
 | ----------- | ---------- | --- | --- | ------------------------------------ | ----------------------------------------------- |
 | WQC         | x          | x   |     | 16#FF                                | no QC available (default)                       |
-| OSLevel     |            | x   |     | TODO                                 |                                                 |
+| OSLevel     |            | x   |     | 16#00                                | TODO                                            |
 | V           | x          | x   |     | value                                |                                                 |
 | VState0     | x          | x   |     | "False"                              | TODO: hardcoded for now                         |
 | VState1     | x          | x   |     | "True"                               | TODO: hardcoded for now                         |

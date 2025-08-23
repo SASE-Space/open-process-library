@@ -42,6 +42,7 @@
 {{ variable.name }} := MTPBase.{{ variable.name }};
 {%- endfor %}
 
+// Functionality
 {% for func in allFunctionality -%}
     {#-###### EXPLANATION ######-#}
     {%- if func.logicType == 'Explanation' %}

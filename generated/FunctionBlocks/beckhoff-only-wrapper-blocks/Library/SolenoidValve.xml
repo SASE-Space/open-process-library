@@ -50,6 +50,31 @@
             <variable name="fbCloseSimulated"><type><BOOL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
             <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
+            <variable name="StateChannel"><type><BOOL /></type></variable>
+            <variable name="StateOpAct"><type><BOOL /></type></variable>
+            <variable name="StateAutAct"><type><BOOL /></type></variable>
+            <variable name="StateOffAct"><type><BOOL /></type></variable>
+            <variable name="PermEn"><type><BOOL /></type></variable>
+            <variable name="IntlEn"><type><BOOL /></type></variable>
+            <variable name="ProtEn"><type><BOOL /></type></variable>
+            <variable name="Permit"><type><BOOL /></type></variable>
+            <variable name="Interlock"><type><BOOL /></type></variable>
+            <variable name="Protect"><type><BOOL /></type></variable>
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="SafePos"><type><BOOL /></type></variable>
+            <variable name="SafePosEn"><type><BOOL /></type></variable>
+            <variable name="OpenAut"><type><BOOL /></type></variable>
+            <variable name="CloseAut"><type><BOOL /></type></variable>
+            <variable name="Ctrl"><type><BOOL /></type></variable>
+            <variable name="OpenFbkCalc"><type><BOOL /></type></variable>
+            <variable name="CloseFbkCalc"><type><BOOL /></type></variable>
+            <variable name="OpenFbk"><type><BOOL /></type></variable>
+            <variable name="CloseFbk"><type><BOOL /></type></variable>
+            <variable name="MonSafePos"><type><BOOL /></type></variable>
+            <variable name="MonStatTi"><type><REAL /></type></variable>
+            <variable name="MonDynTi"><type><REAL /></type></variable>
+            <variable name="ResetAut"><type><BOOL /></type></variable>
+            <variable name="MonEn"><type><BOOL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -57,10 +82,17 @@
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
+StateChannel := MTPBase.StateChannel;
+StateOpAct := MTPBase.StateOpAct;
+StateAutAct := MTPBase.StateAutAct;
+StateOffAct := MTPBase.StateOffAct;
+Ctrl := MTPBase.Ctrl;
+OpenFbk := MTPBase.OpenFbk;
+CloseFbk := MTPBase.CloseFbk;
 
+// Functionality
 
 WQC := 16#FF;
-OSLevel := TODO;
 remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;
@@ -95,6 +127,26 @@ MonDynTi := dynamicTimeout;
 reset := False;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
+MTPBase.PermEn := PermEn;
+MTPBase.IntlEn := IntlEn;
+MTPBase.ProtEn := ProtEn;
+MTPBase.Permit := Permit;
+MTPBase.Interlock := Interlock;
+MTPBase.Protect := Protect;
+MTPBase.WQC := WQC;
+MTPBase.SafePos := SafePos;
+MTPBase.SafePosEn := SafePosEn;
+MTPBase.OpenAut := OpenAut;
+MTPBase.CloseAut := CloseAut;
+MTPBase.OpenFbkCalc := OpenFbkCalc;
+MTPBase.CloseFbkCalc := CloseFbkCalc;
+MTPBase.OpenFbk := OpenFbk;
+MTPBase.CloseFbk := CloseFbk;
+MTPBase.MonSafePos := MonSafePos;
+MTPBase.MonStatTi := MonStatTi;
+MTPBase.MonDynTi := MonDynTi;
+MTPBase.ResetAut := ResetAut;
+MTPBase.MonEn := MonEn;
                 ]]>
             </xhtml>
         </ST>

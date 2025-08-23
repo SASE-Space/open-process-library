@@ -31,9 +31,9 @@
 | surpresWarningLow   |     | x   | Input    | Bool      |         | Surpress WL (there is no action)                               | FUWL     | Force suppression alarm WL |
 | surpressAlarmLow    |     | x   | Input    | Bool      |         | Surpress LL action and alarm                                   | FULL     | Force suppression alarm LL |
 | blockAlarmLow       |     | x   | Input    | Bool      |         | Block LL action, but not alarm                                 | FBLL     | Force blocking alarm LL    |
-| deadband            | x   | x   | Input    | Real      |         | Deadband for alarms/warnings                                   |          |                            | TODO (3)
+| deadband            | x   | x   | Input    | Real      |         | Deadband for alarms/warnings                                   |          |                            |
 | externalFault       | x   | x   | Input    | Bool      |         | Fault indication from outside                                  | XF       | External Fault             |
-| vOut                | x   | x   | Output   | Real      |         | Value                                                          | Y        | Normal function output     | TODO (1)
+| vOut                | x   | x   | Output   | Real      |         | Value                                                          | Y        | Normal function output     |
 | error               | x   | x   | Output   | Bool      |         | Any error active                                               | YF       | Function failed            |
 | alarmHighAction     |     | x   | Output   | Bool      |         | Alarm High Action Active (can be blocked separate from status) | AHH      | Action alarm HH            |
 | alarmHighStatus     | x   | x   | Output   | Bool      |         | Alarm High Limit Active                                        | BHH      | Status alarm HH            |
@@ -55,33 +55,33 @@
 
 
 
-(3) absolute value or %? Also need to add alarms that use this deadband
+TODO: Deadband: absolute value or %? Also need to add alarms that use this deadband
 
 ## Functionality
 
-| Target        | MTP Signal | MTP | SCD | Expression                                                    | Comment                   |
-| ------------- | ---------- | --- | --- | ------------------------------------------------------------- | ------------------------- |
-| WQC           | x          | x   |     | 16#FF                                                         | no QC available (default) |
-| OSLevel       |            | x   |     | TODO                                                          |                           |
-| V             | x          | x   |     | scaleMin + (REAL(RawInput) / 27648.0) * (scaleMax - scaleMin) |                           |
-| vOut          |            | x   |     | V                                                             |                           |
-| VSclMin       | x          | x   |     | scaleMin                                                      |                           |
-| VSclMax       | x          | x   |     | scaleMax                                                      |                           |
-| VUnit         | x          | x   |     | valueUnit                                                     |                           |
-| alarmHigh     |            | x   |     | VAHLim                                                        | synchronize (1)           |
-| warningHigh   |            | x   |     | VWHLim                                                        | synchronize (1)           |
-| toleranceHigh |            | x   |     | VTHLim                                                        | synchronize (1)           |
-| toleranceLow  |            | x   |     | VTLLim                                                        | synchronize (1)           |
-| warningLow    |            | x   |     | VWLLim                                                        | synchronize (1)           |
-| alarmLow      |            | x   |     | VALLim                                                        | synchronize (1)           |
-| VAHEn         | x          | x   |     | alarmHighEn                                                   |                           |
-| VWHEn         | x          | x   |     | warningHighEn                                                 |                           |
-| VTHEn         | x          | x   |     | toleranceHighEn                                               |                           |
-| VTLEn         | x          | x   |     | toleranceLowEn                                                |                           |
-| VWLEn         | x          | x   |     | warningLowEn                                                  |                           |
-| VALEn         | x          | x   |     | alarmLowEn                                                    |                           |
-|               |            |     |     |                                                               |                           |
-|               |            |     |     |                                                               |                           |
+| Target        | MTP Signal | MTP | SCD | Expression                                                            | Comment                   |
+| ------------- | ---------- | --- | --- | --------------------------------------------------------------------- | ------------------------- |
+| WQC           | x          | x   |     | 16#FF                                                                 | no QC available (default) |
+| OSLevel       |            | x   |     | 16#00                                                                 | TODO                      |
+| V             | x          | x   |     | scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin) |                           |
+| vOut          |            | x   |     | V                                                                     |                           |
+| VSclMin       | x          | x   |     | scaleMin                                                              |                           |
+| VSclMax       | x          | x   |     | scaleMax                                                              |                           |
+| VUnit         | x          | x   |     | valueUnit                                                             |                           |
+| alarmHigh     |            | x   |     | VAHLim                                                                | synchronize (1)           |
+| warningHigh   |            | x   |     | VWHLim                                                                | synchronize (1)           |
+| toleranceHigh |            | x   |     | VTHLim                                                                | synchronize (1)           |
+| toleranceLow  |            | x   |     | VTLLim                                                                | synchronize (1)           |
+| warningLow    |            | x   |     | VWLLim                                                                | synchronize (1)           |
+| alarmLow      |            | x   |     | VALLim                                                                | synchronize (1)           |
+| VAHEn         | x          | x   |     | alarmHighEn                                                           |                           |
+| VWHEn         | x          | x   |     | warningHighEn                                                         |                           |
+| VTHEn         | x          | x   |     | toleranceHighEn                                                       |                           |
+| VTLEn         | x          | x   |     | toleranceLowEn                                                        |                           |
+| VWLEn         | x          | x   |     | warningLowEn                                                          |                           |
+| VALEn         | x          | x   |     | alarmLowEn                                                            |                           |
+|               |            |     |     |                                                                       |                           |
+|               |            |     |     |                                                                       |                           |
 
 ## Synchronize (1)
 
