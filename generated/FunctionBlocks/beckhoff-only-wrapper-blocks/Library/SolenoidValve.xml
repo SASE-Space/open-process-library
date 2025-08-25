@@ -81,14 +81,38 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
-// Copy MTP base variables to local temporaries (READ access)
-StateChannel := MTPBase.StateChannel;
-StateOpAct := MTPBase.StateOpAct;
-StateAutAct := MTPBase.StateAutAct;
-StateOffAct := MTPBase.StateOffAct;
-Ctrl := MTPBase.Ctrl;
-OpenFbk := MTPBase.OpenFbk;
-CloseFbk := MTPBase.CloseFbk;
+
+// execute the MTP base, and copy everything from/to local variables
+MTPBase(
+    MTPBase.PermEn := PermEn,
+    MTPBase.IntlEn := IntlEn,
+    MTPBase.ProtEn := ProtEn,
+    MTPBase.Permit := Permit,
+    MTPBase.Interlock := Interlock,
+    MTPBase.Protect := Protect,
+    MTPBase.WQC := WQC,
+    MTPBase.SafePos := SafePos,
+    MTPBase.SafePosEn := SafePosEn,
+    MTPBase.OpenAut := OpenAut,
+    MTPBase.CloseAut := CloseAut,
+    MTPBase.OpenFbkCalc := OpenFbkCalc,
+    MTPBase.CloseFbkCalc := CloseFbkCalc,
+    MTPBase.OpenFbk := OpenFbk,
+    MTPBase.CloseFbk := CloseFbk,
+    MTPBase.MonSafePos := MonSafePos,
+    MTPBase.MonStatTi := MonStatTi,
+    MTPBase.MonDynTi := MonDynTi,
+    MTPBase.ResetAut := ResetAut,
+    MTPBase.MonEn := MonEn,
+    StateChannel := MTPBase.StateChannel,
+    StateOpAct := MTPBase.StateOpAct,
+    StateAutAct := MTPBase.StateAutAct,
+    StateOffAct := MTPBase.StateOffAct,
+    Ctrl := MTPBase.Ctrl,
+    OpenFbk := MTPBase.OpenFbk,
+    CloseFbk := MTPBase.CloseFbk,
+);
+
 
 // Functionality
 
@@ -126,27 +150,6 @@ MonStatTi := staticTimeout;
 MonDynTi := dynamicTimeout;
 reset := False;
 
-// Copy local temporaries back to MTP base variables (WRITE access)
-MTPBase.PermEn := PermEn;
-MTPBase.IntlEn := IntlEn;
-MTPBase.ProtEn := ProtEn;
-MTPBase.Permit := Permit;
-MTPBase.Interlock := Interlock;
-MTPBase.Protect := Protect;
-MTPBase.WQC := WQC;
-MTPBase.SafePos := SafePos;
-MTPBase.SafePosEn := SafePosEn;
-MTPBase.OpenAut := OpenAut;
-MTPBase.CloseAut := CloseAut;
-MTPBase.OpenFbkCalc := OpenFbkCalc;
-MTPBase.CloseFbkCalc := CloseFbkCalc;
-MTPBase.OpenFbk := OpenFbk;
-MTPBase.CloseFbk := CloseFbk;
-MTPBase.MonSafePos := MonSafePos;
-MTPBase.MonStatTi := MonStatTi;
-MTPBase.MonDynTi := MonDynTi;
-MTPBase.ResetAut := ResetAut;
-MTPBase.MonEn := MonEn;
                 ]]>
             </xhtml>
         </ST>

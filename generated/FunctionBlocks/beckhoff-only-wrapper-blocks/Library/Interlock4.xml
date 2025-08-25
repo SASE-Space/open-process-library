@@ -13,12 +13,15 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
-// Copy MTP base variables to local temporaries (READ access)
+
+// execute the MTP base, and copy everything from/to local variables
+MTPBase(
+);
+
 
 // Functionality
 
 
-// Copy local temporaries back to MTP base variables (WRITE access)
                 ]]>
             </xhtml>
         </ST>

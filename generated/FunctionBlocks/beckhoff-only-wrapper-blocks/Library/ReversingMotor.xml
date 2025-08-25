@@ -75,13 +75,40 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
-// Copy MTP base variables to local temporaries (READ access)
-StateChannel := MTPBase.StateChannel;
-StateOpAct := MTPBase.StateOpAct;
-StateAutAct := MTPBase.StateAutAct;
-StateOffAct := MTPBase.StateOffAct;
-FwdCtrl := MTPBase.FwdCtrl;
-RevCtrl := MTPBase.RevCtrl;
+
+// execute the MTP base, and copy everything from/to local variables
+MTPBase(
+    MTPBase.PermEn := PermEn,
+    MTPBase.Permit := Permit,
+    MTPBase.IntlEn := IntlEn,
+    MTPBase.Interlock := Interlock,
+    MTPBase.ProtEn := ProtEn,
+    MTPBase.Protect := Protect,
+    MTPBase.WQC := WQC,
+    MTPBase.OSLevel := OSLevel,
+    MTPBase.SafePos := SafePos,
+    MTPBase.FwdEn := FwdEn,
+    MTPBase.RevEn := RevEn,
+    MTPBase.StopAut := StopAut,
+    MTPBase.FwdAut := FwdAut,
+    MTPBase.RevAut := RevAut,
+    MTPBase.RevFbkCalc := RevFbkCalc,
+    MTPBase.RevFbk := RevFbk,
+    MTPBase.FwdFbkCalc := FwdFbkCalc,
+    MTPBase.FwdFbk := FwdFbk,
+    MTPBase.Trip := Trip,
+    MTPBase.ResetAut := ResetAut,
+    MTPBase.MonSafePos := MonSafePos,
+    MTPBase.MonStatTi := MonStatTi,
+    MTPBase.MonDynTi := MonDynTi,
+    StateChannel := MTPBase.StateChannel,
+    StateOpAct := MTPBase.StateOpAct,
+    StateAutAct := MTPBase.StateAutAct,
+    StateOffAct := MTPBase.StateOffAct,
+    FwdCtrl := MTPBase.FwdCtrl,
+    RevCtrl := MTPBase.RevCtrl,
+);
+
 
 // Functionality
 
@@ -122,30 +149,6 @@ MonStatTi := staticTimeout;
 MonDynTi := dynamicTimeout;
 reset := False;
 
-// Copy local temporaries back to MTP base variables (WRITE access)
-MTPBase.PermEn := PermEn;
-MTPBase.Permit := Permit;
-MTPBase.IntlEn := IntlEn;
-MTPBase.Interlock := Interlock;
-MTPBase.ProtEn := ProtEn;
-MTPBase.Protect := Protect;
-MTPBase.WQC := WQC;
-MTPBase.OSLevel := OSLevel;
-MTPBase.SafePos := SafePos;
-MTPBase.FwdEn := FwdEn;
-MTPBase.RevEn := RevEn;
-MTPBase.StopAut := StopAut;
-MTPBase.FwdAut := FwdAut;
-MTPBase.RevAut := RevAut;
-MTPBase.RevFbkCalc := RevFbkCalc;
-MTPBase.RevFbk := RevFbk;
-MTPBase.FwdFbkCalc := FwdFbkCalc;
-MTPBase.FwdFbk := FwdFbk;
-MTPBase.Trip := Trip;
-MTPBase.ResetAut := ResetAut;
-MTPBase.MonSafePos := MonSafePos;
-MTPBase.MonStatTi := MonStatTi;
-MTPBase.MonDynTi := MonDynTi;
                 ]]>
             </xhtml>
         </ST>

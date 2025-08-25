@@ -25,7 +25,17 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
-// Copy MTP base variables to local temporaries (READ access)
+
+// execute the MTP base, and copy everything from/to local variables
+MTPBase(
+    MTPBase.WQC := WQC,
+    MTPBase.V := V,
+    MTPBase.VState0 := VState0,
+    MTPBase.VState1 := VState1,
+    MTPBase.OSLevel := OSLevel,
+    MTPBase.VFlutEn := VFlutEn,
+);
+
 
 // Functionality
 
@@ -39,13 +49,6 @@ risingEdge := value <> lastValue and value = True;
 fallingEdge := value <> lastValue and value = False;
 lastValue := value;
 
-// Copy local temporaries back to MTP base variables (WRITE access)
-MTPBase.WQC := WQC;
-MTPBase.V := V;
-MTPBase.VState0 := VState0;
-MTPBase.VState1 := VState1;
-MTPBase.OSLevel := OSLevel;
-MTPBase.VFlutEn := VFlutEn;
                 ]]>
             </xhtml>
         </ST>

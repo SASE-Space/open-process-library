@@ -58,14 +58,30 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
-// Copy MTP base variables to local temporaries (READ access)
-V := MTPBase.V;
-VAHLim := MTPBase.VAHLim;
-VWHLim := MTPBase.VWHLim;
-VTHLim := MTPBase.VTHLim;
-VTLLim := MTPBase.VTLLim;
-VWLLim := MTPBase.VWLLim;
-VALLim := MTPBase.VALLim;
+
+// execute the MTP base, and copy everything from/to local variables
+MTPBase(
+    MTPBase.WQC := WQC,
+    MTPBase.OSLevel := OSLevel,
+    MTPBase.V := V,
+    MTPBase.VSclMin := VSclMin,
+    MTPBase.VSclMax := VSclMax,
+    MTPBase.VUnit := VUnit,
+    MTPBase.VAHEn := VAHEn,
+    MTPBase.VWHEn := VWHEn,
+    MTPBase.VTHEn := VTHEn,
+    MTPBase.VTLEn := VTLEn,
+    MTPBase.VWLEn := VWLEn,
+    MTPBase.VALEn := VALEn,
+    V := MTPBase.V,
+    VAHLim := MTPBase.VAHLim,
+    VWHLim := MTPBase.VWHLim,
+    VTHLim := MTPBase.VTHLim,
+    VTLLim := MTPBase.VTLLim,
+    VWLLim := MTPBase.VWLLim,
+    VALLim := MTPBase.VALLim,
+);
+
 
 // Functionality
 
@@ -89,19 +105,6 @@ VTLEn := toleranceLowEn;
 VWLEn := warningLowEn;
 VALEn := alarmLowEn;
 
-// Copy local temporaries back to MTP base variables (WRITE access)
-MTPBase.WQC := WQC;
-MTPBase.OSLevel := OSLevel;
-MTPBase.V := V;
-MTPBase.VSclMin := VSclMin;
-MTPBase.VSclMax := VSclMax;
-MTPBase.VUnit := VUnit;
-MTPBase.VAHEn := VAHEn;
-MTPBase.VWHEn := VWHEn;
-MTPBase.VTHEn := VTHEn;
-MTPBase.VTLEn := VTLEn;
-MTPBase.VWLEn := VWLEn;
-MTPBase.VALEn := VALEn;
                 ]]>
             </xhtml>
         </ST>

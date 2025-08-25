@@ -37,10 +37,17 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
-// Copy MTP base variables to local temporaries (READ access)
-{%- for variable in mtpBaseVarsRead %}
-{{ variable.name }} := MTPBase.{{ variable.name }};
+
+// execute the MTP base, and copy everything from/to local variables
+MTPBase(
+{%- for variable in mtpBaseVarsWrite %}
+    MTPBase.{{ variable.name }} := {{ variable.name }},
 {%- endfor %}
+{%- for variable in mtpBaseVarsRead %}
+    {{ variable.name }} := MTPBase.{{ variable.name }},
+{%- endfor %}
+);
+
 
 // Functionality
 {% for func in allFunctionality -%}
@@ -103,10 +110,6 @@ END_CASE;
     {% endif -%}
 {%- endfor %}
 
-// Copy local temporaries back to MTP base variables (WRITE access)
-{%- for variable in mtpBaseVarsWrite %}
-MTPBase.{{ variable.name }} := {{ variable.name }};
-{%- endfor %}
                 ]]>
             </xhtml>
         </ST>

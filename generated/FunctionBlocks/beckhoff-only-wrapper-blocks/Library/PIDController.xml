@@ -87,20 +87,43 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
-// Copy MTP base variables to local temporaries (READ access)
-StateChannel := MTPBase.StateChannel;
-StateOpAct := MTPBase.StateOpAct;
-StateAutAct := MTPBase.StateAutAct;
-StateOffAct := MTPBase.StateOffAct;
-SrcChannel := MTPBase.SrcChannel;
-SrcIntAct := MTPBase.SrcIntAct;
-SrcManAct := MTPBase.SrcManAct;
-PV := MTPBase.PV;
-SP := MTPBase.SP;
-MV := MTPBase.MV;
-P := MTPBase.P;
-Ti := MTPBase.Ti;
-Td := MTPBase.Td;
+
+// execute the MTP base, and copy everything from/to local variables
+MTPBase(
+    MTPBase.WQC := WQC,
+    MTPBase.OSLevel := OSLevel,
+    MTPBase.PV := PV,
+    MTPBase.PVSclMin := PVSclMin,
+    MTPBase.PVSclMax := PVSclMax,
+    MTPBase.PVUnit := PVUnit,
+    MTPBase.SPInt := SPInt,
+    MTPBase.SPSclMin := SPSclMin,
+    MTPBase.SPSclMax := SPSclMax,
+    MTPBase.SPUnit := SPUnit,
+    MTPBase.SPIntMin := SPIntMin,
+    MTPBase.SPIntMax := SPIntMax,
+    MTPBase.SPManMin := SPManMin,
+    MTPBase.SPManMax := SPManMax,
+    MTPBase.MVMin := MVMin,
+    MTPBase.MVMax := MVMax,
+    MTPBase.MVUnit := MVUnit,
+    MTPBase.MVSclMin := MVSclMin,
+    MTPBase.MVSclMax := MVSclMax,
+    StateChannel := MTPBase.StateChannel,
+    StateOpAct := MTPBase.StateOpAct,
+    StateAutAct := MTPBase.StateAutAct,
+    StateOffAct := MTPBase.StateOffAct,
+    SrcChannel := MTPBase.SrcChannel,
+    SrcIntAct := MTPBase.SrcIntAct,
+    SrcManAct := MTPBase.SrcManAct,
+    PV := MTPBase.PV,
+    SP := MTPBase.SP,
+    MV := MTPBase.MV,
+    P := MTPBase.P,
+    Ti := MTPBase.Ti,
+    Td := MTPBase.Td,
+);
+
 
 // Functionality
 
@@ -137,26 +160,6 @@ proportional := P;
 integration := Ti;
 derivation := Td;
 
-// Copy local temporaries back to MTP base variables (WRITE access)
-MTPBase.WQC := WQC;
-MTPBase.OSLevel := OSLevel;
-MTPBase.PV := PV;
-MTPBase.PVSclMin := PVSclMin;
-MTPBase.PVSclMax := PVSclMax;
-MTPBase.PVUnit := PVUnit;
-MTPBase.SPInt := SPInt;
-MTPBase.SPSclMin := SPSclMin;
-MTPBase.SPSclMax := SPSclMax;
-MTPBase.SPUnit := SPUnit;
-MTPBase.SPIntMin := SPIntMin;
-MTPBase.SPIntMax := SPIntMax;
-MTPBase.SPManMin := SPManMin;
-MTPBase.SPManMax := SPManMax;
-MTPBase.MVMin := MVMin;
-MTPBase.MVMax := MVMax;
-MTPBase.MVUnit := MVUnit;
-MTPBase.MVSclMin := MVSclMin;
-MTPBase.MVSclMax := MVSclMax;
                 ]]>
             </xhtml>
         </ST>

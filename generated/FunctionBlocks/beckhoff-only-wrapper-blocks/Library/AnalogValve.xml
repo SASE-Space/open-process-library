@@ -79,20 +79,49 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
-// Copy MTP base variables to local temporaries (READ access)
-StateChannel := MTPBase.StateChannel;
-StateOpAct := MTPBase.StateOpAct;
-StateAutAct := MTPBase.StateAutAct;
-StateOffAct := MTPBase.StateOffAct;
-SrcChannel := MTPBase.SrcChannel;
-SrcIntAct := MTPBase.SrcIntAct;
-SrcManAct := MTPBase.SrcManAct;
-OpenAut := MTPBase.OpenAut;
-PosSclMin := MTPBase.PosSclMin;
-PosSclMax := MTPBase.PosSclMax;
-Pos := MTPBase.Pos;
-OpenFbk := MTPBase.OpenFbk;
-CloseFbk := MTPBase.CloseFbk;
+
+// execute the MTP base, and copy everything from/to local variables
+MTPBase(
+    MTPBase.PermEn := PermEn,
+    MTPBase.Permit := Permit,
+    MTPBase.IntlEn := IntlEn,
+    MTPBase.Interlock := Interlock,
+    MTPBase.ProtEn := ProtEn,
+    MTPBase.Protect := Protect,
+    MTPBase.WQC := WQC,
+    MTPBase.OSLevel := OSLevel,
+    MTPBase.SafePos := SafePos,
+    MTPBase.SafePosEn := SafePosEn,
+    MTPBase.OpenAut := OpenAut,
+    MTPBase.CloseAut := CloseAut,
+    MTPBase.PosSclMin := PosSclMin,
+    MTPBase.PosSclMax := PosSclMax,
+    MTPBase.PosUnit := PosUnit,
+    MTPBase.PosMin := PosMin,
+    MTPBase.PosMax := PosMax,
+    MTPBase.PosInt := PosInt,
+    MTPBase.OpenFbkCalc := OpenFbkCalc,
+    MTPBase.OpenFbk := OpenFbk,
+    MTPBase.CloseFbkCalc := CloseFbkCalc,
+    MTPBase.CloseFbk := CloseFbk,
+    MTPBase.PosFbkCalc := PosFbkCalc,
+    MTPBase.PosFbk := PosFbk,
+    MTPBase.ResetAut := ResetAut,
+    StateChannel := MTPBase.StateChannel,
+    StateOpAct := MTPBase.StateOpAct,
+    StateAutAct := MTPBase.StateAutAct,
+    StateOffAct := MTPBase.StateOffAct,
+    SrcChannel := MTPBase.SrcChannel,
+    SrcIntAct := MTPBase.SrcIntAct,
+    SrcManAct := MTPBase.SrcManAct,
+    OpenAut := MTPBase.OpenAut,
+    PosSclMin := MTPBase.PosSclMin,
+    PosSclMax := MTPBase.PosSclMax,
+    Pos := MTPBase.Pos,
+    OpenFbk := MTPBase.OpenFbk,
+    CloseFbk := MTPBase.CloseFbk,
+);
+
 
 // Functionality
 
@@ -138,32 +167,6 @@ PosFbk := feedbackPosition;
 positionOut := Pos;
 reset := False;
 
-// Copy local temporaries back to MTP base variables (WRITE access)
-MTPBase.PermEn := PermEn;
-MTPBase.Permit := Permit;
-MTPBase.IntlEn := IntlEn;
-MTPBase.Interlock := Interlock;
-MTPBase.ProtEn := ProtEn;
-MTPBase.Protect := Protect;
-MTPBase.WQC := WQC;
-MTPBase.OSLevel := OSLevel;
-MTPBase.SafePos := SafePos;
-MTPBase.SafePosEn := SafePosEn;
-MTPBase.OpenAut := OpenAut;
-MTPBase.CloseAut := CloseAut;
-MTPBase.PosSclMin := PosSclMin;
-MTPBase.PosSclMax := PosSclMax;
-MTPBase.PosUnit := PosUnit;
-MTPBase.PosMin := PosMin;
-MTPBase.PosMax := PosMax;
-MTPBase.PosInt := PosInt;
-MTPBase.OpenFbkCalc := OpenFbkCalc;
-MTPBase.OpenFbk := OpenFbk;
-MTPBase.CloseFbkCalc := CloseFbkCalc;
-MTPBase.CloseFbk := CloseFbk;
-MTPBase.PosFbkCalc := PosFbkCalc;
-MTPBase.PosFbk := PosFbk;
-MTPBase.ResetAut := ResetAut;
                 ]]>
             </xhtml>
         </ST>

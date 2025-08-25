@@ -109,6 +109,10 @@ Come to the Slack: [SASE Slack](https://sase.space/): #open-process-library
 ```
 deno run --allow-read --allow-write ./scripts/generate.ts
 ```
+- Alternative for running with a post-generate script (in WSL):
+```
+deno run --allow-read --allow-write --allow-run ./scripts/generate.ts
+```
 
 
 # Block Priority Table
