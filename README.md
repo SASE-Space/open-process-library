@@ -14,6 +14,8 @@
 ╚══════╝ ╚═╝ ╚═════╝  ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝    ╚═╝
 ```
 
+> Open Process Library is currently in development! The aim is to use the first set of blocks in an actual production in the following months, but don't expect to be able to drop the library in a project without thorough review and testing at this time!
+
 # Call for Collaboration
 
 This project is looking for collaboration.  
