@@ -6,14 +6,15 @@
 
 ## Variable Table
 
-| Variable    | MTP | SCD | Var Type | Data Type | Default | Description                               | SCD Name | SCD Terminal Name |
-| ----------- | --- | --- | -------- | --------- | ------- | ----------------------------------------- | -------- | ----------------- |
-| MTPBase     | x   | x   | InOut    | BinMon    |         |                                           |          |                   |
-| value       | x   |     | Input    | Bool      |         | Value coming from device                  |          |                   |
-| valueOut    | x   |     | Output   | Bool      |         | Value for use in program                  |          |                   |
-| risingEdge  | x   |     | Output   | Bool      |         | Input value transitioned from low to high |          |                   |
-| fallingEdge | x   |     | Output   | Bool      |         | Input value transitioned from high to low |          |                   |
-| lastValue   | x   |     | Local    | Bool      |         | Value from last scan, for edge detection  |          |                   |
+| Variable    | MTP | SCD | Var Type | Data Type | Default | Description                                                   | SCD Name | SCD Terminal Name |
+| ----------- | --- | --- | -------- | --------- | ------- | ------------------------------------------------------------- | -------- | ----------------- |
+| MTPBase     | x   | x   | InOut    | BinMon    |         |                                                               |          |                   |
+| id          | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects |          |                   |
+| value       | x   |     | Input    | Bool      |         | Value coming from device                                      |          |                   |
+| valueOut    | x   |     | Output   | Bool      |         | Value for use in program                                      |          |                   |
+| risingEdge  | x   |     | Output   | Bool      |         | Input value transitioned from low to high                     |          |                   |
+| fallingEdge | x   |     | Output   | Bool      |         | Input value transitioned from high to low                     |          |                   |
+| lastValue   | x   |     | Local    | Bool      |         | Value from last scan, for edge detection                      |          |                   |
 
 
 

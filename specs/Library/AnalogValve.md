@@ -9,6 +9,7 @@
 | Variable          | MTP | SCD | Var Type | Data Type | Default | Description                                                               | SCD Name | SCD Terminal Name              |
 | ----------------- | --- | --- | -------- | --------- | ------- | ------------------------------------------------------------------------- | -------- | ------------------------------ |
 | MTPBase           | x   | x   | InOut    | MonAnaVlv |         |                                                                           |          |                                |
+| id                | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects             |          |                                |
 | targetPosition    | x   |     | Input    | Real      |         | Target position from program                                              |          |                                |
 | feedbackPosition  | x   |     | Input    | Word      |         | Position feedback (0-100%)                                                |          |                                |
 | scaleMin          | x   |     | Input    | Real      | 0       | Position scale min                                                        |          |                                |
@@ -25,8 +26,8 @@
 | permitIn          | x   |     | Input    | Bool      | 1       | permission to control. Does not activate safe position. 0 = no permission |          |                                |
 | protectIn         | x   |     | Input    | Bool      |         | Protect, sets safe position, sets protectState. 0 = Protect active        |          |                                |
 | reset             | x   |     | Input    | Bool      |         | will try to reset itself                                                  |          |                                |
-| positionOutDevice | x   |     | Output   | Word      |         | Command to device (0-100%)                                                |          |                                |
-| positionOut       | x   |     | Output   | Real      |         | Command for use in program                                                |          |                                |
+| positionOutDevice | x   |     | Output   | Word      |         | Position Command to device (0-100%)                                       |          |                                |
+| positionOut       | x   |     | Output   | Real      |         | Position Command for use in program                                       |          |                                |
 | remote            | x   |     | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                    |          |                                |
 | operator          | x   |     | Output   | Bool      |         | Operator Mode                                                             |          |                                |
 | automatic         | x   |     | Output   | Bool      |         | Automatic Mode                                                            |          |                                |
@@ -41,6 +42,8 @@
 | manualSourceAct   | x   |     | Output   | Bool      |         |                                                                           |          |                                |
 |                   |     |     |          |           |         |                                                                           |          |                                |
 
+TODO: better description for 'reset' -> now: 'will try to reset itself'?
+TODO: is positionOut the command or the actual position? If actual then confusion with position OutDevice because that is the command?
 
 ## Functionality
 

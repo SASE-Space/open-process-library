@@ -16,8 +16,8 @@
 | ---------------- | --- | --- | -------- | --------- | ------- | ----------------------------------------------------------------------------- | -------- | ---------------------------------- |
 | MTPBase          | x   | x   | InOut    | MonBinVlv |         |                                                                               |          |                                    |
 | id               | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects                 |          |                                    |
-| open             | x   | x   | Input    | Bool      |         | open command                                                                  | XH       | External set high                  |
-| close            | x   | x   | Input    | Bool      |         | close command                                                                 | XL       | External set low                   |
+| open             | x   | x   | Input    | Bool      |         | open command from PLC program                                                 | XH       | External set high                  |
+| close            | x   | x   | Input    | Bool      |         | close command from PLC program                                                | XL       | External set low                   |
 | outsideOpen      | x   | x   | Input    | Bool      |         | open command from local panel                                                 | XOH      | External outside set high          |
 | outsideClose     | x   | x   | Input    | Bool      |         | close command from local panel                                                | XOL      | External outside set low           |
 | feedbackOpen     | x   | x   | Input    | Bool      | True    | feedback open                                                                 | XGH      | Position high feedback             |

@@ -9,6 +9,7 @@
 | Variable        | MTP | SCD | Var Type | Data Type | Default | Description                                                               | SCD Name | SCD Terminal Name |
 | --------------- | --- | --- | -------- | --------- | ------- | ------------------------------------------------------------------------- | -------- | ----------------- |
 | MTPBase         | x   | x   | InOut    | MonBinDrv |         |                                                                           |          |                   |
+| id              | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects             |          |                   |
 | stop            | x   |     | Input    | Bool      |         | Stop command from program                                                 |          |                   |
 | forward         | x   |     | Input    | Bool      |         | Forward command from program                                              |          |                   |
 | reverse         | x   |     | Input    | Bool      |         | Reverse command from program                                              |          |                   |

@@ -9,6 +9,7 @@
 | Variable          | MTP | SCD | Var Type | Data Type | Default | Description                                                               | SCD Name | SCD Terminal Name |
 | ----------------- | --- | --- | -------- | --------- | ------- | ------------------------------------------------------------------------- | -------- | ----------------- |
 | MTPBase           | x   | x   | InOut    | MonAnaDrv |         |                                                                           |          |                   |
+| id                | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects             |          |                   |
 | forward           | x   |     | Input    | Bool      |         | Forward command from program                                              |          |                   |
 | reverse           | x   |     | Input    | Bool      |         | Reverse command from program                                              |          |                   |
 | speed             | x   |     | Input    | Real      |         | Speed command from program                                                |          |                   |
@@ -39,8 +40,6 @@
 | revCommand        | x   |     | Output   | Bool      |         | Reverse command to device                                                 |          |                   |
 | forwardActive     | x   |     | Output   | Bool      |         | Motor running forward                                                     |          |                   |
 | reverseActive     | x   |     | Output   | Bool      |         | Motor running reverse                                                     |          |                   |
-| fwdFbkSimulated   | x   | x   | Local    | Bool      |         | Simulated forward feedback                                                |          |                   |
-| revFbkSimulated   | x   | x   | Local    | Bool      |         | Simulated reverse feedback                                                |          |                   |
 | actualSpeed       | x   |     | Output   | Real      |         | Actual motor speed                                                        |          |                   |
 | remote            | x   | x   | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                    |          |                   |
 | operator          | x   | x   | Output   | Bool      |         | Operator Mode                                                             |          |                   |
@@ -49,6 +48,8 @@
 | remoteSource      | x   |     | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                    |          |                   |
 | internalSourceAct | x   |     | Output   | Bool      |         |                                                                           |          |                   |
 | manualSourceAct   | x   |     | Output   | Bool      |         |                                                                           |          |                   |
+| fwdFbkSimulated   | x   | x   | Local    | Bool      |         | Simulated forward feedback                                                |          |                   |
+| revFbkSimulated   | x   | x   | Local    | Bool      |         | Simulated reverse feedback                                                |          |                   |
 |                   |     |     |          |           |         |                                                                           |          |                   |
 
 

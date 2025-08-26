@@ -9,6 +9,7 @@
 | Variable            | MTP | SCD | Var Type | Data Type | Default | Description                                                    | SCD Name | SCD Terminal Name          |
 | ------------------- | --- | --- | -------- | --------- | ------- | -------------------------------------------------------------- | -------- | -------------------------- |
 | MTPBase             | x   | x   | InOut    | AnaMon    |         |                                                                |          |                            |
+| id                  | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects  |          |                            |
 | rawValue            | x   | x   | Input    | Word      |         | Raw Input Value                                                | X        | Normal function input      |
 | valueUnit           | x   | x   | Input    | Int       |         | Value Unit                                                     |          |                            |
 | scaleMin            | x   | x   | Input    | Real      |         | Scale Min Limit                                                |          |                            |
