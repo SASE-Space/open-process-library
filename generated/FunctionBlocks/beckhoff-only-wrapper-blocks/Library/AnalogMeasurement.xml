@@ -1,9 +1,10 @@
-<pou name="AnalogInput" pouType="functionBlock">
+<pou name="AnalogMeasurement" pouType="functionBlock">
     <interface>
         <inOutVars>
             <variable name="MTPBase"><type><derived name="FB_MTP_AnaMon" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>
             <variable name="scaleMin"><type><REAL /></type></variable>
@@ -59,28 +60,28 @@
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 
-// execute the MTP base, and copy everything from/to local variables
-MTPBase(
-    MTPBase.WQC := WQC,
-    MTPBase.OSLevel := OSLevel,
-    MTPBase.V := V,
-    MTPBase.VSclMin := VSclMin,
-    MTPBase.VSclMax := VSclMax,
-    MTPBase.VUnit := VUnit,
-    MTPBase.VAHEn := VAHEn,
-    MTPBase.VWHEn := VWHEn,
-    MTPBase.VTHEn := VTHEn,
-    MTPBase.VTLEn := VTLEn,
-    MTPBase.VWLEn := VWLEn,
-    MTPBase.VALEn := VALEn,
-    V := MTPBase.V,
-    VAHLim := MTPBase.VAHLim,
-    VWHLim := MTPBase.VWHLim,
-    VTHLim := MTPBase.VTHLim,
-    VTLLim := MTPBase.VTLLim,
-    VWLLim := MTPBase.VWLLim,
-    VALLim := MTPBase.VALLim,
-);
+// copy from and to the MTPBase
+// there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
+    MTPBase.WQC := WQC;
+    MTPBase.OSLevel := OSLevel;
+    MTPBase.V := V;
+    MTPBase.VSclMin := VSclMin;
+    MTPBase.VSclMax := VSclMax;
+    MTPBase.VUnit := VUnit;
+    MTPBase.VAHEn := VAHEn;
+    MTPBase.VWHEn := VWHEn;
+    MTPBase.VTHEn := VTHEn;
+    MTPBase.VTLEn := VTLEn;
+    MTPBase.VWLEn := VWLEn;
+    MTPBase.VALEn := VALEn;
+    V := MTPBase.V;
+    VAHLim := MTPBase.VAHLim;
+    VWHLim := MTPBase.VWHLim;
+    VTHLim := MTPBase.VTHLim;
+    VTLLim := MTPBase.VTLLim;
+    VWLLim := MTPBase.VWLLim;
+    VALLim := MTPBase.VALLim;
+
 
 
 // Functionality
@@ -109,4 +110,49 @@ VALEn := alarmLowEn;
             </xhtml>
         </ST>
     </body>
+    <addData>
+        <data name="http://www.3s-software.com/plcopenxml/method" handleUnknown="implementation">
+            <Method name="FB_INIT" ObjectId="8568aabb-efd1-4e11-b093-9ebdb5b0ac2b">
+                <interface>
+                    <returnType><BOOL /></returnType>
+                    <inputVars>
+                        <variable name="bInitRetains">
+                            <type><BOOL /></type>
+                            <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE: the retain variables are initialized (reset warm / reset cold)</xhtml></documentation>
+                        </variable>
+                        <variable name="bInCopyCode">
+                            <type><BOOL /></type>
+                            <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE: the instance will be copied to the copy code afterward (online change)   </xhtml></documentation>
+                        </variable>
+                    </inputVars>
+                    <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">
+FB_Init is always available implicitly and it is used primarily for initialization.
+                        </xhtml>
+                    </documentation>
+                </interface>
+                <body>
+                    <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">
+// assign default values on initialization
+THIS^.scaleMin := 0;
+THIS^.scaleMax := 100;
+THIS^.alarmHigh := 90;
+THIS^.warningHigh := 80;
+THIS^.toleranceHigh := 60;
+THIS^.toleranceLow := 40;
+THIS^.warningLow := 20;
+THIS^.alarmLow := 10;
+THIS^.alarmHighEn := True;
+THIS^.warningHighEn := True;
+THIS^.toleranceHighEn := True;
+THIS^.toleranceLowEn := True;
+THIS^.warningLowEn := True;
+THIS^.alarmLowEn := True;
+                        </xhtml>
+                    </ST>
+                </body>
+            </Method>
+        </data>
+    </addData>
 </pou>

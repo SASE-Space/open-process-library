@@ -4,6 +4,7 @@
             <variable name="MTPBase"><type><derived name="PIDCtrl" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="setpoint"><type><REAL /></type></variable>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>

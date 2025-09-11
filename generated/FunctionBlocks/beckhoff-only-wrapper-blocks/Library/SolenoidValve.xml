@@ -82,36 +82,36 @@
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 
-// execute the MTP base, and copy everything from/to local variables
-MTPBase(
-    MTPBase.PermEn := PermEn,
-    MTPBase.IntlEn := IntlEn,
-    MTPBase.ProtEn := ProtEn,
-    MTPBase.Permit := Permit,
-    MTPBase.Interlock := Interlock,
-    MTPBase.Protect := Protect,
-    MTPBase.WQC := WQC,
-    MTPBase.SafePos := SafePos,
-    MTPBase.SafePosEn := SafePosEn,
-    MTPBase.OpenAut := OpenAut,
-    MTPBase.CloseAut := CloseAut,
-    MTPBase.OpenFbkCalc := OpenFbkCalc,
-    MTPBase.CloseFbkCalc := CloseFbkCalc,
-    MTPBase.OpenFbk := OpenFbk,
-    MTPBase.CloseFbk := CloseFbk,
-    MTPBase.MonSafePos := MonSafePos,
-    MTPBase.MonStatTi := MonStatTi,
-    MTPBase.MonDynTi := MonDynTi,
-    MTPBase.ResetAut := ResetAut,
-    MTPBase.MonEn := MonEn,
-    StateChannel := MTPBase.StateChannel,
-    StateOpAct := MTPBase.StateOpAct,
-    StateAutAct := MTPBase.StateAutAct,
-    StateOffAct := MTPBase.StateOffAct,
-    Ctrl := MTPBase.Ctrl,
-    OpenFbk := MTPBase.OpenFbk,
-    CloseFbk := MTPBase.CloseFbk,
-);
+// copy from and to the MTPBase
+// there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
+    MTPBase.PermEn := PermEn;
+    MTPBase.IntlEn := IntlEn;
+    MTPBase.ProtEn := ProtEn;
+    MTPBase.Permit := Permit;
+    MTPBase.Interlock := Interlock;
+    MTPBase.Protect := Protect;
+    MTPBase.WQC := WQC;
+    MTPBase.SafePos := SafePos;
+    MTPBase.SafePosEn := SafePosEn;
+    MTPBase.OpenAut := OpenAut;
+    MTPBase.CloseAut := CloseAut;
+    MTPBase.OpenFbkCalc := OpenFbkCalc;
+    MTPBase.CloseFbkCalc := CloseFbkCalc;
+    MTPBase.OpenFbk := OpenFbk;
+    MTPBase.CloseFbk := CloseFbk;
+    MTPBase.MonSafePos := MonSafePos;
+    MTPBase.MonStatTi := MonStatTi;
+    MTPBase.MonDynTi := MonDynTi;
+    MTPBase.ResetAut := ResetAut;
+    MTPBase.MonEn := MonEn;
+    StateChannel := MTPBase.StateChannel;
+    StateOpAct := MTPBase.StateOpAct;
+    StateAutAct := MTPBase.StateAutAct;
+    StateOffAct := MTPBase.StateOffAct;
+    Ctrl := MTPBase.Ctrl;
+    OpenFbk := MTPBase.OpenFbk;
+    CloseFbk := MTPBase.CloseFbk;
+
 
 
 // Functionality
@@ -154,4 +154,42 @@ reset := False;
             </xhtml>
         </ST>
     </body>
+    <addData>
+        <data name="http://www.3s-software.com/plcopenxml/method" handleUnknown="implementation">
+            <Method name="FB_INIT" ObjectId="8568aabb-efd1-4e11-b093-9ebdb5b0ac2b">
+                <interface>
+                    <returnType><BOOL /></returnType>
+                    <inputVars>
+                        <variable name="bInitRetains">
+                            <type><BOOL /></type>
+                            <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE: the retain variables are initialized (reset warm / reset cold)</xhtml></documentation>
+                        </variable>
+                        <variable name="bInCopyCode">
+                            <type><BOOL /></type>
+                            <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE: the instance will be copied to the copy code afterward (online change)   </xhtml></documentation>
+                        </variable>
+                    </inputVars>
+                    <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">
+FB_Init is always available implicitly and it is used primarily for initialization.
+                        </xhtml>
+                    </documentation>
+                </interface>
+                <body>
+                    <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">
+// assign default values on initialization
+THIS^.feedbackOpen := True;
+THIS^.feedbackClose := True;
+THIS^.monitor := True;
+THIS^.staticTimeout := 2;
+THIS^.dynamicTimeout := 5;
+THIS^.simulateDelay := 1;
+THIS^.permitIn := 1;
+                        </xhtml>
+                    </ST>
+                </body>
+            </Method>
+        </data>
+    </addData>
 </pou>

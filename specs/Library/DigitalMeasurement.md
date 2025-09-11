@@ -1,4 +1,4 @@
-# Digital Input
+# Digital Measurement
 
 ## MTP Interface
 

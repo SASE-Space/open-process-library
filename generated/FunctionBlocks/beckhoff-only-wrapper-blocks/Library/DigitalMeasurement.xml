@@ -1,12 +1,25 @@
-<pou name="Interlock4" pouType="functionBlock">
+<pou name="DigitalMeasurement" pouType="functionBlock">
     <interface>
         <inOutVars>
+            <variable name="MTPBase"><type><derived name="FB_MTP_BinMon" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
+            <variable name="value"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
+            <variable name="valueOut"><type><BOOL /></type></variable>
+            <variable name="risingEdge"><type><BOOL /></type></variable>
+            <variable name="fallingEdge"><type><BOOL /></type></variable>
         </outputVars>
-        <localVars><!-- Temporary variables for MTP base interface access -->
+        <localVars>
+            <variable name="lastValue"><type><BOOL /></type></variable><!-- Temporary variables for MTP base interface access -->
+            <variable name="WQC"><type><BYTE /></type></variable>
+            <variable name="V"><type><BOOL /></type></variable>
+            <variable name="VState0"><type><derived name="string" /></type></variable>
+            <variable name="VState1"><type><derived name="string" /></type></variable>
+            <variable name="OSLevel"><type><BYTE /></type></variable>
+            <variable name="VFlutEn"><type><BOOL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -16,11 +29,26 @@
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
+    MTPBase.WQC := WQC;
+    MTPBase.V := V;
+    MTPBase.VState0 := VState0;
+    MTPBase.VState1 := VState1;
+    MTPBase.OSLevel := OSLevel;
+    MTPBase.VFlutEn := VFlutEn;
 
 
 
 // Functionality
 
+WQC := 16#FF;
+OSLevel := 16#00;
+V := value;
+VState0 := 'False';
+VState1 := 'True';
+VFlutEn := False;
+risingEdge := value <> lastValue and value = True;
+fallingEdge := value <> lastValue and value = False;
+lastValue := value;
 
                 ]]>
             </xhtml>

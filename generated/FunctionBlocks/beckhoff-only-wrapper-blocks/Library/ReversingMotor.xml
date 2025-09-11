@@ -4,6 +4,7 @@
             <variable name="MTPBase"><type><derived name="FB_MTP_MonBinDrv" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="stop"><type><BOOL /></type></variable>
             <variable name="forward"><type><BOOL /></type></variable>
             <variable name="reverse"><type><BOOL /></type></variable>
@@ -76,38 +77,38 @@
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 
-// execute the MTP base, and copy everything from/to local variables
-MTPBase(
-    MTPBase.PermEn := PermEn,
-    MTPBase.Permit := Permit,
-    MTPBase.IntlEn := IntlEn,
-    MTPBase.Interlock := Interlock,
-    MTPBase.ProtEn := ProtEn,
-    MTPBase.Protect := Protect,
-    MTPBase.WQC := WQC,
-    MTPBase.OSLevel := OSLevel,
-    MTPBase.SafePos := SafePos,
-    MTPBase.FwdEn := FwdEn,
-    MTPBase.RevEn := RevEn,
-    MTPBase.StopAut := StopAut,
-    MTPBase.FwdAut := FwdAut,
-    MTPBase.RevAut := RevAut,
-    MTPBase.RevFbkCalc := RevFbkCalc,
-    MTPBase.RevFbk := RevFbk,
-    MTPBase.FwdFbkCalc := FwdFbkCalc,
-    MTPBase.FwdFbk := FwdFbk,
-    MTPBase.Trip := Trip,
-    MTPBase.ResetAut := ResetAut,
-    MTPBase.MonSafePos := MonSafePos,
-    MTPBase.MonStatTi := MonStatTi,
-    MTPBase.MonDynTi := MonDynTi,
-    StateChannel := MTPBase.StateChannel,
-    StateOpAct := MTPBase.StateOpAct,
-    StateAutAct := MTPBase.StateAutAct,
-    StateOffAct := MTPBase.StateOffAct,
-    FwdCtrl := MTPBase.FwdCtrl,
-    RevCtrl := MTPBase.RevCtrl,
-);
+// copy from and to the MTPBase
+// there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
+    MTPBase.PermEn := PermEn;
+    MTPBase.Permit := Permit;
+    MTPBase.IntlEn := IntlEn;
+    MTPBase.Interlock := Interlock;
+    MTPBase.ProtEn := ProtEn;
+    MTPBase.Protect := Protect;
+    MTPBase.WQC := WQC;
+    MTPBase.OSLevel := OSLevel;
+    MTPBase.SafePos := SafePos;
+    MTPBase.FwdEn := FwdEn;
+    MTPBase.RevEn := RevEn;
+    MTPBase.StopAut := StopAut;
+    MTPBase.FwdAut := FwdAut;
+    MTPBase.RevAut := RevAut;
+    MTPBase.RevFbkCalc := RevFbkCalc;
+    MTPBase.RevFbk := RevFbk;
+    MTPBase.FwdFbkCalc := FwdFbkCalc;
+    MTPBase.FwdFbk := FwdFbk;
+    MTPBase.Trip := Trip;
+    MTPBase.ResetAut := ResetAut;
+    MTPBase.MonSafePos := MonSafePos;
+    MTPBase.MonStatTi := MonStatTi;
+    MTPBase.MonDynTi := MonDynTi;
+    StateChannel := MTPBase.StateChannel;
+    StateOpAct := MTPBase.StateOpAct;
+    StateAutAct := MTPBase.StateAutAct;
+    StateOffAct := MTPBase.StateOffAct;
+    FwdCtrl := MTPBase.FwdCtrl;
+    RevCtrl := MTPBase.RevCtrl;
+
 
 
 // Functionality
@@ -153,4 +154,43 @@ reset := False;
             </xhtml>
         </ST>
     </body>
+    <addData>
+        <data name="http://www.3s-software.com/plcopenxml/method" handleUnknown="implementation">
+            <Method name="FB_INIT" ObjectId="8568aabb-efd1-4e11-b093-9ebdb5b0ac2b">
+                <interface>
+                    <returnType><BOOL /></returnType>
+                    <inputVars>
+                        <variable name="bInitRetains">
+                            <type><BOOL /></type>
+                            <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE: the retain variables are initialized (reset warm / reset cold)</xhtml></documentation>
+                        </variable>
+                        <variable name="bInCopyCode">
+                            <type><BOOL /></type>
+                            <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE: the instance will be copied to the copy code afterward (online change)   </xhtml></documentation>
+                        </variable>
+                    </inputVars>
+                    <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">
+FB_Init is always available implicitly and it is used primarily for initialization.
+                        </xhtml>
+                    </documentation>
+                </interface>
+                <body>
+                    <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">
+// assign default values on initialization
+THIS^.hasFwdFeedback := True;
+THIS^.hasRevFeedback := True;
+THIS^.driveTrip := True;
+THIS^.monitor := True;
+THIS^.staticTimeout := 2;
+THIS^.dynamicTimeout := 5;
+THIS^.simulateDelay := 1;
+THIS^.permitIn := 1;
+                        </xhtml>
+                    </ST>
+                </body>
+            </Method>
+        </data>
+    </addData>
 </pou>

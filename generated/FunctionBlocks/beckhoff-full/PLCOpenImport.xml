@@ -533,12 +533,13 @@ VALAct := vOut <= alarmLow;
         </ST>
     </body>
 </pou>
-<pou name="AnalogInput" pouType="functionBlock">
+<pou name="AnalogMeasurement" pouType="functionBlock">
     <interface>
         <inOutVars>
             <variable name="MTPBase"><type><derived name="AnaMon" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>
             <variable name="scaleMin"><type><REAL /></type></variable>
@@ -647,6 +648,7 @@ MTPBase.VALEn := VALEn;
             <variable name="MTPBase"><type><derived name="MonAnaVlv" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="targetPosition"><type><REAL /></type></variable>
             <variable name="feedbackPosition"><type><WORD /></type></variable>
             <variable name="scaleMin"><type><REAL /></type></variable>
@@ -656,7 +658,7 @@ MTPBase.VALEn := VALEn;
             <variable name="hasFbOpen"><type><BOOL /></type></variable>
             <variable name="hasFbClose"><type><BOOL /></type></variable>
             <variable name="safeOpen"><type><BOOL /></type></variable>
-            <variable name="safeHold"><type><BOOL /></type></variable>
+            <variable name="enableSafePos"><type><BOOL /></type></variable>
             <variable name="simulate"><type><BOOL /></type></variable>
             <variable name="simulateDelay"><type><REAL /></type></variable>
             <variable name="interlockIn"><type><BOOL /></type></variable>
@@ -681,6 +683,7 @@ MTPBase.VALEn := VALEn;
         <localVars>
             <variable name="fbOpenSimulated"><type><BOOL /></type></variable>
             <variable name="fbCloseSimulated"><type><BOOL /></type></variable>
+            <variable name="selectedPosition"><type><REAL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
             <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
             <variable name="StateChannel"><type><BOOL /></type></variable>
@@ -708,6 +711,7 @@ MTPBase.VALEn := VALEn;
             <variable name="PosMin"><type><REAL /></type></variable>
             <variable name="PosMax"><type><REAL /></type></variable>
             <variable name="PosInt"><type><REAL /></type></variable>
+            <variable name="PosMan"><type><REAL /></type></variable>
             <variable name="Pos"><type><REAL /></type></variable>
             <variable name="OpenFbkCalc"><type><BOOL /></type></variable>
             <variable name="OpenFbk"><type><BOOL /></type></variable>
@@ -733,8 +737,12 @@ SrcManAct := MTPBase.SrcManAct;
 OpenAut := MTPBase.OpenAut;
 PosSclMin := MTPBase.PosSclMin;
 PosSclMax := MTPBase.PosSclMax;
+PosInt := MTPBase.PosInt;
+PosMan := MTPBase.PosMan;
 Pos := MTPBase.Pos;
+OpenFbkCalc := MTPBase.OpenFbkCalc;
 OpenFbk := MTPBase.OpenFbk;
+CloseFbkCalc := MTPBase.CloseFbkCalc;
 CloseFbk := MTPBase.CloseFbk;
 
 
@@ -751,24 +759,23 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := safeOpen;
-SafePosEn := safeHold;
-OpenAut := targetPosition > 0;
+SafePosEn := enableSafePos;
+selectedPosition := (PosInt * BOOL_TO_REAL(SrcIntAct)) + (PosMan * BOOL_TO_REAL(SrcManAct));
+OpenAut := selectedPosition > 0;
 CloseAut := NOT OpenAut;
-OpenFbkCalc := simulate OR NOT feedbackOpen;
-CloseFbkCalc := simulate OR NOT feedbackClose;
-DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
+OpenFbkCalc := simulate OR NOT hasFbOpen;
+CloseFbkCalc := simulate OR NOT hasFbClose;
+DelayTimer1(IN:= OpenFbkCalc AND OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbOpenSimulated := DelayTimer1.Q;
-DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer2(IN:= CloseFbkCalc AND NOT OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbCloseSimulated := DelayTimer2.Q;
-OpenFbk := feedbackOpen OR fbOpenSimulated;
-CloseFbk := feedbackClose OR fbCloseSimulated;
-opened := OpenAut AND OpenFbk;
-closed := NOT OpenAut AND CloseFbk;
+OpenFbk := (feedbackOpen AND NOT OpenFbkCalc) OR (fbOpenSimulated AND OpenFbkCalc);
+CloseFbk := (feedbackClose AND NOT CloseFbkCalc) OR (fbCloseSimulated AND CloseFbkCalc);
+opened := OpenFbk;
+closed := CloseFbk;
 ResetAut := reset;
 PosSclMin := scaleMin;
 PosSclMax := scaleMax;
@@ -776,7 +783,7 @@ PosUnit := 0;
 PosMin := PosSclMin;
 PosMax := PosSclMax;
 PosInt := targetPosition;
-PosFbk := feedbackPosition;
+PosFbk := (positionOut * BOOL_TO_REAL(simulate)) + (feedbackPosition * BOOL_TO_REAL(simulate));
 positionOut := Pos;
 reset := False;
 
@@ -811,12 +818,13 @@ MTPBase.ResetAut := ResetAut;
         </ST>
     </body>
 </pou>
-<pou name="DigitalInput" pouType="functionBlock">
+<pou name="DigitalMeasurement" pouType="functionBlock">
     <interface>
         <inOutVars>
             <variable name="MTPBase"><type><derived name="BinMon" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="value"><type><BOOL /></type></variable>
         </inputVars>
         <outputVars>
@@ -894,6 +902,7 @@ MTPBase.VFlutEn := VFlutEn;
             <variable name="MTPBase"><type><derived name="PIDCtrl" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="setpoint"><type><REAL /></type></variable>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>
@@ -1057,6 +1066,7 @@ MTPBase.MVSclMax := MVSclMax;
             <variable name="MTPBase"><type><derived name="MonBinDrv" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="stop"><type><BOOL /></type></variable>
             <variable name="forward"><type><BOOL /></type></variable>
             <variable name="reverse"><type><BOOL /></type></variable>
@@ -1362,6 +1372,7 @@ MTPBase.MonEn := MonEn;
             <variable name="MTPBase"><type><derived name="MonAnaDrv" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="forward"><type><BOOL /></type></variable>
             <variable name="reverse"><type><BOOL /></type></variable>
             <variable name="speed"><type><REAL /></type></variable>
@@ -1558,9 +1569,9 @@ MTPBase.MonDynTi := MonDynTi;
                                 <Object Name="PIDCtrl" />
                             </Folder>
                             <Folder Name="Library">
-                                <Object Name="AnalogInput" />
+                                <Object Name="AnalogMeasurement" />
                                 <Object Name="AnalogValve" />
-                                <Object Name="DigitalInput" />
+                                <Object Name="DigitalMeasurement" />
                                 <Object Name="Interlock4" />
                                 <Object Name="PIDController" />
                                 <Object Name="ReversingMotor" />

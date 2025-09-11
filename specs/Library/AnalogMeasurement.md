@@ -1,4 +1,4 @@
-# Analog Input
+# Analog Measurement
 
 ## MTP Interface
 
@@ -12,20 +12,20 @@
 | id                  | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects  |          |                            |
 | rawValue            | x   | x   | Input    | Word      |         | Raw Input Value                                                | X        | Normal function input      |
 | valueUnit           | x   | x   | Input    | Int       |         | Value Unit                                                     |          |                            |
-| scaleMin            | x   | x   | Input    | Real      |         | Scale Min Limit                                                |          |                            |
-| scaleMax            | x   | x   | Input    | Real      |         | Scale Max Limit                                                |          |                            |
-| alarmHigh           | x   | x   | Input    | Real      |         | Limit Value for Alarm High                                     |          |                            |
-| warningHigh         | x   | x   | Input    | Real      |         | Limit Value for Warning High                                   |          |                            |
-| toleranceHigh       | x   |     | Input    | Real      |         | Limit Value for Tolerance High                                 |          |                            |
-| toleranceLow        | x   |     | Input    | Real      |         | Limit Value for Tolerance Low                                  |          |                            |
-| warningLow          | x   | x   | Input    | Real      |         | Limit Value for Warning Low                                    |          |                            |
-| alarmLow            | x   | x   | Input    | Real      |         | Limit Value for Alarm Low                                      |          |                            |
-| alarmHighEn         | x   |     | Input    | Bool      |         | Alarm High Limit Enabled                                       |          |                            |
-| warningHighEn       | x   |     | Input    | Bool      |         | Warning High Limit Enabled                                     |          |                            |
-| toleranceHighEn     | x   |     | Input    | Bool      |         | Tolerance High Limit Enabled                                   |          |                            |
-| toleranceLowEn      | x   |     | Input    | Bool      |         | Tolerance Low Limit Enabled                                    |          |                            |
-| warningLowEn        | x   |     | Input    | Bool      |         | Warning Low Limit Enabled                                      |          |                            |
-| alarmLowEn          | x   |     | Input    | Bool      |         | Alarm Low Limit Enabled                                        |          |                            |
+| scaleMin            | x   | x   | Input    | Real      | 0       | Scale Min Limit                                                |          |                            |
+| scaleMax            | x   | x   | Input    | Real      | 100     | Scale Max Limit                                                |          |                            |
+| alarmHigh           | x   | x   | Input    | Real      | 90      | Limit Value for Alarm High                                     |          |                            |
+| warningHigh         | x   | x   | Input    | Real      | 80      | Limit Value for Warning High                                   |          |                            |
+| toleranceHigh       | x   |     | Input    | Real      | 60      | Limit Value for Tolerance High                                 |          |                            |
+| toleranceLow        | x   |     | Input    | Real      | 40      | Limit Value for Tolerance Low                                  |          |                            |
+| warningLow          | x   | x   | Input    | Real      | 20      | Limit Value for Warning Low                                    |          |                            |
+| alarmLow            | x   | x   | Input    | Real      | 10      | Limit Value for Alarm Low                                      |          |                            |
+| alarmHighEn         | x   |     | Input    | Bool      | True    | Alarm High Limit Enabled                                       |          |                            |
+| warningHighEn       | x   |     | Input    | Bool      | True    | Warning High Limit Enabled                                     |          |                            |
+| toleranceHighEn     | x   |     | Input    | Bool      | True    | Tolerance High Limit Enabled                                   |          |                            |
+| toleranceLowEn      | x   |     | Input    | Bool      | True    | Tolerance Low Limit Enabled                                    |          |                            |
+| warningLowEn        | x   |     | Input    | Bool      | True    | Warning Low Limit Enabled                                      |          |                            |
+| alarmLowEn          | x   |     | Input    | Bool      | True    | Alarm Low Limit Enabled                                        |          |                            |
 | blockAlarmHigh      |     | x   | Input    | Bool      |         | Block HH action, but not alarm                                 | FBHH     | Force blocking alarm HH    |
 | surpressAlarmHigh   |     | x   | Input    | Bool      |         | Surpress HH action and alarm                                   | FUHH     | Force suppression alarm HH |
 | surpressWarningHigh |     | x   | Input    | Bool      |         | Surpress WH (there is no action)                               | FUWH     | Force suppression alarm WH |
@@ -87,7 +87,7 @@ TODO: Deadband: absolute value or %? Also need to add alarms that use this deadb
 ## Synchronize (1)
 
 For example:
-- alarmHigh is an Input on AnalogInput
+- alarmHigh is an Input on AnalogMeasurement
 - VAHLim is a Local on AnaMon
 
 During initial scan: copy AnaMon.VAHLim = alarmHigh

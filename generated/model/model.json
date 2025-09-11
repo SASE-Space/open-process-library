@@ -1908,7 +1908,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "PosMan": {
@@ -1919,7 +1919,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": false
                 },
                 "PosRbk": {
@@ -1952,7 +1952,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "OpenFbk": {
@@ -1974,7 +1974,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "CloseFbk": {
@@ -3746,7 +3746,7 @@
             "MTPBase": null
         },
         {
-            "Name": "AnalogInput",
+            "Name": "AnalogMeasurement",
             "isMTP": false,
             "Variables": {
                 "MTPBase": {
@@ -3759,6 +3759,19 @@
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": true,
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "id": {
+                    "MTP": "x",
+                    "SCD": "x",
+                    "Var Type": "Input",
+                    "Data Type": "Int",
+                    "Default": "",
+                    "Description": "unique project-wide ID to uniquely identify and track objects",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
                     "isRead": false,
                     "isWrite": false
                 },
@@ -3793,7 +3806,7 @@
                     "SCD": "x",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Default": "",
+                    "Default": "0",
                     "Description": "Scale Min Limit",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3806,7 +3819,7 @@
                     "SCD": "x",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Default": "",
+                    "Default": "100",
                     "Description": "Scale Max Limit",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3819,7 +3832,7 @@
                     "SCD": "x",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Default": "",
+                    "Default": "90",
                     "Description": "Limit Value for Alarm High",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3832,7 +3845,7 @@
                     "SCD": "x",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Default": "",
+                    "Default": "80",
                     "Description": "Limit Value for Warning High",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3845,7 +3858,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Default": "",
+                    "Default": "60",
                     "Description": "Limit Value for Tolerance High",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3858,7 +3871,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Default": "",
+                    "Default": "40",
                     "Description": "Limit Value for Tolerance Low",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3871,7 +3884,7 @@
                     "SCD": "x",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Default": "",
+                    "Default": "20",
                     "Description": "Limit Value for Warning Low",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3884,7 +3897,7 @@
                     "SCD": "x",
                     "Var Type": "Input",
                     "Data Type": "Real",
-                    "Default": "",
+                    "Default": "10",
                     "Description": "Limit Value for Alarm Low",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3897,7 +3910,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "",
+                    "Default": "True",
                     "Description": "Alarm High Limit Enabled",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3910,7 +3923,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "",
+                    "Default": "True",
                     "Description": "Warning High Limit Enabled",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3923,7 +3936,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "",
+                    "Default": "True",
                     "Description": "Tolerance High Limit Enabled",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3936,7 +3949,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "",
+                    "Default": "True",
                     "Description": "Tolerance Low Limit Enabled",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3949,7 +3962,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "",
+                    "Default": "True",
                     "Description": "Warning Low Limit Enabled",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -3962,7 +3975,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "",
+                    "Default": "True",
                     "Description": "Alarm Low Limit Enabled",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -4731,6 +4744,19 @@
                     "isRead": false,
                     "isWrite": false
                 },
+                "id": {
+                    "MTP": "x",
+                    "SCD": "x",
+                    "Var Type": "Input",
+                    "Data Type": "Int",
+                    "Default": "",
+                    "Description": "unique project-wide ID to uniquely identify and track objects",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": false,
+                    "isWrite": false
+                },
                 "targetPosition": {
                     "MTP": "x",
                     "SCD": "",
@@ -4788,7 +4814,7 @@
                     "SCD": "x",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "True",
+                    "Default": "",
                     "Description": "feedback open",
                     "SCD Name": "XGH",
                     "SCD Terminal Name": "Position high feedback",
@@ -4801,7 +4827,7 @@
                     "SCD": "x",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "True",
+                    "Default": "",
                     "Description": "feedback close",
                     "SCD Name": "XGL",
                     "SCD Terminal Name": "Position low feedback",
@@ -4848,13 +4874,13 @@
                     "isRead": true,
                     "isWrite": false
                 },
-                "safeHold": {
+                "enableSafePos": {
                     "MTP": "x",
                     "SCD": "x",
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Holds Position on interlock (priority over safeOpen)",
+                    "Description": "Enable safe position",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -4893,7 +4919,7 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "forces safe position. 0 = interlock active",
+                    "Description": "forces safe position. 1 = interlock active",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -4905,8 +4931,8 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "1",
-                    "Description": "permission to control. Does not activate safe position. 0 = no permission",
+                    "Default": "True",
+                    "Description": "permission to control. Does not activate safe position. 1 = no permission",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -4919,7 +4945,7 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Protect, sets safe position, sets protectState. 0 = Protect active",
+                    "Description": "Protect, sets safe position, sets protectState. 1 = Protect active",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -4945,7 +4971,7 @@
                     "Var Type": "Output",
                     "Data Type": "Word",
                     "Default": "",
-                    "Description": "Command to device (0-100%)",
+                    "Description": "Position Command to device (0-100%)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -4958,11 +4984,11 @@
                     "Var Type": "Output",
                     "Data Type": "Real",
                     "Default": "",
-                    "Description": "Command for use in program",
+                    "Description": "Position Command for use in program",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "remote": {
@@ -5076,6 +5102,19 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Simulated Close feedback",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": true,
+                    "isWrite": true
+                },
+                "selectedPosition": {
+                    "MTP": "x",
+                    "SCD": "x",
+                    "Var Type": "Local",
+                    "Data Type": "Real",
+                    "Default": "",
+                    "Description": "",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -5560,7 +5599,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "PosMan": {
@@ -5571,7 +5610,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": false
                 },
                 "PosRbk": {
@@ -5604,7 +5643,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "OpenFbk": {
@@ -5626,7 +5665,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "CloseFbk": {
@@ -5932,11 +5971,11 @@
                 },
                 "Interlock": {
                     "LogicType": "Expression",
-                    "Expression": "interlockIn",
+                    "Expression": "NOT interlockIn",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "",
+                    "Comment": "Normalize logic so it's easier to build complex interlocks",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -5949,12 +5988,12 @@
                     "isMTP": true
                 },
                 "Protect": {
-                    "LogicType": "Set",
-                    "Expression": null,
-                    "Set": "protectIn",
+                    "LogicType": "Expression",
+                    "Expression": "NOT protectIn",
+                    "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "Reset happens inside MTP block",
+                    "Comment": "Set (reset because inverted logic) happens inside MTP block",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -5986,7 +6025,7 @@
                 },
                 "SafePosEn": {
                     "LogicType": "Expression",
-                    "Expression": "safeHold",
+                    "Expression": "enableSafePos",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -6002,9 +6041,27 @@
                     "scdFlag": false,
                     "isMTP": true
                 },
+                "selectedPosition": {
+                    "LogicType": "Expression",
+                    "Expression": "(PosInt * BOOL_TO_REAL(SrcIntAct)) + (PosMan * BOOL_TO_REAL(SrcManAct))",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
                 "OpenAut": {
                     "LogicType": "Expression",
-                    "Expression": "targetPosition > 0",
+                    "Expression": "selectedPosition > 0",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -6040,11 +6097,11 @@
                 },
                 "OpenFbkCalc": {
                     "LogicType": "Expression",
-                    "Expression": "simulate OR NOT feedbackOpen",
+                    "Expression": "simulate OR NOT hasFbOpen",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "TODO: review logic",
+                    "Comment": "",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -6058,11 +6115,11 @@
                 },
                 "CloseFbkCalc": {
                     "LogicType": "Expression",
-                    "Expression": "simulate OR NOT feedbackClose",
+                    "Expression": "simulate OR NOT hasFbClose",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "TODO: review logic",
+                    "Comment": "",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -6076,7 +6133,7 @@
                 },
                 "fbOpenSimulated": {
                     "LogicType": "Expression",
-                    "Expression": "(simulate OR NOT hasFbOpen) AND OpenAut",
+                    "Expression": "OpenFbkCalc AND OpenAut",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -6094,7 +6151,7 @@
                 },
                 "fbCloseSimulated": {
                     "LogicType": "Expression",
-                    "Expression": "(simulate OR NOT hasFbClose) AND NOT OpenAut",
+                    "Expression": "CloseFbkCalc AND NOT OpenAut",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -6112,7 +6169,7 @@
                 },
                 "OpenFbk": {
                     "LogicType": "Expression",
-                    "Expression": "feedbackOpen OR fbOpenSimulated",
+                    "Expression": "(feedbackOpen AND NOT OpenFbkCalc) OR (fbOpenSimulated AND OpenFbkCalc)",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -6130,7 +6187,7 @@
                 },
                 "CloseFbk": {
                     "LogicType": "Expression",
-                    "Expression": "feedbackClose OR fbCloseSimulated",
+                    "Expression": "(feedbackClose AND NOT CloseFbkCalc) OR (fbCloseSimulated AND CloseFbkCalc)",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -6148,7 +6205,7 @@
                 },
                 "opened": {
                     "LogicType": "Expression",
-                    "Expression": "OpenAut AND OpenFbk",
+                    "Expression": "OpenFbk",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -6166,7 +6223,7 @@
                 },
                 "closed": {
                     "LogicType": "Expression",
-                    "Expression": "NOT OpenAut AND CloseFbk",
+                    "Expression": "CloseFbk",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -6310,7 +6367,7 @@
                 },
                 "PosFbk": {
                     "LogicType": "Expression",
-                    "Expression": "feedbackPosition",
+                    "Expression": "(positionOut * BOOL_TO_REAL(simulate)) + (feedbackPosition * BOOL_TO_REAL(simulate))",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -6367,7 +6424,7 @@
             "MTPBase": "MonAnaVlv"
         },
         {
-            "Name": "DigitalInput",
+            "Name": "DigitalMeasurement",
             "isMTP": false,
             "Variables": {
                 "MTPBase": {
@@ -6380,6 +6437,19 @@
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": true,
+                    "isRead": false,
+                    "isWrite": false
+                },
+                "id": {
+                    "MTP": "x",
+                    "SCD": "x",
+                    "Var Type": "Input",
+                    "Data Type": "Int",
+                    "Default": "",
+                    "Description": "unique project-wide ID to uniquely identify and track objects",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
                     "isRead": false,
                     "isWrite": false
                 },
@@ -6753,6 +6823,19 @@
                     "isRead": false,
                     "isWrite": false
                 },
+                "id": {
+                    "MTP": "x",
+                    "SCD": "x",
+                    "Var Type": "Input",
+                    "Data Type": "Int",
+                    "Default": "",
+                    "Description": "unique project-wide ID to uniquely identify and track objects",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": false,
+                    "isWrite": false
+                },
                 "setpoint": {
                     "MTP": "x",
                     "SCD": "",
@@ -6798,7 +6881,7 @@
                     "Var Type": "Input",
                     "Data Type": "Int",
                     "Default": "",
-                    "Description": "",
+                    "Description": "Manipulated Value Unit",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -8383,6 +8466,19 @@
                     "isRead": false,
                     "isWrite": false
                 },
+                "id": {
+                    "MTP": "x",
+                    "SCD": "x",
+                    "Var Type": "Input",
+                    "Data Type": "Int",
+                    "Default": "",
+                    "Description": "unique project-wide ID to uniquely identify and track objects",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": false,
+                    "isWrite": false
+                },
                 "stop": {
                     "MTP": "x",
                     "SCD": "",
@@ -9866,7 +9962,7 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "open command",
+                    "Description": "open command from PLC program",
                     "SCD Name": "XH",
                     "SCD Terminal Name": "External set high",
                     "isDerived": false,
@@ -9879,7 +9975,7 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "close command",
+                    "Description": "close command from PLC program",
                     "SCD Name": "XL",
                     "SCD Terminal Name": "External set low",
                     "isDerived": false,
@@ -11390,6 +11486,19 @@
                     "isRead": false,
                     "isWrite": false
                 },
+                "id": {
+                    "MTP": "x",
+                    "SCD": "x",
+                    "Var Type": "Input",
+                    "Data Type": "Int",
+                    "Default": "",
+                    "Description": "unique project-wide ID to uniquely identify and track objects",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": false,
+                    "isWrite": false
+                },
                 "forward": {
                     "MTP": "x",
                     "SCD": "",
@@ -11780,32 +11889,6 @@
                     "isRead": false,
                     "isWrite": false
                 },
-                "fwdFbkSimulated": {
-                    "MTP": "x",
-                    "SCD": "x",
-                    "Var Type": "Local",
-                    "Data Type": "Bool",
-                    "Default": "",
-                    "Description": "Simulated forward feedback",
-                    "SCD Name": "",
-                    "SCD Terminal Name": "",
-                    "isDerived": false,
-                    "isRead": true,
-                    "isWrite": true
-                },
-                "revFbkSimulated": {
-                    "MTP": "x",
-                    "SCD": "x",
-                    "Var Type": "Local",
-                    "Data Type": "Bool",
-                    "Default": "",
-                    "Description": "Simulated reverse feedback",
-                    "SCD Name": "",
-                    "SCD Terminal Name": "",
-                    "isDerived": false,
-                    "isRead": true,
-                    "isWrite": true
-                },
                 "actualSpeed": {
                     "MTP": "x",
                     "SCD": "",
@@ -11908,6 +11991,32 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": false,
+                    "isWrite": true
+                },
+                "fwdFbkSimulated": {
+                    "MTP": "x",
+                    "SCD": "x",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Simulated forward feedback",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": true,
+                    "isWrite": true
+                },
+                "revFbkSimulated": {
+                    "MTP": "x",
+                    "SCD": "x",
+                    "Var Type": "Local",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Simulated reverse feedback",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": true,
                     "isWrite": true
                 }
             },

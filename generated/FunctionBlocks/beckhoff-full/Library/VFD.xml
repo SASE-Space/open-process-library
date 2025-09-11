@@ -4,6 +4,7 @@
             <variable name="MTPBase"><type><derived name="MonAnaDrv" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="forward"><type><BOOL /></type></variable>
             <variable name="reverse"><type><BOOL /></type></variable>
             <variable name="speed"><type><REAL /></type></variable>

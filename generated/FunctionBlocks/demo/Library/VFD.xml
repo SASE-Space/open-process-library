@@ -3,6 +3,8 @@ DEMO:
 
 MTPBase
 
+id
+
 forward
 
 reverse
@@ -63,10 +65,6 @@ forwardActive
 
 reverseActive
 
-fwdFbkSimulated
-
-revFbkSimulated
-
 actualSpeed
 
 remote
@@ -82,3 +80,7 @@ remoteSource
 internalSourceAct
 
 manualSourceAct
+
+fwdFbkSimulated
+
+revFbkSimulated

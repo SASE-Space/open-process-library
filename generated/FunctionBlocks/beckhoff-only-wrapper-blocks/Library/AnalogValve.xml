@@ -4,6 +4,7 @@
             <variable name="MTPBase"><type><derived name="FB_MTP_MonAnaVlv" /></type></variable>
         </inOutVars>
         <inputVars>
+            <variable name="id"><type><INT /></type></variable>
             <variable name="targetPosition"><type><REAL /></type></variable>
             <variable name="feedbackPosition"><type><WORD /></type></variable>
             <variable name="scaleMin"><type><REAL /></type></variable>
@@ -13,7 +14,7 @@
             <variable name="hasFbOpen"><type><BOOL /></type></variable>
             <variable name="hasFbClose"><type><BOOL /></type></variable>
             <variable name="safeOpen"><type><BOOL /></type></variable>
-            <variable name="safeHold"><type><BOOL /></type></variable>
+            <variable name="enableSafePos"><type><BOOL /></type></variable>
             <variable name="simulate"><type><BOOL /></type></variable>
             <variable name="simulateDelay"><type><REAL /></type></variable>
             <variable name="interlockIn"><type><BOOL /></type></variable>
@@ -38,6 +39,7 @@
         <localVars>
             <variable name="fbOpenSimulated"><type><BOOL /></type></variable>
             <variable name="fbCloseSimulated"><type><BOOL /></type></variable>
+            <variable name="selectedPosition"><type><REAL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
             <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
             <variable name="StateChannel"><type><BOOL /></type></variable>
@@ -65,6 +67,7 @@
             <variable name="PosMin"><type><REAL /></type></variable>
             <variable name="PosMax"><type><REAL /></type></variable>
             <variable name="PosInt"><type><REAL /></type></variable>
+            <variable name="PosMan"><type><REAL /></type></variable>
             <variable name="Pos"><type><REAL /></type></variable>
             <variable name="OpenFbkCalc"><type><BOOL /></type></variable>
             <variable name="OpenFbk"><type><BOOL /></type></variable>
@@ -80,47 +83,51 @@
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 
-// execute the MTP base, and copy everything from/to local variables
-MTPBase(
-    MTPBase.PermEn := PermEn,
-    MTPBase.Permit := Permit,
-    MTPBase.IntlEn := IntlEn,
-    MTPBase.Interlock := Interlock,
-    MTPBase.ProtEn := ProtEn,
-    MTPBase.Protect := Protect,
-    MTPBase.WQC := WQC,
-    MTPBase.OSLevel := OSLevel,
-    MTPBase.SafePos := SafePos,
-    MTPBase.SafePosEn := SafePosEn,
-    MTPBase.OpenAut := OpenAut,
-    MTPBase.CloseAut := CloseAut,
-    MTPBase.PosSclMin := PosSclMin,
-    MTPBase.PosSclMax := PosSclMax,
-    MTPBase.PosUnit := PosUnit,
-    MTPBase.PosMin := PosMin,
-    MTPBase.PosMax := PosMax,
-    MTPBase.PosInt := PosInt,
-    MTPBase.OpenFbkCalc := OpenFbkCalc,
-    MTPBase.OpenFbk := OpenFbk,
-    MTPBase.CloseFbkCalc := CloseFbkCalc,
-    MTPBase.CloseFbk := CloseFbk,
-    MTPBase.PosFbkCalc := PosFbkCalc,
-    MTPBase.PosFbk := PosFbk,
-    MTPBase.ResetAut := ResetAut,
-    StateChannel := MTPBase.StateChannel,
-    StateOpAct := MTPBase.StateOpAct,
-    StateAutAct := MTPBase.StateAutAct,
-    StateOffAct := MTPBase.StateOffAct,
-    SrcChannel := MTPBase.SrcChannel,
-    SrcIntAct := MTPBase.SrcIntAct,
-    SrcManAct := MTPBase.SrcManAct,
-    OpenAut := MTPBase.OpenAut,
-    PosSclMin := MTPBase.PosSclMin,
-    PosSclMax := MTPBase.PosSclMax,
-    Pos := MTPBase.Pos,
-    OpenFbk := MTPBase.OpenFbk,
-    CloseFbk := MTPBase.CloseFbk,
-);
+// copy from and to the MTPBase
+// there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
+    MTPBase.PermEn := PermEn;
+    MTPBase.Permit := Permit;
+    MTPBase.IntlEn := IntlEn;
+    MTPBase.Interlock := Interlock;
+    MTPBase.ProtEn := ProtEn;
+    MTPBase.Protect := Protect;
+    MTPBase.WQC := WQC;
+    MTPBase.OSLevel := OSLevel;
+    MTPBase.SafePos := SafePos;
+    MTPBase.SafePosEn := SafePosEn;
+    MTPBase.OpenAut := OpenAut;
+    MTPBase.CloseAut := CloseAut;
+    MTPBase.PosSclMin := PosSclMin;
+    MTPBase.PosSclMax := PosSclMax;
+    MTPBase.PosUnit := PosUnit;
+    MTPBase.PosMin := PosMin;
+    MTPBase.PosMax := PosMax;
+    MTPBase.PosInt := PosInt;
+    MTPBase.OpenFbkCalc := OpenFbkCalc;
+    MTPBase.OpenFbk := OpenFbk;
+    MTPBase.CloseFbkCalc := CloseFbkCalc;
+    MTPBase.CloseFbk := CloseFbk;
+    MTPBase.PosFbkCalc := PosFbkCalc;
+    MTPBase.PosFbk := PosFbk;
+    MTPBase.ResetAut := ResetAut;
+    StateChannel := MTPBase.StateChannel;
+    StateOpAct := MTPBase.StateOpAct;
+    StateAutAct := MTPBase.StateAutAct;
+    StateOffAct := MTPBase.StateOffAct;
+    SrcChannel := MTPBase.SrcChannel;
+    SrcIntAct := MTPBase.SrcIntAct;
+    SrcManAct := MTPBase.SrcManAct;
+    OpenAut := MTPBase.OpenAut;
+    PosSclMin := MTPBase.PosSclMin;
+    PosSclMax := MTPBase.PosSclMax;
+    PosInt := MTPBase.PosInt;
+    PosMan := MTPBase.PosMan;
+    Pos := MTPBase.Pos;
+    OpenFbkCalc := MTPBase.OpenFbkCalc;
+    OpenFbk := MTPBase.OpenFbk;
+    CloseFbkCalc := MTPBase.CloseFbkCalc;
+    CloseFbk := MTPBase.CloseFbk;
+
 
 
 // Functionality
@@ -138,24 +145,23 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := safeOpen;
-SafePosEn := safeHold;
-OpenAut := targetPosition > 0;
+SafePosEn := enableSafePos;
+selectedPosition := (PosInt * BOOL_TO_REAL(SrcIntAct)) + (PosMan * BOOL_TO_REAL(SrcManAct));
+OpenAut := selectedPosition > 0;
 CloseAut := NOT OpenAut;
-OpenFbkCalc := simulate OR NOT feedbackOpen;
-CloseFbkCalc := simulate OR NOT feedbackClose;
-DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
+OpenFbkCalc := simulate OR NOT hasFbOpen;
+CloseFbkCalc := simulate OR NOT hasFbClose;
+DelayTimer1(IN:= OpenFbkCalc AND OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbOpenSimulated := DelayTimer1.Q;
-DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer2(IN:= CloseFbkCalc AND NOT OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbCloseSimulated := DelayTimer2.Q;
-OpenFbk := feedbackOpen OR fbOpenSimulated;
-CloseFbk := feedbackClose OR fbCloseSimulated;
-opened := OpenAut AND OpenFbk;
-closed := NOT OpenAut AND CloseFbk;
+OpenFbk := (feedbackOpen AND NOT OpenFbkCalc) OR (fbOpenSimulated AND OpenFbkCalc);
+CloseFbk := (feedbackClose AND NOT CloseFbkCalc) OR (fbCloseSimulated AND CloseFbkCalc);
+opened := OpenFbk;
+closed := CloseFbk;
 ResetAut := reset;
 PosSclMin := scaleMin;
 PosSclMax := scaleMax;
@@ -163,7 +169,7 @@ PosUnit := 0;
 PosMin := PosSclMin;
 PosMax := PosSclMax;
 PosInt := targetPosition;
-PosFbk := feedbackPosition;
+PosFbk := (positionOut * BOOL_TO_REAL(simulate)) + (feedbackPosition * BOOL_TO_REAL(simulate));
 positionOut := Pos;
 reset := False;
 
@@ -171,4 +177,39 @@ reset := False;
             </xhtml>
         </ST>
     </body>
+    <addData>
+        <data name="http://www.3s-software.com/plcopenxml/method" handleUnknown="implementation">
+            <Method name="FB_INIT" ObjectId="8568aabb-efd1-4e11-b093-9ebdb5b0ac2b">
+                <interface>
+                    <returnType><BOOL /></returnType>
+                    <inputVars>
+                        <variable name="bInitRetains">
+                            <type><BOOL /></type>
+                            <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE: the retain variables are initialized (reset warm / reset cold)</xhtml></documentation>
+                        </variable>
+                        <variable name="bInCopyCode">
+                            <type><BOOL /></type>
+                            <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE: the instance will be copied to the copy code afterward (online change)   </xhtml></documentation>
+                        </variable>
+                    </inputVars>
+                    <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">
+FB_Init is always available implicitly and it is used primarily for initialization.
+                        </xhtml>
+                    </documentation>
+                </interface>
+                <body>
+                    <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">
+// assign default values on initialization
+THIS^.scaleMin := 0;
+THIS^.scaleMax := 100;
+THIS^.simulateDelay := 1;
+THIS^.permitIn := True;
+                        </xhtml>
+                    </ST>
+                </body>
+            </Method>
+        </data>
+    </addData>
 </pou>

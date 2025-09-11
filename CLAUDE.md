@@ -15,7 +15,7 @@ This project uses Deno for its build scripts. Here are the essential commands:
 deno run --allow-read --allow-write scripts/generate.ts
 
 # Generate only specific function blocks (filter by name)
-deno run --allow-read --allow-write scripts/generate.ts DigitalInput
+deno run --allow-read --allow-write scripts/generate.ts DigitalMeasurement
 
 # The generator will:
 # 1. Parse markdown specs from specs/Library/ and specs/MTP/

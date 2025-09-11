@@ -38,15 +38,16 @@
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
 
-// execute the MTP base, and copy everything from/to local variables
-MTPBase(
+// copy from and to the MTPBase
+// there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
 {%- for variable in mtpBaseVarsWrite %}
-    MTPBase.{{ variable.name }} := {{ variable.name }},
+    MTPBase.{{ variable.name }} := {{ variable.name }};
 {%- endfor %}
+
 {%- for variable in mtpBaseVarsRead %}
-    {{ variable.name }} := MTPBase.{{ variable.name }},
+    {{ variable.name }} := MTPBase.{{ variable.name }};
 {%- endfor %}
-);
+
 
 
 // Functionality
@@ -114,4 +115,50 @@ END_CASE;
             </xhtml>
         </ST>
     </body>
+    <addData>
+        <data name="http://www.3s-software.com/plcopenxml/method" handleUnknown="implementation">
+            <Method name="FB_INIT" ObjectId="8568aabb-efd1-4e11-b093-9ebdb5b0ac2b">
+                <interface>
+                    <returnType><BOOL /></returnType>
+                    <inputVars>
+                        <variable name="bInitRetains">
+                            <type><BOOL /></type>
+                            <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE: the retain variables are initialized (reset warm / reset cold)</xhtml></documentation>
+                        </variable>
+                        <variable name="bInCopyCode">
+                            <type><BOOL /></type>
+                            <documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE: the instance will be copied to the copy code afterward (online change)   </xhtml></documentation>
+                        </variable>
+                    </inputVars>
+                    <documentation>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">
+FB_Init is always available implicitly and it is used primarily for initialization.
+                        </xhtml>
+                    </documentation>
+                </interface>
+                <body>
+                    <ST>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">
+// assign default values on initialization
+{%- for variable in inputVars %}
+    {%- if variable.Default and variable.Default != "" %}
+THIS^.{{ variable.name }} := {{ variable.Default }};
+    {%- endif %}
+{%- endfor %}
+{%- for variable in outputVars %}
+    {%- if variable.Default and variable.Default != "" %}
+THIS^.{{ variable.name }} := {{ variable.Default }};
+    {%- endif %}
+{%- endfor %}
+{%- for variable in localVars %}
+    {%- if variable.Default and variable.Default != "" %}
+THIS^.{{ variable.name }} := {{ variable.Default }};
+    {%- endif %}
+{%- endfor %}
+                        </xhtml>
+                    </ST>
+                </body>
+            </Method>
+        </data>
+    </addData>
 </pou>

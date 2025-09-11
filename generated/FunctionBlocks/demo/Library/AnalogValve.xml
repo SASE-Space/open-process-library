@@ -3,6 +3,8 @@ DEMO:
 
 MTPBase
 
+id
+
 targetPosition
 
 feedbackPosition
@@ -21,7 +23,7 @@ hasFbClose
 
 safeOpen
 
-safeHold
+enableSafePos
 
 simulate
 
@@ -56,6 +58,8 @@ closed
 fbOpenSimulated
 
 fbCloseSimulated
+
+selectedPosition
 
 remoteSource
 

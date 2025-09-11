@@ -122,16 +122,16 @@ deno run --allow-read --allow-write --allow-run ./scripts/generate.ts
 The initial focus and priority is on these 8 blocks, covering more than 80% of the use cases:  
 (Click on a block to see the detailed design specification)
 
-| Block Name                                        | MTP Block Name                      | MTP Parent Type          | Description                                                          | DMC Block Name       | Priority |
-| ------------------------------------------------- | ----------------------------------- | ------------------------ | -------------------------------------------------------------------- | -------------------- | -------- |
-| [DigitalInput](specs/Library/DigitalInput.md)     | [BinMon](specs/MTP/BinMon.md)       | IndicatorElement\BinView | display a binary value                                               | fbIO_DigitalInput    | 1        |
-| [AnalogInput](specs/Library/AnalogInput.md)       | [AnaMon](specs/MTP/AnaMon.md)       | IndicatorElement\AnaView | display an analogue value                                            | fbIO_AnalogInput (1) | 1        |
-| [SolenoidValve](specs/Library/SolenoidValve.md)   | [MonBinVlv](specs/MTP/MonBinVlv.md) | ActiveElement\BinVlv     | bistable valve                                                       | fbValve_Solenoid     | 1        |
-| [AnalogValve](specs/Library/AnalogValve.md)       | [MonAnaVlv](specs/MTP/MonAnaVlv.md) | ActiveElement\AnaVlv     | analogue valve                                                       | fbValve_Analog (2)   | 1        |
-| [ReversingMotor](specs/Library/ReversingMotor.md) | [MonBinDrv](specs/MTP/MonBinDrv.md) | ActiveElement\BinDrv     | fixed speed drive with both clockwise and anti-clockwise rotation    | fbMotor_Reversing    | 1        |
-| [VFD](specs/Library/VFD.md)                       | [MonAnaDrv](specs/MTP/MonAnaDrv.md) | ActiveElement\AnaDrv     | variable speed drive with both clockwise and anti-clockwise rotation | fbVFD_Analog         | 1        |
-| [PIDController](specs/Library/PIDController.md)   | [PIDCtrl](specs/MTP/PIDCtrl.md)     | ActiveElement            | continuous PID controller                                            | fbPID_Compact        | 1        |
-| [Interlock4](specs/Library/Interlock4.md)         | [LockView4](specs/MTP/LockView4.md) | DiagnosticElement        | visualize the current state of 4 locks                               | fbInterlock (3)      | 1        |
+| Block Name                                                | MTP Block Name                      | MTP Parent Type          | Description                                                          | DMC Block Name       | Priority |
+| --------------------------------------------------------- | ----------------------------------- | ------------------------ | -------------------------------------------------------------------- | -------------------- | -------- |
+| [DigitalMeasurement](specs/Library/DigitalMeasurement.md) | [BinMon](specs/MTP/BinMon.md)       | IndicatorElement\BinView | display a binary value                                               | fbIO_DigitalInput    | 1        |
+| [AnalogMeasurement](specs/Library/AnalogMeasurement.md)   | [AnaMon](specs/MTP/AnaMon.md)       | IndicatorElement\AnaView | display an analogue value                                            | fbIO_AnalogInput (1) | 1        |
+| [SolenoidValve](specs/Library/SolenoidValve.md)           | [MonBinVlv](specs/MTP/MonBinVlv.md) | ActiveElement\BinVlv     | bistable valve                                                       | fbValve_Solenoid     | 1        |
+| [AnalogValve](specs/Library/AnalogValve.md)               | [MonAnaVlv](specs/MTP/MonAnaVlv.md) | ActiveElement\AnaVlv     | analogue valve                                                       | fbValve_Analog (2)   | 1        |
+| [ReversingMotor](specs/Library/ReversingMotor.md)         | [MonBinDrv](specs/MTP/MonBinDrv.md) | ActiveElement\BinDrv     | fixed speed drive with both clockwise and anti-clockwise rotation    | fbMotor_Reversing    | 1        |
+| [VFD](specs/Library/VFD.md)                               | [MonAnaDrv](specs/MTP/MonAnaDrv.md) | ActiveElement\AnaDrv     | variable speed drive with both clockwise and anti-clockwise rotation | fbVFD_Analog         | 1        |
+| [PIDController](specs/Library/PIDController.md)           | [PIDCtrl](specs/MTP/PIDCtrl.md)     | ActiveElement            | continuous PID controller                                            | fbPID_Compact        | 1        |
+| [Interlock4](specs/Library/Interlock4.md)                 | [LockView4](specs/MTP/LockView4.md) | DiagnosticElement        | visualize the current state of 4 locks                               | fbInterlock (3)      | 1        |
 
 # Demo Screen
 
@@ -145,8 +145,8 @@ Some vendors provide standard function blocks, in some cases part of a partial c
 To complete the needed functionality OPL (Open Process Library) has a layered architecture where the OPL blocks wrap the MTP interface blocks.
 The target is to support both vendor-supplied blocks, and also provide an open alternative for the MTP blocks.
 
-For example a typical AnalogInput block needs a raw value that is properly scaled.
-Also the scaled value needs to be available both on MTP, as well as an output on the AnalogInput block for usage in the rest of the program:
+For example a typical AnalogMeasurement block needs a raw value that is properly scaled.
+Also the scaled value needs to be available both on MTP, as well as an output on the AnalogMeasurement block for usage in the rest of the program:
 
 ![MTP-wrapping](media/MTP-wrapping.png)
 
@@ -185,42 +185,42 @@ deno run --allow-read --allow-write ./scripts/generate.ts
 
 # Full Block List
 
-| Block Name                                        | MTP Block Name                      | MTP Parent Type             | MTP Description                                                      | DMC Block Name       | Priority |
-| ------------------------------------------------- | ----------------------------------- | --------------------------- | -------------------------------------------------------------------- | -------------------- | -------- |
-|                                                   | IndicatorElement                    |                             | visualise PEA-internal values in the POL                             |                      |          |
-|                                                   | BinView                             | IndicatorElement            | display a binary value of the PEA                                    |                      |          |
-| [DigitalInput](specs/Library/DigitalInput.md)     | [BinMon](specs/MTP/BinMon.md)       | IndicatorElement\BinView    | extends BinView with fluttering signal monitoring                    | fbIO_DigitalInput    | 1        |
-|                                                   | DIntView                            | IndicatorElement            | display an integer varlue of the PEA                                 |                      |          |
-|                                                   | DIntMon                             | IndicatorElement\DintView   | extends DIntView with limit check                                    |                      | 2        |
-|                                                   | AnaView                             | IndicatorElement            | display an analogue value of the PEA                                 |                      |          |
-| [AnalogInput](specs/Library/AnalogInput.md)       | [AnaMon](specs/MTP/AnaMon.md)       | IndicatorElement\AnaView    | extends AnaView with limit check                                     | fbIO_AnalogInput (1) | 1        |
-|                                                   | StringView                          | IndicatorElement            | display a dynamic string from the PEA                                |                      |          |
-|                                                   | OperationElement                    |                             | used to transfervalues from the POL to the PEA                       |                      | 2        |
-|                                                   | BinMan                              | OperationElement            | set or reset a binary value in the PEA                               |                      |          |
-|                                                   | BinManInt                           | OperationElement\BinManInt  | extends BinMan with internal value and Sourcemode                    |                      | 2        |
-|                                                   | DIntMan                             | OperationElement            | transfer an integer value from POL into PEA                          |                      |          |
-|                                                   | DIntManInt                          | OperationElement\DIntMan    | extends AnaMan with internal value and SourceMode                    |                      | 2        |
-|                                                   | AnaMan                              | OperationElement            | transfer an analogue value from POL into PEA                         |                      |          |
-|                                                   | AnaManInt                           | OperationElement\AnaMan     | extends AnaMan with internal value and SourceMode                    |                      | 2        |
-|                                                   | ActiveElement                       |                             | allow the POL level to access active elements of the PEA             |                      |          |
-|                                                   | BinVlv                              | ActiveElement               | bistable valve                                                       |                      |          |
-| [SolenoidValve](specs/Library/SolenoidValve.md)   | [MonBinVlv](specs/MTP/MonBinVlv.md) | ActiveElement\BinVlv        | extends BinVlv with feedback monitoring                              | fbValve_Solenoid     | 1        |
-|                                                   | TriPosVlv                           | ActiveElement               | tristable valve                                                      |                      |          |
-|                                                   | MonTriPosVlv                        | ActiveElement\TriPosVlv     | extends TriPosVlv with feedback monitoring                           |                      |          |
-|                                                   | AnaVlv                              | ActiveElement               | analogue valve                                                       |                      |          |
-| [AnalogValve](specs/Library/AnalogValve.md)       | [MonAnaVlv](specs/MTP/MonAnaVlv.md) | ActiveElement\AnaVlv        | extends AnaVlv with feedback monitoring                              | fbValve_Analog (2)   | 1        |
-|                                                   | BinDrv                              | ActiveElement               | fixed speed drive with both clockwise and anti-clockwise rotation    |                      |          |
-| [ReversingMotor](specs/Library/ReversingMotor.md) | [MonBinDrv](specs/MTP/MonBinDrv.md) | ActiveElement\BinDrv        | extends BinDrv with feedback monitoring                              | fbMotor_Reversing    | 1        |
-|                                                   | AnaDrv                              | ActiveElement               | variable speed drive with both clockwise and anti-clockwise rotation |                      |          |
-| [VFD](specs/Library/VFD.md)                       | [MonAnaDrv](specs/MTP/MonAnaDrv.md) | ActiveElement\AnaDrv        | extends AnaDrv with feedback monitoring                              | fbVFD_Analog         | 1        |
-| [PIDController](specs/Library/PIDController.md)   | [PIDCtrl](specs/MTP/PIDCtrl.md)     | ActiveElement               | continuous PID controller                                            | fbPID_Compact        | 1        |
-|                                                   | DiagnosticElement                   |                             | used to display diagnostic information in the POL                    |                      |          |
-| [Interlock4](specs/Library/Interlock4.md)         | [LockView4](specs/MTP/LockView4.md) | DiagnosticElement           | visualize the current state of 4 locks                               | fbInterlock (3)      | 1        |
-|                                                   | LockView8                           | DiagnosticElement\LockView4 | visualize the current state of 8 locks                               |                      | 2        |
-|                                                   | LockView16                          | DiagnosticElement\LockView8 | visualize the current state of 16 locks                              |                      | 2        |
-|                                                   |                                     |                             |                                                                      | fbIO_AnalogOutput    | 2        | (4)
-|                                                   |                                     |                             |                                                                      | fbIO_DigitalOutput   | 2        | (5)
-|                                                   |                                     |                             |                                                                      | fbFlowTotalizer      | 2        | (6)
+| Block Name                                                | MTP Block Name                      | MTP Parent Type             | MTP Description                                                      | DMC Block Name       | Priority |
+| --------------------------------------------------------- | ----------------------------------- | --------------------------- | -------------------------------------------------------------------- | -------------------- | -------- |
+|                                                           | IndicatorElement                    |                             | visualise PEA-internal values in the POL                             |                      |          |
+|                                                           | BinView                             | IndicatorElement            | display a binary value of the PEA                                    |                      |          |
+| [DigitalMeasurement](specs/Library/DigitalMeasurement.md) | [BinMon](specs/MTP/BinMon.md)       | IndicatorElement\BinView    | extends BinView with fluttering signal monitoring                    | fbIO_DigitalInput    | 1        |
+|                                                           | DIntView                            | IndicatorElement            | display an integer varlue of the PEA                                 |                      |          |
+|                                                           | DIntMon                             | IndicatorElement\DintView   | extends DIntView with limit check                                    |                      | 2        |
+|                                                           | AnaView                             | IndicatorElement            | display an analogue value of the PEA                                 |                      |          |
+| [AnalogMeasurement](specs/Library/AnalogMeasurement.md)   | [AnaMon](specs/MTP/AnaMon.md)       | IndicatorElement\AnaView    | extends AnaView with limit check                                     | fbIO_AnalogInput (1) | 1        |
+|                                                           | StringView                          | IndicatorElement            | display a dynamic string from the PEA                                |                      |          |
+|                                                           | OperationElement                    |                             | used to transfervalues from the POL to the PEA                       |                      | 2        |
+|                                                           | BinMan                              | OperationElement            | set or reset a binary value in the PEA                               |                      |          |
+|                                                           | BinManInt                           | OperationElement\BinManInt  | extends BinMan with internal value and Sourcemode                    |                      | 2        |
+|                                                           | DIntMan                             | OperationElement            | transfer an integer value from POL into PEA                          |                      |          |
+|                                                           | DIntManInt                          | OperationElement\DIntMan    | extends AnaMan with internal value and SourceMode                    |                      | 2        |
+|                                                           | AnaMan                              | OperationElement            | transfer an analogue value from POL into PEA                         |                      |          |
+|                                                           | AnaManInt                           | OperationElement\AnaMan     | extends AnaMan with internal value and SourceMode                    |                      | 2        |
+|                                                           | ActiveElement                       |                             | allow the POL level to access active elements of the PEA             |                      |          |
+|                                                           | BinVlv                              | ActiveElement               | bistable valve                                                       |                      |          |
+| [SolenoidValve](specs/Library/SolenoidValve.md)           | [MonBinVlv](specs/MTP/MonBinVlv.md) | ActiveElement\BinVlv        | extends BinVlv with feedback monitoring                              | fbValve_Solenoid     | 1        |
+|                                                           | TriPosVlv                           | ActiveElement               | tristable valve                                                      |                      |          |
+|                                                           | MonTriPosVlv                        | ActiveElement\TriPosVlv     | extends TriPosVlv with feedback monitoring                           |                      |          |
+|                                                           | AnaVlv                              | ActiveElement               | analogue valve                                                       |                      |          |
+| [AnalogValve](specs/Library/AnalogValve.md)               | [MonAnaVlv](specs/MTP/MonAnaVlv.md) | ActiveElement\AnaVlv        | extends AnaVlv with feedback monitoring                              | fbValve_Analog (2)   | 1        |
+|                                                           | BinDrv                              | ActiveElement               | fixed speed drive with both clockwise and anti-clockwise rotation    |                      |          |
+| [ReversingMotor](specs/Library/ReversingMotor.md)         | [MonBinDrv](specs/MTP/MonBinDrv.md) | ActiveElement\BinDrv        | extends BinDrv with feedback monitoring                              | fbMotor_Reversing    | 1        |
+|                                                           | AnaDrv                              | ActiveElement               | variable speed drive with both clockwise and anti-clockwise rotation |                      |          |
+| [VFD](specs/Library/VFD.md)                               | [MonAnaDrv](specs/MTP/MonAnaDrv.md) | ActiveElement\AnaDrv        | extends AnaDrv with feedback monitoring                              | fbVFD_Analog         | 1        |
+| [PIDController](specs/Library/PIDController.md)           | [PIDCtrl](specs/MTP/PIDCtrl.md)     | ActiveElement               | continuous PID controller                                            | fbPID_Compact        | 1        |
+|                                                           | DiagnosticElement                   |                             | used to display diagnostic information in the POL                    |                      |          |
+| [Interlock4](specs/Library/Interlock4.md)                 | [LockView4](specs/MTP/LockView4.md) | DiagnosticElement           | visualize the current state of 4 locks                               | fbInterlock (3)      | 1        |
+|                                                           | LockView8                           | DiagnosticElement\LockView4 | visualize the current state of 8 locks                               |                      | 2        |
+|                                                           | LockView16                          | DiagnosticElement\LockView8 | visualize the current state of 16 locks                              |                      | 2        |
+|                                                           |                                     |                             |                                                                      | fbIO_AnalogOutput    | 2        | (4)
+|                                                           |                                     |                             |                                                                      | fbIO_DigitalOutput   | 2        | (5)
+|                                                           |                                     |                             |                                                                      | fbFlowTotalizer      | 2        | (6)
 
 (1) also see fbLevelMonitor, fbHopperLevel
 (2) also fbValve_Hydraulic
