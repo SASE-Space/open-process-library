@@ -16,12 +16,6 @@
             <variable name="proportional"><type><REAL /></type></variable>
             <variable name="integration"><type><REAL /></type></variable>
             <variable name="derivation"><type><REAL /></type></variable>
-            <variable name="alarmHigh"><type><REAL /></type></variable>
-            <variable name="warningHigh"><type><REAL /></type></variable>
-            <variable name="toleranceHigh"><type><REAL /></type></variable>
-            <variable name="toleranceLow"><type><REAL /></type></variable>
-            <variable name="warningLow"><type><REAL /></type></variable>
-            <variable name="alarmLow"><type><REAL /></type></variable>
             <variable name="alarmHighEn"><type><BOOL /></type></variable>
             <variable name="warningHighEn"><type><BOOL /></type></variable>
             <variable name="toleranceHighEn"><type><BOOL /></type></variable>
@@ -82,12 +76,20 @@
             <variable name="P"><type><REAL /></type></variable>
             <variable name="Ti"><type><REAL /></type></variable>
             <variable name="Td"><type><REAL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -190,6 +192,8 @@ FB_Init is always available implicitly and it is used primarily for initializati
                     <ST>
                         <xhtml xmlns="http://www.w3.org/1999/xhtml">
 // assign default values on initialization
+
+
                         </xhtml>
                     </ST>
                 </body>

@@ -73,38 +73,38 @@
 
 ## Functionality
 
-| Target           | MTP signal | MTP | SCD | Expression                                                  | Comment                                                   |
-| ---------------- | ---------- | --- | --- | ----------------------------------------------------------- | --------------------------------------------------------- |
-| WQC              | x          | x   |     | 16#FF                                                       | no QC available (default)                                 |
-| remote           |            | x   |     | StateChannel                                                |                                                           |
-| operator         |            | x   |     | StateOpAct                                                  |                                                           |
-| automatic        |            | x   |     | StateAutAct                                                 |                                                           |
-| offline          |            | x   |     | StateOffAct                                                 |                                                           |
-| PermEn           | x          | x   |     | True                                                        | Always Enable, Configure permitIn = 0 if no permits       |
-| IntlEn           | x          | x   |     | True                                                        | Always Enable, Configure interlockIn = 0 if no interlocks |
-| ProtEn           | x          | x   |     | True                                                        | Always Enable, Configure protectIn = 0 if no protections  |
-| Permit           | x          | x   |     | permitIn                                                    |                                                           |
-| Interlock        | x          | x   |     | interlockIn                                                 |                                                           |
-| Protect          | x          | x   |     | Set: protectIn                                              | Reset happens inside MTP block                            |
-| SafePos          | x          | x   |     | safeOpen                                                    |                                                           |
-| MonSafePos       | x          | x   |     | safeOpen                                                    |                                                           |
-| SafePosEn        | x          | x   |     | safeHold                                                    |                                                           |
-| OpenAut          | x          | x   |     | open                                                        |                                                           |
-| CloseAut         | x          | x   |     | close                                                       |                                                           |
-| OpenFbkCalc      | x          | x   |     | simulate OR NOT feedbackOpen                                | TODO: review logic, probably need to use hasFbOpen        |
-| CloseFbkCalc     | x          | x   |     | simulate OR NOT feedbackClose                               | TODO: review logic                                        |
-| fbOpenSimulated  |            | x   |     | (simulate OR NOT hasFbOpen) AND Ctrl for simulateDelay      | if no FbOpen connected then treat it as a simulation      |
-| fbCloseSimulated |            | x   |     | (simulate OR NOT hasFbClose) AND NOT Ctrl for simulateDelay | if no FbClose connected then treat it as a simulation     |
-| OpenFbk          | x          | x   |     | feedbackOpen OR fbOpenSimulated                             |                                                           |
-| CloseFbk         | x          | x   |     | feedbackClose OR fbCloseSimulated                           |                                                           |
-| opened           |            | x   |     | Ctrl AND OpenFbk                                            |                                                           |
-| closed           |            | x   |     | NOT Ctrl AND CloseFbk                                       |                                                           |
-| ResetAut         | x          | x   |     | reset                                                       |                                                           |
-| MonEn            | x          | x   |     | monitor                                                     |                                                           |
-| MonStatTi        | x          | x   |     | staticTimeout                                               |                                                           |
-| MonDynTi         | x          | x   |     | dynamicTimeout                                              |                                                           |
-| reset            |            | x   |     | False                                                       | reset = False at the end of the FB                        |
-|                  |            |     |     |                                                             |                                                           |
+| Target           | MTP signal | MTP | SCD | Expression                                                                  | Comment                                                     |
+| ---------------- | ---------- | --- | --- | --------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| WQC              | x          | x   |     | 16#FF                                                                       | no QC available (default)                                   |
+| remote           |            | x   |     | StateChannel                                                                |                                                             |
+| operator         |            | x   |     | StateOpAct                                                                  |                                                             |
+| automatic        |            | x   |     | StateAutAct                                                                 |                                                             |
+| offline          |            | x   |     | StateOffAct                                                                 |                                                             |
+| PermEn           | x          | x   |     | True                                                                        | Always Enable, Configure permitIn = 0 if no permits         |
+| IntlEn           | x          | x   |     | True                                                                        | Always Enable, Configure interlockIn = 0 if no interlocks   |
+| ProtEn           | x          | x   |     | True                                                                        | Always Enable, Configure protectIn = 0 if no protections    |
+| Permit           | x          | x   |     | permitIn                                                                    |                                                             |
+| Interlock        | x          | x   |     | NOT interlockIn                                                             | Normalize logic so it's easier to build complex interlocks  |
+| Protect          | x          | x   |     | NOT protectIn                                                               | Set (reset because inverted logic) happens inside MTP block |
+| SafePos          | x          | x   |     | safeOpen                                                                    |                                                             |
+| MonSafePos       | x          | x   |     | safeOpen                                                                    |                                                             |
+| SafePosEn        | x          | x   |     | safeHold                                                                    |                                                             |
+| OpenAut          | x          | x   |     | open                                                                        |                                                             |
+| CloseAut         | x          | x   |     | close                                                                       |                                                             |
+| OpenFbkCalc      | x          | x   |     | simulate OR NOT hasFbOpen                                                   |                                                             |
+| CloseFbkCalc     | x          | x   |     | simulate OR NOT hasFbClose                                                  |                                                             |
+| fbOpenSimulated  |            | x   |     | OpenFbkCalc AND Ctrl for simulateDelay                                      | if no FbOpen connected then treat it as a simulation        |
+| fbCloseSimulated |            | x   |     | CloseFbkCalc AND NOT Ctrl for simulateDelay                                 | if no FbClose connected then treat it as a simulation       |
+| OpenFbk          | x          | x   |     | (feedbackOpen AND NOT OpenFbkCalc) OR (fbOpenSimulated AND OpenFbkCalc)     |                                                             |
+| CloseFbk         | x          | x   |     | (feedbackClose AND NOT CloseFbkCalc) OR (fbCloseSimulated AND CloseFbkCalc) |                                                             |
+| opened           |            | x   |     | Ctrl AND OpenFbk                                                            |                                                             |
+| closed           |            | x   |     | NOT Ctrl AND CloseFbk                                                       |                                                             |
+| ResetAut         | x          | x   |     | reset                                                                       |                                                             |
+| MonEn            | x          | x   |     | monitor                                                                     |                                                             |
+| MonStatTi        | x          | x   |     | staticTimeout                                                               |                                                             |
+| MonDynTi         | x          | x   |     | dynamicTimeout                                                              |                                                             |
+| reset            |            | x   |     | False                                                                       | reset = False at the end of the FB                          |
+|                  |            |     |     |                                                                             |                                                             |
 
 
 ## Todo

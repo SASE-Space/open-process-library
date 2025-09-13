@@ -45,7 +45,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "VSclMax": {
@@ -56,7 +56,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "VUnit": {
@@ -380,6 +380,7 @@
                     "isMTP": false
                 }
             },
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": null
         },
@@ -499,6 +500,7 @@
             },
             "MTPBaseVariables": {},
             "Functionality": {},
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": null
         },
@@ -783,6 +785,7 @@
             },
             "MTPBaseVariables": {},
             "Functionality": {},
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": null
         },
@@ -1304,7 +1307,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "RevFbk": {
@@ -1326,7 +1329,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "FwdFbk": {
@@ -1464,6 +1467,7 @@
             },
             "MTPBaseVariables": {},
             "Functionality": {},
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": null
         },
@@ -2045,6 +2049,7 @@
             },
             "MTPBaseVariables": {},
             "Functionality": {},
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": null
         },
@@ -2390,7 +2395,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "RevFbk": {
@@ -2412,7 +2417,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "FwdFbk": {
@@ -2528,6 +2533,7 @@
             },
             "MTPBaseVariables": {},
             "Functionality": {},
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": null
         },
@@ -2816,7 +2822,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "CloseFbkCalc": {
@@ -2828,7 +2834,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "OpenFbk": {
@@ -3249,6 +3255,7 @@
                     "isMTP": false
                 }
             },
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": null
         },
@@ -3742,6 +3749,7 @@
             },
             "MTPBaseVariables": {},
             "Functionality": {},
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": null
         },
@@ -3833,7 +3841,7 @@
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Default": "90",
-                    "Description": "Limit Value for Alarm High",
+                    "Description": "Limit Value for Alarm High (not accessible in Beckhoff MTP)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -3846,7 +3854,7 @@
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Default": "80",
-                    "Description": "Limit Value for Warning High",
+                    "Description": "Limit Value for Warning High (not accessible in Beckhoff MTP)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -3859,7 +3867,7 @@
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Default": "60",
-                    "Description": "Limit Value for Tolerance High",
+                    "Description": "Limit Value for Tolerance High (not accessible in Beckhoff MTP)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -3872,7 +3880,7 @@
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Default": "40",
-                    "Description": "Limit Value for Tolerance Low",
+                    "Description": "Limit Value for Tolerance Low (not accessible in Beckhoff MTP)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -3885,7 +3893,7 @@
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Default": "20",
-                    "Description": "Limit Value for Warning Low",
+                    "Description": "Limit Value for Warning Low (not accessible in Beckhoff MTP)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -3898,7 +3906,7 @@
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Default": "10",
-                    "Description": "Limit Value for Alarm Low",
+                    "Description": "Limit Value for Alarm Low (not accessible in Beckhoff MTP)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -3991,7 +3999,7 @@
                     "Default": "",
                     "Description": "Deadband for alarms/warnings",
                     "SCD Name": "",
-                    "SCD Terminal Name": "",
+                    "SCD Terminal Name": "todo",
                     "isDerived": false,
                     "isRead": false,
                     "isWrite": false
@@ -4156,7 +4164,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "VSclMax": {
@@ -4167,7 +4175,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "VUnit": {
@@ -4419,7 +4427,7 @@
                 },
                 "V": {
                     "LogicType": "Expression",
-                    "Expression": "scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin)",
+                    "Expression": "VSclMin + (WORD_TO_REAL(rawValue) / 27648.0) * (VSclMax - VSclMin)",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -4506,114 +4514,6 @@
                     "mtpFlag": true,
                     "scdFlag": false,
                     "isMTP": true
-                },
-                "alarmHigh": {
-                    "LogicType": "Expression",
-                    "Expression": "VAHLim",
-                    "Set": null,
-                    "Reset": null,
-                    "StateMachine": null,
-                    "Comment": "synchronize (1)",
-                    "DelayVariable": null,
-                    "SetDelayVariable": null,
-                    "ResetDelayVariable": null,
-                    "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": null,
-                    "ResetDelayTimerNumber": null,
-                    "mtpSignal": false,
-                    "mtpFlag": true,
-                    "scdFlag": false,
-                    "isMTP": false
-                },
-                "warningHigh": {
-                    "LogicType": "Expression",
-                    "Expression": "VWHLim",
-                    "Set": null,
-                    "Reset": null,
-                    "StateMachine": null,
-                    "Comment": "synchronize (1)",
-                    "DelayVariable": null,
-                    "SetDelayVariable": null,
-                    "ResetDelayVariable": null,
-                    "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": null,
-                    "ResetDelayTimerNumber": null,
-                    "mtpSignal": false,
-                    "mtpFlag": true,
-                    "scdFlag": false,
-                    "isMTP": false
-                },
-                "toleranceHigh": {
-                    "LogicType": "Expression",
-                    "Expression": "VTHLim",
-                    "Set": null,
-                    "Reset": null,
-                    "StateMachine": null,
-                    "Comment": "synchronize (1)",
-                    "DelayVariable": null,
-                    "SetDelayVariable": null,
-                    "ResetDelayVariable": null,
-                    "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": null,
-                    "ResetDelayTimerNumber": null,
-                    "mtpSignal": false,
-                    "mtpFlag": true,
-                    "scdFlag": false,
-                    "isMTP": false
-                },
-                "toleranceLow": {
-                    "LogicType": "Expression",
-                    "Expression": "VTLLim",
-                    "Set": null,
-                    "Reset": null,
-                    "StateMachine": null,
-                    "Comment": "synchronize (1)",
-                    "DelayVariable": null,
-                    "SetDelayVariable": null,
-                    "ResetDelayVariable": null,
-                    "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": null,
-                    "ResetDelayTimerNumber": null,
-                    "mtpSignal": false,
-                    "mtpFlag": true,
-                    "scdFlag": false,
-                    "isMTP": false
-                },
-                "warningLow": {
-                    "LogicType": "Expression",
-                    "Expression": "VWLLim",
-                    "Set": null,
-                    "Reset": null,
-                    "StateMachine": null,
-                    "Comment": "synchronize (1)",
-                    "DelayVariable": null,
-                    "SetDelayVariable": null,
-                    "ResetDelayVariable": null,
-                    "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": null,
-                    "ResetDelayTimerNumber": null,
-                    "mtpSignal": false,
-                    "mtpFlag": true,
-                    "scdFlag": false,
-                    "isMTP": false
-                },
-                "alarmLow": {
-                    "LogicType": "Expression",
-                    "Expression": "VALLim",
-                    "Set": null,
-                    "Reset": null,
-                    "StateMachine": null,
-                    "Comment": "synchronize (1)",
-                    "DelayVariable": null,
-                    "SetDelayVariable": null,
-                    "ResetDelayVariable": null,
-                    "DelayTimerNumber": null,
-                    "SetDelayTimerNumber": null,
-                    "ResetDelayTimerNumber": null,
-                    "mtpSignal": false,
-                    "mtpFlag": true,
-                    "scdFlag": false,
-                    "isMTP": false
                 },
                 "VAHEn": {
                     "LogicType": "Expression",
@@ -4722,6 +4622,50 @@
                     "mtpFlag": true,
                     "scdFlag": false,
                     "isMTP": true
+                }
+            },
+            "Syncs": {
+                "alarmHigh": {
+                    "SyncVariable": "VAHLim",
+                    "Comment": "synchronize (1)",
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false
+                },
+                "warningHigh": {
+                    "SyncVariable": "VWHLim",
+                    "Comment": "synchronize (1)",
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false
+                },
+                "toleranceHigh": {
+                    "SyncVariable": "VTHLim",
+                    "Comment": "synchronize (1)",
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false
+                },
+                "toleranceLow": {
+                    "SyncVariable": "VTLLim",
+                    "Comment": "synchronize (1)",
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false
+                },
+                "warningLow": {
+                    "SyncVariable": "VWLLim",
+                    "Comment": "synchronize (1)",
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false
+                },
+                "alarmLow": {
+                    "SyncVariable": "VALLim",
+                    "Comment": "synchronize (1)",
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false
                 }
             },
             "DelayTimerCount": 0,
@@ -6420,6 +6364,7 @@
                     "isMTP": false
                 }
             },
+            "Syncs": {},
             "DelayTimerCount": 2,
             "MTPBase": "MonAnaVlv"
         },
@@ -6794,6 +6739,7 @@
                     "isMTP": false
                 }
             },
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": "BinMon"
         },
@@ -6803,6 +6749,7 @@
             "Variables": {},
             "MTPBaseVariables": {},
             "Functionality": {},
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": null
         },
@@ -8446,6 +8393,7 @@
                     "isMTP": false
                 }
             },
+            "Syncs": {},
             "DelayTimerCount": 0,
             "MTPBase": "PIDCtrl"
         },
@@ -8477,19 +8425,6 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": false,
-                    "isWrite": false
-                },
-                "stop": {
-                    "MTP": "x",
-                    "SCD": "",
-                    "Var Type": "Input",
-                    "Data Type": "Bool",
-                    "Default": "",
-                    "Description": "Stop command from program",
-                    "SCD Name": "",
-                    "SCD Terminal Name": "",
-                    "isDerived": false,
-                    "isRead": true,
                     "isWrite": false
                 },
                 "forward": {
@@ -8575,7 +8510,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "",
+                    "Default": "True",
                     "Description": "Enable Forward",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -8588,7 +8523,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "",
+                    "Default": "False",
                     "Description": "Enable Reverse",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -8601,7 +8536,7 @@
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Bool",
-                    "Default": "True",
+                    "Default": "",
                     "Description": "Drive Protection Indicator. 0: tripped, 1: no error",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
@@ -9209,7 +9144,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "RevFbk": {
@@ -9231,7 +9166,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "FwdFbk": {
@@ -9528,11 +9463,11 @@
                 },
                 "Interlock": {
                     "LogicType": "Expression",
-                    "Expression": "interlockIn",
+                    "Expression": "NOT interlockIn",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "",
+                    "Comment": "Normalize logic so it's easier to build complex interlocks",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -9545,12 +9480,12 @@
                     "isMTP": true
                 },
                 "Protect": {
-                    "LogicType": "Set",
-                    "Expression": null,
-                    "Set": "protectIn",
+                    "LogicType": "Expression",
+                    "Expression": "NOT protectIn",
+                    "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "Reset happens inside MTP block",
+                    "Comment": "Set (reset because inverted logic) happens inside MTP block",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -9618,7 +9553,7 @@
                 },
                 "StopAut": {
                     "LogicType": "Expression",
-                    "Expression": "stop",
+                    "Expression": "NOT forward AND NOT reverse",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -9744,7 +9679,7 @@
                 },
                 "fwdFbkSimulated": {
                     "LogicType": "Expression",
-                    "Expression": "(simulate OR NOT hasFwdFeedback) AND fwdCommand",
+                    "Expression": "FwdFbkCalc AND fwdCommand",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -9762,7 +9697,7 @@
                 },
                 "revFbkSimulated": {
                     "LogicType": "Expression",
-                    "Expression": "(simulate OR NOT hasRevFeedback) AND NOT revCommand",
+                    "Expression": "RevFbkCalc AND revCommand",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -9780,7 +9715,7 @@
                 },
                 "FwdFbk": {
                     "LogicType": "Expression",
-                    "Expression": "forwardFeedback OR fwdFbkSimulated",
+                    "Expression": "(forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc)",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -9798,7 +9733,7 @@
                 },
                 "RevFbk": {
                     "LogicType": "Expression",
-                    "Expression": "reverseFeedback OR revFbkSimulated",
+                    "Expression": "(reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc)",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -9816,11 +9751,11 @@
                 },
                 "Trip": {
                     "LogicType": "Expression",
-                    "Expression": "driveTrip",
+                    "Expression": "NOT driveTrip",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "",
+                    "Comment": "(True = trip active)",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -9923,6 +9858,7 @@
                     "isMTP": false
                 }
             },
+            "Syncs": {},
             "DelayTimerCount": 2,
             "MTPBase": "MonBinDrv"
         },
@@ -10746,7 +10682,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "CloseFbkCalc": {
@@ -10758,7 +10694,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "OpenFbk": {
@@ -11107,11 +11043,11 @@
                 },
                 "Interlock": {
                     "LogicType": "Expression",
-                    "Expression": "interlockIn",
+                    "Expression": "NOT interlockIn",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "",
+                    "Comment": "Normalize logic so it's easier to build complex interlocks",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -11124,12 +11060,12 @@
                     "isMTP": true
                 },
                 "Protect": {
-                    "LogicType": "Set",
-                    "Expression": null,
-                    "Set": "protectIn",
+                    "LogicType": "Expression",
+                    "Expression": "NOT protectIn",
+                    "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "Reset happens inside MTP block",
+                    "Comment": "Set (reset because inverted logic) happens inside MTP block",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -11233,11 +11169,11 @@
                 },
                 "OpenFbkCalc": {
                     "LogicType": "Expression",
-                    "Expression": "simulate OR NOT feedbackOpen",
+                    "Expression": "simulate OR NOT hasFbOpen",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "TODO: review logic, probably need to use hasFbOpen",
+                    "Comment": "",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -11251,11 +11187,11 @@
                 },
                 "CloseFbkCalc": {
                     "LogicType": "Expression",
-                    "Expression": "simulate OR NOT feedbackClose",
+                    "Expression": "simulate OR NOT hasFbClose",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "TODO: review logic",
+                    "Comment": "",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -11269,7 +11205,7 @@
                 },
                 "fbOpenSimulated": {
                     "LogicType": "Expression",
-                    "Expression": "(simulate OR NOT hasFbOpen) AND Ctrl",
+                    "Expression": "OpenFbkCalc AND Ctrl",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -11287,7 +11223,7 @@
                 },
                 "fbCloseSimulated": {
                     "LogicType": "Expression",
-                    "Expression": "(simulate OR NOT hasFbClose) AND NOT Ctrl",
+                    "Expression": "CloseFbkCalc AND NOT Ctrl",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -11305,7 +11241,7 @@
                 },
                 "OpenFbk": {
                     "LogicType": "Expression",
-                    "Expression": "feedbackOpen OR fbOpenSimulated",
+                    "Expression": "(feedbackOpen AND NOT OpenFbkCalc) OR (fbOpenSimulated AND OpenFbkCalc)",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -11323,7 +11259,7 @@
                 },
                 "CloseFbk": {
                     "LogicType": "Expression",
-                    "Expression": "feedbackClose OR fbCloseSimulated",
+                    "Expression": "(feedbackClose AND NOT CloseFbkCalc) OR (fbCloseSimulated AND CloseFbkCalc)",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -11466,6 +11402,7 @@
                     "isMTP": false
                 }
             },
+            "Syncs": {},
             "DelayTimerCount": 2,
             "MTPBase": "MonBinVlv"
         },
@@ -12535,7 +12472,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "RevFbk": {
@@ -12557,7 +12494,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "FwdFbk": {
@@ -12930,11 +12867,11 @@
                 },
                 "Interlock": {
                     "LogicType": "Expression",
-                    "Expression": "interlockIn",
+                    "Expression": "NOT interlockIn",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "",
+                    "Comment": "Normalize logic so it's easier to build complex interlocks",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -12947,12 +12884,12 @@
                     "isMTP": true
                 },
                 "Protect": {
-                    "LogicType": "Set",
-                    "Expression": null,
-                    "Set": "protectIn",
+                    "LogicType": "Expression",
+                    "Expression": "NOT protectIn",
+                    "Set": null,
                     "Reset": null,
                     "StateMachine": null,
-                    "Comment": "Reset happens inside MTP block",
+                    "Comment": "Set (reset because inverted logic) happens inside MTP block",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -13128,7 +13065,7 @@
                 },
                 "FwdFbk": {
                     "LogicType": "Expression",
-                    "Expression": "forwardFeedback OR fwdFbkSimulated",
+                    "Expression": "(forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc)",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -13146,7 +13083,7 @@
                 },
                 "RevFbk": {
                     "LogicType": "Expression",
-                    "Expression": "reverseFeedback OR revFbkSimulated",
+                    "Expression": "(reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc)",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -13397,6 +13334,7 @@
                     "isMTP": true
                 }
             },
+            "Syncs": {},
             "DelayTimerCount": 2,
             "MTPBase": "MonAnaDrv"
         }

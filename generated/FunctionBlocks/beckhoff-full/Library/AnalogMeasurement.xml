@@ -61,6 +61,8 @@
                 <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
 V := MTPBase.V;
+VSclMin := MTPBase.VSclMin;
+VSclMax := MTPBase.VSclMax;
 VAHLim := MTPBase.VAHLim;
 VWHLim := MTPBase.VWHLim;
 VTHLim := MTPBase.VTHLim;
@@ -71,17 +73,11 @@ VALLim := MTPBase.VALLim;
 
 WQC := 16#FF;
 OSLevel := 16#00;
-V := scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
+V := VSclMin + (WORD_TO_REAL(rawValue) / 27648.0) * (VSclMax - VSclMin);
 vOut := V;
 VSclMin := scaleMin;
 VSclMax := scaleMax;
 VUnit := valueUnit;
-alarmHigh := VAHLim;
-warningHigh := VWHLim;
-toleranceHigh := VTHLim;
-toleranceLow := VTLLim;
-warningLow := VWLLim;
-alarmLow := VALLim;
 VAHEn := alarmHighEn;
 VWHEn := warningHighEn;
 VTHEn := toleranceHighEn;

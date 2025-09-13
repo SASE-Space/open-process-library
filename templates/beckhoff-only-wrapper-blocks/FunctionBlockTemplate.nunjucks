@@ -10,7 +10,9 @@
         </inOutVars>
         <inputVars>
 {%- for variable in inputVars %}
+    {%- if variable.name not in ['alarmHigh', 'warningHigh', 'toleranceHigh', 'toleranceLow', 'warningLow', 'alarmLow'] %}
             <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
+    {%- endif %}
 {%- endfor %}
         </inputVars>
         <outputVars>
@@ -31,12 +33,39 @@
 {%- for variable in mtpBaseVarsUsed %}
             <variable name="{{ variable.name }}"><type>{%- if variable.isDerived %}<derived name="{{ variable['Data Type'] }}" />{%- else %}<{{ variable['Data Type'] | upper }} />{%- endif %}</type></variable>
 {%- endfor %}
+            <!-- Helper variables for sync detection -->
+{%- for sync in syncs %}
+    {%- if sync.name not in ['alarmHigh', 'warningHigh', 'toleranceHigh', 'toleranceLow', 'warningLow', 'alarmLow'] %}
+            <variable name="{{ sync.SyncVariable }}Last"><type>{%- if Variables[sync.name] and Variables[sync.name].isDerived %}<derived name="{{ Variables[sync.name]['Data Type'] }}" />{%- elif Variables[sync.name] %}<{{ Variables[sync.name]['Data Type'] | upper }} />{%- elif MTPBaseVariables[sync.SyncVariable] and MTPBaseVariables[sync.SyncVariable].isDerived %}<derived name="{{ MTPBaseVariables[sync.SyncVariable]['Data Type'] }}" />{%- elif MTPBaseVariables[sync.SyncVariable] %}<{{ MTPBaseVariables[sync.SyncVariable]['Data Type'] | upper }} />{%- else %}<TYPENOTFOUND />{%- endif %}</type></variable>
+    {%- endif %}
+{%- endfor %}
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
+{%- for sync in syncs %}
+{%- if sync.name not in ['alarmHigh', 'warningHigh', 'toleranceHigh', 'toleranceLow', 'warningLow', 'alarmLow'] %}
+
+// Sync {{ sync.name }} with MTPBase.{{ sync.SyncVariable }}
+IF {{ sync.SyncVariable }}Last <> MTPBase.{{ sync.SyncVariable }} THEN
+    // MTPBase variable changed (from HMI) - copy to wrapper input
+    {{ sync.name }} := MTPBase.{{ sync.SyncVariable }};
+ELSE
+    // MTPBase not changed - always copy wrapper input to MTPBase
+    MTPBase.{{ sync.SyncVariable }} := {{ sync.name }};
+END_IF;
+{{ sync.SyncVariable }}Last := MTPBase.{{ sync.SyncVariable }};
+{%- endif %}
+{%- endfor %}
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -141,7 +170,7 @@ FB_Init is always available implicitly and it is used primarily for initializati
                         <xhtml xmlns="http://www.w3.org/1999/xhtml">
 // assign default values on initialization
 {%- for variable in inputVars %}
-    {%- if variable.Default and variable.Default != "" %}
+    {%- if variable.name not in ['alarmHigh', 'warningHigh', 'toleranceHigh', 'toleranceLow', 'warningLow', 'alarmLow'] and variable.Default and variable.Default != "" %}
 THIS^.{{ variable.name }} := {{ variable.Default }};
     {%- endif %}
 {%- endfor %}
@@ -155,6 +184,8 @@ THIS^.{{ variable.name }} := {{ variable.Default }};
 THIS^.{{ variable.name }} := {{ variable.Default }};
     {%- endif %}
 {%- endfor %}
+
+
                         </xhtml>
                     </ST>
                 </body>

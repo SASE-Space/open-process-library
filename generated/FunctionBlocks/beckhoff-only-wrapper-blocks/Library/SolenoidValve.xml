@@ -75,12 +75,20 @@
             <variable name="MonDynTi"><type><REAL /></type></variable>
             <variable name="ResetAut"><type><BOOL /></type></variable>
             <variable name="MonEn"><type><BOOL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -109,6 +117,8 @@
     StateAutAct := MTPBase.StateAutAct;
     StateOffAct := MTPBase.StateOffAct;
     Ctrl := MTPBase.Ctrl;
+    OpenFbkCalc := MTPBase.OpenFbkCalc;
+    CloseFbkCalc := MTPBase.CloseFbkCalc;
     OpenFbk := MTPBase.OpenFbk;
     CloseFbk := MTPBase.CloseFbk;
 
@@ -125,23 +135,21 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := safeOpen;
 MonSafePos := safeOpen;
 SafePosEn := safeHold;
 OpenAut := open;
 CloseAut := close;
-OpenFbkCalc := simulate OR NOT feedbackOpen;
-CloseFbkCalc := simulate OR NOT feedbackClose;
-DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+OpenFbkCalc := simulate OR NOT hasFbOpen;
+CloseFbkCalc := simulate OR NOT hasFbClose;
+DelayTimer1(IN:= OpenFbkCalc AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbOpenSimulated := DelayTimer1.Q;
-DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer2(IN:= CloseFbkCalc AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbCloseSimulated := DelayTimer2.Q;
-OpenFbk := feedbackOpen OR fbOpenSimulated;
-CloseFbk := feedbackClose OR fbCloseSimulated;
+OpenFbk := (feedbackOpen AND NOT OpenFbkCalc) OR (fbOpenSimulated AND OpenFbkCalc);
+CloseFbk := (feedbackClose AND NOT CloseFbkCalc) OR (fbCloseSimulated AND CloseFbkCalc);
 opened := Ctrl AND OpenFbk;
 closed := NOT Ctrl AND CloseFbk;
 ResetAut := reset;
@@ -186,6 +194,8 @@ THIS^.staticTimeout := 2;
 THIS^.dynamicTimeout := 5;
 THIS^.simulateDelay := 1;
 THIS^.permitIn := 1;
+
+
                         </xhtml>
                     </ST>
                 </body>

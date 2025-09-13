@@ -55,45 +55,45 @@
 
 ## Functionality
 
-| Target            | MTP signal | MTP | SCD | Expression                                                            | Comment                                                   |
-| ----------------- | ---------- | --- | --- | --------------------------------------------------------------------- | --------------------------------------------------------- |
-| WQC               | x          | x   |     | 16#FF                                                                 | no QC available (default)                                 |
-| OSLevel           |            | x   |     | 16#00                                                                 | TODO                                                      |
-| remote            |            | x   |     | StateChannel                                                          |                                                           |
-| operator          |            | x   |     | StateOpAct                                                            |                                                           |
-| automatic         |            | x   |     | StateAutAct                                                           |                                                           |
-| offline           |            | x   |     | StateOffAct                                                           |                                                           |
-| remoteSource      |            | x   |     | SrcChannel                                                            |                                                           |
-| internalSourceAct |            | x   |     | SrcIntAct                                                             |                                                           |
-| manualSourceAct   |            | x   |     | SrcManAct                                                             |                                                           |
-| PermEn            | x          | x   |     | True                                                                  | Always Enable, Configure permitIn = 0 if no permits       |
-| IntlEn            | x          | x   |     | True                                                                  | Always Enable, Configure interlockIn = 0 if no interlocks |
-| ProtEn            | x          | x   |     | True                                                                  | Always Enable, Configure protectIn = 0 if no protections  |
-| Permit            | x          | x   |     | permitIn                                                              |                                                           |
-| Interlock         | x          | x   |     | interlockIn                                                           |                                                           |
-| Protect           | x          | x   |     | Set: protectIn                                                        | Reset happens inside MTP block                            |
-| SafePos           | x          | x   |     | False                                                                 |                                                           |
-| FwdAut            | x          | x   |     | forward                                                               |                                                           |
-| RevAut            | x          | x   |     | reverse                                                               |                                                           |
-| fwdCommand        |            | x   |     | FwdCtrl                                                               |                                                           |
-| revCommand        |            | x   |     | RevCtrl                                                               |                                                           |
-| FwdFbkCalc        | x          | x   |     | simulate OR NOT hasFwdFeedback                                        |                                                           |
-| RevFbkCalc        | x          | x   |     | simulate OR NOT hasRevFeedback                                        |                                                           |
-| fwdFbkSimulated   |            | x   |     | (simulate OR NOT hasFwdFeedback) AND fwdCommand for simulateDelay     |                                                           |
-| revFbkSimulated   |            | x   |     | (simulate OR NOT hasRevFeedback) AND NOT revCommand for simulateDelay |                                                           |
-| FwdFbk            | x          | x   |     | forwardFeedback OR fwdFbkSimulated                                    |                                                           |
-| RevFbk            | x          | x   |     | reverseFeedback OR revFbkSimulated                                    |                                                           |
-| Trip              | x          | x   |     | trip                                                                  |                                                           |
-| ResetAut          | x          | x   |     | reset                                                                 |                                                           |
-| RpmSclMin         | x          | x   |     | speedMin                                                              |                                                           |
-| RpmSclMax         | x          | x   |     | speedMax                                                              |                                                           |
-| RpmUnit           | x          | x   |     | speedUnit                                                             | Fixed on % (TODO: look up int value for %)                |
-| RpmMin            | x          | x   |     | speedMin                                                              | Make identical to scale                                   |
-| RpmMax            | x          | x   |     | speedMax                                                              | Make identical to scale                                   |
-| RpmRbk            | x          | x   |     | speedFeedback                                                         |                                                           |
-| actualSpeed       | x          | x   |     | Rpm                                                                   |                                                           |
-| reset             |            | x   |     | False                                                                 | reset = False at the end of the FB                        |
-| MonSafePos        | x          | x   |     | safeHold                                                              |                                                           |
-| MonStatTi         | x          | x   |     | staticTimeout                                                         |                                                           |
-| MonDynTi          | x          | x   |     | dynamicTimeout                                                        |                                                           |
-|                   |            |     |     |                                                                       |                                                           |
+| Target            | MTP signal | MTP | SCD | Expression                                                               | Comment                                                     |
+| ----------------- | ---------- | --- | --- | ------------------------------------------------------------------------ | ----------------------------------------------------------- |
+| WQC               | x          | x   |     | 16#FF                                                                    | no QC available (default)                                   |
+| OSLevel           |            | x   |     | 16#00                                                                    | TODO                                                        |
+| remote            |            | x   |     | StateChannel                                                             |                                                             |
+| operator          |            | x   |     | StateOpAct                                                               |                                                             |
+| automatic         |            | x   |     | StateAutAct                                                              |                                                             |
+| offline           |            | x   |     | StateOffAct                                                              |                                                             |
+| remoteSource      |            | x   |     | SrcChannel                                                               |                                                             |
+| internalSourceAct |            | x   |     | SrcIntAct                                                                |                                                             |
+| manualSourceAct   |            | x   |     | SrcManAct                                                                |                                                             |
+| PermEn            | x          | x   |     | True                                                                     | Always Enable, Configure permitIn = 0 if no permits         |
+| IntlEn            | x          | x   |     | True                                                                     | Always Enable, Configure interlockIn = 0 if no interlocks   |
+| ProtEn            | x          | x   |     | True                                                                     | Always Enable, Configure protectIn = 0 if no protections    |
+| Permit            | x          | x   |     | permitIn                                                                 |                                                             |
+| Interlock         | x          | x   |     | NOT interlockIn                                                          | Normalize logic so it's easier to build complex interlocks  |
+| Protect           | x          | x   |     | NOT protectIn                                                            | Set (reset because inverted logic) happens inside MTP block |
+| SafePos           | x          | x   |     | False                                                                    |                                                             |
+| FwdAut            | x          | x   |     | forward                                                                  |                                                             |
+| RevAut            | x          | x   |     | reverse                                                                  |                                                             |
+| fwdCommand        |            | x   |     | FwdCtrl                                                                  |                                                             |
+| revCommand        |            | x   |     | RevCtrl                                                                  |                                                             |
+| FwdFbkCalc        | x          | x   |     | simulate OR NOT hasFwdFeedback                                           |                                                             |
+| RevFbkCalc        | x          | x   |     | simulate OR NOT hasRevFeedback                                           |                                                             |
+| fwdFbkSimulated   |            | x   |     | (simulate OR NOT hasFwdFeedback) AND fwdCommand for simulateDelay        |                                                             |
+| revFbkSimulated   |            | x   |     | (simulate OR NOT hasRevFeedback) AND NOT revCommand for simulateDelay    |                                                             |
+| FwdFbk            | x          | x   |     | (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc) |                                                             |
+| RevFbk            | x          | x   |     | (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc) |                                                             |
+| Trip              | x          | x   |     | trip                                                                     |                                                             |
+| ResetAut          | x          | x   |     | reset                                                                    |                                                             |
+| RpmSclMin         | x          | x   |     | speedMin                                                                 |                                                             |
+| RpmSclMax         | x          | x   |     | speedMax                                                                 |                                                             |
+| RpmUnit           | x          | x   |     | speedUnit                                                                | Fixed on % (TODO: look up int value for %)                  |
+| RpmMin            | x          | x   |     | speedMin                                                                 | Make identical to scale                                     |
+| RpmMax            | x          | x   |     | speedMax                                                                 | Make identical to scale                                     |
+| RpmRbk            | x          | x   |     | speedFeedback                                                            |                                                             |
+| actualSpeed       | x          | x   |     | Rpm                                                                      |                                                             |
+| reset             |            | x   |     | False                                                                    | reset = False at the end of the FB                          |
+| MonSafePos        | x          | x   |     | safeHold                                                                 |                                                             |
+| MonStatTi         | x          | x   |     | staticTimeout                                                            |                                                             |
+| MonDynTi          | x          | x   |     | dynamicTimeout                                                           |                                                             |
+|                   |            |     |     |                                                                          |                                                             |

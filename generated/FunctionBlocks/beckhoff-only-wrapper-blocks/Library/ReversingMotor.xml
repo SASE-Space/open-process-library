@@ -5,7 +5,6 @@
         </inOutVars>
         <inputVars>
             <variable name="id"><type><INT /></type></variable>
-            <variable name="stop"><type><BOOL /></type></variable>
             <variable name="forward"><type><BOOL /></type></variable>
             <variable name="reverse"><type><BOOL /></type></variable>
             <variable name="forwardFeedback"><type><BOOL /></type></variable>
@@ -70,12 +69,20 @@
             <variable name="MonSafePos"><type><BOOL /></type></variable>
             <variable name="MonStatTi"><type><REAL /></type></variable>
             <variable name="MonDynTi"><type><REAL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -108,6 +115,8 @@
     StateOffAct := MTPBase.StateOffAct;
     FwdCtrl := MTPBase.FwdCtrl;
     RevCtrl := MTPBase.RevCtrl;
+    RevFbkCalc := MTPBase.RevFbkCalc;
+    FwdFbkCalc := MTPBase.FwdFbkCalc;
 
 
 
@@ -123,27 +132,25 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := false;
 FwdEn := enableForward;
 RevEn := enableReverse;
-StopAut := stop;
+StopAut := NOT forward AND NOT reverse;
 FwdAut := forward;
 RevAut := reverse;
 fwdCommand := FwdCtrl;
 revCommand := RevCtrl;
 FwdFbkCalc := simulate OR NOT hasFwdFeedback;
 RevFbkCalc := simulate OR NOT hasRevFeedback;
-DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer1(IN:= FwdFbkCalc AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fwdFbkSimulated := DelayTimer1.Q;
-DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer2(IN:= RevFbkCalc AND revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
 revFbkSimulated := DelayTimer2.Q;
-FwdFbk := forwardFeedback OR fwdFbkSimulated;
-RevFbk := reverseFeedback OR revFbkSimulated;
-Trip := driveTrip;
+FwdFbk := (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc);
+RevFbk := (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc);
+Trip := NOT driveTrip;
 ResetAut := reset;
 MonSafePos := safeHold;
 MonStatTi := staticTimeout;
@@ -181,12 +188,15 @@ FB_Init is always available implicitly and it is used primarily for initializati
 // assign default values on initialization
 THIS^.hasFwdFeedback := True;
 THIS^.hasRevFeedback := True;
-THIS^.driveTrip := True;
+THIS^.enableForward := True;
+THIS^.enableReverse := False;
 THIS^.monitor := True;
 THIS^.staticTimeout := 2;
 THIS^.dynamicTimeout := 5;
 THIS^.simulateDelay := 1;
 THIS^.permitIn := 1;
+
+
                         </xhtml>
                     </ST>
                 </body>

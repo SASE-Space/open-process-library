@@ -9,12 +9,6 @@
             <variable name="valueUnit"><type><INT /></type></variable>
             <variable name="scaleMin"><type><REAL /></type></variable>
             <variable name="scaleMax"><type><REAL /></type></variable>
-            <variable name="alarmHigh"><type><REAL /></type></variable>
-            <variable name="warningHigh"><type><REAL /></type></variable>
-            <variable name="toleranceHigh"><type><REAL /></type></variable>
-            <variable name="toleranceLow"><type><REAL /></type></variable>
-            <variable name="warningLow"><type><REAL /></type></variable>
-            <variable name="alarmLow"><type><REAL /></type></variable>
             <variable name="alarmHighEn"><type><BOOL /></type></variable>
             <variable name="warningHighEn"><type><BOOL /></type></variable>
             <variable name="toleranceHighEn"><type><BOOL /></type></variable>
@@ -53,12 +47,20 @@
             <variable name="VTLLim"><type><REAL /></type></variable>
             <variable name="VWLLim"><type><REAL /></type></variable>
             <variable name="VALLim"><type><REAL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -75,6 +77,8 @@
     MTPBase.VWLEn := VWLEn;
     MTPBase.VALEn := VALEn;
     V := MTPBase.V;
+    VSclMin := MTPBase.VSclMin;
+    VSclMax := MTPBase.VSclMax;
     VAHLim := MTPBase.VAHLim;
     VWHLim := MTPBase.VWHLim;
     VTHLim := MTPBase.VTHLim;
@@ -88,17 +92,11 @@
 
 WQC := 16#FF;
 OSLevel := 16#00;
-V := scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
+V := VSclMin + (WORD_TO_REAL(rawValue) / 27648.0) * (VSclMax - VSclMin);
 vOut := V;
 VSclMin := scaleMin;
 VSclMax := scaleMax;
 VUnit := valueUnit;
-alarmHigh := VAHLim;
-warningHigh := VWHLim;
-toleranceHigh := VTHLim;
-toleranceLow := VTLLim;
-warningLow := VWLLim;
-alarmLow := VALLim;
 VAHEn := alarmHighEn;
 VWHEn := warningHighEn;
 VTHEn := toleranceHighEn;
@@ -137,18 +135,14 @@ FB_Init is always available implicitly and it is used primarily for initializati
 // assign default values on initialization
 THIS^.scaleMin := 0;
 THIS^.scaleMax := 100;
-THIS^.alarmHigh := 90;
-THIS^.warningHigh := 80;
-THIS^.toleranceHigh := 60;
-THIS^.toleranceLow := 40;
-THIS^.warningLow := 20;
-THIS^.alarmLow := 10;
 THIS^.alarmHighEn := True;
 THIS^.warningHighEn := True;
 THIS^.toleranceHighEn := True;
 THIS^.toleranceLowEn := True;
 THIS^.warningLowEn := True;
 THIS^.alarmLowEn := True;
+
+
                         </xhtml>
                     </ST>
                 </body>

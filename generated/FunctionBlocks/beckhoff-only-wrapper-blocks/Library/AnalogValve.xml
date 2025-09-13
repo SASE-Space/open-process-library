@@ -76,12 +76,20 @@
             <variable name="PosFbkCalc"><type><BOOL /></type></variable>
             <variable name="PosFbk"><type><REAL /></type></variable>
             <variable name="ResetAut"><type><BOOL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -206,6 +214,8 @@ THIS^.scaleMin := 0;
 THIS^.scaleMax := 100;
 THIS^.simulateDelay := 1;
 THIS^.permitIn := True;
+
+
                         </xhtml>
                     </ST>
                 </body>

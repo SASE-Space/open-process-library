@@ -75,6 +75,10 @@ function getAllFunctionality(functionality: any) {
         }));
 }
 
+function getSyncs(syncs: any) {
+    return Object.keys(syncs).map(name => ({ name, ...syncs[name] }));
+}
+
 function extractVariablesFromExpression(expression: string): string[] {
     if (!expression || expression.trim() === '') return []
     
@@ -467,6 +471,12 @@ function parseFunctionalityTable(content: string, functionBlock: any) {
                             currentTarget = ''
                             targetData = {}
                         } else if (currentTarget !== '') {
+                            // Check if previous target was a SyncWith (should not continue)
+                            if (expression.trim().startsWith('SyncWith ')) {
+                                console.error(`Error: SyncWith syntax must be on a single line. Found continuation for target "${currentTarget}". Skipping.`)
+                                continue
+                            }
+                            
                             // Continue previous target (regular expression)
                             if (targetData.expressions) {
                                 targetData.expressions.push(expression)
@@ -492,6 +502,26 @@ function parseFunctionalityTable(content: string, functionBlock: any) {
                         
                         // Start new target
                         currentTarget = targetName
+                        
+                        // Check for SyncWith syntax
+                        if (expression.trim().startsWith('SyncWith ')) {
+                            const words = expression.trim().split(/\s+/)
+                            if (words.length === 2) {
+                                const syncVariable = words[1]
+                                functionBlock.Syncs[targetName] = {
+                                    SyncVariable: syncVariable,
+                                    Comment: comment,
+                                    mtpSignal: mtpSignal.toLowerCase() === 'x',
+                                    mtpFlag: mtpFlag.toLowerCase() === 'x',
+                                    scdFlag: scdFlag.toLowerCase() === 'x'
+                                }
+                                // Reset current target since we handled it
+                                currentTarget = ''
+                                targetData = {}
+                                continue
+                            }
+                        }
+                        
                         targetData = {
                             expressions: [expression],
                             comments: [comment],
@@ -806,6 +836,27 @@ function analyzeVariableUsage(functionBlock: any) {
             }
         }
     }
+    
+    // Analyze Syncs to determine read patterns for sync variables
+    for (const targetName in functionBlock.Syncs) {
+        const sync = functionBlock.Syncs[targetName]
+        
+        // The sync variable is being read
+        if (sync.SyncVariable) {
+            if (functionBlock.Variables[sync.SyncVariable]) {
+                functionBlock.Variables[sync.SyncVariable].isRead = true
+            } else if (functionBlock.MTPBaseVariables[sync.SyncVariable]) {
+                functionBlock.MTPBaseVariables[sync.SyncVariable].isRead = true
+            }
+        }
+        
+        // The target variable is being written to (sync targets are typically outputs)
+        if (functionBlock.Variables[targetName]) {
+            functionBlock.Variables[targetName].isWrite = true
+        } else if (functionBlock.MTPBaseVariables[targetName]) {
+            functionBlock.MTPBaseVariables[targetName].isWrite = true
+        }
+    }
 }
 
 function setMTPBaseProperty(functionBlock: any) {
@@ -821,7 +872,8 @@ function filterByVariant(functionBlock: any, variant: string) {
         ...functionBlock,
         Variables: {},
         MTPBaseVariables: {},
-        Functionality: {}
+        Functionality: {},
+        Syncs: {}
     }
     
     // Filter Variables based on variant column
@@ -872,6 +924,22 @@ function filterByVariant(functionBlock: any, variant: string) {
         }
     }
     
+    // Filter Syncs based on variant column
+    for (const [syncName, syncData] of Object.entries(functionBlock.Syncs)) {
+        const syncDataTyped = syncData as any
+        if (variant === 'MTP') {
+            // Keep syncs marked with 'x' in MTP column
+            if (syncDataTyped.mtpFlag === true) {
+                filtered.Syncs[syncName] = syncDataTyped
+            }
+        } else if (variant === 'SCD') {
+            // Keep syncs marked with 'x' in SCD column
+            if (syncDataTyped.scdFlag === true) {
+                filtered.Syncs[syncName] = syncDataTyped
+            }
+        }
+    }
+    
     return filtered
 }
 
@@ -885,6 +953,7 @@ async function processFile(filePath: string, isMTP: boolean) {
         Variables: {},
         MTPBaseVariables: {},
         Functionality: {},
+        Syncs: {},
         DelayTimerCount: 0,
         MTPBase: null
     }
@@ -998,6 +1067,7 @@ async function generateCode() {
                             inoutVars: getVariablesByType(functionBlock.Variables, 'InOut'),
                             localVars: getVariablesByType(functionBlock.Variables, 'Local'),
                             allFunctionality: getAllFunctionality(functionBlock.Functionality),
+                            syncs: getSyncs(functionBlock.Syncs),
                             variableKeys: Object.keys(functionBlock.Variables),
                             mtpBaseVarsRead: getMTPBaseVariablesRead(functionBlock.MTPBaseVariables),
                             mtpBaseVarsWrite: getMTPBaseVariablesWrite(functionBlock.MTPBaseVariables),

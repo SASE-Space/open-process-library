@@ -42,12 +42,6 @@
             <variable name="valueUnit"><type><INT /></type></variable>
             <variable name="scaleMin"><type><REAL /></type></variable>
             <variable name="scaleMax"><type><REAL /></type></variable>
-            <variable name="alarmHigh"><type><REAL /></type></variable>
-            <variable name="warningHigh"><type><REAL /></type></variable>
-            <variable name="toleranceHigh"><type><REAL /></type></variable>
-            <variable name="toleranceLow"><type><REAL /></type></variable>
-            <variable name="warningLow"><type><REAL /></type></variable>
-            <variable name="alarmLow"><type><REAL /></type></variable>
             <variable name="alarmHighEn"><type><BOOL /></type></variable>
             <variable name="warningHighEn"><type><BOOL /></type></variable>
             <variable name="toleranceHighEn"><type><BOOL /></type></variable>
@@ -86,12 +80,20 @@
             <variable name="VTLLim"><type><REAL /></type></variable>
             <variable name="VWLLim"><type><REAL /></type></variable>
             <variable name="VALLim"><type><REAL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -108,6 +110,8 @@
     MTPBase.VWLEn := VWLEn;
     MTPBase.VALEn := VALEn;
     V := MTPBase.V;
+    VSclMin := MTPBase.VSclMin;
+    VSclMax := MTPBase.VSclMax;
     VAHLim := MTPBase.VAHLim;
     VWHLim := MTPBase.VWHLim;
     VTHLim := MTPBase.VTHLim;
@@ -121,17 +125,11 @@
 
 WQC := 16#FF;
 OSLevel := 16#00;
-V := scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
+V := VSclMin + (WORD_TO_REAL(rawValue) / 27648.0) * (VSclMax - VSclMin);
 vOut := V;
 VSclMin := scaleMin;
 VSclMax := scaleMax;
 VUnit := valueUnit;
-alarmHigh := VAHLim;
-warningHigh := VWHLim;
-toleranceHigh := VTHLim;
-toleranceLow := VTLLim;
-warningLow := VWLLim;
-alarmLow := VALLim;
 VAHEn := alarmHighEn;
 VWHEn := warningHighEn;
 VTHEn := toleranceHighEn;
@@ -170,18 +168,14 @@ FB_Init is always available implicitly and it is used primarily for initializati
 // assign default values on initialization
 THIS^.scaleMin := 0;
 THIS^.scaleMax := 100;
-THIS^.alarmHigh := 90;
-THIS^.warningHigh := 80;
-THIS^.toleranceHigh := 60;
-THIS^.toleranceLow := 40;
-THIS^.warningLow := 20;
-THIS^.alarmLow := 10;
 THIS^.alarmHighEn := True;
 THIS^.warningHighEn := True;
 THIS^.toleranceHighEn := True;
 THIS^.toleranceLowEn := True;
 THIS^.warningLowEn := True;
 THIS^.alarmLowEn := True;
+
+
                         </xhtml>
                     </ST>
                 </body>
@@ -267,12 +261,20 @@ THIS^.alarmLowEn := True;
             <variable name="PosFbkCalc"><type><BOOL /></type></variable>
             <variable name="PosFbk"><type><REAL /></type></variable>
             <variable name="ResetAut"><type><BOOL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -397,6 +399,8 @@ THIS^.scaleMin := 0;
 THIS^.scaleMax := 100;
 THIS^.simulateDelay := 1;
 THIS^.permitIn := True;
+
+
                         </xhtml>
                     </ST>
                 </body>
@@ -426,12 +430,20 @@ THIS^.permitIn := True;
             <variable name="VState1"><type><derived name="string" /></type></variable>
             <variable name="OSLevel"><type><BYTE /></type></variable>
             <variable name="VFlutEn"><type><BOOL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -485,6 +497,8 @@ FB_Init is always available implicitly and it is used primarily for initializati
                     <ST>
                         <xhtml xmlns="http://www.w3.org/1999/xhtml">
 // assign default values on initialization
+
+
                         </xhtml>
                     </ST>
                 </body>
@@ -501,12 +515,20 @@ FB_Init is always available implicitly and it is used primarily for initializati
         <outputVars>
         </outputVars>
         <localVars><!-- Temporary variables for MTP base interface access -->
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -545,6 +567,8 @@ FB_Init is always available implicitly and it is used primarily for initializati
                     <ST>
                         <xhtml xmlns="http://www.w3.org/1999/xhtml">
 // assign default values on initialization
+
+
                         </xhtml>
                     </ST>
                 </body>
@@ -570,12 +594,6 @@ FB_Init is always available implicitly and it is used primarily for initializati
             <variable name="proportional"><type><REAL /></type></variable>
             <variable name="integration"><type><REAL /></type></variable>
             <variable name="derivation"><type><REAL /></type></variable>
-            <variable name="alarmHigh"><type><REAL /></type></variable>
-            <variable name="warningHigh"><type><REAL /></type></variable>
-            <variable name="toleranceHigh"><type><REAL /></type></variable>
-            <variable name="toleranceLow"><type><REAL /></type></variable>
-            <variable name="warningLow"><type><REAL /></type></variable>
-            <variable name="alarmLow"><type><REAL /></type></variable>
             <variable name="alarmHighEn"><type><BOOL /></type></variable>
             <variable name="warningHighEn"><type><BOOL /></type></variable>
             <variable name="toleranceHighEn"><type><BOOL /></type></variable>
@@ -636,12 +654,20 @@ FB_Init is always available implicitly and it is used primarily for initializati
             <variable name="P"><type><REAL /></type></variable>
             <variable name="Ti"><type><REAL /></type></variable>
             <variable name="Td"><type><REAL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -744,6 +770,8 @@ FB_Init is always available implicitly and it is used primarily for initializati
                     <ST>
                         <xhtml xmlns="http://www.w3.org/1999/xhtml">
 // assign default values on initialization
+
+
                         </xhtml>
                     </ST>
                 </body>
@@ -758,7 +786,6 @@ FB_Init is always available implicitly and it is used primarily for initializati
         </inOutVars>
         <inputVars>
             <variable name="id"><type><INT /></type></variable>
-            <variable name="stop"><type><BOOL /></type></variable>
             <variable name="forward"><type><BOOL /></type></variable>
             <variable name="reverse"><type><BOOL /></type></variable>
             <variable name="forwardFeedback"><type><BOOL /></type></variable>
@@ -823,12 +850,20 @@ FB_Init is always available implicitly and it is used primarily for initializati
             <variable name="MonSafePos"><type><BOOL /></type></variable>
             <variable name="MonStatTi"><type><REAL /></type></variable>
             <variable name="MonDynTi"><type><REAL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -861,6 +896,8 @@ FB_Init is always available implicitly and it is used primarily for initializati
     StateOffAct := MTPBase.StateOffAct;
     FwdCtrl := MTPBase.FwdCtrl;
     RevCtrl := MTPBase.RevCtrl;
+    RevFbkCalc := MTPBase.RevFbkCalc;
+    FwdFbkCalc := MTPBase.FwdFbkCalc;
 
 
 
@@ -876,27 +913,25 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := false;
 FwdEn := enableForward;
 RevEn := enableReverse;
-StopAut := stop;
+StopAut := NOT forward AND NOT reverse;
 FwdAut := forward;
 RevAut := reverse;
 fwdCommand := FwdCtrl;
 revCommand := RevCtrl;
 FwdFbkCalc := simulate OR NOT hasFwdFeedback;
 RevFbkCalc := simulate OR NOT hasRevFeedback;
-DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer1(IN:= FwdFbkCalc AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fwdFbkSimulated := DelayTimer1.Q;
-DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer2(IN:= RevFbkCalc AND revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
 revFbkSimulated := DelayTimer2.Q;
-FwdFbk := forwardFeedback OR fwdFbkSimulated;
-RevFbk := reverseFeedback OR revFbkSimulated;
-Trip := driveTrip;
+FwdFbk := (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc);
+RevFbk := (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc);
+Trip := NOT driveTrip;
 ResetAut := reset;
 MonSafePos := safeHold;
 MonStatTi := staticTimeout;
@@ -934,12 +969,15 @@ FB_Init is always available implicitly and it is used primarily for initializati
 // assign default values on initialization
 THIS^.hasFwdFeedback := True;
 THIS^.hasRevFeedback := True;
-THIS^.driveTrip := True;
+THIS^.enableForward := True;
+THIS^.enableReverse := False;
 THIS^.monitor := True;
 THIS^.staticTimeout := 2;
 THIS^.dynamicTimeout := 5;
 THIS^.simulateDelay := 1;
 THIS^.permitIn := 1;
+
+
                         </xhtml>
                     </ST>
                 </body>
@@ -1024,12 +1062,20 @@ THIS^.permitIn := 1;
             <variable name="MonDynTi"><type><REAL /></type></variable>
             <variable name="ResetAut"><type><BOOL /></type></variable>
             <variable name="MonEn"><type><BOOL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -1058,6 +1104,8 @@ THIS^.permitIn := 1;
     StateAutAct := MTPBase.StateAutAct;
     StateOffAct := MTPBase.StateOffAct;
     Ctrl := MTPBase.Ctrl;
+    OpenFbkCalc := MTPBase.OpenFbkCalc;
+    CloseFbkCalc := MTPBase.CloseFbkCalc;
     OpenFbk := MTPBase.OpenFbk;
     CloseFbk := MTPBase.CloseFbk;
 
@@ -1074,23 +1122,21 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := safeOpen;
 MonSafePos := safeOpen;
 SafePosEn := safeHold;
 OpenAut := open;
 CloseAut := close;
-OpenFbkCalc := simulate OR NOT feedbackOpen;
-CloseFbkCalc := simulate OR NOT feedbackClose;
-DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+OpenFbkCalc := simulate OR NOT hasFbOpen;
+CloseFbkCalc := simulate OR NOT hasFbClose;
+DelayTimer1(IN:= OpenFbkCalc AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbOpenSimulated := DelayTimer1.Q;
-DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer2(IN:= CloseFbkCalc AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbCloseSimulated := DelayTimer2.Q;
-OpenFbk := feedbackOpen OR fbOpenSimulated;
-CloseFbk := feedbackClose OR fbCloseSimulated;
+OpenFbk := (feedbackOpen AND NOT OpenFbkCalc) OR (fbOpenSimulated AND OpenFbkCalc);
+CloseFbk := (feedbackClose AND NOT CloseFbkCalc) OR (fbCloseSimulated AND CloseFbkCalc);
 opened := Ctrl AND OpenFbk;
 closed := NOT Ctrl AND CloseFbk;
 ResetAut := reset;
@@ -1135,6 +1181,8 @@ THIS^.staticTimeout := 2;
 THIS^.dynamicTimeout := 5;
 THIS^.simulateDelay := 1;
 THIS^.permitIn := 1;
+
+
                         </xhtml>
                     </ST>
                 </body>
@@ -1231,12 +1279,20 @@ THIS^.permitIn := 1;
             <variable name="MonSafePos"><type><BOOL /></type></variable>
             <variable name="MonStatTi"><type><REAL /></type></variable>
             <variable name="MonDynTi"><type><REAL /></type></variable>
+            <!-- Helper variables for sync detection -->
         </localVars>
     </interface>
     <body>
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// sync variables with MTPBase
+// - a variable on MTPBase that can be changed from the HMI
+// - an input on the wrapper block
+// how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+// if yes then copy it to the input on the wrapper block
+// if not then copy the wrapper block input to the MTPBase variable
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -1276,6 +1332,8 @@ THIS^.permitIn := 1;
     FwdCtrl := MTPBase.FwdCtrl;
     RevCtrl := MTPBase.RevCtrl;
     Rpm := MTPBase.Rpm;
+    RevFbkCalc := MTPBase.RevFbkCalc;
+    FwdFbkCalc := MTPBase.FwdFbkCalc;
 
 
 
@@ -1294,10 +1352,8 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := False;
 FwdAut := forward;
 RevAut := reverse;
@@ -1309,8 +1365,8 @@ DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_T
 fwdFbkSimulated := DelayTimer1.Q;
 DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
 revFbkSimulated := DelayTimer2.Q;
-FwdFbk := forwardFeedback OR fwdFbkSimulated;
-RevFbk := reverseFeedback OR revFbkSimulated;
+FwdFbk := (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc);
+RevFbk := (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc);
 Trip := trip;
 ResetAut := reset;
 RpmSclMin := speedMin;
@@ -1364,6 +1420,8 @@ THIS^.staticTimeout := 2;
 THIS^.dynamicTimeout := 5;
 THIS^.simulateDelay := 1;
 THIS^.permitIn := 1;
+
+
                         </xhtml>
                     </ST>
                 </body>

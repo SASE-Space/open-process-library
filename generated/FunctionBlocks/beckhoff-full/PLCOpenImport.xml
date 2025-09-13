@@ -596,6 +596,8 @@ VALAct := vOut <= alarmLow;
                 <![CDATA[
 // Copy MTP base variables to local temporaries (READ access)
 V := MTPBase.V;
+VSclMin := MTPBase.VSclMin;
+VSclMax := MTPBase.VSclMax;
 VAHLim := MTPBase.VAHLim;
 VWHLim := MTPBase.VWHLim;
 VTHLim := MTPBase.VTHLim;
@@ -606,17 +608,11 @@ VALLim := MTPBase.VALLim;
 
 WQC := 16#FF;
 OSLevel := 16#00;
-V := scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
+V := VSclMin + (WORD_TO_REAL(rawValue) / 27648.0) * (VSclMax - VSclMin);
 vOut := V;
 VSclMin := scaleMin;
 VSclMax := scaleMax;
 VUnit := valueUnit;
-alarmHigh := VAHLim;
-warningHigh := VWHLim;
-toleranceHigh := VTHLim;
-toleranceLow := VTLLim;
-warningLow := VWLLim;
-alarmLow := VALLim;
 VAHEn := alarmHighEn;
 VWHEn := warningHighEn;
 VTHEn := toleranceHighEn;
@@ -1067,7 +1063,6 @@ MTPBase.MVSclMax := MVSclMax;
         </inOutVars>
         <inputVars>
             <variable name="id"><type><INT /></type></variable>
-            <variable name="stop"><type><BOOL /></type></variable>
             <variable name="forward"><type><BOOL /></type></variable>
             <variable name="reverse"><type><BOOL /></type></variable>
             <variable name="forwardFeedback"><type><BOOL /></type></variable>
@@ -1145,6 +1140,8 @@ StateAutAct := MTPBase.StateAutAct;
 StateOffAct := MTPBase.StateOffAct;
 FwdCtrl := MTPBase.FwdCtrl;
 RevCtrl := MTPBase.RevCtrl;
+RevFbkCalc := MTPBase.RevFbkCalc;
+FwdFbkCalc := MTPBase.FwdFbkCalc;
 
 
 WQC := 16#FF;
@@ -1157,27 +1154,25 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := false;
 FwdEn := enableForward;
 RevEn := enableReverse;
-StopAut := stop;
+StopAut := NOT forward AND NOT reverse;
 FwdAut := forward;
 RevAut := reverse;
 fwdCommand := FwdCtrl;
 revCommand := RevCtrl;
 FwdFbkCalc := simulate OR NOT hasFwdFeedback;
 RevFbkCalc := simulate OR NOT hasRevFeedback;
-DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer1(IN:= FwdFbkCalc AND fwdCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fwdFbkSimulated := DelayTimer1.Q;
-DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer2(IN:= RevFbkCalc AND revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
 revFbkSimulated := DelayTimer2.Q;
-FwdFbk := forwardFeedback OR fwdFbkSimulated;
-RevFbk := reverseFeedback OR revFbkSimulated;
-Trip := driveTrip;
+FwdFbk := (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc);
+RevFbk := (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc);
+Trip := NOT driveTrip;
 ResetAut := reset;
 MonSafePos := safeHold;
 MonStatTi := staticTimeout;
@@ -1302,6 +1297,8 @@ StateOpAct := MTPBase.StateOpAct;
 StateAutAct := MTPBase.StateAutAct;
 StateOffAct := MTPBase.StateOffAct;
 Ctrl := MTPBase.Ctrl;
+OpenFbkCalc := MTPBase.OpenFbkCalc;
+CloseFbkCalc := MTPBase.CloseFbkCalc;
 OpenFbk := MTPBase.OpenFbk;
 CloseFbk := MTPBase.CloseFbk;
 
@@ -1315,23 +1312,21 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := safeOpen;
 MonSafePos := safeOpen;
 SafePosEn := safeHold;
 OpenAut := open;
 CloseAut := close;
-OpenFbkCalc := simulate OR NOT feedbackOpen;
-CloseFbkCalc := simulate OR NOT feedbackClose;
-DelayTimer1(IN:= (simulate OR NOT hasFbOpen) AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+OpenFbkCalc := simulate OR NOT hasFbOpen;
+CloseFbkCalc := simulate OR NOT hasFbClose;
+DelayTimer1(IN:= OpenFbkCalc AND Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbOpenSimulated := DelayTimer1.Q;
-DelayTimer2(IN:= (simulate OR NOT hasFbClose) AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
+DelayTimer2(IN:= CloseFbkCalc AND NOT Ctrl, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbCloseSimulated := DelayTimer2.Q;
-OpenFbk := feedbackOpen OR fbOpenSimulated;
-CloseFbk := feedbackClose OR fbCloseSimulated;
+OpenFbk := (feedbackOpen AND NOT OpenFbkCalc) OR (fbOpenSimulated AND OpenFbkCalc);
+CloseFbk := (feedbackClose AND NOT CloseFbkCalc) OR (fbCloseSimulated AND CloseFbkCalc);
 opened := Ctrl AND OpenFbk;
 closed := NOT Ctrl AND CloseFbk;
 ResetAut := reset;
@@ -1472,6 +1467,8 @@ SrcManAct := MTPBase.SrcManAct;
 FwdCtrl := MTPBase.FwdCtrl;
 RevCtrl := MTPBase.RevCtrl;
 Rpm := MTPBase.Rpm;
+RevFbkCalc := MTPBase.RevFbkCalc;
+FwdFbkCalc := MTPBase.FwdFbkCalc;
 
 
 WQC := 16#FF;
@@ -1487,10 +1484,8 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := False;
 FwdAut := forward;
 RevAut := reverse;
@@ -1502,8 +1497,8 @@ DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_T
 fwdFbkSimulated := DelayTimer1.Q;
 DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
 revFbkSimulated := DelayTimer2.Q;
-FwdFbk := forwardFeedback OR fwdFbkSimulated;
-RevFbk := reverseFeedback OR revFbkSimulated;
+FwdFbk := (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc);
+RevFbk := (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc);
 Trip := trip;
 ResetAut := reset;
 RpmSclMin := speedMin;

@@ -104,6 +104,8 @@ SrcManAct := MTPBase.SrcManAct;
 FwdCtrl := MTPBase.FwdCtrl;
 RevCtrl := MTPBase.RevCtrl;
 Rpm := MTPBase.Rpm;
+RevFbkCalc := MTPBase.RevFbkCalc;
+FwdFbkCalc := MTPBase.FwdFbkCalc;
 
 
 WQC := 16#FF;
@@ -119,10 +121,8 @@ PermEn := True;
 IntlEn := True;
 ProtEn := True;
 Permit := permitIn;
-Interlock := interlockIn;
-IF protectIn THEN
-    Protect := TRUE;
-END_IF;
+Interlock := NOT interlockIn;
+Protect := NOT protectIn;
 SafePos := False;
 FwdAut := forward;
 RevAut := reverse;
@@ -134,8 +134,8 @@ DelayTimer1(IN:= (simulate OR NOT hasFwdFeedback) AND fwdCommand, PT:= REAL_TO_T
 fwdFbkSimulated := DelayTimer1.Q;
 DelayTimer2(IN:= (simulate OR NOT hasRevFeedback) AND NOT revCommand, PT:= REAL_TO_TIME(simulateDelay * 1000));
 revFbkSimulated := DelayTimer2.Q;
-FwdFbk := forwardFeedback OR fwdFbkSimulated;
-RevFbk := reverseFeedback OR revFbkSimulated;
+FwdFbk := (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc);
+RevFbk := (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc);
 Trip := trip;
 ResetAut := reset;
 RpmSclMin := speedMin;
