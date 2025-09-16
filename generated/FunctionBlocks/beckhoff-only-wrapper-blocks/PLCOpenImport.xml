@@ -190,7 +190,11 @@ THIS^.alarmLowEn := True;
         </inOutVars>
         <inputVars>
             <variable name="id"><type><INT /></type></variable>
-            <variable name="targetPosition"><type><REAL /></type></variable>
+            <variable name="activateManualSource"><type><BOOL /></type></variable>
+            <variable name="activateDynamicSource"><type><BOOL /></type></variable>
+            <variable name="activateFixedSource"><type><BOOL /></type></variable>
+            <variable name="dynamicSource"><type><REAL /></type></variable>
+            <variable name="fixedSource"><type><REAL /></type></variable>
             <variable name="feedbackPosition"><type><WORD /></type></variable>
             <variable name="scaleMin"><type><REAL /></type></variable>
             <variable name="scaleMax"><type><REAL /></type></variable>
@@ -217,9 +221,12 @@ THIS^.alarmLowEn := True;
             <variable name="error"><type><BOOL /></type></variable>
             <variable name="opened"><type><BOOL /></type></variable>
             <variable name="closed"><type><BOOL /></type></variable>
-            <variable name="remoteSource"><type><BOOL /></type></variable>
-            <variable name="internalSourceAct"><type><BOOL /></type></variable>
+            <variable name="programSelectsSource"><type><BOOL /></type></variable>
+            <variable name="operatorSelectsSource"><type><BOOL /></type></variable>
             <variable name="manualSourceAct"><type><BOOL /></type></variable>
+            <variable name="internalSourceAct"><type><BOOL /></type></variable>
+            <variable name="dynamicSourceAct"><type><BOOL /></type></variable>
+            <variable name="fixedSourceAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
             <variable name="fbOpenSimulated"><type><BOOL /></type></variable>
@@ -232,6 +239,8 @@ THIS^.alarmLowEn := True;
             <variable name="StateAutAct"><type><BOOL /></type></variable>
             <variable name="StateOffAct"><type><BOOL /></type></variable>
             <variable name="SrcChannel"><type><BOOL /></type></variable>
+            <variable name="SrcManAut"><type><BOOL /></type></variable>
+            <variable name="SrcIntAut"><type><BOOL /></type></variable>
             <variable name="SrcIntAct"><type><BOOL /></type></variable>
             <variable name="SrcManAct"><type><BOOL /></type></variable>
             <variable name="PermEn"><type><BOOL /></type></variable>
@@ -278,6 +287,8 @@ THIS^.alarmLowEn := True;
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
+    MTPBase.SrcManAut := SrcManAut;
+    MTPBase.SrcIntAut := SrcIntAut;
     MTPBase.PermEn := PermEn;
     MTPBase.Permit := Permit;
     MTPBase.IntlEn := IntlEn;
@@ -331,9 +342,14 @@ remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;
 offline := StateOffAct;
-remoteSource := SrcChannel;
+programSelectsSource := SrcChannel;
+operatorSelectsSource := NOT SrcChannel;
 internalSourceAct := SrcIntAct;
 manualSourceAct := SrcManAct;
+SrcManAut := activateManualSource;
+SrcIntAut := activateDynamicSource OR activateFixedSource;
+dynamicSourceAct := activateDynamicSource;
+fixedSourceAct := activateFixedSource;
 PermEn := True;
 IntlEn := True;
 ProtEn := True;
@@ -361,7 +377,7 @@ PosSclMax := scaleMax;
 PosUnit := 0;
 PosMin := PosSclMin;
 PosMax := PosSclMax;
-PosInt := targetPosition;
+PosInt := (dynamicSource * BOOL_TO_REAL(dynamicSourceAct)) + (fixedSource * BOOL_TO_REAL(fixedSourceAct));
 PosFbk := (positionOut * BOOL_TO_REAL(simulate)) + (feedbackPosition * BOOL_TO_REAL(simulate));
 positionOut := Pos;
 reset := False;
@@ -655,6 +671,9 @@ FB_Init is always available implicitly and it is used primarily for initializati
             <variable name="Ti"><type><REAL /></type></variable>
             <variable name="Td"><type><REAL /></type></variable>
             <!-- Helper variables for sync detection -->
+            <variable name="PLast"><type><REAL /></type></variable>
+            <variable name="TiLast"><type><REAL /></type></variable>
+            <variable name="TdLast"><type><REAL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -668,6 +687,36 @@ FB_Init is always available implicitly and it is used primarily for initializati
 // how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
 // if yes then copy it to the input on the wrapper block
 // if not then copy the wrapper block input to the MTPBase variable
+
+// Sync proportional with MTPBase.P
+IF PLast <> MTPBase.P THEN
+    // MTPBase variable changed (from HMI) - copy to wrapper input
+    proportional := MTPBase.P;
+ELSE
+    // MTPBase not changed - always copy wrapper input to MTPBase
+    MTPBase.P := proportional;
+END_IF;
+PLast := MTPBase.P;
+
+// Sync integration with MTPBase.Ti
+IF TiLast <> MTPBase.Ti THEN
+    // MTPBase variable changed (from HMI) - copy to wrapper input
+    integration := MTPBase.Ti;
+ELSE
+    // MTPBase not changed - always copy wrapper input to MTPBase
+    MTPBase.Ti := integration;
+END_IF;
+TiLast := MTPBase.Ti;
+
+// Sync derivation with MTPBase.Td
+IF TdLast <> MTPBase.Td THEN
+    // MTPBase variable changed (from HMI) - copy to wrapper input
+    derivation := MTPBase.Td;
+ELSE
+    // MTPBase not changed - always copy wrapper input to MTPBase
+    MTPBase.Td := derivation;
+END_IF;
+TdLast := MTPBase.Td;
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -737,9 +786,6 @@ MVMax := scaleMaxMV;
 MVUnit := manipulatedValueUnit;
 MVSclMin := scaleMinMV;
 MVSclMax := scaleMaxMV;
-proportional := P;
-integration := Ti;
-derivation := Td;
 
                 ]]>
             </xhtml>
@@ -770,6 +816,13 @@ FB_Init is always available implicitly and it is used primarily for initializati
                     <ST>
                         <xhtml xmlns="http://www.w3.org/1999/xhtml">
 // assign default values on initialization
+THIS^.scaleMin := 0;
+THIS^.scaleMax := 100;
+THIS^.scaleMinMV := 0;
+THIS^.scaleMaxMV := 100;
+THIS^.proportional := 1.0;
+THIS^.integration := 0.1;
+THIS^.derivation := 0;
 
 
                         </xhtml>

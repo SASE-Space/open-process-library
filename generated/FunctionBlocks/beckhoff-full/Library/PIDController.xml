@@ -133,9 +133,6 @@ MVMax := scaleMaxMV;
 MVUnit := manipulatedValueUnit;
 MVSclMin := scaleMinMV;
 MVSclMax := scaleMaxMV;
-proportional := P;
-integration := Ti;
-derivation := Td;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
 MTPBase.WQC := WQC;

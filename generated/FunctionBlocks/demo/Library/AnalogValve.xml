@@ -5,7 +5,15 @@ MTPBase
 
 id
 
-targetPosition
+activateManualSource
+
+activateDynamicSource
+
+activateFixedSource
+
+dynamicSource
+
+fixedSource
 
 feedbackPosition
 
@@ -61,8 +69,14 @@ fbCloseSimulated
 
 selectedPosition
 
-remoteSource
+programSelectsSource
+
+operatorSelectsSource
+
+manualSourceAct
 
 internalSourceAct
 
-manualSourceAct
+dynamicSourceAct
+
+fixedSourceAct

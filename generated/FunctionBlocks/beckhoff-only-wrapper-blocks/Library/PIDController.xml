@@ -77,6 +77,9 @@
             <variable name="Ti"><type><REAL /></type></variable>
             <variable name="Td"><type><REAL /></type></variable>
             <!-- Helper variables for sync detection -->
+            <variable name="PLast"><type><REAL /></type></variable>
+            <variable name="TiLast"><type><REAL /></type></variable>
+            <variable name="TdLast"><type><REAL /></type></variable>
         </localVars>
     </interface>
     <body>
@@ -90,6 +93,36 @@
 // how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
 // if yes then copy it to the input on the wrapper block
 // if not then copy the wrapper block input to the MTPBase variable
+
+// Sync proportional with MTPBase.P
+IF PLast <> MTPBase.P THEN
+    // MTPBase variable changed (from HMI) - copy to wrapper input
+    proportional := MTPBase.P;
+ELSE
+    // MTPBase not changed - always copy wrapper input to MTPBase
+    MTPBase.P := proportional;
+END_IF;
+PLast := MTPBase.P;
+
+// Sync integration with MTPBase.Ti
+IF TiLast <> MTPBase.Ti THEN
+    // MTPBase variable changed (from HMI) - copy to wrapper input
+    integration := MTPBase.Ti;
+ELSE
+    // MTPBase not changed - always copy wrapper input to MTPBase
+    MTPBase.Ti := integration;
+END_IF;
+TiLast := MTPBase.Ti;
+
+// Sync derivation with MTPBase.Td
+IF TdLast <> MTPBase.Td THEN
+    // MTPBase variable changed (from HMI) - copy to wrapper input
+    derivation := MTPBase.Td;
+ELSE
+    // MTPBase not changed - always copy wrapper input to MTPBase
+    MTPBase.Td := derivation;
+END_IF;
+TdLast := MTPBase.Td;
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
@@ -159,9 +192,6 @@ MVMax := scaleMaxMV;
 MVUnit := manipulatedValueUnit;
 MVSclMin := scaleMinMV;
 MVSclMax := scaleMaxMV;
-proportional := P;
-integration := Ti;
-derivation := Td;
 
                 ]]>
             </xhtml>
@@ -192,6 +222,13 @@ FB_Init is always available implicitly and it is used primarily for initializati
                     <ST>
                         <xhtml xmlns="http://www.w3.org/1999/xhtml">
 // assign default values on initialization
+THIS^.scaleMin := 0;
+THIS^.scaleMax := 100;
+THIS^.scaleMinMV := 0;
+THIS^.scaleMaxMV := 100;
+THIS^.proportional := 1.0;
+THIS^.integration := 0.1;
+THIS^.derivation := 0;
 
 
                         </xhtml>

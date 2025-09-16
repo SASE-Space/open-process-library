@@ -14,13 +14,13 @@
 | rawValue             | x   |     | Input    | Word      |         | Raw Input Value                                               |          |                   |
 | valueUnit            | x   |     | Input    | Int       |         | Value Unit                                                    |          |                   |
 | manipulatedValueUnit | x   |     | Input    | Int       |         | Manipulated Value Unit                                        |          |                   |
-| scaleMin             | x   |     | Input    | Real      |         | Scale Min for read value                                      |          |                   |
-| scaleMax             | x   |     | Input    | Real      |         | Scale Max for read value                                      |          |                   |
-| scaleMinMV           | x   |     | Input    | Real      |         | Scale Min for Manipulated Value                               |          |                   |
-| scaleMaxMV           | x   |     | Input    | Real      |         | Scale Max for Manipulated Value                               |          |                   |
-| proportional         | x   |     | Input    | Real      |         | Proportional Parameter                                        |          |                   |
-| integration          | x   |     | Input    | Real      |         | Integration Parameter in s                                    |          |                   |
-| derivation           | x   |     | Input    | Real      |         | Derivation Parameter in s                                     |          |                   |
+| scaleMin             | x   |     | Input    | Real      | 0       | Scale Min for read value                                      |          |                   |
+| scaleMax             | x   |     | Input    | Real      | 100     | Scale Max for read value                                      |          |                   |
+| scaleMinMV           | x   |     | Input    | Real      | 0       | Scale Min for Manipulated Value                               |          |                   |
+| scaleMaxMV           | x   |     | Input    | Real      | 100     | Scale Max for Manipulated Value                               |          |                   |
+| proportional         | x   |     | Input    | Real      | 1.0     | Proportional Parameter                                        |          |                   |
+| integration          | x   |     | Input    | Real      | 0.1     | Integration Parameter in s                                    |          |                   |
+| derivation           | x   |     | Input    | Real      | 0       | Derivation Parameter in s                                     |          |                   |
 | alarmHigh            | x   |     | Input    | Real      |         | Limit Value for Alarm High                                    |          |                   |
 | warningHigh          | x   |     | Input    | Real      |         | Limit Value for Warning High                                  |          |                   |
 | toleranceHigh        | x   |     | Input    | Real      |         | Limit Value for Tolerance High                                |          |                   |
@@ -57,39 +57,39 @@
 
 ## Functionality
 
-| Target            | MTP signal | MTP | SCD | Expression                                                    | Comment                          |
-| ----------------- | ---------- | --- | --- | ------------------------------------------------------------- | -------------------------------- |
-| WQC               | x          | x   |     | 16#FF                                                         | no QC available (default)        |
-| OSLevel           |            | x   |     | 16#00                                                         | TODO                             |
-| remote            |            | x   |     | StateChannel                                                  |                                  |
-| operator          |            | x   |     | StateOpAct                                                    |                                  |
-| automatic         |            | x   |     | StateAutAct                                                   |                                  |
-| offline           |            | x   |     | StateOffAct                                                   |                                  |
-| remoteSource      |            | x   |     | SrcChannel                                                    |                                  |
-| internalSourceAct |            | x   |     | SrcIntAct                                                     |                                  |
-| manualSourceAct   |            | x   |     | SrcManAct                                                     |                                  |
+| Target            | MTP signal | MTP | SCD | Expression                                                            | Comment                          |
+| ----------------- | ---------- | --- | --- | --------------------------------------------------------------------- | -------------------------------- |
+| WQC               | x          | x   |     | 16#FF                                                                 | no QC available (default)        |
+| OSLevel           |            | x   |     | 16#00                                                                 | TODO                             |
+| remote            |            | x   |     | StateChannel                                                          |                                  |
+| operator          |            | x   |     | StateOpAct                                                            |                                  |
+| automatic         |            | x   |     | StateAutAct                                                           |                                  |
+| offline           |            | x   |     | StateOffAct                                                           |                                  |
+| remoteSource      |            | x   |     | SrcChannel                                                            |                                  |
+| internalSourceAct |            | x   |     | SrcIntAct                                                             |                                  |
+| manualSourceAct   |            | x   |     | SrcManAct                                                             |                                  |
 | PV                | x          | x   |     | scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin) |                                  |
-| valueOut          |            | x   |     | PV                                                            |                                  |
-| PVSclMin          | x          | x   |     | scaleMin                                                      |                                  |
-| PVSclMax          | x          | x   |     | scaleMax                                                      |                                  |
-| PVUnit            | x          | x   |     | valueUnit                                                     |                                  |
-| SPInt             | x          | x   |     | setpoint                                                      |                                  |
-| SPSclMin          | x          | x   |     | scaleMin                                                      | SP and PV should have same scale |
-| SPSclMax          | x          | x   |     | scaleMax                                                      | SP and PV should have same scale |
-| SPUnit            | x          | x   |     | valueUnit                                                     | SP and PV should have same unit  |
-| SPIntMin          | x          | x   |     | scaleMin                                                      | no limits for now                |
-| SPIntMax          | x          | x   |     | scaleMax                                                      | no limits for now                |
-| SPManMin          | x          | x   |     | scaleMin                                                      | no limits for now                |
-| SPManMax          | x          | x   |     | scaleMax                                                      | no limits for now                |
-| setpointOut       |            | x   |     | SP                                                            |                                  |
-| manipulatedValue  |            | x   |     | MV                                                            |                                  |
-| MVMin             | x          | x   |     | scaleMinMV                                                    |                                  |
-| MVMax             | x          | x   |     | scaleMaxMV                                                    |                                  |
-| MVUnit            | x          | x   |     | manipulatedValueUnit                                          |                                  |
-| MVSclMin          | x          | x   |     | scaleMinMV                                                    |                                  |
-| MVSclMax          | x          | x   |     | scaleMaxMV                                                    |                                  |
-| proportional      |            | x   |     | P                                                             |                                  |
-| integration       |            | x   |     | Ti                                                            |                                  |
-| derivation        |            | x   |     | Td                                                            |                                  |
-|                   |            |     |     |                                                               |                                  |
+| valueOut          |            | x   |     | PV                                                                    |                                  |
+| PVSclMin          | x          | x   |     | scaleMin                                                              |                                  |
+| PVSclMax          | x          | x   |     | scaleMax                                                              |                                  |
+| PVUnit            | x          | x   |     | valueUnit                                                             |                                  |
+| SPInt             | x          | x   |     | setpoint                                                              |                                  |
+| SPSclMin          | x          | x   |     | scaleMin                                                              | SP and PV should have same scale |
+| SPSclMax          | x          | x   |     | scaleMax                                                              | SP and PV should have same scale |
+| SPUnit            | x          | x   |     | valueUnit                                                             | SP and PV should have same unit  |
+| SPIntMin          | x          | x   |     | scaleMin                                                              | no limits for now                |
+| SPIntMax          | x          | x   |     | scaleMax                                                              | no limits for now                |
+| SPManMin          | x          | x   |     | scaleMin                                                              | no limits for now                |
+| SPManMax          | x          | x   |     | scaleMax                                                              | no limits for now                |
+| setpointOut       |            | x   |     | SP                                                                    |                                  |
+| manipulatedValue  |            | x   |     | MV                                                                    |                                  |
+| MVMin             | x          | x   |     | scaleMinMV                                                            |                                  |
+| MVMax             | x          | x   |     | scaleMaxMV                                                            |                                  |
+| MVUnit            | x          | x   |     | manipulatedValueUnit                                                  |                                  |
+| MVSclMin          | x          | x   |     | scaleMinMV                                                            |                                  |
+| MVSclMax          | x          | x   |     | scaleMaxMV                                                            |                                  |
+| proportional      |            | x   |     | SyncWith P                                                            |                                  |
+| integration       |            | x   |     | SyncWith Ti                                                           |                                  |
+| derivation        |            | x   |     | SyncWith Td                                                           |                                  |
+|                   |            |     |     |                                                                       |                                  |
 

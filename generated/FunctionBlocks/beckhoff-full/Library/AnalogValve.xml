@@ -5,7 +5,11 @@
         </inOutVars>
         <inputVars>
             <variable name="id"><type><INT /></type></variable>
-            <variable name="targetPosition"><type><REAL /></type></variable>
+            <variable name="activateManualSource"><type><BOOL /></type></variable>
+            <variable name="activateDynamicSource"><type><BOOL /></type></variable>
+            <variable name="activateFixedSource"><type><BOOL /></type></variable>
+            <variable name="dynamicSource"><type><REAL /></type></variable>
+            <variable name="fixedSource"><type><REAL /></type></variable>
             <variable name="feedbackPosition"><type><WORD /></type></variable>
             <variable name="scaleMin"><type><REAL /></type></variable>
             <variable name="scaleMax"><type><REAL /></type></variable>
@@ -32,9 +36,12 @@
             <variable name="error"><type><BOOL /></type></variable>
             <variable name="opened"><type><BOOL /></type></variable>
             <variable name="closed"><type><BOOL /></type></variable>
-            <variable name="remoteSource"><type><BOOL /></type></variable>
-            <variable name="internalSourceAct"><type><BOOL /></type></variable>
+            <variable name="programSelectsSource"><type><BOOL /></type></variable>
+            <variable name="operatorSelectsSource"><type><BOOL /></type></variable>
             <variable name="manualSourceAct"><type><BOOL /></type></variable>
+            <variable name="internalSourceAct"><type><BOOL /></type></variable>
+            <variable name="dynamicSourceAct"><type><BOOL /></type></variable>
+            <variable name="fixedSourceAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
             <variable name="fbOpenSimulated"><type><BOOL /></type></variable>
@@ -47,6 +54,8 @@
             <variable name="StateAutAct"><type><BOOL /></type></variable>
             <variable name="StateOffAct"><type><BOOL /></type></variable>
             <variable name="SrcChannel"><type><BOOL /></type></variable>
+            <variable name="SrcManAut"><type><BOOL /></type></variable>
+            <variable name="SrcIntAut"><type><BOOL /></type></variable>
             <variable name="SrcIntAct"><type><BOOL /></type></variable>
             <variable name="SrcManAct"><type><BOOL /></type></variable>
             <variable name="PermEn"><type><BOOL /></type></variable>
@@ -108,9 +117,14 @@ remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;
 offline := StateOffAct;
-remoteSource := SrcChannel;
+programSelectsSource := SrcChannel;
+operatorSelectsSource := NOT SrcChannel;
 internalSourceAct := SrcIntAct;
 manualSourceAct := SrcManAct;
+SrcManAut := activateManualSource;
+SrcIntAut := activateDynamicSource OR activateFixedSource;
+dynamicSourceAct := activateDynamicSource;
+fixedSourceAct := activateFixedSource;
 PermEn := True;
 IntlEn := True;
 ProtEn := True;
@@ -138,12 +152,14 @@ PosSclMax := scaleMax;
 PosUnit := 0;
 PosMin := PosSclMin;
 PosMax := PosSclMax;
-PosInt := targetPosition;
+PosInt := (dynamicSource * BOOL_TO_REAL(dynamicSourceAct)) + (fixedSource * BOOL_TO_REAL(fixedSourceAct));
 PosFbk := (positionOut * BOOL_TO_REAL(simulate)) + (feedbackPosition * BOOL_TO_REAL(simulate));
 positionOut := Pos;
 reset := False;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
+MTPBase.SrcManAut := SrcManAut;
+MTPBase.SrcIntAut := SrcIntAut;
 MTPBase.PermEn := PermEn;
 MTPBase.Permit := Permit;
 MTPBase.IntlEn := IntlEn;
