@@ -46,7 +46,7 @@
 | operatorSelectsSource | x   |     | Output   | Bool      |         |                                                                           |          |                                |
 | manualSourceAct       | x   |     | Output   | Bool      |         |                                                                           |          |                                |
 | internalSourceAct     | x   |     | Output   | Bool      |         |                                                                           |          |                                |
-| dynamicSourceAct      | x   |     | Output   | Bool      |         |                                                                           |          |                                |
+| dynamicSourceAct      | x   |     | Output   | Bool      |         | Will be active on startup                                                 |          |                                |
 | fixedSourceAct        | x   |     | Output   | Bool      |         |                                                                           |          |                                |
 |                       |     |     |          |           |         |                                                                           |          |                                |
 
@@ -70,8 +70,9 @@ TODO: is positionOut the command or the actual position? If actual then confusio
 | manualSourceAct       |            | x   |     | SrcManAct                                                                                       |                                                             |
 | SrcManAut             | x          | x   |     | activateManualSource                                                                            |                                                             |
 | SrcIntAut             | x          | x   |     | activateDynamicSource OR activateFixedSource                                                    |                                                             |
-| dynamicSourceAct      |            | x   |     | activateDynamicSource                                                                           | Only relevant if internalSourceAct                          |
-| fixedSourceAct        |            | x   |     | activateFixedSource                                                                             | Only relevant if internalSourceAct                          |
+| fixedSourceAct        |            | x   |     | Set: activateFixedSource                                                                        | Only relevant if internalSourceAct                          |
+|                       |            |     |     | Reset: activateDynamicSource                                                                    |                                                             |
+| dynamicSourceAct      |            | x   |     | NOT fixedSourceAct                                                                              | Only relevant if internalSourceAct                          |
 | PermEn                | x          | x   |     | True                                                                                            | Always Enable, Configure permitIn = 0 if no permits         |
 | IntlEn                | x          | x   |     | True                                                                                            | Always Enable, Configure interlockIn = 0 if no interlocks   |
 | ProtEn                | x          | x   |     | True                                                                                            | Always Enable, Configure protectIn = 0 if no protections    |

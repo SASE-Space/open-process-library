@@ -5175,7 +5175,7 @@
                     "Var Type": "Output",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "",
+                    "Description": "Will be active on startup",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -5986,10 +5986,10 @@
                     "scdFlag": false,
                     "isMTP": true
                 },
-                "dynamicSourceAct": {
-                    "LogicType": "Expression",
-                    "Expression": "activateDynamicSource",
-                    "Set": null,
+                "fixedSourceAct_Set": {
+                    "LogicType": "Set",
+                    "Expression": null,
+                    "Set": "activateFixedSource",
                     "Reset": null,
                     "StateMachine": null,
                     "Comment": "Only relevant if internalSourceAct",
@@ -6004,9 +6004,27 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "fixedSourceAct": {
+                "fixedSourceAct_Reset": {
+                    "LogicType": "Reset",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": "activateDynamicSource",
+                    "StateMachine": null,
+                    "Comment": "Only relevant if internalSourceAct",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "dynamicSourceAct": {
                     "LogicType": "Expression",
-                    "Expression": "activateFixedSource",
+                    "Expression": "NOT fixedSourceAct",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,

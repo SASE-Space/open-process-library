@@ -763,8 +763,13 @@ internalSourceAct := SrcIntAct;
 manualSourceAct := SrcManAct;
 SrcManAut := activateManualSource;
 SrcIntAut := activateDynamicSource OR activateFixedSource;
-dynamicSourceAct := activateDynamicSource;
-fixedSourceAct := activateFixedSource;
+IF activateFixedSource THEN
+    fixedSourceAct := TRUE;
+END_IF;
+IF activateDynamicSource THEN
+    fixedSourceAct := FALSE;
+END_IF;
+dynamicSourceAct := NOT fixedSourceAct;
 PermEn := True;
 IntlEn := True;
 ProtEn := True;
