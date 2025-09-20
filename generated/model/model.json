@@ -2406,7 +2406,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "FwdFbkCalc": {
@@ -2428,7 +2428,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "Trip": {
@@ -3393,7 +3393,7 @@
                     "SCD": "",
                     "isDerived": false,
                     "isRead": false,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "SrcIntAut": {
                     "Source": "PEA",
@@ -3404,7 +3404,7 @@
                     "SCD": "",
                     "isDerived": false,
                     "isRead": false,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "SrcIntOp": {
                     "Source": "POL",
@@ -4707,7 +4707,7 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Activates Fixed Manual Source (Activation by Program)",
+                    "Description": "Activates Fixed Manual Setpoint (Activation by Program)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -4720,7 +4720,7 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Activates Internal Dynamic Source (Activation by Program)",
+                    "Description": "Activates Internal Dynamic Setpoint (Activation by Program)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -4733,7 +4733,7 @@
                     "Var Type": "Input",
                     "Data Type": "Bool",
                     "Default": "",
-                    "Description": "Activates Internal Fixed Source (Activation by Program)",
+                    "Description": "Activates Internal Fixed Setpoint (Activation by Program)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -6982,13 +6982,65 @@
                     "isRead": false,
                     "isWrite": false
                 },
-                "setpoint": {
+                "activateManualSP": {
+                    "MTP": "x",
+                    "SCD": "",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Activates Fixed Manual Setpoint (Activation by Program)",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": true,
+                    "isWrite": false
+                },
+                "activateDynamicSP": {
+                    "MTP": "x",
+                    "SCD": "",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Activates Internal Dynamic Setpoint (Activation by Program)",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": true,
+                    "isWrite": false
+                },
+                "activateFixedSP": {
+                    "MTP": "x",
+                    "SCD": "",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Activates Internal Fixed Setpoint (Activation by Program)",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": true,
+                    "isWrite": false
+                },
+                "dynamicSP": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Input",
                     "Data Type": "Real",
                     "Default": "",
-                    "Description": "Setpoint from program",
+                    "Description": "Dynamic Setpoint from Program (for example from cascade PID controller)",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": true,
+                    "isWrite": false
+                },
+                "fixedSP": {
+                    "MTP": "x",
+                    "SCD": "",
+                    "Var Type": "Input",
+                    "Data Type": "Real",
+                    "Default": "",
+                    "Description": "Fixed Setpoint from Program (for example from a Phase/Sequence control)",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -7489,20 +7541,7 @@
                     "isRead": false,
                     "isWrite": false
                 },
-                "remoteSource": {
-                    "MTP": "x",
-                    "SCD": "",
-                    "Var Type": "Output",
-                    "Data Type": "Bool",
-                    "Default": "",
-                    "Description": "0: operator/local, 1: automatic/remote",
-                    "SCD Name": "",
-                    "SCD Terminal Name": "",
-                    "isDerived": false,
-                    "isRead": false,
-                    "isWrite": true
-                },
-                "internalSourceAct": {
+                "programSelectsSP": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -7515,7 +7554,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "manualSourceAct": {
+                "operatorSelectsSP": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -7526,6 +7565,58 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": false,
+                    "isWrite": true
+                },
+                "manualSPAct": {
+                    "MTP": "x",
+                    "SCD": "",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "internalSPAct": {
+                    "MTP": "x",
+                    "SCD": "",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "dynamicSPAct": {
+                    "MTP": "x",
+                    "SCD": "",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Will be active on startup",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": true,
+                    "isWrite": true
+                },
+                "fixedSPAct": {
+                    "MTP": "x",
+                    "SCD": "",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": true,
                     "isWrite": true
                 }
             },
@@ -7660,7 +7751,7 @@
                     "SCD": "",
                     "isDerived": false,
                     "isRead": false,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "SrcIntAut": {
                     "Source": "PEA",
@@ -7671,7 +7762,7 @@
                     "SCD": "",
                     "isDerived": false,
                     "isRead": false,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "SrcIntOp": {
                     "Source": "POL",
@@ -8123,7 +8214,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "remoteSource": {
+                "programSelectsSP": {
                     "LogicType": "Expression",
                     "Expression": "SrcChannel",
                     "Set": null,
@@ -8141,7 +8232,25 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "internalSourceAct": {
+                "operatorSelectsSP": {
+                    "LogicType": "Expression",
+                    "Expression": "NOT SrcChannel",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "internalSPAct": {
                     "LogicType": "Expression",
                     "Expression": "SrcIntAct",
                     "Set": null,
@@ -8159,13 +8268,103 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "manualSourceAct": {
+                "manualSPAct": {
                     "LogicType": "Expression",
                     "Expression": "SrcManAct",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
                     "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "SrcManAut": {
+                    "LogicType": "Expression",
+                    "Expression": "activateManualSP",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": true,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": true
+                },
+                "SrcIntAut": {
+                    "LogicType": "Expression",
+                    "Expression": "activateDynamicSP OR activateFixedSP",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": true,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": true
+                },
+                "fixedSPAct_Set": {
+                    "LogicType": "Set",
+                    "Expression": null,
+                    "Set": "activateFixedSP",
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Only relevant if internalSPAct",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "fixedSPAct_Reset": {
+                    "LogicType": "Reset",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": "activateDynamicSP",
+                    "StateMachine": null,
+                    "Comment": "Only relevant if internalSPAct",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "dynamicSPAct": {
+                    "LogicType": "Expression",
+                    "Expression": "NOT fixedSPAct",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Only relevant if internalSPAct",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -8269,7 +8468,7 @@
                 },
                 "SPInt": {
                     "LogicType": "Expression",
-                    "Expression": "setpoint",
+                    "Expression": "(dynamicSP * BOOL_TO_REAL(dynamicSPAct)) + (fixedSP * BOOL_TO_REAL(fixedSPAct))",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -8878,7 +9077,7 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": false,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "reverseActive": {
                     "MTP": "x",
@@ -8891,7 +9090,7 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": false,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "fwdFbkSimulated": {
                     "MTP": "x",
@@ -9322,7 +9521,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "FwdFbkCalc": {
@@ -9344,7 +9543,7 @@
                     "MTP": "x",
                     "SCD": "",
                     "isDerived": false,
-                    "isRead": false,
+                    "isRead": true,
                     "isWrite": true
                 },
                 "Trip": {
@@ -9915,6 +10114,42 @@
                     "mtpFlag": true,
                     "scdFlag": false,
                     "isMTP": true
+                },
+                "forwardActive": {
+                    "LogicType": "Expression",
+                    "Expression": "FwdFbk",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "reverseActive": {
+                    "LogicType": "Expression",
+                    "Expression": "RevFbk",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
                 },
                 "Trip": {
                     "LogicType": "Expression",

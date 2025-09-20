@@ -47,6 +47,8 @@
             <variable name="manualSourceAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
+            <variable name="first_scan"><type><BOOL /></type><initialValue><simpleValue value="TRUE" /></initialValue></variable>
+            <variable name="second_scan"><type><BOOL /></type></variable>
             <variable name="fwdFbkSimulated"><type><BOOL /></type></variable>
             <variable name="revFbkSimulated"><type><BOOL /></type></variable>
             <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
@@ -94,6 +96,29 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// STARTUP - SECOND SCAN
+IF second_scan THEN
+    // switch control mode back to operator
+    MTPBase.StateChannel := FALSE;
+    // reset command to switch to auto mode
+    MTPBASE.StateAutAut := FALSE;    
+    // end second scan
+    second_scan := FALSE;
+END_IF;
+
+// STARTUP - FIRST SCAN
+IF first_scan THEN
+    // allow program control for the mode
+    MTPBase.StateChannel := TRUE;
+    // switch to auto mode
+    MTPBASE.StateAutAut := TRUE;
+    // send a reset (will be reset automatically) (TODO: why is this needed?)
+    reset := TRUE;
+    // prepare second scan
+    first_scan := FALSE;
+    second_scan := TRUE;
+END_IF;
 
 // sync variables with MTPBase
 // - a variable on MTPBase that can be changed from the HMI

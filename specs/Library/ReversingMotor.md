@@ -70,6 +70,8 @@
 | revFbkSimulated |            | x   |     | RevFbkCalc AND revCommand for simulateDelay                              |                                                             |
 | FwdFbk          | x          | x   |     | (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc) |                                                             |
 | RevFbk          | x          | x   |     | (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc) |                                                             |
+| forwardActive   |            | x   |     | FwdFbk                                                                   |                                                             |
+| reverseActive   |            | x   |     | RevFbk                                                                   |                                                             |
 | Trip            | x          | x   |     | NOT driveTrip                                                            | (True = trip active)                                        |
 | ResetAut        | x          | x   |     | reset                                                                    |                                                             |
 | MonSafePos      | x          | x   |     | safeHold                                                                 |                                                             |

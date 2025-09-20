@@ -10,9 +10,9 @@
 | --------------------- | --- | --- | -------- | --------- | ------- | ------------------------------------------------------------------------- | -------- | ------------------------------ |
 | MTPBase               | x   | x   | InOut    | MonAnaVlv |         |                                                                           |          |                                |
 | id                    | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects             |          |                                |
-| activateManualSource  | x   |     | Input    | Bool      |         | Activates Fixed Manual Source (Activation by Program)                     |          |                                |
-| activateDynamicSource | x   |     | Input    | Bool      |         | Activates Internal Dynamic Source (Activation by Program)                 |          |                                |
-| activateFixedSource   | x   |     | Input    | Bool      |         | Activates Internal Fixed Source (Activation by Program)                   |          |                                |
+| activateManualSource  | x   |     | Input    | Bool      |         | Activates Fixed Manual Setpoint (Activation by Program)                   |          |                                |
+| activateDynamicSource | x   |     | Input    | Bool      |         | Activates Internal Dynamic Setpoint (Activation by Program)               |          |                                |
+| activateFixedSource   | x   |     | Input    | Bool      |         | Activates Internal Fixed Setpoint (Activation by Program)                 |          |                                |
 | dynamicSource         | x   |     | Input    | Real      |         | Dynamic Source from Program (for example from PID controller)             |          |                                |
 | fixedSource           | x   |     | Input    | Real      |         | Fixed Source from Program (for example from a Phase/Sequence control)     |          |                                |
 | feedbackPosition      | x   |     | Input    | Word      |         | Position feedback (0-100%)                                                |          |                                |

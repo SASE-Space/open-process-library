@@ -5,7 +5,15 @@ MTPBase
 
 id
 
-setpoint
+activateManualSP
+
+activateDynamicSP
+
+activateFixedSP
+
+dynamicSP
+
+fixedSP
 
 rawValue
 
@@ -83,8 +91,14 @@ warningLowStatus
 
 alarmLowStatus
 
-remoteSource
+programSelectsSP
 
-internalSourceAct
+operatorSelectsSP
 
-manualSourceAct
+manualSPAct
+
+internalSPAct
+
+dynamicSPAct
+
+fixedSPAct

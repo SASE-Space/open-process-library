@@ -5,7 +5,11 @@
         </inOutVars>
         <inputVars>
             <variable name="id"><type><INT /></type></variable>
-            <variable name="setpoint"><type><REAL /></type></variable>
+            <variable name="activateManualSP"><type><BOOL /></type></variable>
+            <variable name="activateDynamicSP"><type><BOOL /></type></variable>
+            <variable name="activateFixedSP"><type><BOOL /></type></variable>
+            <variable name="dynamicSP"><type><REAL /></type></variable>
+            <variable name="fixedSP"><type><REAL /></type></variable>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>
             <variable name="manipulatedValueUnit"><type><INT /></type></variable>
@@ -40,16 +44,23 @@
             <variable name="toleranceLowStatus"><type><BOOL /></type></variable>
             <variable name="warningLowStatus"><type><BOOL /></type></variable>
             <variable name="alarmLowStatus"><type><BOOL /></type></variable>
-            <variable name="remoteSource"><type><BOOL /></type></variable>
-            <variable name="internalSourceAct"><type><BOOL /></type></variable>
-            <variable name="manualSourceAct"><type><BOOL /></type></variable>
+            <variable name="programSelectsSP"><type><BOOL /></type></variable>
+            <variable name="operatorSelectsSP"><type><BOOL /></type></variable>
+            <variable name="manualSPAct"><type><BOOL /></type></variable>
+            <variable name="internalSPAct"><type><BOOL /></type></variable>
+            <variable name="dynamicSPAct"><type><BOOL /></type></variable>
+            <variable name="fixedSPAct"><type><BOOL /></type></variable>
         </outputVars>
-        <localVars><!-- Temporary variables for MTP base interface access -->
+        <localVars>
+            <variable name="first_scan"><type><BOOL /></type><initialValue><simpleValue value="TRUE" /></initialValue></variable>
+            <variable name="second_scan"><type><BOOL /></type></variable><!-- Temporary variables for MTP base interface access -->
             <variable name="StateChannel"><type><BOOL /></type></variable>
             <variable name="StateOpAct"><type><BOOL /></type></variable>
             <variable name="StateAutAct"><type><BOOL /></type></variable>
             <variable name="StateOffAct"><type><BOOL /></type></variable>
             <variable name="SrcChannel"><type><BOOL /></type></variable>
+            <variable name="SrcManAut"><type><BOOL /></type></variable>
+            <variable name="SrcIntAut"><type><BOOL /></type></variable>
             <variable name="SrcIntAct"><type><BOOL /></type></variable>
             <variable name="SrcManAct"><type><BOOL /></type></variable>
             <variable name="WQC"><type><BYTE /></type></variable>
@@ -86,6 +97,19 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// STARTUP - SECOND SCAN
+IF second_scan THEN    
+    // end second scan
+    second_scan := FALSE;
+END_IF;
+
+// STARTUP - FIRST SCAN
+IF first_scan THEN
+    // prepare second scan
+    first_scan := FALSE;
+    second_scan := TRUE;
+END_IF;
 
 // sync variables with MTPBase
 // - a variable on MTPBase that can be changed from the HMI
@@ -126,6 +150,8 @@ TdLast := MTPBase.Td;
 
 // copy from and to the MTPBase
 // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
+    MTPBase.SrcManAut := SrcManAut;
+    MTPBase.SrcIntAut := SrcIntAut;
     MTPBase.WQC := WQC;
     MTPBase.OSLevel := OSLevel;
     MTPBase.PV := PV;
@@ -169,15 +195,25 @@ remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;
 offline := StateOffAct;
-remoteSource := SrcChannel;
-internalSourceAct := SrcIntAct;
-manualSourceAct := SrcManAct;
+programSelectsSP := SrcChannel;
+operatorSelectsSP := NOT SrcChannel;
+internalSPAct := SrcIntAct;
+manualSPAct := SrcManAct;
+SrcManAut := activateManualSP;
+SrcIntAut := activateDynamicSP OR activateFixedSP;
+IF activateFixedSP THEN
+    fixedSPAct := TRUE;
+END_IF;
+IF activateDynamicSP THEN
+    fixedSPAct := FALSE;
+END_IF;
+dynamicSPAct := NOT fixedSPAct;
 PV := scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
 valueOut := PV;
 PVSclMin := scaleMin;
 PVSclMax := scaleMax;
 PVUnit := valueUnit;
-SPInt := setpoint;
+SPInt := (dynamicSP * BOOL_TO_REAL(dynamicSPAct)) + (fixedSP * BOOL_TO_REAL(fixedSPAct));
 SPSclMin := scaleMin;
 SPSclMax := scaleMax;
 SPUnit := valueUnit;

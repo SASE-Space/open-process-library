@@ -920,7 +920,11 @@ MTPBase.VFlutEn := VFlutEn;
         </inOutVars>
         <inputVars>
             <variable name="id"><type><INT /></type></variable>
-            <variable name="setpoint"><type><REAL /></type></variable>
+            <variable name="activateManualSP"><type><BOOL /></type></variable>
+            <variable name="activateDynamicSP"><type><BOOL /></type></variable>
+            <variable name="activateFixedSP"><type><BOOL /></type></variable>
+            <variable name="dynamicSP"><type><REAL /></type></variable>
+            <variable name="fixedSP"><type><REAL /></type></variable>
             <variable name="rawValue"><type><WORD /></type></variable>
             <variable name="valueUnit"><type><INT /></type></variable>
             <variable name="manipulatedValueUnit"><type><INT /></type></variable>
@@ -961,9 +965,12 @@ MTPBase.VFlutEn := VFlutEn;
             <variable name="toleranceLowStatus"><type><BOOL /></type></variable>
             <variable name="warningLowStatus"><type><BOOL /></type></variable>
             <variable name="alarmLowStatus"><type><BOOL /></type></variable>
-            <variable name="remoteSource"><type><BOOL /></type></variable>
-            <variable name="internalSourceAct"><type><BOOL /></type></variable>
-            <variable name="manualSourceAct"><type><BOOL /></type></variable>
+            <variable name="programSelectsSP"><type><BOOL /></type></variable>
+            <variable name="operatorSelectsSP"><type><BOOL /></type></variable>
+            <variable name="manualSPAct"><type><BOOL /></type></variable>
+            <variable name="internalSPAct"><type><BOOL /></type></variable>
+            <variable name="dynamicSPAct"><type><BOOL /></type></variable>
+            <variable name="fixedSPAct"><type><BOOL /></type></variable>
         </outputVars>
         <localVars><!-- Temporary variables for MTP base interface access -->
             <variable name="StateChannel"><type><BOOL /></type></variable>
@@ -971,6 +978,8 @@ MTPBase.VFlutEn := VFlutEn;
             <variable name="StateAutAct"><type><BOOL /></type></variable>
             <variable name="StateOffAct"><type><BOOL /></type></variable>
             <variable name="SrcChannel"><type><BOOL /></type></variable>
+            <variable name="SrcManAut"><type><BOOL /></type></variable>
+            <variable name="SrcIntAut"><type><BOOL /></type></variable>
             <variable name="SrcIntAct"><type><BOOL /></type></variable>
             <variable name="SrcManAct"><type><BOOL /></type></variable>
             <variable name="WQC"><type><BYTE /></type></variable>
@@ -1025,15 +1034,25 @@ remote := StateChannel;
 operator := StateOpAct;
 automatic := StateAutAct;
 offline := StateOffAct;
-remoteSource := SrcChannel;
-internalSourceAct := SrcIntAct;
-manualSourceAct := SrcManAct;
+programSelectsSP := SrcChannel;
+operatorSelectsSP := NOT SrcChannel;
+internalSPAct := SrcIntAct;
+manualSPAct := SrcManAct;
+SrcManAut := activateManualSP;
+SrcIntAut := activateDynamicSP OR activateFixedSP;
+IF activateFixedSP THEN
+    fixedSPAct := TRUE;
+END_IF;
+IF activateDynamicSP THEN
+    fixedSPAct := FALSE;
+END_IF;
+dynamicSPAct := NOT fixedSPAct;
 PV := scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin);
 valueOut := PV;
 PVSclMin := scaleMin;
 PVSclMax := scaleMax;
 PVUnit := valueUnit;
-SPInt := setpoint;
+SPInt := (dynamicSP * BOOL_TO_REAL(dynamicSPAct)) + (fixedSP * BOOL_TO_REAL(fixedSPAct));
 SPSclMin := scaleMin;
 SPSclMax := scaleMax;
 SPUnit := valueUnit;
@@ -1050,6 +1069,8 @@ MVSclMin := scaleMinMV;
 MVSclMax := scaleMaxMV;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
+MTPBase.SrcManAut := SrcManAut;
+MTPBase.SrcIntAut := SrcIntAut;
 MTPBase.WQC := WQC;
 MTPBase.OSLevel := OSLevel;
 MTPBase.PV := PV;
@@ -1159,7 +1180,9 @@ StateOffAct := MTPBase.StateOffAct;
 FwdCtrl := MTPBase.FwdCtrl;
 RevCtrl := MTPBase.RevCtrl;
 RevFbkCalc := MTPBase.RevFbkCalc;
+RevFbk := MTPBase.RevFbk;
 FwdFbkCalc := MTPBase.FwdFbkCalc;
+FwdFbk := MTPBase.FwdFbk;
 
 
 WQC := 16#FF;
@@ -1190,6 +1213,8 @@ DelayTimer2(IN:= RevFbkCalc AND revCommand, PT:= REAL_TO_TIME(simulateDelay * 10
 revFbkSimulated := DelayTimer2.Q;
 FwdFbk := (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc);
 RevFbk := (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc);
+forwardActive := FwdFbk;
+reverseActive := RevFbk;
 Trip := NOT driveTrip;
 ResetAut := reset;
 MonSafePos := safeHold;

@@ -28,7 +28,9 @@
             <variable name="warningLowStatus"><type><BOOL /></type></variable>
             <variable name="alarmLowStatus"><type><BOOL /></type></variable>
         </outputVars>
-        <localVars><!-- Temporary variables for MTP base interface access -->
+        <localVars>
+            <variable name="first_scan"><type><BOOL /></type><initialValue><simpleValue value="TRUE" /></initialValue></variable>
+            <variable name="second_scan"><type><BOOL /></type></variable><!-- Temporary variables for MTP base interface access -->
             <variable name="WQC"><type><BYTE /></type></variable>
             <variable name="OSLevel"><type><BYTE /></type></variable>
             <variable name="V"><type><REAL /></type></variable>
@@ -54,6 +56,19 @@
         <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">
                 <![CDATA[
+
+// STARTUP - SECOND SCAN
+IF second_scan THEN    
+    // end second scan
+    second_scan := FALSE;
+END_IF;
+
+// STARTUP - FIRST SCAN
+IF first_scan THEN
+    // prepare second scan
+    first_scan := FALSE;
+    second_scan := TRUE;
+END_IF;
 
 // sync variables with MTPBase
 // - a variable on MTPBase that can be changed from the HMI

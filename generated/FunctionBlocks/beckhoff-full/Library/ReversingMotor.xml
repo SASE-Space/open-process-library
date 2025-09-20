@@ -83,7 +83,9 @@ StateOffAct := MTPBase.StateOffAct;
 FwdCtrl := MTPBase.FwdCtrl;
 RevCtrl := MTPBase.RevCtrl;
 RevFbkCalc := MTPBase.RevFbkCalc;
+RevFbk := MTPBase.RevFbk;
 FwdFbkCalc := MTPBase.FwdFbkCalc;
+FwdFbk := MTPBase.FwdFbk;
 
 
 WQC := 16#FF;
@@ -114,6 +116,8 @@ DelayTimer2(IN:= RevFbkCalc AND revCommand, PT:= REAL_TO_TIME(simulateDelay * 10
 revFbkSimulated := DelayTimer2.Q;
 FwdFbk := (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCalc);
 RevFbk := (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc);
+forwardActive := FwdFbk;
+reverseActive := RevFbk;
 Trip := NOT driveTrip;
 ResetAut := reset;
 MonSafePos := safeHold;
