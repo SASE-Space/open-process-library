@@ -7,6 +7,7 @@
             <variable name="id"><type><INT /></type></variable>
             <variable name="forward"><type><BOOL /></type></variable>
             <variable name="reverse"><type><BOOL /></type></variable>
+            <variable name="stop"><type><BOOL /></type></variable>
             <variable name="forwardFeedback"><type><BOOL /></type></variable>
             <variable name="reverseFeedback"><type><BOOL /></type></variable>
             <variable name="hasFwdFeedback"><type><BOOL /></type></variable>
@@ -30,6 +31,7 @@
             <variable name="revCommand"><type><BOOL /></type></variable>
             <variable name="forwardActive"><type><BOOL /></type></variable>
             <variable name="reverseActive"><type><BOOL /></type></variable>
+            <variable name="stopped"><type><BOOL /></type></variable>
             <variable name="remote"><type><BOOL /></type></variable>
             <variable name="operator"><type><BOOL /></type></variable>
             <variable name="automatic"><type><BOOL /></type></variable>
@@ -103,9 +105,19 @@ Protect := NOT protectIn;
 SafePos := false;
 FwdEn := enableForward;
 RevEn := enableReverse;
-StopAut := NOT forward AND NOT reverse;
-FwdAut := forward;
-RevAut := reverse;
+StopAut := (NOT forward AND NOT reverse) OR stop;
+IF forward AND NOT stop THEN
+    FwdAut := TRUE;
+END_IF;
+IF stop THEN
+    FwdAut := FALSE;
+END_IF;
+IF reverse AND NOT stop THEN
+    RevAut := TRUE;
+END_IF;
+IF stop THEN
+    RevAut := FALSE;
+END_IF;
 fwdCommand := FwdCtrl;
 revCommand := RevCtrl;
 FwdFbkCalc := simulate OR NOT hasFwdFeedback;
@@ -118,12 +130,14 @@ FwdFbk := (forwardFeedback AND NOT FwdFbkCalc) OR (fwdFbkSimulated AND FwdFbkCal
 RevFbk := (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc);
 forwardActive := FwdFbk;
 reverseActive := RevFbk;
+stopped := NOT FwdFbk AND NOT RevFbk;
 Trip := NOT driveTrip;
 ResetAut := reset;
 MonSafePos := safeHold;
 MonStatTi := staticTimeout;
 MonDynTi := dynamicTimeout;
 reset := False;
+stop := False;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
 MTPBase.PermEn := PermEn;

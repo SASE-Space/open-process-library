@@ -9,6 +9,8 @@ forward
 
 reverse
 
+stop
+
 forwardFeedback
 
 reverseFeedback
@@ -50,6 +52,8 @@ revCommand
 forwardActive
 
 reverseActive
+
+stopped
 
 fwdFbkSimulated
 

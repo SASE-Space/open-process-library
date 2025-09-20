@@ -12,6 +12,7 @@
 | id              | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects             |          |                   |
 | forward         | x   |     | Input    | Bool      |         | Forward command from program                                              |          |                   |
 | reverse         | x   |     | Input    | Bool      |         | Reverse command from program                                              |          |                   |
+| stop            | x   |     | Input    | Bool      |         | Stop command from program                                                 |          |                   |
 | forwardFeedback | x   |     | Input    | Bool      |         | Forward feedback signal from device                                       |          |                   |
 | reverseFeedback | x   |     | Input    | Bool      |         | Reverse feedback signal from device                                       |          |                   |
 | hasFwdFeedback  | x   |     | Input    | Bool      | True    | Has forward feedback                                                      |          |                   |
@@ -33,12 +34,14 @@
 | revCommand      | x   |     | Output   | Bool      |         | Reverse command to device                                                 |          |                   |
 | forwardActive   | x   |     | Output   | Bool      |         | Motor running forward                                                     |          |                   |
 | reverseActive   | x   |     | Output   | Bool      |         | Motor running reverse                                                     |          |                   |
+| stopped         | x   |     | Output   | Bool      |         | Motor stopped                                                             |          |                   |
 | fwdFbkSimulated | x   | x   | Local    | Bool      |         | Simulated forward feedback                                                |          |                   |
 | revFbkSimulated | x   | x   | Local    | Bool      |         | Simulated reverse feedback                                                |          |                   |
 | remote          | x   |     | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                    |          |                   |
 | operator        | x   |     | Output   | Bool      |         | Operator Mode                                                             |          |                   |
 | automatic       | x   |     | Output   | Bool      |         | Automatic Mode                                                            |          |                   |
 | offline         | x   |     | Output   | Bool      |         | Offline Mode                                                              |          |                   |
+|                 |     |     |          |           |         |                                                                           |          |                   |
 
 ## Functionality
 
@@ -59,9 +62,11 @@
 | SafePos         | x          | x   |     | false                                                                    |                                                             |
 | FwdEn           | x          | x   |     | enableForward                                                            |                                                             |
 | RevEn           | x          | x   |     | enableReverse                                                            |                                                             |
-| StopAut         | x          | x   |     | NOT forward AND NOT reverse                                              |                                                             |
-| FwdAut          | x          | x   |     | forward                                                                  |                                                             |
-| RevAut          | x          | x   |     | reverse                                                                  |                                                             |
+| StopAut         | x          | x   |     | (NOT forward AND NOT reverse) OR stop                                    |                                                             |
+| FwdAut          | x          | x   |     | Set: forward AND NOT stop                                                |                                                             |
+|                 |            |     |     | Reset: stop                                                              |                                                             |
+| RevAut          | x          | x   |     | Set: reverse AND NOT stop                                                |                                                             |
+|                 |            |     |     | Reset: stop                                                              |                                                             |
 | fwdCommand      |            | x   |     | FwdCtrl                                                                  |                                                             |
 | revCommand      |            | x   |     | RevCtrl                                                                  |                                                             |
 | FwdFbkCalc      | x          | x   |     | simulate OR NOT hasFwdFeedback                                           |                                                             |
@@ -72,10 +77,12 @@
 | RevFbk          | x          | x   |     | (reverseFeedback AND NOT RevFbkCalc) OR (revFbkSimulated AND RevFbkCalc) |                                                             |
 | forwardActive   |            | x   |     | FwdFbk                                                                   |                                                             |
 | reverseActive   |            | x   |     | RevFbk                                                                   |                                                             |
+| stopped         |            | x   |     | NOT FwdFbk AND NOT RevFbk                                                |                                                             |
 | Trip            | x          | x   |     | NOT driveTrip                                                            | (True = trip active)                                        |
 | ResetAut        | x          | x   |     | reset                                                                    |                                                             |
 | MonSafePos      | x          | x   |     | safeHold                                                                 |                                                             |
 | MonStatTi       | x          | x   |     | staticTimeout                                                            |                                                             |
 | MonDynTi        | x          | x   |     | dynamicTimeout                                                           |                                                             |
 | reset           |            | x   |     | False                                                                    | reset = False at the end of the FB                          |
+| stop            |            | x   |     | False                                                                    | stop = False at the end of the FB                           |
 |                 |            |     |     |                                                                          |                                                             |

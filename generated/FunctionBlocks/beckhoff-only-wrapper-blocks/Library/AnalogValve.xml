@@ -208,6 +208,7 @@ OpenAut := selectedPosition > 0;
 CloseAut := NOT OpenAut;
 OpenFbkCalc := simulate OR NOT hasFbOpen;
 CloseFbkCalc := simulate OR NOT hasFbClose;
+PosFbkCalc := simulate;
 DelayTimer1(IN:= OpenFbkCalc AND OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
 fbOpenSimulated := DelayTimer1.Q;
 DelayTimer2(IN:= CloseFbkCalc AND NOT OpenAut, PT:= REAL_TO_TIME(simulateDelay * 1000));
@@ -226,6 +227,9 @@ PosInt := (dynamicSource * BOOL_TO_REAL(dynamicSourceAct)) + (fixedSource * BOOL
 PosFbk := (positionOut * BOOL_TO_REAL(simulate)) + (feedbackPosition * BOOL_TO_REAL(simulate));
 positionOut := Pos;
 reset := False;
+activateManualSource := False;
+activateDynamicSource := False;
+activateFixedSource := False;
 
                 ]]>
             </xhtml>

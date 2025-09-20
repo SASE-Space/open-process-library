@@ -4712,7 +4712,7 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": true,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "activateDynamicSource": {
                     "MTP": "x",
@@ -4725,7 +4725,7 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": true,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "activateFixedSource": {
                     "MTP": "x",
@@ -4738,7 +4738,7 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": true,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "dynamicSource": {
                     "MTP": "x",
@@ -6274,6 +6274,24 @@
                     "scdFlag": false,
                     "isMTP": true
                 },
+                "PosFbkCalc": {
+                    "LogicType": "Expression",
+                    "Expression": "simulate",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": true,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": true
+                },
                 "fbOpenSimulated": {
                     "LogicType": "Expression",
                     "Expression": "OpenFbkCalc AND OpenAut",
@@ -6551,6 +6569,60 @@
                     "Reset": null,
                     "StateMachine": null,
                     "Comment": "reset = False at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "activateManualSource": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "reset activateManualSource at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "activateDynamicSource": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "reset activateDynamicSource at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "activateFixedSource": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "reset activateFixedSource at the end of the FB",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,
@@ -6993,7 +7065,7 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": true,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "activateDynamicSP": {
                     "MTP": "x",
@@ -7006,7 +7078,7 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": true,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "activateFixedSP": {
                     "MTP": "x",
@@ -7019,7 +7091,7 @@
                     "SCD Terminal Name": "",
                     "isDerived": false,
                     "isRead": true,
-                    "isWrite": false
+                    "isWrite": true
                 },
                 "dynamicSP": {
                     "MTP": "x",
@@ -8735,6 +8807,60 @@
                     "mtpFlag": true,
                     "scdFlag": false,
                     "isMTP": true
+                },
+                "activateManualSP": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Reset activateManualSP at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "activateDynamicSP": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Reset activateDynamicSP at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "activateFixedSP": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "Reset activateFixedSP at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
                 }
             },
             "Syncs": {
@@ -8818,6 +8944,19 @@
                     "isDerived": false,
                     "isRead": true,
                     "isWrite": false
+                },
+                "stop": {
+                    "MTP": "x",
+                    "SCD": "",
+                    "Var Type": "Input",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Stop command from program",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": true,
+                    "isWrite": true
                 },
                 "forwardFeedback": {
                     "MTP": "x",
@@ -9086,6 +9225,19 @@
                     "Data Type": "Bool",
                     "Default": "",
                     "Description": "Motor running reverse",
+                    "SCD Name": "",
+                    "SCD Terminal Name": "",
+                    "isDerived": false,
+                    "isRead": false,
+                    "isWrite": true
+                },
+                "stopped": {
+                    "MTP": "x",
+                    "SCD": "",
+                    "Var Type": "Output",
+                    "Data Type": "Bool",
+                    "Default": "",
+                    "Description": "Motor stopped",
                     "SCD Name": "",
                     "SCD Terminal Name": "",
                     "isDerived": false,
@@ -9919,7 +10071,7 @@
                 },
                 "StopAut": {
                     "LogicType": "Expression",
-                    "Expression": "NOT forward AND NOT reverse",
+                    "Expression": "(NOT forward AND NOT reverse) OR stop",
                     "Set": null,
                     "Reset": null,
                     "StateMachine": null,
@@ -9935,10 +10087,10 @@
                     "scdFlag": false,
                     "isMTP": true
                 },
-                "FwdAut": {
-                    "LogicType": "Expression",
-                    "Expression": "forward",
-                    "Set": null,
+                "FwdAut_Set": {
+                    "LogicType": "Set",
+                    "Expression": null,
+                    "Set": "forward AND NOT stop",
                     "Reset": null,
                     "StateMachine": null,
                     "Comment": "",
@@ -9953,11 +10105,47 @@
                     "scdFlag": false,
                     "isMTP": true
                 },
-                "RevAut": {
-                    "LogicType": "Expression",
-                    "Expression": "reverse",
+                "FwdAut_Reset": {
+                    "LogicType": "Reset",
+                    "Expression": null,
                     "Set": null,
+                    "Reset": "stop",
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": true,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": true
+                },
+                "RevAut_Set": {
+                    "LogicType": "Set",
+                    "Expression": null,
+                    "Set": "reverse AND NOT stop",
                     "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": true,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": true
+                },
+                "RevAut_Reset": {
+                    "LogicType": "Reset",
+                    "Expression": null,
+                    "Set": null,
+                    "Reset": "stop",
                     "StateMachine": null,
                     "Comment": "",
                     "DelayVariable": null,
@@ -10151,6 +10339,24 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
+                "stopped": {
+                    "LogicType": "Expression",
+                    "Expression": "NOT FwdFbk AND NOT RevFbk",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
                 "Trip": {
                     "LogicType": "Expression",
                     "Expression": "NOT driveTrip",
@@ -10248,6 +10454,24 @@
                     "Reset": null,
                     "StateMachine": null,
                     "Comment": "reset = False at the end of the FB",
+                    "DelayVariable": null,
+                    "SetDelayVariable": null,
+                    "ResetDelayVariable": null,
+                    "DelayTimerNumber": null,
+                    "SetDelayTimerNumber": null,
+                    "ResetDelayTimerNumber": null,
+                    "mtpSignal": false,
+                    "mtpFlag": true,
+                    "scdFlag": false,
+                    "isMTP": false
+                },
+                "stop": {
+                    "LogicType": "Expression",
+                    "Expression": "False",
+                    "Set": null,
+                    "Reset": null,
+                    "StateMachine": null,
+                    "Comment": "stop = False at the end of the FB",
                     "DelayVariable": null,
                     "SetDelayVariable": null,
                     "ResetDelayVariable": null,

@@ -64,45 +64,48 @@
 
 ## Functionality
 
-| Target            | MTP signal | MTP | SCD | Expression                                                                      | Comment                          |
-| ----------------- | ---------- | --- | --- | ------------------------------------------------------------------------------- | -------------------------------- |
-| WQC               | x          | x   |     | 16#FF                                                                           | no QC available (default)        |
-| OSLevel           |            | x   |     | 16#00                                                                           | TODO                             |
-| remote            |            | x   |     | StateChannel                                                                    |                                  |
-| operator          |            | x   |     | StateOpAct                                                                      |                                  |
-| automatic         |            | x   |     | StateAutAct                                                                     |                                  |
-| offline           |            | x   |     | StateOffAct                                                                     |                                  |
-| programSelectsSP  |            | x   |     | SrcChannel                                                                      |                                  |
-| operatorSelectsSP |            | x   |     | NOT SrcChannel                                                                  |                                  |
-| internalSPAct     |            | x   |     | SrcIntAct                                                                       |                                  |
-| manualSPAct       |            | x   |     | SrcManAct                                                                       |                                  |
-| SrcManAut         | x          | x   |     | activateManualSP                                                                |                                  |
-| SrcIntAut         | x          | x   |     | activateDynamicSP OR activateFixedSP                                            |                                  |
-| fixedSPAct        |            | x   |     | Set: activateFixedSP                                                            | Only relevant if internalSPAct   |
-|                   |            |     |     | Reset: activateDynamicSP                                                        |                                  |
-| dynamicSPAct      |            | x   |     | NOT fixedSPAct                                                                  | Only relevant if internalSPAct   |
-| PV                | x          | x   |     | scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin)           |                                  |
-| valueOut          |            | x   |     | PV                                                                              |                                  |
-| PVSclMin          | x          | x   |     | scaleMin                                                                        |                                  |
-| PVSclMax          | x          | x   |     | scaleMax                                                                        |                                  |
-| PVUnit            | x          | x   |     | valueUnit                                                                       |                                  |
-| SPInt             | x          | x   |     | (dynamicSP * BOOL_TO_REAL(dynamicSPAct)) + (fixedSP * BOOL_TO_REAL(fixedSPAct)) |                                  |
-| SPSclMin          | x          | x   |     | scaleMin                                                                        | SP and PV should have same scale |
-| SPSclMax          | x          | x   |     | scaleMax                                                                        | SP and PV should have same scale |
-| SPUnit            | x          | x   |     | valueUnit                                                                       | SP and PV should have same unit  |
-| SPIntMin          | x          | x   |     | scaleMin                                                                        | no limits for now                |
-| SPIntMax          | x          | x   |     | scaleMax                                                                        | no limits for now                |
-| SPManMin          | x          | x   |     | scaleMin                                                                        | no limits for now                |
-| SPManMax          | x          | x   |     | scaleMax                                                                        | no limits for now                |
-| setpointOut       |            | x   |     | SP                                                                              |                                  |
-| manipulatedValue  |            | x   |     | MV                                                                              |                                  |
-| MVMin             | x          | x   |     | scaleMinMV                                                                      |                                  |
-| MVMax             | x          | x   |     | scaleMaxMV                                                                      |                                  |
-| MVUnit            | x          | x   |     | manipulatedValueUnit                                                            |                                  |
-| MVSclMin          | x          | x   |     | scaleMinMV                                                                      |                                  |
-| MVSclMax          | x          | x   |     | scaleMaxMV                                                                      |                                  |
-| proportional      |            | x   |     | SyncWith P                                                                      |                                  |
-| integration       |            | x   |     | SyncWith Ti                                                                     |                                  |
-| derivation        |            | x   |     | SyncWith Td                                                                     |                                  |
-|                   |            |     |     |                                                                                 |                                  |
+| Target            | MTP signal | MTP | SCD | Expression                                                                      | Comment                                      |
+| ----------------- | ---------- | --- | --- | ------------------------------------------------------------------------------- | -------------------------------------------- |
+| WQC               | x          | x   |     | 16#FF                                                                           | no QC available (default)                    |
+| OSLevel           |            | x   |     | 16#00                                                                           | TODO                                         |
+| remote            |            | x   |     | StateChannel                                                                    |                                              |
+| operator          |            | x   |     | StateOpAct                                                                      |                                              |
+| automatic         |            | x   |     | StateAutAct                                                                     |                                              |
+| offline           |            | x   |     | StateOffAct                                                                     |                                              |
+| programSelectsSP  |            | x   |     | SrcChannel                                                                      |                                              |
+| operatorSelectsSP |            | x   |     | NOT SrcChannel                                                                  |                                              |
+| internalSPAct     |            | x   |     | SrcIntAct                                                                       |                                              |
+| manualSPAct       |            | x   |     | SrcManAct                                                                       |                                              |
+| SrcManAut         | x          | x   |     | activateManualSP                                                                |                                              |
+| SrcIntAut         | x          | x   |     | activateDynamicSP OR activateFixedSP                                            |                                              |
+| fixedSPAct        |            | x   |     | Set: activateFixedSP                                                            | Only relevant if internalSPAct               |
+|                   |            |     |     | Reset: activateDynamicSP                                                        |                                              |
+| dynamicSPAct      |            | x   |     | NOT fixedSPAct                                                                  | Only relevant if internalSPAct               |
+| PV                | x          | x   |     | scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin)           |                                              |
+| valueOut          |            | x   |     | PV                                                                              |                                              |
+| PVSclMin          | x          | x   |     | scaleMin                                                                        |                                              |
+| PVSclMax          | x          | x   |     | scaleMax                                                                        |                                              |
+| PVUnit            | x          | x   |     | valueUnit                                                                       |                                              |
+| SPInt             | x          | x   |     | (dynamicSP * BOOL_TO_REAL(dynamicSPAct)) + (fixedSP * BOOL_TO_REAL(fixedSPAct)) |                                              |
+| SPSclMin          | x          | x   |     | scaleMin                                                                        | SP and PV should have same scale             |
+| SPSclMax          | x          | x   |     | scaleMax                                                                        | SP and PV should have same scale             |
+| SPUnit            | x          | x   |     | valueUnit                                                                       | SP and PV should have same unit              |
+| SPIntMin          | x          | x   |     | scaleMin                                                                        | no limits for now                            |
+| SPIntMax          | x          | x   |     | scaleMax                                                                        | no limits for now                            |
+| SPManMin          | x          | x   |     | scaleMin                                                                        | no limits for now                            |
+| SPManMax          | x          | x   |     | scaleMax                                                                        | no limits for now                            |
+| setpointOut       |            | x   |     | SP                                                                              |                                              |
+| manipulatedValue  |            | x   |     | MV                                                                              |                                              |
+| MVMin             | x          | x   |     | scaleMinMV                                                                      |                                              |
+| MVMax             | x          | x   |     | scaleMaxMV                                                                      |                                              |
+| MVUnit            | x          | x   |     | manipulatedValueUnit                                                            |                                              |
+| MVSclMin          | x          | x   |     | scaleMinMV                                                                      |                                              |
+| MVSclMax          | x          | x   |     | scaleMaxMV                                                                      |                                              |
+| proportional      |            | x   |     | SyncWith P                                                                      |                                              |
+| integration       |            | x   |     | SyncWith Ti                                                                     |                                              |
+| derivation        |            | x   |     | SyncWith Td                                                                     |                                              |
+| activateManualSP  |            | x   |     | False                                                                           | Reset activateManualSP at the end of the FB  |
+| activateDynamicSP |            | x   |     | False                                                                           | Reset activateDynamicSP at the end of the FB |
+| activateFixedSP   |            | x   |     | False                                                                           | Reset activateFixedSP at the end of the FB   |
+|                   |            |     |     |                                                                                 |                                              |
 

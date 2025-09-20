@@ -86,7 +86,7 @@ TODO: is positionOut the command or the actual position? If actual then confusio
 | CloseAut              | x          | x   |     | NOT OpenAut                                                                                     |                                                             |
 | OpenFbkCalc           | x          | x   |     | simulate OR NOT hasFbOpen                                                                       |                                                             |
 | CloseFbkCalc          | x          | x   |     | simulate OR NOT hasFbClose                                                                      |                                                             |
-| PosFbkCalc            | x          |     |     | simulate                                                                                        |                                                             |
+| PosFbkCalc            | x          | x   |     | simulate                                                                                        |                                                             |
 | fbOpenSimulated       |            | x   |     | OpenFbkCalc AND OpenAut for simulateDelay                                                       | if no FbOpen connected then treat it as a simulation        |
 | fbCloseSimulated      |            | x   |     | CloseFbkCalc AND NOT OpenAut for simulateDelay                                                  | if no FbClose connected then treat it as a simulation       |
 | OpenFbk               | x          | x   |     | (feedbackOpen AND NOT OpenFbkCalc) OR (fbOpenSimulated AND OpenFbkCalc)                         |                                                             |
@@ -103,4 +103,7 @@ TODO: is positionOut the command or the actual position? If actual then confusio
 | PosFbk                | x          | x   |     | (positionOut * BOOL_TO_REAL(simulate)) + (feedbackPosition * BOOL_TO_REAL(simulate))            |                                                             |
 | positionOut           | x          | x   |     | Pos                                                                                             |                                                             |
 | reset                 |            | x   |     | False                                                                                           | reset = False at the end of the FB                          |
+| activateManualSource  |            | x   |     | False                                                                                           | reset activateManualSource at the end of the FB             |
+| activateDynamicSource |            | x   |     | False                                                                                           | reset activateDynamicSource at the end of the FB            |
+| activateFixedSource   |            | x   |     | False                                                                                           | reset activateFixedSource at the end of the FB              |
 |                       |            |     |     |                                                                                                 |                                                             |

@@ -152,6 +152,9 @@ MVMax := scaleMaxMV;
 MVUnit := manipulatedValueUnit;
 MVSclMin := scaleMinMV;
 MVSclMax := scaleMaxMV;
+activateManualSP := False;
+activateDynamicSP := False;
+activateFixedSP := False;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
 MTPBase.SrcManAut := SrcManAut;
