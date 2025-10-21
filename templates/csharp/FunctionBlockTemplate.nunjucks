@@ -1,0 +1,509 @@
+{#- Output file will be {{ Name }}.cs -#}
+// ==============================================================================
+// {{ Name }} - Function Block
+// ==============================================================================
+// Generated from Open Process Library specification
+// Template: csharp
+// ==============================================================================
+
+using System;
+
+namespace OpenProcessLibrary
+{
+    /// <summary>
+    /// {{ Name }} function block
+{%- if isFlattened %}
+    /// Flattened implementation including {{ mtpBlockName }} interface
+{%- endif %}
+    /// </summary>
+    public class {{ Name }}
+    {
+{%- if isFlattened %}
+        // ======================================================================
+        // {{ mtpSectionMarker }} Variables (from {{ mtpBlockName }})
+        // ======================================================================
+{%- if FlattenedVariables.mtpInOutVars.length > 0 %}
+        // InOut Variables
+{%- for variable in FlattenedVariables.mtpInOutVars %}
+        [Tag] public {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+{%- endif %}
+{%- if FlattenedVariables.mtpInputVars.length > 0 %}
+        // Input Variables
+{%- for variable in FlattenedVariables.mtpInputVars %}
+        [Tag] public {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+{%- endif %}
+{%- if FlattenedVariables.mtpOutputVars.length > 0 %}
+        // Output Variables
+{%- for variable in FlattenedVariables.mtpOutputVars %}
+        [Tag] public {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+{%- endif %}
+{%- if FlattenedVariables.mtpLocalVars.length > 0 %}
+        // Local Variables
+{%- for variable in FlattenedVariables.mtpLocalVars %}
+        [Tag] private {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+{%- endif %}
+
+        // ======================================================================
+        // Extended Variables (OPL additions)
+        // ======================================================================
+{%- if FlattenedVariables.libraryInOutVars.length > 0 %}
+        // InOut Variables
+{%- for variable in FlattenedVariables.libraryInOutVars %}
+        [Tag] public {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+{%- endif %}
+{%- if FlattenedVariables.libraryInputVars.length > 0 %}
+        // Input Variables
+{%- for variable in FlattenedVariables.libraryInputVars %}
+        [Tag] public {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+{%- endif %}
+{%- if FlattenedVariables.libraryOutputVars.length > 0 %}
+        // Output Variables
+{%- for variable in FlattenedVariables.libraryOutputVars %}
+        [Tag] public {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+{%- endif %}
+{%- if FlattenedVariables.libraryLocalVars.length > 0 %}
+        // Local Variables
+{%- for variable in FlattenedVariables.libraryLocalVars %}
+        [Tag] private {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+{%- endif %}
+
+        // Control Variables
+        private bool first_scan = true;
+        private bool second_scan = false;
+{%- if FlattenedDelayTimerCount > 0 %}
+        // Delay timers
+{%- for i in range(1, FlattenedDelayTimerCount + 1) %}
+        private TON DelayTimer{{ i }} = new TON();
+{%- endfor %}
+{%- endif %}
+        // Helper variables for sync detection
+{%- for sync in FlattenedSyncs %}
+        private {{ Variables[sync.name]['Data Type'] | csharpType }} {{ sync.SyncVariable }}Last;
+{%- endfor %}
+{%- else %}
+        // ======================================================================
+        // InOut Variables
+        // ======================================================================
+{%- for variable in inoutVars %}
+        public {{ variable['Data Type'] | csharpType }} {{ variable.name }};
+{%- endfor %}
+
+        // ======================================================================
+        // Input Variables
+        // ======================================================================
+{%- for variable in inputVars %}
+        public {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+
+        // ======================================================================
+        // Output Variables
+        // ======================================================================
+{%- for variable in outputVars %}
+        public {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+
+        // ======================================================================
+        // Local Variables
+        // ======================================================================
+        private bool first_scan = true;
+        private bool second_scan = false;
+{%- for variable in localVars %}
+        private {{ variable['Data Type'] | csharpType }} {{ variable.name }}{%- if variable.Default and variable.Default != "" %} = {{ variable.Default | csharpValue(variable['Data Type']) }}{%- endif %};
+{%- endfor %}
+{%- if DelayTimerCount > 0 %}
+        // Delay timers
+{%- for i in range(1, DelayTimerCount + 1) %}
+        private TON DelayTimer{{ i }} = new TON();
+{%- endfor %}
+{%- endif %}
+        // Temporary variables for MTP base interface access
+{%- for variable in mtpBaseVarsUsed %}
+        private {{ variable['Data Type'] | csharpType }} {{ variable.name }};
+{%- endfor %}
+        // Helper variables for sync detection
+{%- for sync in syncs %}
+        private {{ Variables[sync.name]['Data Type'] | csharpType }} {{ sync.SyncVariable }}Last;
+{%- endfor %}
+{%- endif %}
+
+        // ======================================================================
+        // Constructor
+        // ======================================================================
+        public {{ Name }}()
+        {
+            // Initialize default values
+{%- if isFlattened %}
+{%- for variable in FlattenedVariables.mtpInputVars %}
+    {%- if variable.Default and variable.Default != "" %}
+            this.{{ variable.name }} = {{ variable.Default | csharpValue(variable['Data Type']) }};
+    {%- endif %}
+{%- endfor %}
+{%- for variable in FlattenedVariables.mtpOutputVars %}
+    {%- if variable.Default and variable.Default != "" %}
+            this.{{ variable.name }} = {{ variable.Default | csharpValue(variable['Data Type']) }};
+    {%- endif %}
+{%- endfor %}
+{%- for variable in FlattenedVariables.mtpLocalVars %}
+    {%- if variable.Default and variable.Default != "" %}
+            this.{{ variable.name }} = {{ variable.Default | csharpValue(variable['Data Type']) }};
+    {%- endif %}
+{%- endfor %}
+{%- for variable in FlattenedVariables.libraryInputVars %}
+    {%- if variable.Default and variable.Default != "" %}
+            this.{{ variable.name }} = {{ variable.Default | csharpValue(variable['Data Type']) }};
+    {%- endif %}
+{%- endfor %}
+{%- for variable in FlattenedVariables.libraryOutputVars %}
+    {%- if variable.Default and variable.Default != "" %}
+            this.{{ variable.name }} = {{ variable.Default | csharpValue(variable['Data Type']) }};
+    {%- endif %}
+{%- endfor %}
+{%- for variable in FlattenedVariables.libraryLocalVars %}
+    {%- if variable.Default and variable.Default != "" %}
+            this.{{ variable.name }} = {{ variable.Default | csharpValue(variable['Data Type']) }};
+    {%- endif %}
+{%- endfor %}
+{%- else %}
+{%- for variable in inputVars %}
+    {%- if variable.Default and variable.Default != "" %}
+            this.{{ variable.name }} = {{ variable.Default | csharpValue(variable['Data Type']) }};
+    {%- endif %}
+{%- endfor %}
+{%- for variable in outputVars %}
+    {%- if variable.Default and variable.Default != "" %}
+            this.{{ variable.name }} = {{ variable.Default | csharpValue(variable['Data Type']) }};
+    {%- endif %}
+{%- endfor %}
+{%- for variable in localVars %}
+    {%- if variable.Default and variable.Default != "" %}
+            this.{{ variable.name }} = {{ variable.Default | csharpValue(variable['Data Type']) }};
+    {%- endif %}
+{%- endfor %}
+{%- endif %}
+        }
+
+        // ======================================================================
+        // Helper Methods - PLC-style type conversions
+        // ======================================================================
+        /// <summary>
+        /// Converts a WORD (ushort) to REAL (double)
+        /// </summary>
+        private static double WORD_TO_REAL(ushort value)
+        {
+            return (double)value;
+        }
+
+        /// <summary>
+        /// Converts a BOOL (bool) to REAL (double)
+        /// Returns 1.0 for true, 0.0 for false
+        /// </summary>
+        private static double BOOL_TO_REAL(bool value)
+        {
+            return value ? 1.0 : 0.0;
+        }
+
+        // ======================================================================
+        // Execute - Main function block logic
+        // ======================================================================
+        public void Execute()
+        {
+            // STARTUP - SECOND SCAN
+            if (second_scan)
+            {
+{%- if not isFlattened %}
+                {%- if Name in ['AnalogValve', 'ReversingMotor', 'SolenoidValve', 'VFD'] %}
+                // switch control mode back to operator
+                MTPBase.StateChannel = false;
+                // reset command to switch to auto mode
+                MTPBase.StateAutAut = false;
+                {%- endif %}
+{%- else %}
+                {%- if Name in ['AnalogValve', 'ReversingMotor', 'SolenoidValve', 'VFD'] %}
+                // switch control mode back to operator
+                StateChannel = false;
+                // reset command to switch to auto mode
+                StateAutAut = false;
+                {%- endif %}
+{%- endif %}
+                // end second scan
+                second_scan = false;
+            }
+
+            // STARTUP - FIRST SCAN
+            if (first_scan)
+            {
+{%- if not isFlattened %}
+                {%- if Name in ['AnalogValve', 'ReversingMotor', 'SolenoidValve', 'VFD'] %}
+                // allow program control for the mode
+                MTPBase.StateChannel = true;
+                // switch to auto mode
+                MTPBase.StateAutAut = true;
+                // send a reset (will be reset automatically) (TODO: why is this needed?)
+                reset = true;
+                {%- endif %}
+{%- else %}
+                {%- if Name in ['AnalogValve', 'ReversingMotor', 'SolenoidValve', 'VFD'] %}
+                // allow program control for the mode
+                StateChannel = true;
+                // switch to auto mode
+                StateAutAut = true;
+                // send a reset (will be reset automatically) (TODO: why is this needed?)
+                reset = true;
+                {%- endif %}
+{%- endif %}
+                // prepare second scan
+                first_scan = false;
+                second_scan = true;
+            }
+
+{%- if isFlattened %}
+            // ======================================================================
+            // {{ mtpSectionMarker }} Functionality (from {{ mtpBlockName }})
+            // ======================================================================
+{% for func in FlattenedFunctionality.mtpFunctionality -%}
+    {#-###### EXPLANATION ######-#}
+    {%- if func.logicType == 'Explanation' %}
+            // {{ func.comment }}
+    {#-###### EXPRESSION ######-#}
+    {%- elif func.logicType == 'Expression' -%}
+        {#-###### EXPRESSION WITH DELAY ######-#}
+        {%- if func.delayTimerNumber %}
+            DelayTimer{{ func.delayTimerNumber }}.Execute({{ func.expression | csharpExpr }}, TimeSpan.FromSeconds({{ func.delayVariable }}));
+            {{ func.key }} = DelayTimer{{ func.delayTimerNumber }}.Q;
+        {#-###### EXPRESSION WITHOUT DELAY ######-#}
+        {%- else %}
+            {{ func.key }} = {{ func.expression | csharpExpr }};
+        {%- endif -%}
+    {#-###### SET ######-#}
+    {%- elif func.logicType == 'Set' %}
+        {#- Handle SET with optional delay -#}
+        {%- if func.setDelayTimerNumber %}
+            DelayTimer{{ func.setDelayTimerNumber }}.Execute({{ func.set | safe | csharpExpr }}, TimeSpan.FromSeconds({{ func.setDelayVariable }}));
+        {%- endif %}
+        {#- Generate the actual Set logic #}
+            if ({% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | csharpExpr }}{% endif %})
+            {
+                {{ func.key | replace('_Set', '') }} = true;
+            }
+    {#-###### RESET ######-#}
+    {%- elif func.logicType == 'Reset' %}
+        {#- Handle RESET with optional delay -#}
+        {%- if func.resetDelayTimerNumber %}
+            DelayTimer{{ func.resetDelayTimerNumber }}.Execute({{ func.reset | safe | csharpExpr }}, TimeSpan.FromSeconds({{ func.resetDelayVariable }}));
+        {%- endif %}
+        {#- Generate the actual Reset logic #}
+            if ({% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | csharpExpr }}{% endif %})
+            {
+                {{ func.key | replace('_Reset', '') }} = false;
+            }
+    {#-###### STATE MACHINE ######-#}
+    {%- elif func.logicType == 'StateMachine' %}
+        {#- Generate state machine delay timers first -#}
+        {%- for stateName, stateData in func.stateMachine %}
+            {%- for targetState, transitionData in stateData.Transitions %}
+                {%- if transitionData.DelayTimerNumber %}
+            DelayTimer{{ transitionData.DelayTimerNumber }}.Execute({{ transitionData.Condition | safe | csharpExpr }}, TimeSpan.FromSeconds({{ transitionData.DelayVariable }}));
+                {%- endif %}
+            {%- endfor %}
+        {%- endfor %}
+        {#- Generate state machine switch statement #}
+            switch ({{ func.key }})
+            {
+        {%- for stateName, stateData in func.stateMachine %}
+                case {{ stateName }}: // {{ stateData.Name }}
+            {%- for targetState, transitionData in stateData.Transitions %}
+                    if ({% if transitionData.DelayTimerNumber %}DelayTimer{{ transitionData.DelayTimerNumber }}.Q{% else %}{{ transitionData.Condition | safe | csharpExpr }}{% endif %})
+                    {
+                        {{ func.key }} = {{ targetState }};
+                    }
+            {%- endfor %}
+                    break;
+        {%- endfor %}
+            }
+    {#-###### BLANK LINE ######-#}
+    {%- elif func.logicType == 'BlankLine' %}
+
+    {% endif -%}
+{%- endfor %}
+
+            // ======================================================================
+            // Extended Functionality (OPL additions)
+            // ======================================================================
+{% for func in FlattenedFunctionality.libraryFunctionality -%}
+    {#-###### EXPLANATION ######-#}
+    {%- if func.logicType == 'Explanation' %}
+            // {{ func.comment }}
+    {#-###### EXPRESSION ######-#}
+    {%- elif func.logicType == 'Expression' -%}
+        {#-###### EXPRESSION WITH DELAY ######-#}
+        {%- if func.delayTimerNumber %}
+            DelayTimer{{ func.delayTimerNumber }}.Execute({{ func.expression | csharpExpr }}, TimeSpan.FromSeconds({{ func.delayVariable }}));
+            {{ func.key }} = DelayTimer{{ func.delayTimerNumber }}.Q;
+        {#-###### EXPRESSION WITHOUT DELAY ######-#}
+        {%- else %}
+            {{ func.key }} = {{ func.expression | csharpExpr }};
+        {%- endif -%}
+    {#-###### SET ######-#}
+    {%- elif func.logicType == 'Set' %}
+        {#- Handle SET with optional delay -#}
+        {%- if func.setDelayTimerNumber %}
+            DelayTimer{{ func.setDelayTimerNumber }}.Execute({{ func.set | safe | csharpExpr }}, TimeSpan.FromSeconds({{ func.setDelayVariable }}));
+        {%- endif %}
+        {#- Generate the actual Set logic #}
+            if ({% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | csharpExpr }}{% endif %})
+            {
+                {{ func.key | replace('_Set', '') }} = true;
+            }
+    {#-###### RESET ######-#}
+    {%- elif func.logicType == 'Reset' %}
+        {#- Handle RESET with optional delay -#}
+        {%- if func.resetDelayTimerNumber %}
+            DelayTimer{{ func.resetDelayTimerNumber }}.Execute({{ func.reset | safe | csharpExpr }}, TimeSpan.FromSeconds({{ func.resetDelayVariable }}));
+        {%- endif %}
+        {#- Generate the actual Reset logic #}
+            if ({% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | csharpExpr }}{% endif %})
+            {
+                {{ func.key | replace('_Reset', '') }} = false;
+            }
+    {#-###### STATE MACHINE ######-#}
+    {%- elif func.logicType == 'StateMachine' %}
+        {#- Generate state machine delay timers first -#}
+        {%- for stateName, stateData in func.stateMachine %}
+            {%- for targetState, transitionData in stateData.Transitions %}
+                {%- if transitionData.DelayTimerNumber %}
+            DelayTimer{{ transitionData.DelayTimerNumber }}.Execute({{ transitionData.Condition | safe | csharpExpr }}, TimeSpan.FromSeconds({{ transitionData.DelayVariable }}));
+                {%- endif %}
+            {%- endfor %}
+        {%- endfor %}
+        {#- Generate state machine switch statement #}
+            switch ({{ func.key }})
+            {
+        {%- for stateName, stateData in func.stateMachine %}
+                case {{ stateName }}: // {{ stateData.Name }}
+            {%- for targetState, transitionData in stateData.Transitions %}
+                    if ({% if transitionData.DelayTimerNumber %}DelayTimer{{ transitionData.DelayTimerNumber }}.Q{% else %}{{ transitionData.Condition | safe | csharpExpr }}{% endif %})
+                    {
+                        {{ func.key }} = {{ targetState }};
+                    }
+            {%- endfor %}
+                    break;
+        {%- endfor %}
+            }
+    {#-###### BLANK LINE ######-#}
+    {%- elif func.logicType == 'BlankLine' %}
+
+    {% endif -%}
+{%- endfor %}
+{%- else %}
+            // sync variables with MTPBase
+            // - a variable on MTPBase that can be changed from the HMI
+            // - an input on the wrapper block
+            // how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+            // if yes then copy it to the input on the wrapper block
+            // if not then copy the wrapper block input to the MTPBase variable
+{%- for sync in syncs %}
+
+            // Sync {{ sync.name }} with MTPBase.{{ sync.SyncVariable }}
+            if ({{ sync.SyncVariable }}Last != MTPBase.{{ sync.SyncVariable }})
+            {
+                // MTPBase variable changed (from HMI) - copy to wrapper input
+                {{ sync.name }} = MTPBase.{{ sync.SyncVariable }};
+            }
+            else
+            {
+                // MTPBase not changed - always copy wrapper input to MTPBase
+                MTPBase.{{ sync.SyncVariable }} = {{ sync.name }};
+            }
+            {{ sync.SyncVariable }}Last = MTPBase.{{ sync.SyncVariable }};
+{%- endfor %}
+
+            // copy from and to the MTPBase
+            // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
+{%- for variable in mtpBaseVarsWrite %}
+            MTPBase.{{ variable.name }} = {{ variable.name }};
+{%- endfor %}
+
+{%- for variable in mtpBaseVarsRead %}
+            {{ variable.name }} = MTPBase.{{ variable.name }};
+{%- endfor %}
+
+            // Functionality
+{%- endif %}
+{%- if not isFlattened %}
+{% for func in allFunctionality -%}
+    {#-###### EXPLANATION ######-#}
+    {%- if func.logicType == 'Explanation' %}
+            // {{ func.comment }}
+    {#-###### EXPRESSION ######-#}
+    {%- elif func.logicType == 'Expression' -%}
+        {#-###### EXPRESSION WITH DELAY ######-#}
+        {%- if func.delayTimerNumber %}
+            DelayTimer{{ func.delayTimerNumber }}.Execute({{ func.expression | csharpExpr }}, TimeSpan.FromSeconds({{ func.delayVariable }}));
+            {{ func.key }} = DelayTimer{{ func.delayTimerNumber }}.Q;
+        {#-###### EXPRESSION WITHOUT DELAY ######-#}
+        {%- else %}
+            {{ func.key }} = {{ func.expression | csharpExpr }};
+        {%- endif -%}
+    {#-###### SET ######-#}
+    {%- elif func.logicType == 'Set' %}
+        {#- Handle SET with optional delay -#}
+        {%- if func.setDelayTimerNumber %}
+            DelayTimer{{ func.setDelayTimerNumber }}.Execute({{ func.set | safe | csharpExpr }}, TimeSpan.FromSeconds({{ func.setDelayVariable }}));
+        {%- endif %}
+        {#- Generate the actual Set logic #}
+            if ({% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | csharpExpr }}{% endif %})
+            {
+                {{ func.key | replace('_Set', '') }} = true;
+            }
+    {#-###### RESET ######-#}
+    {%- elif func.logicType == 'Reset' %}
+        {#- Handle RESET with optional delay -#}
+        {%- if func.resetDelayTimerNumber %}
+            DelayTimer{{ func.resetDelayTimerNumber }}.Execute({{ func.reset | safe | csharpExpr }}, TimeSpan.FromSeconds({{ func.resetDelayVariable }}));
+        {%- endif %}
+        {#- Generate the actual Reset logic #}
+            if ({% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | csharpExpr }}{% endif %})
+            {
+                {{ func.key | replace('_Reset', '') }} = false;
+            }
+    {#-###### STATE MACHINE ######-#}
+    {%- elif func.logicType == 'StateMachine' %}
+        {#- Generate state machine delay timers first -#}
+        {%- for stateName, stateData in func.stateMachine %}
+            {%- for targetState, transitionData in stateData.Transitions %}
+                {%- if transitionData.DelayTimerNumber %}
+            DelayTimer{{ transitionData.DelayTimerNumber }}.Execute({{ transitionData.Condition | safe | csharpExpr }}, TimeSpan.FromSeconds({{ transitionData.DelayVariable }}));
+                {%- endif %}
+            {%- endfor %}
+        {%- endfor %}
+        {#- Generate state machine switch statement #}
+            switch ({{ func.key }})
+            {
+        {%- for stateName, stateData in func.stateMachine %}
+                case {{ stateName }}: // {{ stateData.Name }}
+            {%- for targetState, transitionData in stateData.Transitions %}
+                    if ({% if transitionData.DelayTimerNumber %}DelayTimer{{ transitionData.DelayTimerNumber }}.Q{% else %}{{ transitionData.Condition | safe | csharpExpr }}{% endif %})
+                    {
+                        {{ func.key }} = {{ targetState }};
+                    }
+            {%- endfor %}
+                    break;
+        {%- endfor %}
+            }
+    {#-###### BLANK LINE ######-#}
+    {%- elif func.logicType == 'BlankLine' %}
+
+    {% endif -%}
+{%- endfor %}
+{%- endif %}
+        }
+    }
+}

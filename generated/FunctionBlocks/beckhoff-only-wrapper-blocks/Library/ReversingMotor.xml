@@ -33,9 +33,9 @@
             <variable name="reverseActive"><type><BOOL /></type></variable>
             <variable name="stopped"><type><BOOL /></type></variable>
             <variable name="remote"><type><BOOL /></type></variable>
-            <variable name="operator"><type><BOOL /></type></variable>
-            <variable name="automatic"><type><BOOL /></type></variable>
-            <variable name="offline"><type><BOOL /></type></variable>
+            <variable name="operatorMode"><type><BOOL /></type></variable>
+            <variable name="automaticMode"><type><BOOL /></type></variable>
+            <variable name="offlineMode"><type><BOOL /></type></variable>
         </outputVars>
         <localVars>
             <variable name="first_scan"><type><BOOL /></type><initialValue><simpleValue value="TRUE" /></initialValue></variable>
@@ -154,9 +154,9 @@ END_IF;
 WQC := 16#FF;
 OSLevel := 16#00;
 remote := StateChannel;
-operator := StateOpAct;
-automatic := StateAutAct;
-offline := StateOffAct;
+operatorMode := StateOpAct;
+automaticMode := StateAutAct;
+offlineMode := StateOffAct;
 PermEn := True;
 IntlEn := True;
 ProtEn := True;

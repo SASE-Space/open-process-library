@@ -6,52 +6,52 @@
 
 ## Variable Table
 
-| Variable            | MTP | SCD | Var Type | Data Type | Default | Description                                                    | SCD Name | SCD Terminal Name          |
-| ------------------- | --- | --- | -------- | --------- | ------- | -------------------------------------------------------------- | -------- | -------------------------- |
-| MTPBase             | x   | x   | InOut    | AnaMon    |         |                                                                |          |                            |
-| id                  | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects  |          |                            |
-| rawValue            | x   | x   | Input    | Word      |         | Raw Input Value                                                | X        | Normal function input      |
-| valueUnit           | x   | x   | Input    | Int       |         | Value Unit                                                     |          |                            |
-| scaleMin            | x   | x   | Input    | Real      | 0       | Scale Min Limit                                                |          |                            |
-| scaleMax            | x   | x   | Input    | Real      | 100     | Scale Max Limit                                                |          |                            |
-| alarmHigh           | x   | x   | Input    | Real      | 90      | Limit Value for Alarm High (not accessible in Beckhoff MTP)    |          |                            |
-| warningHigh         | x   | x   | Input    | Real      | 80      | Limit Value for Warning High (not accessible in Beckhoff MTP)                                   |          |                            |
-| toleranceHigh       | x   |     | Input    | Real      | 60      | Limit Value for Tolerance High (not accessible in Beckhoff MTP)                                 |          |                            |
-| toleranceLow        | x   |     | Input    | Real      | 40      | Limit Value for Tolerance Low (not accessible in Beckhoff MTP)                                 |          |                            |
-| warningLow          | x   | x   | Input    | Real      | 20      | Limit Value for Warning Low (not accessible in Beckhoff MTP)                                  |          |                            |
-| alarmLow            | x   | x   | Input    | Real      | 10      | Limit Value for Alarm Low (not accessible in Beckhoff MTP)                                     |          |                            |
-| alarmHighEn         | x   |     | Input    | Bool      | True    | Alarm High Limit Enabled                                       |          |                            |
-| warningHighEn       | x   |     | Input    | Bool      | True    | Warning High Limit Enabled                                     |          |                            |
-| toleranceHighEn     | x   |     | Input    | Bool      | True    | Tolerance High Limit Enabled                                   |          |                            |
-| toleranceLowEn      | x   |     | Input    | Bool      | True    | Tolerance Low Limit Enabled                                    |          |                            |
-| warningLowEn        | x   |     | Input    | Bool      | True    | Warning Low Limit Enabled                                      |          |                            |
-| alarmLowEn          | x   |     | Input    | Bool      | True    | Alarm Low Limit Enabled                                        |          |                            |
-| blockAlarmHigh      |     | x   | Input    | Bool      |         | Block HH action, but not alarm                                 | FBHH     | Force blocking alarm HH    |
-| surpressAlarmHigh   |     | x   | Input    | Bool      |         | Surpress HH action and alarm                                   | FUHH     | Force suppression alarm HH |
-| surpressWarningHigh |     | x   | Input    | Bool      |         | Surpress WH (there is no action)                               | FUWH     | Force suppression alarm WH |
-| surpresWarningLow   |     | x   | Input    | Bool      |         | Surpress WL (there is no action)                               | FUWL     | Force suppression alarm WL |
-| surpressAlarmLow    |     | x   | Input    | Bool      |         | Surpress LL action and alarm                                   | FULL     | Force suppression alarm LL |
-| blockAlarmLow       |     | x   | Input    | Bool      |         | Block LL action, but not alarm                                 | FBLL     | Force blocking alarm LL    |
-| deadband            | x   | x   | Input    | Real      |         | Deadband for alarms/warnings                                   |          | todo                           |
-| externalFault       | x   | x   | Input    | Bool      |         | Fault indication from outside                                  | XF       | External Fault             |
-| vOut                | x   | x   | Output   | Real      |         | Value                                                          | Y        | Normal function output     |
-| error               | x   | x   | Output   | Bool      |         | Any error active                                               | YF       | Function failed            |
-| alarmHighAction     |     | x   | Output   | Bool      |         | Alarm High Action Active (can be blocked separate from status) | AHH      | Action alarm HH            |
-| alarmHighStatus     | x   | x   | Output   | Bool      |         | Alarm High Limit Active                                        | BHH      | Status alarm HH            |
-| warningHighStatus   | x   | x   | Output   | Bool      |         | Warning High Limit Active                                      | WH       | Warning WH                 |
-| toleranceHighStatus | x   |     | Output   | Bool      |         | Tolerance High Limit Active                                    |          |                            |
-| toleranceLowStatus  | x   |     | Output   | Bool      |         | Tolerance Low Limit Active                                     |          |                            |
-| warningLowStatus    | x   | x   | Output   | Bool      |         | Warning Low Limit Active                                       | WL       | Warning WL                 |
-| alarmLowStatus      | x   | x   | Output   | Bool      |         | Alarm Low Limit Active                                         | BLL      | Status alarm LL            |
-| alarmLowAction      |     | x   | Output   | Bool      |         | Alarm Low Action Active (can be blocked separate from status)  | ALL      | Action alarm LL            |
-| alarmHighBlocked    |     | x   | Output   | Bool      |         | Alarm High Blocked                                             | BBHH     | Action alarm HH is blocked |
-| alarmLowBlocked     |     | x   | Output   | Bool      |         | Alarm Low Blocked                                              | BBLL     | Action alarm LL is blocked |
-| alarmSuppressed     |     | x   | Output   | Bool      |         | True if any alarm is suppressed                                | BU       | Status suppressed          |
-| alarmBlocked        |     | x   | Output   | Bool      |         | True if any action is blocked                                  | BB       | Status blocked             |
-| alarmHighEvent      |     | x   | Output   | Bool      |         | HH, ignoring suppression                                       | BXHH     | Status event HH            |
-| warningHighEvent    |     | x   | Output   | Bool      |         | WH, ignoring suppression                                       | BXH      | Status event H             |
-| warningLowEvent     |     | x   | Output   | Bool      |         | WL, ignoring suppression                                       | BXL      | Status event L             |
-| alarmLowEvent       |     | x   | Output   | Bool      |         | LL, ignoring suppression                                       | BXLL     | Status event LL            |
+| Variable            | MTP | SCD | Var Type | Data Type | Default | Description                                                     | SCD Name | SCD Terminal Name          |
+| ------------------- | --- | --- | -------- | --------- | ------- | --------------------------------------------------------------- | -------- | -------------------------- |
+| MTPBase             | x   | x   | InOut    | AnaMon    |         |                                                                 |          |                            |
+| id                  | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects   |          |                            |
+| rawValue            | x   | x   | Input    | Word      |         | Raw Input Value                                                 | X        | Normal function input      |
+| valueUnit           | x   | x   | Input    | Int       |         | Value Unit                                                      |          |                            |
+| scaleMin            | x   | x   | Input    | Real      | 0       | Scale Min Limit                                                 |          |                            |
+| scaleMax            | x   | x   | Input    | Real      | 100     | Scale Max Limit                                                 |          |                            |
+| alarmHigh           | x   | x   | Input    | Real      | 90      | Limit Value for Alarm High (not accessible in Beckhoff MTP)     |          |                            |
+| warningHigh         | x   | x   | Input    | Real      | 80      | Limit Value for Warning High (not accessible in Beckhoff MTP)   |          |                            |
+| toleranceHigh       | x   |     | Input    | Real      | 60      | Limit Value for Tolerance High (not accessible in Beckhoff MTP) |          |                            |
+| toleranceLow        | x   |     | Input    | Real      | 40      | Limit Value for Tolerance Low (not accessible in Beckhoff MTP)  |          |                            |
+| warningLow          | x   | x   | Input    | Real      | 20      | Limit Value for Warning Low (not accessible in Beckhoff MTP)    |          |                            |
+| alarmLow            | x   | x   | Input    | Real      | 10      | Limit Value for Alarm Low (not accessible in Beckhoff MTP)      |          |                            |
+| alarmHighEn         | x   |     | Input    | Bool      | True    | Alarm High Limit Enabled                                        |          |                            |
+| warningHighEn       | x   |     | Input    | Bool      | True    | Warning High Limit Enabled                                      |          |                            |
+| toleranceHighEn     | x   |     | Input    | Bool      | True    | Tolerance High Limit Enabled                                    |          |                            |
+| toleranceLowEn      | x   |     | Input    | Bool      | True    | Tolerance Low Limit Enabled                                     |          |                            |
+| warningLowEn        | x   |     | Input    | Bool      | True    | Warning Low Limit Enabled                                       |          |                            |
+| alarmLowEn          | x   |     | Input    | Bool      | True    | Alarm Low Limit Enabled                                         |          |                            |
+| blockAlarmHigh      |     | x   | Input    | Bool      |         | Block HH action, but not alarm                                  | FBHH     | Force blocking alarm HH    |
+| surpressAlarmHigh   |     | x   | Input    | Bool      |         | Surpress HH action and alarm                                    | FUHH     | Force suppression alarm HH |
+| surpressWarningHigh |     | x   | Input    | Bool      |         | Surpress WH (there is no action)                                | FUWH     | Force suppression alarm WH |
+| surpresWarningLow   |     | x   | Input    | Bool      |         | Surpress WL (there is no action)                                | FUWL     | Force suppression alarm WL |
+| surpressAlarmLow    |     | x   | Input    | Bool      |         | Surpress LL action and alarm                                    | FULL     | Force suppression alarm LL |
+| blockAlarmLow       |     | x   | Input    | Bool      |         | Block LL action, but not alarm                                  | FBLL     | Force blocking alarm LL    |
+| deadband            | x   | x   | Input    | Real      |         | Deadband for alarms/warnings                                    |          | todo                       |
+| externalFault       | x   | x   | Input    | Bool      |         | Fault indication from outside                                   | XF       | External Fault             |
+| vOut                | x   | x   | Output   | Real      |         | Value                                                           | Y        | Normal function output     |
+| error               | x   | x   | Output   | Bool      |         | Any error active                                                | YF       | Function failed            |
+| alarmHighAction     |     | x   | Output   | Bool      |         | Alarm High Action Active (can be blocked separate from status)  | AHH      | Action alarm HH            |
+| alarmHighStatus     | x   | x   | Output   | Bool      |         | Alarm High Limit Active                                         | BHH      | Status alarm HH            |
+| warningHighStatus   | x   | x   | Output   | Bool      |         | Warning High Limit Active                                       | WH       | Warning WH                 |
+| toleranceHighStatus | x   |     | Output   | Bool      |         | Tolerance High Limit Active                                     |          |                            |
+| toleranceLowStatus  | x   |     | Output   | Bool      |         | Tolerance Low Limit Active                                      |          |                            |
+| warningLowStatus    | x   | x   | Output   | Bool      |         | Warning Low Limit Active                                        | WL       | Warning WL                 |
+| alarmLowStatus      | x   | x   | Output   | Bool      |         | Alarm Low Limit Active                                          | BLL      | Status alarm LL            |
+| alarmLowAction      |     | x   | Output   | Bool      |         | Alarm Low Action Active (can be blocked separate from status)   | ALL      | Action alarm LL            |
+| alarmHighBlocked    |     | x   | Output   | Bool      |         | Alarm High Blocked                                              | BBHH     | Action alarm HH is blocked |
+| alarmLowBlocked     |     | x   | Output   | Bool      |         | Alarm Low Blocked                                               | BBLL     | Action alarm LL is blocked |
+| alarmSuppressed     |     | x   | Output   | Bool      |         | True if any alarm is suppressed                                 | BU       | Status suppressed          |
+| alarmBlocked        |     | x   | Output   | Bool      |         | True if any action is blocked                                   | BB       | Status blocked             |
+| alarmHighEvent      |     | x   | Output   | Bool      |         | HH, ignoring suppression                                        | BXHH     | Status event HH            |
+| warningHighEvent    |     | x   | Output   | Bool      |         | WH, ignoring suppression                                        | BXH      | Status event H             |
+| warningLowEvent     |     | x   | Output   | Bool      |         | WL, ignoring suppression                                        | BXL      | Status event L             |
+| alarmLowEvent       |     | x   | Output   | Bool      |         | LL, ignoring suppression                                        | BXLL     | Status event LL            |
 
 
 

@@ -43,9 +43,9 @@
 | valueOut             | x   |     | Output   | Real      |         | input Value for use in the program                                      |          |                   |
 | manipulatedValue     | x   |     | Output   | Real      |         | manipulated value                                                       |          |                   |
 | remote               | x   |     | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                  |          |                   |
-| operator             | x   |     | Output   | Bool      |         | Operator Mode                                                           |          |                   |
-| automatic            | x   |     | Output   | Bool      |         | Automatic Mode                                                          |          |                   |
-| offline              | x   |     | Output   | Bool      |         | Offline Mode                                                            |          |                   |
+| operatorMode         | x   |     | Output   | Bool      |         | Operator Mode                                                           |          |                   |
+| automaticMode        | x   |     | Output   | Bool      |         | Automatic Mode                                                          |          |                   |
+| offlineMode          | x   |     | Output   | Bool      |         | Offline Mode                                                            |          |                   |
 | error                | x   |     | Output   | Bool      |         | Any error active                                                        |          |                   |
 | alarmHighStatus      | x   |     | Output   | Bool      |         | Alarm High Limit Active                                                 |          |                   |
 | warningHighStatus    | x   |     | Output   | Bool      |         | Warning High Limit Active                                               |          |                   |
@@ -69,9 +69,9 @@
 | WQC               | x          | x   |     | 16#FF                                                                           | no QC available (default)                    |
 | OSLevel           |            | x   |     | 16#00                                                                           | TODO                                         |
 | remote            |            | x   |     | StateChannel                                                                    |                                              |
-| operator          |            | x   |     | StateOpAct                                                                      |                                              |
-| automatic         |            | x   |     | StateAutAct                                                                     |                                              |
-| offline           |            | x   |     | StateOffAct                                                                     |                                              |
+| operatorMode      |            | x   |     | StateOpAct                                                                      |                                              |
+| automaticMode     |            | x   |     | StateAutAct                                                                     |                                              |
+| offlineMode       |            | x   |     | StateOffAct                                                                     |                                              |
 | programSelectsSP  |            | x   |     | SrcChannel                                                                      |                                              |
 | operatorSelectsSP |            | x   |     | NOT SrcChannel                                                                  |                                              |
 | internalSPAct     |            | x   |     | SrcIntAct                                                                       |                                              |

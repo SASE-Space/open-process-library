@@ -51,9 +51,9 @@
 | pulseOpen        | x   | x   | Output   | Bool      |         | one cycle pulse when starting open command                                    | YH       | Pulsed normal function output high |
 | pulseClose       | x   | x   | Output   | Bool      |         | one cycle pulse when ending open command                                      | YL       | Pulsed normal function output low  |
 | remote           | x   | x   | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                        |          |                                    |
-| operator         | x   | x   | Output   | Bool      |         | Operator Mode                                                                 |          |                                    |
-| automatic        | x   | x   | Output   | Bool      |         | Automatic Mode                                                                | BA       | Status auto/man                    |
-| offline          | x   | x   | Output   | Bool      |         | Offline Mode                                                                  |          |                                    |
+| operatorMode     | x   | x   | Output   | Bool      |         | Operator Mode                                                                 |          |                                    |
+| automaticMode    | x   | x   | Output   | Bool      |         | Automatic Mode                                                                | BA       | Status auto/man                    |
+| offlineMode      | x   | x   | Output   | Bool      |         | Offline Mode                                                                  |          |                                    |
 | outside          | x   | x   | Output   | Bool      |         | Outside mode                                                                  | BO       | Status outside                     |
 | error            | x   | x   | Output   | Bool      |         | Any error active                                                              | YF       | Function failed                    |
 | opened           | x   | x   | Output   | Bool      |         | Valve is opened                                                               | BCH      | Output position high confirmed     |
@@ -77,9 +77,9 @@
 | ---------------- | ---------- | --- | --- | --------------------------------------------------------------------------- | ----------------------------------------------------------- |
 | WQC              | x          | x   |     | 16#FF                                                                       | no QC available (default)                                   |
 | remote           |            | x   |     | StateChannel                                                                |                                                             |
-| operator         |            | x   |     | StateOpAct                                                                  |                                                             |
-| automatic        |            | x   |     | StateAutAct                                                                 |                                                             |
-| offline          |            | x   |     | StateOffAct                                                                 |                                                             |
+| operatorMode     |            | x   |     | StateOpAct                                                                  |                                                             |
+| automaticMode    |            | x   |     | StateAutAct                                                                 |                                                             |
+| offlineMode      |            | x   |     | StateOffAct                                                                 |                                                             |
 | PermEn           | x          | x   |     | True                                                                        | Always Enable, Configure permitIn = 0 if no permits         |
 | IntlEn           | x          | x   |     | True                                                                        | Always Enable, Configure interlockIn = 0 if no interlocks   |
 | ProtEn           | x          | x   |     | True                                                                        | Always Enable, Configure protectIn = 0 if no protections    |

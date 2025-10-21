@@ -35,9 +35,9 @@
             <variable name="pulseOpen"><type><BOOL /></type></variable>
             <variable name="pulseClose"><type><BOOL /></type></variable>
             <variable name="remote"><type><BOOL /></type></variable>
-            <variable name="operator"><type><BOOL /></type></variable>
-            <variable name="automatic"><type><BOOL /></type></variable>
-            <variable name="offline"><type><BOOL /></type></variable>
+            <variable name="operatorMode"><type><BOOL /></type></variable>
+            <variable name="automaticMode"><type><BOOL /></type></variable>
+            <variable name="offlineMode"><type><BOOL /></type></variable>
             <variable name="outside"><type><BOOL /></type></variable>
             <variable name="error"><type><BOOL /></type></variable>
             <variable name="opened"><type><BOOL /></type></variable>
@@ -95,9 +95,9 @@ CloseFbk := MTPBase.CloseFbk;
 
 WQC := 16#FF;
 remote := StateChannel;
-operator := StateOpAct;
-automatic := StateAutAct;
-offline := StateOffAct;
+operatorMode := StateOpAct;
+automaticMode := StateAutAct;
+offlineMode := StateOffAct;
 PermEn := True;
 IntlEn := True;
 ProtEn := True;

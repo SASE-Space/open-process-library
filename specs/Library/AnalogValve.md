@@ -33,9 +33,9 @@
 | positionOutDevice     | x   |     | Output   | Word      |         | Position Command to device (0-100%)                                       |          |                                |
 | positionOut           | x   |     | Output   | Real      |         | Position Command for use in program                                       |          |                                |
 | remote                | x   |     | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                    |          |                                |
-| operator              | x   |     | Output   | Bool      |         | Operator Mode                                                             |          |                                |
-| automatic             | x   |     | Output   | Bool      |         | Automatic Mode                                                            |          |                                |
-| offline               | x   |     | Output   | Bool      |         | Offline Mode                                                              |          |                                |
+| operatorMode          | x   |     | Output   | Bool      |         | Operator Mode                                                             |          |                                |
+| automaticMode         | x   |     | Output   | Bool      |         | Automatic Mode                                                            |          |                                |
+| offlineMode           | x   |     | Output   | Bool      |         | Offline Mode                                                              |          |                                |
 | error                 | x   | x   | Output   | Bool      |         | Any error active                                                          | YF       | Function failed                |
 | opened                | x   | x   | Output   | Bool      |         | Valve is opened                                                           | BCH      | Output position high confirmed |
 | closed                | x   | x   | Output   | Bool      |         | Valve is closed                                                           | BCL      | Output position low confirmed  |
@@ -61,9 +61,9 @@ TODO: is positionOut the command or the actual position? If actual then confusio
 | WQC                   | x          | x   |     | 16#FF                                                                                           | no QC available (default)                                   |
 | OSLevel               |            | x   |     | 16#00                                                                                           | TODO                                                        |
 | remote                |            | x   |     | StateChannel                                                                                    |                                                             |
-| operator              |            | x   |     | StateOpAct                                                                                      |                                                             |
-| automatic             |            | x   |     | StateAutAct                                                                                     |                                                             |
-| offline               |            | x   |     | StateOffAct                                                                                     |                                                             |
+| operatorMode          |            | x   |     | StateOpAct                                                                                      |                                                             |
+| automaticMode         |            | x   |     | StateAutAct                                                                                     |                                                             |
+| offlineMode           |            | x   |     | StateOffAct                                                                                     |                                                             |
 | programSelectsSource  |            | x   |     | SrcChannel                                                                                      |                                                             |
 | operatorSelectsSource |            | x   |     | NOT SrcChannel                                                                                  |                                                             |
 | internalSourceAct     |            | x   |     | SrcIntAct                                                                                       |                                                             |

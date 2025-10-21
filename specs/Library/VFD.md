@@ -42,9 +42,9 @@
 | reverseActive     | x   |     | Output   | Bool      |         | Motor running reverse                                                     |          |                   |
 | actualSpeed       | x   |     | Output   | Real      |         | Actual motor speed                                                        |          |                   |
 | remote            | x   | x   | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                    |          |                   |
-| operator          | x   | x   | Output   | Bool      |         | Operator Mode                                                             |          |                   |
-| automatic         | x   | x   | Output   | Bool      |         | Automatic Mode                                                            | BA       | Status auto/man   |
-| offline           | x   | x   | Output   | Bool      |         | Offline Mode                                                              |          |                   |
+| operatorMode      | x   | x   | Output   | Bool      |         | Operator Mode                                                             |          |                   |
+| automaticMode     | x   | x   | Output   | Bool      |         | Automatic Mode                                                            | BA       | Status auto/man   |
+| offlineMode       | x   | x   | Output   | Bool      |         | Offline Mode                                                              |          |                   |
 | remoteSource      | x   |     | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                    |          |                   |
 | internalSourceAct | x   |     | Output   | Bool      |         |                                                                           |          |                   |
 | manualSourceAct   | x   |     | Output   | Bool      |         |                                                                           |          |                   |
@@ -60,9 +60,9 @@
 | WQC               | x          | x   |     | 16#FF                                                                    | no QC available (default)                                   |
 | OSLevel           |            | x   |     | 16#00                                                                    | TODO                                                        |
 | remote            |            | x   |     | StateChannel                                                             |                                                             |
-| operator          |            | x   |     | StateOpAct                                                               |                                                             |
-| automatic         |            | x   |     | StateAutAct                                                              |                                                             |
-| offline           |            | x   |     | StateOffAct                                                              |                                                             |
+| operatorMode      |            | x   |     | StateOpAct                                                               |                                                             |
+| automaticMode     |            | x   |     | StateAutAct                                                              |                                                             |
+| offlineMode       |            | x   |     | StateOffAct                                                              |                                                             |
 | remoteSource      |            | x   |     | SrcChannel                                                               |                                                             |
 | internalSourceAct |            | x   |     | SrcIntAct                                                                |                                                             |
 | manualSourceAct   |            | x   |     | SrcManAct                                                                |                                                             |

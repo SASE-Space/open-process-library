@@ -1,0 +1,48 @@
+{#- Output file will be TON.cs -#}
+// ==============================================================================
+// TON Timer Helper Class
+// ==============================================================================
+// Generated from Open Process Library
+// Template: csharp
+// ==============================================================================
+
+using System;
+
+namespace OpenProcessLibrary
+{
+    /// <summary>
+    /// TON (Timer On-Delay) - Implements IEC 61131-3 TON timer
+    /// </summary>
+    public class TON
+    {
+        private DateTime startTime;
+        private bool timing = false;
+
+        public bool Q { get; private set; } = false;
+
+        public void Execute(bool IN, TimeSpan PT)
+        {
+            if (IN && !timing)
+            {
+                // Rising edge - start timing
+                timing = true;
+                startTime = DateTime.Now;
+                Q = false;
+            }
+            else if (IN && timing)
+            {
+                // Continue timing
+                if ((DateTime.Now - startTime) >= PT)
+                {
+                    Q = true;
+                }
+            }
+            else if (!IN)
+            {
+                // Reset on falling edge
+                timing = false;
+                Q = false;
+            }
+        }
+    }
+}

@@ -5000,7 +5000,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "operator": {
+                "operatorMode": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -5013,7 +5013,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "automatic": {
+                "automaticMode": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -5026,7 +5026,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "offline": {
+                "offlineMode": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -5824,7 +5824,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "operator": {
+                "operatorMode": {
                     "LogicType": "Expression",
                     "Expression": "StateOpAct",
                     "Set": null,
@@ -5842,7 +5842,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "automatic": {
+                "automaticMode": {
                     "LogicType": "Expression",
                     "Expression": "StateAutAct",
                     "Set": null,
@@ -5860,7 +5860,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "offline": {
+                "offlineMode": {
                     "LogicType": "Expression",
                     "Expression": "StateOffAct",
                     "Set": null,
@@ -7483,7 +7483,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "operator": {
+                "operatorMode": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -7496,7 +7496,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "automatic": {
+                "automaticMode": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -7509,7 +7509,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "offline": {
+                "offlineMode": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -8232,7 +8232,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "operator": {
+                "operatorMode": {
                     "LogicType": "Expression",
                     "Expression": "StateOpAct",
                     "Set": null,
@@ -8250,7 +8250,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "automatic": {
+                "automaticMode": {
                     "LogicType": "Expression",
                     "Expression": "StateAutAct",
                     "Set": null,
@@ -8268,7 +8268,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "offline": {
+                "offlineMode": {
                     "LogicType": "Expression",
                     "Expression": "StateOffAct",
                     "Set": null,
@@ -9283,7 +9283,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "operator": {
+                "operatorMode": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -9296,7 +9296,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "automatic": {
+                "automaticMode": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -9309,7 +9309,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "offline": {
+                "offlineMode": {
                     "MTP": "x",
                     "SCD": "",
                     "Var Type": "Output",
@@ -9853,7 +9853,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "operator": {
+                "operatorMode": {
                     "LogicType": "Expression",
                     "Expression": "StateOpAct",
                     "Set": null,
@@ -9871,7 +9871,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "automatic": {
+                "automaticMode": {
                     "LogicType": "Expression",
                     "Expression": "StateAutAct",
                     "Set": null,
@@ -9889,7 +9889,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "offline": {
+                "offlineMode": {
                     "LogicType": "Expression",
                     "Expression": "StateOffAct",
                     "Set": null,
@@ -10882,7 +10882,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "operator": {
+                "operatorMode": {
                     "MTP": "x",
                     "SCD": "x",
                     "Var Type": "Output",
@@ -10895,7 +10895,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "automatic": {
+                "automaticMode": {
                     "MTP": "x",
                     "SCD": "x",
                     "Var Type": "Output",
@@ -10908,7 +10908,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "offline": {
+                "offlineMode": {
                     "MTP": "x",
                     "SCD": "x",
                     "Var Type": "Output",
@@ -11541,7 +11541,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "operator": {
+                "operatorMode": {
                     "LogicType": "Expression",
                     "Expression": "StateOpAct",
                     "Set": null,
@@ -11559,7 +11559,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "automatic": {
+                "automaticMode": {
                     "LogicType": "Expression",
                     "Expression": "StateAutAct",
                     "Set": null,
@@ -11577,7 +11577,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "offline": {
+                "offlineMode": {
                     "LogicType": "Expression",
                     "Expression": "StateOffAct",
                     "Set": null,
@@ -12478,7 +12478,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "operator": {
+                "operatorMode": {
                     "MTP": "x",
                     "SCD": "x",
                     "Var Type": "Output",
@@ -12491,7 +12491,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "automatic": {
+                "automaticMode": {
                     "MTP": "x",
                     "SCD": "x",
                     "Var Type": "Output",
@@ -12504,7 +12504,7 @@
                     "isRead": false,
                     "isWrite": true
                 },
-                "offline": {
+                "offlineMode": {
                     "MTP": "x",
                     "SCD": "x",
                     "Var Type": "Output",
@@ -13311,7 +13311,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "operator": {
+                "operatorMode": {
                     "LogicType": "Expression",
                     "Expression": "StateOpAct",
                     "Set": null,
@@ -13329,7 +13329,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "automatic": {
+                "automaticMode": {
                     "LogicType": "Expression",
                     "Expression": "StateAutAct",
                     "Set": null,
@@ -13347,7 +13347,7 @@
                     "scdFlag": false,
                     "isMTP": false
                 },
-                "offline": {
+                "offlineMode": {
                     "LogicType": "Expression",
                     "Expression": "StateOffAct",
                     "Set": null,

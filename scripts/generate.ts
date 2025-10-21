@@ -7,11 +7,103 @@ if (fileFilter) {
 
 const model = { FunctionBlocks: [] }
 const standardTypes = ['Bool', 'Int', 'Real', 'Byte', 'String', 'Word', 'Time']
+
+// Helper function to add custom filters to Nunjucks environment
+function addCustomFilters(env: any) {
+    // Add custom filters for C# code generation
+    env.addFilter('csharpType', function(plcType: string) {
+        const typeMap: { [key: string]: string } = {
+            'Bool': 'bool',
+            'Int': 'int',
+            'Real': 'double',
+            'Byte': 'byte',
+            'String': 'string',
+            'Word': 'ushort',
+            'Time': 'TimeSpan',
+            'BOOL': 'bool',
+            'INT': 'int',
+            'REAL': 'double',
+            'BYTE': 'byte',
+            'STRING': 'string',
+            'WORD': 'ushort',
+            'TIME': 'TimeSpan'
+        }
+        return typeMap[plcType] || plcType
+    })
+
+    env.addFilter('csharpValue', function(value: string, dataType?: string) {
+        // Convert PLC values to C# values
+        const upperValue = value.toUpperCase()
+        if (upperValue === 'TRUE') return 'true'
+        if (upperValue === 'FALSE') return 'false'
+
+        // Convert numeric 1/0 to true/false ONLY for boolean types
+        if (dataType && (dataType === 'Bool' || dataType === 'BOOL' || dataType === 'bool')) {
+            if (value === '1') return 'true'
+            if (value === '0') return 'false'
+        }
+
+        if (value.startsWith('16#')) {
+            // Convert hex notation: 16#FF -> 0xFF
+            return '0x' + value.substring(3)
+        }
+        if (value.startsWith("'") && value.endsWith("'")) {
+            // Convert single quotes to double quotes for strings
+            return '"' + value.substring(1, value.length - 1) + '"'
+        }
+        return value
+    })
+
+    env.addFilter('csharpExpr', function(expr: string) {
+        if (!expr) return expr
+
+        // Convert PLC expressions to C# expressions
+        let result = expr
+
+        // String literals - convert first and save them
+        const stringLiterals: string[] = []
+        result = result.replace(/'([^']*)'/g, (match, content) => {
+            const placeholder = `__STRING_LITERAL_${stringLiterals.length}__`
+            stringLiterals.push('"' + content + '"')
+            return placeholder
+        })
+
+        // Boolean values (case-insensitive) - only outside string literals
+        result = result.replace(/\bTRUE\b/gi, 'true')
+        result = result.replace(/\bFALSE\b/gi, 'false')
+
+        // Comparison operators
+        result = result.replace(/<>/g, '!=')
+
+        // Convert single = to == (for comparison in expressions)
+        // Matches = that isn't preceded by : ! < > and not followed by =
+        // This handles cases like "value = True" -> "value == true"
+        result = result.replace(/([^:!<>=])\s*=\s*([^=])/g, '$1 == $2')
+
+        // Logical operators (case-insensitive)
+        result = result.replace(/\bAND\b/gi, '&&')
+        result = result.replace(/\bOR\b/gi, '||')
+        result = result.replace(/\bNOT\b/gi, '!')
+
+        // Hex values
+        result = result.replace(/16#([0-9A-Fa-f]+)/g, '0x$1')
+
+        // Restore string literals
+        stringLiterals.forEach((literal, index) => {
+            result = result.replace(`__STRING_LITERAL_${index}__`, literal)
+        })
+
+        return result
+    })
+}
+
 // Configure Nunjucks environment
-nunjucks.configure(['templates'], {
+const env = nunjucks.configure(['templates'], {
     autoescape: false,
     throwOnUndefined: false
 })
+addCustomFilters(env)
+
 const stateMachines: { [key: string]: any } = {}
 const generatedFunctionBlocks: { [key: string]: any } = {}
 
@@ -978,7 +1070,8 @@ async function readAndProcessFiles(dirPath: string, isMTP: boolean) {
     for await (const file of files) {
         if (file.isFile && file.name.endsWith('.md')) {
             // Skip files that don't match the filter (if provided)
-            if (fileFilter && !file.name.includes(fileFilter)) {
+            // BUT always read MTP files since Library blocks may depend on them for flattening
+            if (fileFilter && !isMTP && !file.name.includes(fileFilter)) {
                 continue
             }
             await processFile(`${dirPath}/${file.name}`, isMTP)
@@ -1010,6 +1103,75 @@ for (const functionBlock of model.FunctionBlocks) {
     analyzeVariableUsage(functionBlock)
 }
 
+// Store unfiltered MTP blocks for flattening (before filtering removes them)
+const unfilteredMTPBlocks: { [key: string]: any } = {}
+for (const functionBlock of model.FunctionBlocks) {
+    if (functionBlock.isMTP) {
+        unfilteredMTPBlocks[functionBlock.Name] = JSON.parse(JSON.stringify(functionBlock))
+    }
+}
+// Debug: console.log(`Stored ${Object.keys(unfilteredMTPBlocks).length} unfiltered MTP blocks: ${Object.keys(unfilteredMTPBlocks).join(', ')}`)
+
+// Flatten MTP blocks into Library blocks if configured
+function flattenMTPIntoLibrary(functionBlock: any, templateConfig: any): any {
+    // Only flatten Library blocks that have an MTPBase and if template config requests it
+    if (functionBlock.isMTP || !functionBlock.MTPBase || !templateConfig['flatten-mtp-into-library']) {
+        return functionBlock
+    }
+
+    // Find the corresponding MTP block from unfiltered cache
+    const mtpBlock = unfilteredMTPBlocks[functionBlock.MTPBase]
+
+    if (!mtpBlock) {
+        console.warn(`Warning: MTP block '${functionBlock.MTPBase}' not found for flattening '${functionBlock.Name}'`)
+        return functionBlock
+    }
+
+    // Create flattened structure
+    const flattened = {
+        ...functionBlock,
+        isFlattened: true,
+        mtpSectionMarker: templateConfig['mtp-section-marker'] || 'MTP Interface',
+        mtpBlockName: mtpBlock.Name,
+
+        // Organize variables by section
+        FlattenedVariables: {
+            mtpInOutVars: Object.keys(mtpBlock.Variables)
+                .filter(name => mtpBlock.Variables[name]['Var Type'] === 'InOut')
+                .map(name => ({ name, ...mtpBlock.Variables[name] })),
+            mtpInputVars: Object.keys(mtpBlock.Variables)
+                .filter(name => mtpBlock.Variables[name]['Var Type'] === 'Input')
+                .map(name => ({ name, ...mtpBlock.Variables[name] })),
+            mtpOutputVars: Object.keys(mtpBlock.Variables)
+                .filter(name => mtpBlock.Variables[name]['Var Type'] === 'Output')
+                .map(name => ({ name, ...mtpBlock.Variables[name] })),
+            mtpLocalVars: Object.keys(mtpBlock.Variables)
+                .filter(name => mtpBlock.Variables[name]['Var Type'] === 'Local')
+                .map(name => ({ name, ...mtpBlock.Variables[name] })),
+
+            libraryInOutVars: getVariablesByType(functionBlock.Variables, 'InOut')
+                .filter((v: any) => v.name !== 'MTPBase'), // Exclude MTPBase reference
+            libraryInputVars: getVariablesByType(functionBlock.Variables, 'Input'),
+            libraryOutputVars: getVariablesByType(functionBlock.Variables, 'Output'),
+            libraryLocalVars: getVariablesByType(functionBlock.Variables, 'Local')
+        },
+
+        // Organize functionality by section
+        FlattenedFunctionality: {
+            mtpFunctionality: getAllFunctionality(mtpBlock.Functionality),
+            libraryFunctionality: getAllFunctionality(functionBlock.Functionality)
+        },
+
+        // Combine syncs (Library block syncs typically manage MTP variables)
+        FlattenedSyncs: getSyncs(functionBlock.Syncs),
+
+        // Combine delay timer count
+        FlattenedDelayTimerCount: (mtpBlock.DelayTimerCount || 0) + (functionBlock.DelayTimerCount || 0)
+    }
+
+    return flattened
+}
+
 // Apply MTP filtering (hardcoded for now)
 const variant = 'MTP'
 console.log(`Applying ${variant} filtering...`)
@@ -1027,7 +1189,7 @@ async function generateCode() {
             const templateFolderName = templateFolder.name
             
             // Load template config if it exists
-            let templateConfig: { description?: string, 'generate-mtp-blocks'?: boolean } = {}
+            let templateConfig: { description?: string, 'generate-mtp-blocks'?: boolean, 'output-extension'?: string } = {}
             try {
                 const configPath = `templates/${templateFolderName}/config.json`
                 const configContent = await Deno.readTextFile(configPath)
@@ -1036,15 +1198,18 @@ async function generateCode() {
             } catch {
                 // Config file is optional, continue without it
             }
-            
+
             // Default generate-mtp-blocks to true if not specified
             const shouldGenerateMTPBlocks = templateConfig['generate-mtp-blocks'] !== false
-            
+            // Get output extension from config, default to 'xml'
+            const outputExtension = templateConfig['output-extension'] || 'xml'
+
             // Configure Nunjucks for this template folder
-            nunjucks.configure([`templates/${templateFolderName}`], {
+            const templateEnv = nunjucks.configure([`templates/${templateFolderName}`], {
                 autoescape: false,
                 throwOnUndefined: false
             })
+            addCustomFilters(templateEnv)
             
             // Scan template files in this folder
             const templateFiles = Deno.readDir(`templates/${templateFolderName}`)
@@ -1058,21 +1223,24 @@ async function generateCode() {
                         if (functionBlock.isMTP && !shouldGenerateMTPBlocks) {
                             continue
                         }
-                        
+
+                        // Apply flattening if configured for this template
+                        const processedBlock = flattenMTPIntoLibrary(functionBlock, templateConfig)
+
                         // Create template context with setOutputFile function
                         const templateContext: any = {
-                            ...functionBlock,
-                            inputVars: getVariablesByType(functionBlock.Variables, 'Input'),
-                            outputVars: getVariablesByType(functionBlock.Variables, 'Output'),
-                            inoutVars: getVariablesByType(functionBlock.Variables, 'InOut'),
-                            localVars: getVariablesByType(functionBlock.Variables, 'Local'),
-                            allFunctionality: getAllFunctionality(functionBlock.Functionality),
-                            syncs: getSyncs(functionBlock.Syncs),
-                            variableKeys: Object.keys(functionBlock.Variables),
-                            mtpBaseVarsRead: getMTPBaseVariablesRead(functionBlock.MTPBaseVariables),
-                            mtpBaseVarsWrite: getMTPBaseVariablesWrite(functionBlock.MTPBaseVariables),
-                            mtpBaseVarsUsed: getMTPBaseVariablesUsed(functionBlock.MTPBaseVariables),
-                            _outputFile: templateName.endsWith('.txt') ? `${functionBlock.Name}.demo` : `${functionBlock.Name}.xml`
+                            ...processedBlock,
+                            inputVars: getVariablesByType(processedBlock.Variables, 'Input'),
+                            outputVars: getVariablesByType(processedBlock.Variables, 'Output'),
+                            inoutVars: getVariablesByType(processedBlock.Variables, 'InOut'),
+                            localVars: getVariablesByType(processedBlock.Variables, 'Local'),
+                            allFunctionality: getAllFunctionality(processedBlock.Functionality),
+                            syncs: getSyncs(processedBlock.Syncs),
+                            variableKeys: Object.keys(processedBlock.Variables),
+                            mtpBaseVarsRead: getMTPBaseVariablesRead(processedBlock.MTPBaseVariables),
+                            mtpBaseVarsWrite: getMTPBaseVariablesWrite(processedBlock.MTPBaseVariables),
+                            mtpBaseVarsUsed: getMTPBaseVariablesUsed(processedBlock.MTPBaseVariables),
+                            _outputFile: `${processedBlock.Name}.${outputExtension}`
                         }
                         
                         const rendered = nunjucks.render(templateName, templateContext)
@@ -1104,7 +1272,70 @@ async function generateCode() {
     }
 }
 
-// Second pass: Process ImportTemplate files
+// Second pass: Process helper class template files (e.g., TON.nunjucks, TOF.nunjucks)
+async function processHelperClassTemplates() {
+    const templateFolders = Deno.readDir("templates")
+
+    for await (const templateFolder of templateFolders) {
+        if (templateFolder.isDirectory) {
+            const templateFolderName = templateFolder.name
+
+            // Load template config
+            let templateConfig: any = {}
+            let outputExtension = 'txt'
+            try {
+                const configPath = `templates/${templateFolderName}/config.json`
+                const configContent = await Deno.readTextFile(configPath)
+                templateConfig = JSON.parse(configContent)
+                outputExtension = templateConfig['output-extension'] || 'txt'
+            } catch {
+                // Config file is optional, continue without it
+            }
+
+            // Look for helper class template files (any .nunjucks file except FunctionBlockTemplate and ImportTemplate)
+            const templateFiles = Deno.readDir(`templates/${templateFolderName}`)
+
+            for await (const templateFile of templateFiles) {
+                if (templateFile.isFile &&
+                    templateFile.name.endsWith('.nunjucks') &&
+                    !templateFile.name.startsWith('FunctionBlockTemplate') &&
+                    templateFile.name !== 'ImportTemplate.nunjucks') {
+
+                    const templateName = templateFile.name
+                    // Extract base name without .nunjucks extension (e.g., TON.nunjucks -> TON)
+                    const baseName = templateName.replace('.nunjucks', '')
+
+                    // Configure Nunjucks for helper class template
+                    const helperEnv = nunjucks.configure([`templates/${templateFolderName}`], {
+                        autoescape: false,
+                        throwOnUndefined: false
+                    })
+                    addCustomFilters(helperEnv)
+
+                    // Create template context
+                    const templateContext: any = {
+                        _outputFile: `${baseName}.${outputExtension}`
+                    }
+
+                    // Render as Nunjucks template
+                    const rendered = nunjucks.render(templateName, templateContext)
+                    const outputFileName = templateContext._outputFile || `${baseName}.${outputExtension}`
+
+                    // Output to Library folder alongside function blocks
+                    const outputDir = `generated/FunctionBlocks/${templateFolderName}/Library`
+                    const outputPath = `${outputDir}/${outputFileName}`
+
+                    await Deno.mkdir(outputDir, { recursive: true })
+                    await Deno.writeTextFile(outputPath, rendered)
+
+                    console.log(`Generated helper class file: ${outputPath}`)
+                }
+            }
+        }
+    }
+}
+
+// Third pass: Process ImportTemplate files
 async function processImportTemplates() {
     const templateFolders = Deno.readDir("templates")
     
@@ -1128,12 +1359,13 @@ async function processImportTemplates() {
             
             for await (const templateFile of templateFiles) {
                 if (templateFile.isFile && templateFile.name === 'ImportTemplate.nunjucks') {
-                    
+
                     // Configure Nunjucks for ImportTemplate
-                    nunjucks.configure([`templates/${templateFolderName}`], {
+                    const importEnv = nunjucks.configure([`templates/${templateFolderName}`], {
                         autoescape: false,
                         throwOnUndefined: false
                     })
+                    addCustomFilters(importEnv)
                     
                     // Filter function blocks to only include those from this template folder
                     const filteredFunctionBlocks: { [key: string]: any } = {}
@@ -1178,6 +1410,7 @@ async function processImportTemplates() {
 }
 
 await generateCode()
+await processHelperClassTemplates()
 await processImportTemplates()
 await Deno.mkdir("generated/model", { recursive: true })
 await Deno.writeTextFile("generated/model/model.json", JSON.stringify(model, null, 4))

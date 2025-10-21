@@ -1,3 +1,4 @@
 {
-  "description": "Simple demo template for testing code generation"
+  "description": "Simple demo template for testing code generation",
+  "output-extension": "demo"
 }

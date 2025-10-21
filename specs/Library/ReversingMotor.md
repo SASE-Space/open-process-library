@@ -38,9 +38,9 @@
 | fwdFbkSimulated | x   | x   | Local    | Bool      |         | Simulated forward feedback                                                |          |                   |
 | revFbkSimulated | x   | x   | Local    | Bool      |         | Simulated reverse feedback                                                |          |                   |
 | remote          | x   |     | Output   | Bool      |         | 0: operator/local, 1: automatic/remote                                    |          |                   |
-| operator        | x   |     | Output   | Bool      |         | Operator Mode                                                             |          |                   |
-| automatic       | x   |     | Output   | Bool      |         | Automatic Mode                                                            |          |                   |
-| offline         | x   |     | Output   | Bool      |         | Offline Mode                                                              |          |                   |
+| operatorMode    | x   |     | Output   | Bool      |         | Operator Mode                                                             |          |                   |
+| automaticMode   | x   |     | Output   | Bool      |         | Automatic Mode                                                            |          |                   |
+| offlineMode     | x   |     | Output   | Bool      |         | Offline Mode                                                              |          |                   |
 |                 |     |     |          |           |         |                                                                           |          |                   |
 
 ## Functionality
@@ -50,9 +50,9 @@
 | WQC             | x          | x   |     | 16#FF                                                                    | no QC available (default)                                   |
 | OSLevel         |            | x   |     | 16#00                                                                    | TODO                                                        |
 | remote          |            | x   |     | StateChannel                                                             |                                                             |
-| operator        |            | x   |     | StateOpAct                                                               |                                                             |
-| automatic       |            | x   |     | StateAutAct                                                              |                                                             |
-| offline         |            | x   |     | StateOffAct                                                              |                                                             |
+| operatorMode    |            | x   |     | StateOpAct                                                               |                                                             |
+| automaticMode   |            | x   |     | StateAutAct                                                              |                                                             |
+| offlineMode     |            | x   |     | StateOffAct                                                              |                                                             |
 | PermEn          | x          | x   |     | True                                                                     | Always Enable, Configure permitIn = 0 if no permits         |
 | IntlEn          | x          | x   |     | True                                                                     | Always Enable, Configure interlockIn = 0 if no interlocks   |
 | ProtEn          | x          | x   |     | True                                                                     | Always Enable, Configure protectIn = 0 if no protections    |

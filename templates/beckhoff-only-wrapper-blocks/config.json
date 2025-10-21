@@ -1,4 +1,5 @@
 {
   "description": "Generates PLCopen XML for Beckhoff TwinCAT, excluding the MTP blocks. It wraps around the 'standard' MTP blocks provided by Beckhoff",
-  "generate-mtp-blocks": false
+  "generate-mtp-blocks": false,
+  "output-extension": "xml"
 }
