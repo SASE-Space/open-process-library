@@ -116,6 +116,8 @@ namespace OpenProcessLibrary
         // Delay timers
         private TON DelayTimer1 = new TON();
         private TON DelayTimer2 = new TON();
+        private TON DelayTimer3 = new TON();
+        private TON DelayTimer4 = new TON();
         // Helper variables for sync detection
 
         // ======================================================================
@@ -190,58 +192,109 @@ namespace OpenProcessLibrary
 
 
     
+            // State Machine for the OperationMode
+            switch (OperationMode)
+            {
+                case 0: // Offline
+                    if ((StateOpAut && StateChannel) || (StateOpOp && ! StateChannel))
+                    {
+                        OperationMode = 1;
+                    }
+                    break;
+                case 1: // Operator
+                    if ((StateOffAut && StateChannel) || (StateOffOp && ! StateChannel))
+                    {
+                        OperationMode = 0;
+                    }
+                    if ((StateAutAut && StateChannel) || (StateAutOp && ! StateChannel))
+                    {
+                        OperationMode = 2;
+                    }
+                    break;
+                case 2: // Automatic
+                    if ((StateOpAut && StateChannel) || (StateOpOp && ! StateChannel))
+                    {
+                        OperationMode = 1;
+                    }
+                    break;
+            }
 
     
+            // Make boolean indicators for the OperationMode State
+            StateOpAct = OperationMode == 1;
+            StateAutAct = OperationMode == 2;
+            StateOffAct = OperationMode == 0;
 
     
+            // 'Protect' is for interlocks that need to be reset
+            if ((ResetAut && StateChannel) || (ResetOp && ! StateChannel))
+            {
+                Protect = false;
+            }
 
     
+            // signal indicating that the valve needs to go to the safe position
+            SafePosAct = (PermEn && ! Permit) || (IntlEn && ! Interlock) || (ProtEn && ! Protect) || (MonEn && (MonStatErr || MonDynErr));
 
     
+            // control signal to the hardware
+            if ((SafePosAct && SafePos && ! SafePosEn) || (! SafePosAct && ((OpenAut && StateAutAct) || (OpenOp && StateOpAct))))
+            {
+                Ctrl = true;
+            }
+            if ((SafePosAct && ! SafePos && ! SafePosEn) || (! SafePosAct && ((CloseAut && StateAutAct) || (CloseOp && StateOpAct))))
+            {
+                Ctrl = false;
+            }
 
     
+            // Opened and Closed States
+            if (Ctrl && OpenFbk)
+            {
+                OpenedState = true;
+            }
+            if (! Ctrl)
+            {
+                OpenedState = false;
+            }
+            if (! Ctrl && CloseFbk)
+            {
+                ClosedState = true;
+            }
+            if (Ctrl)
+            {
+                ClosedState = false;
+            }
 
     
+            // Static and Dynamic Monitoring
+            DelayTimer1.Execute((MonEn && OpenedState && ! OpenFbk) || ( MonEn && ClosedState && ! CloseFbk), TimeSpan.FromSeconds(MonStatTi));
+            if (DelayTimer1.Q)
+            {
+                MonStatErr = true;
+            }
+            if ((ResetAut && StateChannel) || (ResetOp && ! StateChannel))
+            {
+                MonStatErr = false;
+            }
+            DelayTimer2.Execute(MonEn && ((Ctrl && ! OpenFbk) || (! Ctrl && ! CloseFbk)), TimeSpan.FromSeconds(MonDynTi));
+            if (DelayTimer2.Q)
+            {
+                MonDynErr = true;
+            }
+            if ((ResetAut && StateChannel) || (ResetOp && ! StateChannel))
+            {
+                MonDynErr = false;
+            }
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+            // reset operator command
+            StateOffOp = false;
+            StateOpOp = false;
+            StateAutOp = false;
+            OpenOp = false;
+            CloseOp = false;
+            ResetOp = false;
 
     
 

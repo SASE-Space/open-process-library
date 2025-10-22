@@ -6,7 +6,13 @@
       "Bash(rm:*)",
       "Bash(python:*)",
       "Bash(mv:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(for file in /mnt/d/p2/open-process-library/specs/MTP/*.md)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(done)",
+      "Bash(for file in /mnt/d/p2/open-process-library/specs/Library/*.md)",
+      "Bash(jq:*)"
     ],
     "deny": []
   }

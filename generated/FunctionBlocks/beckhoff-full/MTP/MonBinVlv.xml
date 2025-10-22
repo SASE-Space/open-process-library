@@ -47,7 +47,9 @@
             <variable name="ResetOp"><type><BOOL /></type></variable>
             <variable name="MonEn"><type><BOOL /></type></variable>
             <variable name="OpenedState"><type><BOOL /></type></variable>
-            <variable name="ClosedState"><type><BOOL /></type></variable><!-- Temporary variables for MTP base interface access -->
+            <variable name="ClosedState"><type><BOOL /></type></variable>
+            <variable name="DelayTimer1"><type><derived name="TON" /></type></variable>
+            <variable name="DelayTimer2"><type><derived name="TON" /></type></variable><!-- Temporary variables for MTP base interface access -->
         </localVars>
     </interface>
     <body>
@@ -57,6 +59,36 @@
 // Copy MTP base variables to local temporaries (READ access)
 
 
+StateOpAct := OperationMode = 1;
+StateAutAct := OperationMode = 2;
+StateOffAct := OperationMode = 0;
+SafePosAct := (PermEn AND NOT Permit) OR (IntlEn AND NOT Interlock) OR (ProtEn AND NOT Protect) OR (MonEn AND (MonStatErr OR MonDynErr));
+IF (SafePosAct AND SafePos AND NOT SafePosEn) OR (NOT SafePosAct AND ((OpenAut AND StateAutAct) OR (OpenOp and StateOpAct))) THEN
+    Ctrl := TRUE;
+END_IF;
+IF (SafePosAct AND NOT SafePos AND NOT SafePosEn) OR (NOT SafePosAct AND ((CloseAut AND StateAutAct) OR (CloseOp and StateOpAct))) THEN
+    Ctrl := FALSE;
+END_IF;
+DelayTimer1(IN:= (MonEn AND OpenedState AND NOT OpenFbk) OR ( MonEn AND ClosedState AND NOT CloseFbk), PT:= REAL_TO_TIME(MonStatTi * 1000));
+IF DelayTimer1.Q THEN
+    MonStatErr := TRUE;
+END_IF;
+IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
+    MonStatErr := FALSE;
+END_IF;
+DelayTimer2(IN:= MonEn AND ((Ctrl AND NOT OpenFbk) OR (NOT Ctrl AND NOT CloseFbk)), PT:= REAL_TO_TIME(MonDynTi * 1000));
+IF DelayTimer2.Q THEN
+    MonDynErr := TRUE;
+END_IF;
+IF (ResetAut AND StateChannel) OR (ResetOp AND NOT StateChannel) THEN
+    MonDynErr := FALSE;
+END_IF;
+StateOffOp := False;
+StateOpOp := False;
+StateAutOp := False;
+OpenOp := False;
+CloseOp := False;
+ResetOp := False;
 
 // Copy local temporaries back to MTP base variables (WRITE access)
                 ]]>
