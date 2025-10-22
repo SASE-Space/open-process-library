@@ -18,6 +18,9 @@ namespace OpenProcessLibrary
         // ======================================================================
         // MTP Interface Variables (from MonAnaDrv)
         // ======================================================================
+
+        [Tag] public string Name;
+        [Tag] public string Type = "VFD";
         // Input Variables
         [Tag] public bool StateChannel;
         [Tag] public bool StateOffAut;
@@ -142,8 +145,10 @@ namespace OpenProcessLibrary
         // ======================================================================
         // Constructor
         // ======================================================================
-        public VFD()
+        public VFD(string InstanceName)
         {
+            this.Name = InstanceName;
+
             // Initialize default values
             this.speedMin = 0;
             this.speedMax = 100;

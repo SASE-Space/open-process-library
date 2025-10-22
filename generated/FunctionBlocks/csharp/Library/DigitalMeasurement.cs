@@ -18,6 +18,9 @@ namespace OpenProcessLibrary
         // ======================================================================
         // MTP Interface Variables (from BinMon)
         // ======================================================================
+
+        [Tag] public string Name;
+        [Tag] public string Type = "DigitalMeasurement";
         // Input Variables
         [Tag] public byte WQC;
         [Tag] public bool V;
@@ -52,8 +55,10 @@ namespace OpenProcessLibrary
         // ======================================================================
         // Constructor
         // ======================================================================
-        public DigitalMeasurement()
+        public DigitalMeasurement(string InstanceName)
         {
+            this.Name = InstanceName;
+
             // Initialize default values
         }
 

@@ -18,6 +18,9 @@ namespace OpenProcessLibrary
         // ======================================================================
         // MTP Interface Variables (from AnaMon)
         // ======================================================================
+
+        [Tag] public string Name;
+        [Tag] public string Type = "AnalogMeasurement";
         // Input Variables
         [Tag] public byte WQC;
         [Tag] public byte OSLevel;
@@ -93,8 +96,10 @@ namespace OpenProcessLibrary
         // ======================================================================
         // Constructor
         // ======================================================================
-        public AnalogMeasurement()
+        public AnalogMeasurement(string InstanceName)
         {
+            this.Name = InstanceName;
+
             // Initialize default values
             this.scaleMin = 0;
             this.scaleMax = 100;

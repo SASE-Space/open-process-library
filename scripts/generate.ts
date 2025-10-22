@@ -1127,12 +1127,66 @@ function flattenMTPIntoLibrary(functionBlock: any, templateConfig: any): any {
         return functionBlock
     }
 
+    // Calculate timer offset for Library functionality
+    const mtpTimerOffset = mtpBlock.DelayTimerCount || 0
+
+    // Helper function to offset timer numbers in functionality
+    function offsetTimerNumbers(functionality: any[], offset: number): any[] {
+        if (offset === 0) return functionality
+
+        return functionality.map(func => {
+            const offsetFunc = { ...func }
+
+            // Offset regular delay timer
+            if (offsetFunc.delayTimerNumber) {
+                offsetFunc.delayTimerNumber += offset
+            }
+
+            // Offset Set delay timer
+            if (offsetFunc.setDelayTimerNumber) {
+                offsetFunc.setDelayTimerNumber += offset
+            }
+
+            // Offset Reset delay timer
+            if (offsetFunc.resetDelayTimerNumber) {
+                offsetFunc.resetDelayTimerNumber += offset
+            }
+
+            // Offset state machine transition timers
+            if (offsetFunc.logicType === 'StateMachine' && offsetFunc.stateMachine) {
+                const offsetStateMachine: any = {}
+                for (const [stateName, stateData] of Object.entries(offsetFunc.stateMachine)) {
+                    const state = stateData as any
+                    const offsetState = { ...state }
+
+                    if (state.Transitions) {
+                        const offsetTransitions: any = {}
+                        for (const [targetState, transitionData] of Object.entries(state.Transitions)) {
+                            const transition = transitionData as any
+                            offsetTransitions[targetState] = {
+                                ...transition,
+                                DelayTimerNumber: transition.DelayTimerNumber ? transition.DelayTimerNumber + offset : null
+                            }
+                        }
+                        offsetState.Transitions = offsetTransitions
+                    }
+
+                    offsetStateMachine[stateName] = offsetState
+                }
+                offsetFunc.stateMachine = offsetStateMachine
+            }
+
+            return offsetFunc
+        })
+    }
+
     // Create flattened structure
     const flattened = {
         ...functionBlock,
         isFlattened: true,
         mtpSectionMarker: templateConfig['mtp-section-marker'] || 'MTP Interface',
         mtpBlockName: mtpBlock.Name,
+        mtpTimerOffset: mtpTimerOffset,
 
         // Organize variables by section
         FlattenedVariables: {
@@ -1156,10 +1210,10 @@ function flattenMTPIntoLibrary(functionBlock: any, templateConfig: any): any {
             libraryLocalVars: getVariablesByType(functionBlock.Variables, 'Local')
         },
 
-        // Organize functionality by section
+        // Organize functionality by section - offset Library timer numbers
         FlattenedFunctionality: {
             mtpFunctionality: getAllFunctionality(mtpBlock.Functionality),
-            libraryFunctionality: getAllFunctionality(functionBlock.Functionality)
+            libraryFunctionality: offsetTimerNumbers(getAllFunctionality(functionBlock.Functionality), mtpTimerOffset)
         },
 
         // Combine syncs (Library block syncs typically manage MTP variables)

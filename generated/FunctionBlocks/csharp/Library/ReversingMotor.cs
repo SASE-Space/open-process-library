@@ -18,6 +18,9 @@ namespace OpenProcessLibrary
         // ======================================================================
         // MTP Interface Variables (from MonBinDrv)
         // ======================================================================
+
+        [Tag] public string Name;
+        [Tag] public string Type = "ReversingMotor";
         // Input Variables
         [Tag] public bool StateChannel;
         [Tag] public bool StateOffAut;
@@ -115,8 +118,10 @@ namespace OpenProcessLibrary
         // ======================================================================
         // Constructor
         // ======================================================================
-        public ReversingMotor()
+        public ReversingMotor(string InstanceName)
         {
+            this.Name = InstanceName;
+
             // Initialize default values
             this.hasFwdFeedback = true;
             this.hasRevFeedback = true;

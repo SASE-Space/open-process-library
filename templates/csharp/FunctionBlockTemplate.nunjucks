@@ -22,6 +22,10 @@ namespace OpenProcessLibrary
         // ======================================================================
         // {{ mtpSectionMarker }} Variables (from {{ mtpBlockName }})
         // ======================================================================
+
+        [Tag] public string Name;
+        [Tag] public string Type = "{{ Name }}";
+
 {%- if FlattenedVariables.mtpInOutVars.length > 0 %}
         // InOut Variables
 {%- for variable in FlattenedVariables.mtpInOutVars %}
@@ -137,8 +141,10 @@ namespace OpenProcessLibrary
         // ======================================================================
         // Constructor
         // ======================================================================
-        public {{ Name }}()
+        public {{ Name }}(string InstanceName)
         {
+            this.Name = InstanceName;
+
             // Initialize default values
 {%- if isFlattened %}
 {%- for variable in FlattenedVariables.mtpInputVars %}

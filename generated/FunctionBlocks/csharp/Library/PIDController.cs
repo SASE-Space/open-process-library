@@ -18,6 +18,9 @@ namespace OpenProcessLibrary
         // ======================================================================
         // MTP Interface Variables (from PIDCtrl)
         // ======================================================================
+
+        [Tag] public string Name;
+        [Tag] public string Type = "PIDController";
         // Input Variables
         [Tag] public bool StateChannel;
         [Tag] public bool StateOffAut;
@@ -132,8 +135,10 @@ namespace OpenProcessLibrary
         // ======================================================================
         // Constructor
         // ======================================================================
-        public PIDController()
+        public PIDController(string InstanceName)
         {
+            this.Name = InstanceName;
+
             // Initialize default values
             this.scaleMin = 0;
             this.scaleMax = 100;

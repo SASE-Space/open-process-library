@@ -18,6 +18,9 @@ namespace OpenProcessLibrary
         // ======================================================================
         // MTP Interface Variables (from MonAnaVlv)
         // ======================================================================
+
+        [Tag] public string Name;
+        [Tag] public string Type = "AnalogValve";
         // Input Variables
         [Tag] public bool StateChannel;
         [Tag] public bool StateOffAut;
@@ -130,8 +133,10 @@ namespace OpenProcessLibrary
         // ======================================================================
         // Constructor
         // ======================================================================
-        public AnalogValve()
+        public AnalogValve(string InstanceName)
         {
+            this.Name = InstanceName;
+
             // Initialize default values
             this.scaleMin = 0;
             this.scaleMax = 100;

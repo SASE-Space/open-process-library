@@ -112,6 +112,10 @@
 | OpenOp        | x   | False                                                                            | Reset at the end of the FB      |
 | CloseOp       | x   | False                                                                            | Reset at the end of the FB      |
 | ResetOp       | x   | False                                                                            | Reset at the end of the FB      |
+| StateOpAut    | x   | False                                                                            | Reset at the end of the FB      |
+| StateAutAut   | x   | False                                                                            | Reset at the end of the FB      |
+| StateOffAut   | x   | False                                                                            | Reset at the end of the FB      |
+|               |     |                                                                                  |                                 |
 |               |     |                                                                                  |                                 |
 
 

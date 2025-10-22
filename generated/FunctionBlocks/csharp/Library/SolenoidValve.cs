@@ -18,6 +18,9 @@ namespace OpenProcessLibrary
         // ======================================================================
         // MTP Interface Variables (from MonBinVlv)
         // ======================================================================
+
+        [Tag] public string Name;
+        [Tag] public string Type = "SolenoidValve";
         // Input Variables
         [Tag] public bool StateChannel;
         [Tag] public bool StateOffAut;
@@ -123,8 +126,10 @@ namespace OpenProcessLibrary
         // ======================================================================
         // Constructor
         // ======================================================================
-        public SolenoidValve()
+        public SolenoidValve(string InstanceName)
         {
+            this.Name = InstanceName;
+
             // Initialize default values
             this.MonStatTi = 5;
             this.MonDynTi = 2;
@@ -320,10 +325,10 @@ namespace OpenProcessLibrary
             CloseAut = close;
             OpenFbkCalc = simulate || ! hasFbOpen;
             CloseFbkCalc = simulate || ! hasFbClose;
-            DelayTimer1.Execute(OpenFbkCalc && Ctrl, TimeSpan.FromSeconds(simulateDelay));
-            fbOpenSimulated = DelayTimer1.Q;
-            DelayTimer2.Execute(CloseFbkCalc && ! Ctrl, TimeSpan.FromSeconds(simulateDelay));
-            fbCloseSimulated = DelayTimer2.Q;
+            DelayTimer3.Execute(OpenFbkCalc && Ctrl, TimeSpan.FromSeconds(simulateDelay));
+            fbOpenSimulated = DelayTimer3.Q;
+            DelayTimer4.Execute(CloseFbkCalc && ! Ctrl, TimeSpan.FromSeconds(simulateDelay));
+            fbCloseSimulated = DelayTimer4.Q;
             OpenFbk = (feedbackOpen && ! OpenFbkCalc) || (fbOpenSimulated && OpenFbkCalc);
             CloseFbk = (feedbackClose && ! CloseFbkCalc) || (fbCloseSimulated && CloseFbkCalc);
             opened = Ctrl && OpenFbk;

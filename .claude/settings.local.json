@@ -12,7 +12,8 @@
       "Bash(do echo \"=== $file ===\")",
       "Bash(done)",
       "Bash(for file in /mnt/d/p2/open-process-library/specs/Library/*.md)",
-      "Bash(jq:*)"
+      "Bash(jq:*)",
+      "Bash(for file in generated/FunctionBlocks/csharp/Library/*.cs)"
     ],
     "deny": []
   }

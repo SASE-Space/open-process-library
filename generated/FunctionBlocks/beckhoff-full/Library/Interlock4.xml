@@ -1,6 +1,7 @@
 <pou name="Interlock4" pouType="functionBlock">
     <interface>
         <inOutVars>
+            <variable name="MTPBase"><type><derived name="LockView4" /></type></variable>
         </inOutVars>
         <inputVars>
         </inputVars>
