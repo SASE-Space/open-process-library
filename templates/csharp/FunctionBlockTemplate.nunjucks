@@ -200,9 +200,9 @@ namespace OpenProcessLibrary
         // Helper Methods - PLC-style type conversions
         // ======================================================================
         /// <summary>
-        /// Converts a WORD (ushort) to REAL (double)
+        /// Converts a WORD (ushort) to DINT (double)
         /// </summary>
-        private static double WORD_TO_REAL(ushort value)
+        private static double WORD_TO_DINT(ushort value)
         {
             return (double)value;
         }

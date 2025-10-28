@@ -95,6 +95,95 @@ function addCustomFilters(env: any) {
 
         return result
     })
+
+    // Add custom filters for SCL (Siemens) code generation
+    env.addFilter('sclType', function(plcType: string) {
+        const typeMap: { [key: string]: string } = {
+            'Bool': 'BOOL',
+            'Int': 'INT',
+            'Real': 'REAL',
+            'Byte': 'BYTE',
+            'String': 'STRING',
+            'Word': 'WORD',
+            'Time': 'TIME',
+            'bool': 'BOOL',
+            'int': 'INT',
+            'real': 'REAL',
+            'byte': 'BYTE',
+            'string': 'STRING',
+            'word': 'WORD',
+            'time': 'TIME',
+            'BOOL': 'BOOL',
+            'INT': 'INT',
+            'REAL': 'REAL',
+            'BYTE': 'BYTE',
+            'STRING': 'STRING',
+            'WORD': 'WORD',
+            'TIME': 'TIME'
+        }
+        return typeMap[plcType] || plcType
+    })
+
+    env.addFilter('sclValue', function(value: string, dataType?: string) {
+        // Convert PLC values to SCL values
+        const upperValue = value.toUpperCase()
+        if (upperValue === 'TRUE') return 'TRUE'
+        if (upperValue === 'FALSE') return 'FALSE'
+
+        // Convert numeric 1/0 to TRUE/FALSE ONLY for boolean types
+        if (dataType && (dataType === 'Bool' || dataType === 'BOOL' || dataType === 'bool')) {
+            if (value === '1') return 'TRUE'
+            if (value === '0') return 'FALSE'
+        }
+
+        if (value.startsWith('16#')) {
+            // Hex notation stays the same in SCL: 16#FF
+            return value
+        }
+        if (value.startsWith('"') && value.endsWith('"')) {
+            // Convert double quotes to single quotes for strings in SCL
+            return "'" + value.substring(1, value.length - 1) + "'"
+        }
+        if (value.startsWith("'") && value.endsWith("'")) {
+            // Single quotes stay as-is (proper SCL string format)
+            return value
+        }
+        return value
+    })
+
+    env.addFilter('sclExpr', function(expr: string) {
+        if (!expr) return expr
+
+        // Convert PLC expressions to SCL expressions
+        let result = expr
+
+        // String literals - keep single quotes (SCL standard)
+        // No conversion needed for strings
+
+        // Boolean values - keep uppercase (SCL standard)
+        result = result.replace(/\btrue\b/gi, 'TRUE')
+        result = result.replace(/\bfalse\b/gi, 'FALSE')
+
+        // Comparison operators - SCL uses = not ==
+        // Convert == back to = if present
+        result = result.replace(/==/g, '=')
+
+        // Not equal - SCL uses <>
+        result = result.replace(/!=/g, '<>')
+
+        // Logical operators - normalize to uppercase AND/OR/NOT
+        result = result.replace(/&&/g, ' AND ')
+        result = result.replace(/\|\|/g, ' OR ')
+        result = result.replace(/\bAND\b/gi, ' AND ')
+        result = result.replace(/\bOR\b/gi, ' OR ')
+        result = result.replace(/\bNOT\b/gi, 'NOT ')
+        // Handle ! for NOT carefully
+        result = result.replace(/!\s*([a-zA-Z_])/g, 'NOT $1')
+
+        // Hex values stay the same: 16#FF
+
+        return result
+    })
 }
 
 // Configure Nunjucks environment

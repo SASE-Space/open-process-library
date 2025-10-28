@@ -13,7 +13,11 @@
       "Bash(done)",
       "Bash(for file in /mnt/d/p2/open-process-library/specs/Library/*.md)",
       "Bash(jq:*)",
-      "Bash(for file in generated/FunctionBlocks/csharp/Library/*.cs)"
+      "Bash(for file in generated/FunctionBlocks/csharp/Library/*.cs)",
+      "Read(//mnt/d/p/acc-workstream-mtp/scripts/cli/**)",
+      "Read(//mnt/d/p/acc-workstream-mtp/docs/templates/OPL-copy/**)",
+      "Read(//mnt/d/p/acc-workstream-mtp/**)",
+      "Bash(git rm:*)"
     ],
     "deny": []
   }

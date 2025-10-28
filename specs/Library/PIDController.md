@@ -81,7 +81,7 @@
 | fixedSPAct        |            | x   |     | Set: activateFixedSP                                                            | Only relevant if internalSPAct               |
 |                   |            |     |     | Reset: activateDynamicSP                                                        |                                              |
 | dynamicSPAct      |            | x   |     | NOT fixedSPAct                                                                  | Only relevant if internalSPAct               |
-| PV                | x          | x   |     | scaleMin + (WORD_TO_REAL(rawValue) / 27648.0) * (scaleMax - scaleMin)           |                                              |
+| PV                | x          | x   |     | scaleMin + (WORD_TO_DINT(rawValue) / 27648.0) * (scaleMax - scaleMin)           |                                              |
 | valueOut          |            | x   |     | PV                                                                              |                                              |
 | PVSclMin          | x          | x   |     | scaleMin                                                                        |                                              |
 | PVSclMax          | x          | x   |     | scaleMax                                                                        |                                              |

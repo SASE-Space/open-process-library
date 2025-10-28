@@ -1,0 +1,431 @@
+{#- Output file will be {{ Name }} (no extension) -#}
+// ==============================================================================
+// {{ Name }} - Function Block
+// ==============================================================================
+// Generated from Open Process Library specification
+// Template: Siemens-TIA-full (SCL for S7-1200/1500)
+// ==============================================================================
+
+FUNCTION_BLOCK "{{ Name }}"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+{%- if isFlattened %}
+   // Flattened implementation including {{ mtpBlockName }} interface
+{%- endif %}
+
+{%- if isFlattened %}
+   // ===========================================================================
+   // {{ mtpSectionMarker }} Variables (from {{ mtpBlockName }})
+   // ===========================================================================
+{%- if FlattenedVariables.mtpInOutVars.length > 0 %}
+   VAR_IN_OUT
+{%- for variable in FlattenedVariables.mtpInOutVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+   END_VAR
+{%- endif %}
+
+{%- if FlattenedVariables.mtpInputVars.length > 0 %}
+   VAR_INPUT
+{%- for variable in FlattenedVariables.mtpInputVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+   END_VAR
+{%- endif %}
+
+{%- if FlattenedVariables.mtpOutputVars.length > 0 %}
+   VAR_OUTPUT
+{%- for variable in FlattenedVariables.mtpOutputVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+   END_VAR
+{%- endif %}
+
+   // ===========================================================================
+   // Extended Variables (OPL additions)
+   // ===========================================================================
+{%- if FlattenedVariables.libraryInOutVars.length > 0 %}
+   VAR_IN_OUT
+{%- for variable in FlattenedVariables.libraryInOutVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+   END_VAR
+{%- endif %}
+
+{%- if FlattenedVariables.libraryInputVars.length > 0 %}
+   VAR_INPUT
+{%- for variable in FlattenedVariables.libraryInputVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+   END_VAR
+{%- endif %}
+
+{%- if FlattenedVariables.libraryOutputVars.length > 0 %}
+   VAR_OUTPUT
+{%- for variable in FlattenedVariables.libraryOutputVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+   END_VAR
+{%- endif %}
+
+   VAR
+      // Control Variables
+      first_scan : BOOL := TRUE;
+      second_scan : BOOL := FALSE;
+{%- if FlattenedVariables.mtpLocalVars.length > 0 %}
+      // Local Variables (MTP)
+{%- for variable in FlattenedVariables.mtpLocalVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+{%- endif %}
+{%- if FlattenedVariables.libraryLocalVars.length > 0 %}
+      // Local Variables (OPL)
+{%- for variable in FlattenedVariables.libraryLocalVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+{%- endif %}
+{%- if FlattenedDelayTimerCount > 0 %}
+      // Delay timers
+{%- for i in range(1, FlattenedDelayTimerCount + 1) %}
+      DelayTimer{{ i }} : TON;
+{%- endfor %}
+{%- endif %}
+{%- for sync in FlattenedSyncs %}
+      {{ sync.SyncVariable }}Last : {{ Variables[sync.name]['Data Type'] | sclType }};
+{%- endfor %}
+   END_VAR
+{%- else %}
+   // ===========================================================================
+   // Variables
+   // ===========================================================================
+{%- if inoutVars.length > 0 %}
+   VAR_IN_OUT
+{%- for variable in inoutVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+   END_VAR
+{%- endif %}
+
+{%- if inputVars.length > 0 %}
+   VAR_INPUT
+{%- for variable in inputVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+   END_VAR
+{%- endif %}
+
+{%- if outputVars.length > 0 %}
+   VAR_OUTPUT
+{%- for variable in outputVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+   END_VAR
+{%- endif %}
+
+   VAR
+      // Control Variables
+      first_scan : BOOL := TRUE;
+      second_scan : BOOL := FALSE;
+{%- if localVars.length > 0 %}
+      // Local Variables
+{%- for variable in localVars %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+{%- endfor %}
+{%- endif %}
+{%- if DelayTimerCount > 0 %}
+      // Delay timers
+{%- for i in range(1, DelayTimerCount + 1) %}
+      DelayTimer{{ i }} : TON;
+{%- endfor %}
+{%- endif %}
+{%- for variable in mtpBaseVarsUsed %}
+      {{ variable.name }} : {{ variable['Data Type'] | sclType }};
+{%- endfor %}
+{%- for sync in syncs %}
+      {{ sync.SyncVariable }}Last : {{ Variables[sync.name]['Data Type'] | sclType }};
+{%- endfor %}
+   END_VAR
+{%- endif %}
+
+BEGIN
+   // ===========================================================================
+   // STARTUP - SECOND SCAN
+   // ===========================================================================
+   IF second_scan THEN
+{%- if not isFlattened %}
+   {%- if Name in ['AnalogValve', 'ReversingMotor', 'SolenoidValve', 'VFD'] %}
+      // switch control mode back to operator
+      MTPBase.StateChannel := FALSE;
+      // reset command to switch to auto mode
+      MTPBase.StateAutAut := FALSE;
+   {%- endif %}
+{%- else %}
+   {%- if Name in ['AnalogValve', 'ReversingMotor', 'SolenoidValve', 'VFD'] %}
+      // switch control mode back to operator
+      StateChannel := FALSE;
+      // reset command to switch to auto mode
+      StateAutAut := FALSE;
+   {%- endif %}
+{%- endif %}
+      // end second scan
+      second_scan := FALSE;
+   END_IF;
+
+   // ===========================================================================
+   // STARTUP - FIRST SCAN
+   // ===========================================================================
+   IF first_scan THEN
+{%- if not isFlattened %}
+   {%- if Name in ['AnalogValve', 'ReversingMotor', 'SolenoidValve', 'VFD'] %}
+      // allow program control for the mode
+      MTPBase.StateChannel := TRUE;
+      // switch to auto mode
+      MTPBase.StateAutAut := TRUE;
+      // send a reset (will be reset automatically) (TODO: why is this needed?)
+      reset := TRUE;
+   {%- endif %}
+{%- else %}
+   {%- if Name in ['AnalogValve', 'ReversingMotor', 'SolenoidValve', 'VFD'] %}
+      // allow program control for the mode
+      StateChannel := TRUE;
+      // switch to auto mode
+      StateAutAut := TRUE;
+      // send a reset (will be reset automatically) (TODO: why is this needed?)
+      reset := TRUE;
+   {%- endif %}
+{%- endif %}
+      // prepare second scan
+      first_scan := FALSE;
+      second_scan := TRUE;
+   END_IF;
+
+{%- if isFlattened %}
+   // ===========================================================================
+   // {{ mtpSectionMarker }} Functionality (from {{ mtpBlockName }})
+   // ===========================================================================
+{% for func in FlattenedFunctionality.mtpFunctionality -%}
+   {#-###### EXPLANATION ######-#}
+   {%- if func.logicType == 'Explanation' %}
+   // {{ func.comment }}
+   {#-###### EXPRESSION ######-#}
+   {%- elif func.logicType == 'Expression' -%}
+      {#-###### EXPRESSION WITH DELAY ######-#}
+      {%- if func.delayTimerNumber %}
+   DelayTimer{{ func.delayTimerNumber }}(IN := {{ func.expression | sclExpr }}, PT := REAL_TO_TIME({{ func.delayVariable }} * 1000.0));
+   {{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
+      {#-###### EXPRESSION WITHOUT DELAY ######-#}
+      {%- else %}
+   {{ func.key }} := {{ func.expression | sclExpr }};
+      {%- endif -%}
+   {#-###### SET ######-#}
+   {%- elif func.logicType == 'Set' %}
+      {#- Handle SET with optional delay -#}
+      {%- if func.setDelayTimerNumber %}
+   DelayTimer{{ func.setDelayTimerNumber }}(IN := {{ func.set | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.setDelayVariable }} * 1000.0));
+      {%- endif %}
+      {#- Generate the actual Set logic #}
+   IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | sclExpr }}{% endif %} THEN
+      {{ func.key | replace('_Set', '') }} := TRUE;
+   END_IF;
+   {#-###### RESET ######-#}
+   {%- elif func.logicType == 'Reset' %}
+      {#- Handle RESET with optional delay -#}
+      {%- if func.resetDelayTimerNumber %}
+   DelayTimer{{ func.resetDelayTimerNumber }}(IN := {{ func.reset | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.resetDelayVariable }} * 1000.0));
+      {%- endif %}
+      {#- Generate the actual Reset logic #}
+   IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | sclExpr }}{% endif %} THEN
+      {{ func.key | replace('_Reset', '') }} := FALSE;
+   END_IF;
+   {#-###### STATE MACHINE ######-#}
+   {%- elif func.logicType == 'StateMachine' %}
+      {#- Generate state machine delay timers first -#}
+      {%- for stateName, stateData in func.stateMachine %}
+         {%- for targetState, transitionData in stateData.Transitions %}
+            {%- if transitionData.DelayTimerNumber %}
+   DelayTimer{{ transitionData.DelayTimerNumber }}(IN := {{ transitionData.Condition | safe | sclExpr }}, PT := REAL_TO_TIME({{ transitionData.DelayVariable }} * 1000.0));
+            {%- endif %}
+         {%- endfor %}
+      {%- endfor %}
+      {#- Generate state machine CASE statement #}
+   CASE {{ func.key }} OF
+      {%- for stateName, stateData in func.stateMachine %}
+      {{ stateName }}: // {{ stateData.Name }}
+         {%- for targetState, transitionData in stateData.Transitions %}
+         IF {% if transitionData.DelayTimerNumber %}DelayTimer{{ transitionData.DelayTimerNumber }}.Q{% else %}{{ transitionData.Condition | safe | sclExpr }}{% endif %} THEN
+            {{ func.key }} := {{ targetState }};
+         END_IF;
+         {%- endfor %}
+      {%- endfor %}
+   END_CASE;
+   {#-###### BLANK LINE ######-#}
+   {%- elif func.logicType == 'BlankLine' %}
+
+   {% endif -%}
+{%- endfor %}
+
+   // ===========================================================================
+   // Extended Functionality (OPL additions)
+   // ===========================================================================
+{% for func in FlattenedFunctionality.libraryFunctionality -%}
+   {#-###### EXPLANATION ######-#}
+   {%- if func.logicType == 'Explanation' %}
+   // {{ func.comment }}
+   {#-###### EXPRESSION ######-#}
+   {%- elif func.logicType == 'Expression' -%}
+      {#-###### EXPRESSION WITH DELAY ######-#}
+      {%- if func.delayTimerNumber %}
+   DelayTimer{{ func.delayTimerNumber }}(IN := {{ func.expression | sclExpr }}, PT := REAL_TO_TIME({{ func.delayVariable }} * 1000.0));
+   {{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
+      {#-###### EXPRESSION WITHOUT DELAY ######-#}
+      {%- else %}
+   {{ func.key }} := {{ func.expression | sclExpr }};
+      {%- endif -%}
+   {#-###### SET ######-#}
+   {%- elif func.logicType == 'Set' %}
+      {#- Handle SET with optional delay -#}
+      {%- if func.setDelayTimerNumber %}
+   DelayTimer{{ func.setDelayTimerNumber }}(IN := {{ func.set | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.setDelayVariable }} * 1000.0));
+      {%- endif %}
+      {#- Generate the actual Set logic #}
+   IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | sclExpr }}{% endif %} THEN
+      {{ func.key | replace('_Set', '') }} := TRUE;
+   END_IF;
+   {#-###### RESET ######-#}
+   {%- elif func.logicType == 'Reset' %}
+      {#- Handle RESET with optional delay -#}
+      {%- if func.resetDelayTimerNumber %}
+   DelayTimer{{ func.resetDelayTimerNumber }}(IN := {{ func.reset | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.resetDelayVariable }} * 1000.0));
+      {%- endif %}
+      {#- Generate the actual Reset logic #}
+   IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | sclExpr }}{% endif %} THEN
+      {{ func.key | replace('_Reset', '') }} := FALSE;
+   END_IF;
+   {#-###### STATE MACHINE ######-#}
+   {%- elif func.logicType == 'StateMachine' %}
+      {#- Generate state machine delay timers first -#}
+      {%- for stateName, stateData in func.stateMachine %}
+         {%- for targetState, transitionData in stateData.Transitions %}
+            {%- if transitionData.DelayTimerNumber %}
+   DelayTimer{{ transitionData.DelayTimerNumber }}(IN := {{ transitionData.Condition | safe | sclExpr }}, PT := REAL_TO_TIME({{ transitionData.DelayVariable }} * 1000.0));
+            {%- endif %}
+         {%- endfor %}
+      {%- endfor %}
+      {#- Generate state machine CASE statement #}
+   CASE {{ func.key }} OF
+      {%- for stateName, stateData in func.stateMachine %}
+      {{ stateName }}: // {{ stateData.Name }}
+         {%- for targetState, transitionData in stateData.Transitions %}
+         IF {% if transitionData.DelayTimerNumber %}DelayTimer{{ transitionData.DelayTimerNumber }}.Q{% else %}{{ transitionData.Condition | safe | sclExpr }}{% endif %} THEN
+            {{ func.key }} := {{ targetState }};
+         END_IF;
+         {%- endfor %}
+      {%- endfor %}
+   END_CASE;
+   {#-###### BLANK LINE ######-#}
+   {%- elif func.logicType == 'BlankLine' %}
+
+   {% endif -%}
+{%- endfor %}
+{%- else %}
+   // ===========================================================================
+   // Sync variables with MTPBase
+   // ===========================================================================
+   // - a variable on MTPBase that can be changed from the HMI
+   // - an input on the wrapper block
+   // how: store the variable from the MTPBase on a helper variable, and then compare each cycle if the operator has changed it
+   // if yes then copy it to the input on the wrapper block
+   // if not then copy the wrapper block input to the MTPBase variable
+{%- for sync in syncs %}
+
+   // Sync {{ sync.name }} with MTPBase.{{ sync.SyncVariable }}
+   IF {{ sync.SyncVariable }}Last <> MTPBase.{{ sync.SyncVariable }} THEN
+      // MTPBase variable changed (from HMI) - copy to wrapper input
+      {{ sync.name }} := MTPBase.{{ sync.SyncVariable }};
+   ELSE
+      // MTPBase not changed - always copy wrapper input to MTPBase
+      MTPBase.{{ sync.SyncVariable }} := {{ sync.name }};
+   END_IF;
+   {{ sync.SyncVariable }}Last := MTPBase.{{ sync.SyncVariable }};
+{%- endfor %}
+
+   // ===========================================================================
+   // Copy from and to the MTPBase
+   // ===========================================================================
+   // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
+{%- for variable in mtpBaseVarsWrite %}
+   MTPBase.{{ variable.name }} := {{ variable.name }};
+{%- endfor %}
+
+{%- for variable in mtpBaseVarsRead %}
+   {{ variable.name }} := MTPBase.{{ variable.name }};
+{%- endfor %}
+
+   // ===========================================================================
+   // Functionality
+   // ===========================================================================
+{%- endif %}
+{%- if not isFlattened %}
+{% for func in allFunctionality -%}
+   {#-###### EXPLANATION ######-#}
+   {%- if func.logicType == 'Explanation' %}
+   // {{ func.comment }}
+   {#-###### EXPRESSION ######-#}
+   {%- elif func.logicType == 'Expression' -%}
+      {#-###### EXPRESSION WITH DELAY ######-#}
+      {%- if func.delayTimerNumber %}
+   DelayTimer{{ func.delayTimerNumber }}(IN := {{ func.expression | sclExpr }}, PT := REAL_TO_TIME({{ func.delayVariable }} * 1000.0));
+   {{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
+      {#-###### EXPRESSION WITHOUT DELAY ######-#}
+      {%- else %}
+   {{ func.key }} := {{ func.expression | sclExpr }};
+      {%- endif -%}
+   {#-###### SET ######-#}
+   {%- elif func.logicType == 'Set' %}
+      {#- Handle SET with optional delay -#}
+      {%- if func.setDelayTimerNumber %}
+   DelayTimer{{ func.setDelayTimerNumber }}(IN := {{ func.set | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.setDelayVariable }} * 1000.0));
+      {%- endif %}
+      {#- Generate the actual Set logic #}
+   IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | sclExpr }}{% endif %} THEN
+      {{ func.key | replace('_Set', '') }} := TRUE;
+   END_IF;
+   {#-###### RESET ######-#}
+   {%- elif func.logicType == 'Reset' %}
+      {#- Handle RESET with optional delay -#}
+      {%- if func.resetDelayTimerNumber %}
+   DelayTimer{{ func.resetDelayTimerNumber }}(IN := {{ func.reset | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.resetDelayVariable }} * 1000.0));
+      {%- endif %}
+      {#- Generate the actual Reset logic #}
+   IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | sclExpr }}{% endif %} THEN
+      {{ func.key | replace('_Reset', '') }} := FALSE;
+   END_IF;
+   {#-###### STATE MACHINE ######-#}
+   {%- elif func.logicType == 'StateMachine' %}
+      {#- Generate state machine delay timers first -#}
+      {%- for stateName, stateData in func.stateMachine %}
+         {%- for targetState, transitionData in stateData.Transitions %}
+            {%- if transitionData.DelayTimerNumber %}
+   DelayTimer{{ transitionData.DelayTimerNumber }}(IN := {{ transitionData.Condition | safe | sclExpr }}, PT := REAL_TO_TIME({{ transitionData.DelayVariable }} * 1000.0));
+            {%- endif %}
+         {%- endfor %}
+      {%- endfor %}
+      {#- Generate state machine CASE statement #}
+   CASE {{ func.key }} OF
+      {%- for stateName, stateData in func.stateMachine %}
+      {{ stateName }}: // {{ stateData.Name }}
+         {%- for targetState, transitionData in stateData.Transitions %}
+         IF {% if transitionData.DelayTimerNumber %}DelayTimer{{ transitionData.DelayTimerNumber }}.Q{% else %}{{ transitionData.Condition | safe | sclExpr }}{% endif %} THEN
+            {{ func.key }} := {{ targetState }};
+         END_IF;
+         {%- endfor %}
+      {%- endfor %}
+   END_CASE;
+   {#-###### BLANK LINE ######-#}
+   {%- elif func.logicType == 'BlankLine' %}
+
+   {% endif -%}
+{%- endfor %}
+{%- endif %}
+
+END_FUNCTION_BLOCK

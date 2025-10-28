@@ -70,7 +70,7 @@ TODO: Deadband: absolute value or %? Also need to add alarms that use this deadb
 | alarmLow      |            | x   |     | SyncWith VALLim                                                    | synchronize (1)           |
 | WQC           | x          | x   |     | 16#FF                                                              | no QC available (default) |
 | OSLevel       |            | x   |     | 16#00                                                              | TODO                      |
-| V             | x          | x   |     | VSclMin + (WORD_TO_REAL(rawValue) / 27648.0) * (VSclMax - VSclMin) |                           |
+| V             | x          | x   |     | VSclMin + (WORD_TO_DINT(rawValue) / 27648.0) * (VSclMax - VSclMin) | (2)                       |
 | vOut          |            | x   |     | V                                                                  |                           |
 | VSclMin       | x          | x   |     | scaleMin                                                           |                           |
 | VSclMax       | x          | x   |     | scaleMax                                                           |                           |
@@ -104,6 +104,10 @@ Note2: we could avoid this logic and extra 'Last' variable by inheritance. Howev
 - allow giving nice names. The MTP variables are quite cryptic
 - not every IEC-61131 dialect supports inheritance
 
+## WORD_TO_DINT (2)
+
+Siemens TIA doesn't support WORD_TO_REAL
+But the implicit conversion can work after WORD_TO_DINT
 
 
 ## TODO
