@@ -16,8 +16,8 @@
 | dynamicSource         | x   |     | Input    | Real      |         | Dynamic Source from Program (for example from PID controller)             |          |                                |
 | fixedSource           | x   |     | Input    | Real      |         | Fixed Source from Program (for example from a Phase/Sequence control)     |          |                                |
 | feedbackPosition      | x   |     | Input    | Word      |         | Position feedback (0-100%)                                                |          |                                |
-| scaleMin              | x   |     | Input    | Real      | 0       | Position scale min                                                        |          |                                |
-| scaleMax              | x   |     | Input    | Real      | 100     | Position scale max                                                        |          |                                |
+| scaleMin              | x   |     | Input    | Real      | 0.0     | Position scale min                                                        |          |                                |
+| scaleMax              | x   |     | Input    | Real      | 100.0   | Position scale max                                                        |          |                                |
 | feedbackOpen          | x   | x   | Input    | Bool      |         | feedback open                                                             | XGH      | Position high feedback         |
 | feedbackClose         | x   | x   | Input    | Bool      |         | feedback close                                                            | XGL      | Position low feedback          |
 | hasFbOpen             | x   | x   | Input    | Bool      |         | has open feedback                                                         |          |                                |
@@ -25,7 +25,7 @@
 | safeOpen              | x   | x   | Input    | Bool      |         | Safe Position is Open                                                     |          |                                |
 | enableSafePos         | x   | x   | Input    | Bool      |         | Enable safe position                                                      |          |                                |
 | simulate              | x   |     | Input    | Bool      |         | Enable simulation                                                         |          |                                |
-| simulateDelay         | x   | x   | Input    | Real      | 1       | Simulated delay to set the feedback signals, in s                         |          |                                |
+| simulateDelay         | x   | x   | Input    | Real      | 1.0     | Simulated delay to set the feedback signals, in s                         |          |                                |
 | interlockIn           | x   |     | Input    | Bool      |         | forces safe position. 1 = interlock active                                |          |                                |
 | permitIn              | x   |     | Input    | Bool      | True    | permission to control. Does not activate safe position. 1 = no permission |          |                                |
 | protectIn             | x   |     | Input    | Bool      |         | Protect, sets safe position, sets protectState. 1 = Protect active        |          |                                |

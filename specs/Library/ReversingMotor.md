@@ -22,10 +22,10 @@
 | driveTrip       | x   |     | Input    | Bool      |         | Drive Protection Indicator. 0: tripped, 1: no error                       |          |                   |
 | safeHold        | x   |     | Input    | Bool      |         | Holds Energize on interlock                                               |          |                   |
 | monitor         | x   |     | Input    | Bool      | True    | Enables errors on the feedback monitoring                                 |          |                   |
-| staticTimeout   | x   |     | Input    | Real      | 2       | Amount of time before a static monitoring error is triggered              |          |                   |
-| dynamicTimeout  | x   |     | Input    | Real      | 5       | Amount of time before a dynamic monitoring error is triggered             |          |                   |
+| staticTimeout   | x   |     | Input    | Real      | 2.0     | Amount of time before a static monitoring error is triggered              |          |                   |
+| dynamicTimeout  | x   |     | Input    | Real      | 5.0     | Amount of time before a dynamic monitoring error is triggered             |          |                   |
 | simulate        | x   |     | Input    | Bool      |         | Enable simulation                                                         |          |                   |
-| simulateDelay   | x   |     | Input    | Real      | 1       | Simulated delay to set the feedback signals, in s                         |          |                   |
+| simulateDelay   | x   |     | Input    | Real      | 1.0     | Simulated delay to set the feedback signals, in s                         |          |                   |
 | interlockIn     | x   |     | Input    | Bool      |         | forces safe position. 0 = interlock active                                |          |                   |
 | permitIn        | x   |     | Input    | Bool      | 1       | permission to control. Does not activate safe position. 0 = no permission |          |                   |
 | protectIn       | x   |     | Input    | Bool      |         | Protect, sets safe position, sets protectState. 0 = Protect active        |          |                   |

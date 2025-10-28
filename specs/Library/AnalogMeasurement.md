@@ -12,14 +12,14 @@
 | id                  | x   | x   | Input    | Int       |         | unique project-wide ID to uniquely identify and track objects   |          |                            |
 | rawValue            | x   | x   | Input    | Word      |         | Raw Input Value                                                 | X        | Normal function input      |
 | valueUnit           | x   | x   | Input    | Int       |         | Value Unit                                                      |          |                            |
-| scaleMin            | x   | x   | Input    | Real      | 0       | Scale Min Limit                                                 |          |                            |
-| scaleMax            | x   | x   | Input    | Real      | 100     | Scale Max Limit                                                 |          |                            |
-| alarmHigh           | x   | x   | Input    | Real      | 90      | Limit Value for Alarm High (not accessible in Beckhoff MTP)     |          |                            |
-| warningHigh         | x   | x   | Input    | Real      | 80      | Limit Value for Warning High (not accessible in Beckhoff MTP)   |          |                            |
-| toleranceHigh       | x   |     | Input    | Real      | 60      | Limit Value for Tolerance High (not accessible in Beckhoff MTP) |          |                            |
-| toleranceLow        | x   |     | Input    | Real      | 40      | Limit Value for Tolerance Low (not accessible in Beckhoff MTP)  |          |                            |
-| warningLow          | x   | x   | Input    | Real      | 20      | Limit Value for Warning Low (not accessible in Beckhoff MTP)    |          |                            |
-| alarmLow            | x   | x   | Input    | Real      | 10      | Limit Value for Alarm Low (not accessible in Beckhoff MTP)      |          |                            |
+| scaleMin            | x   | x   | Input    | Real      | 0.0     | Scale Min Limit                                                 |          |                            |
+| scaleMax            | x   | x   | Input    | Real      | 100.0   | Scale Max Limit                                                 |          |                            |
+| alarmHigh           | x   | x   | Input    | Real      | 90.0    | Limit Value for Alarm High (not accessible in Beckhoff MTP)     |          |                            |
+| warningHigh         | x   | x   | Input    | Real      | 80.0    | Limit Value for Warning High (not accessible in Beckhoff MTP)   |          |                            |
+| toleranceHigh       | x   |     | Input    | Real      | 60.0    | Limit Value for Tolerance High (not accessible in Beckhoff MTP) |          |                            |
+| toleranceLow        | x   |     | Input    | Real      | 40.0    | Limit Value for Tolerance Low (not accessible in Beckhoff MTP)  |          |                            |
+| warningLow          | x   | x   | Input    | Real      | 20.0    | Limit Value for Warning Low (not accessible in Beckhoff MTP)    |          |                            |
+| alarmLow            | x   | x   | Input    | Real      | 10.0    | Limit Value for Alarm Low (not accessible in Beckhoff MTP)      |          |                            |
 | alarmHighEn         | x   |     | Input    | Bool      | True    | Alarm High Limit Enabled                                        |          |                            |
 | warningHighEn       | x   |     | Input    | Bool      | True    | Warning High Limit Enabled                                      |          |                            |
 | toleranceHighEn     | x   |     | Input    | Bool      | True    | Tolerance High Limit Enabled                                    |          |                            |

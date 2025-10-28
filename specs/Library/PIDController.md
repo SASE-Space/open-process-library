@@ -18,13 +18,13 @@
 | rawValue             | x   |     | Input    | Word      |         | Raw Input Value                                                         |          |                   |
 | valueUnit            | x   |     | Input    | Int       |         | Value Unit                                                              |          |                   |
 | manipulatedValueUnit | x   |     | Input    | Int       |         | Manipulated Value Unit                                                  |          |                   |
-| scaleMin             | x   |     | Input    | Real      | 0       | Scale Min for read value                                                |          |                   |
-| scaleMax             | x   |     | Input    | Real      | 100     | Scale Max for read value                                                |          |                   |
-| scaleMinMV           | x   |     | Input    | Real      | 0       | Scale Min for Manipulated Value                                         |          |                   |
-| scaleMaxMV           | x   |     | Input    | Real      | 100     | Scale Max for Manipulated Value                                         |          |                   |
+| scaleMin             | x   |     | Input    | Real      | 0.0     | Scale Min for read value                                                |          |                   |
+| scaleMax             | x   |     | Input    | Real      | 100.0   | Scale Max for read value                                                |          |                   |
+| scaleMinMV           | x   |     | Input    | Real      | 0.0     | Scale Min for Manipulated Value                                         |          |                   |
+| scaleMaxMV           | x   |     | Input    | Real      | 100.0   | Scale Max for Manipulated Value                                         |          |                   |
 | proportional         | x   |     | Input    | Real      | 1.0     | Proportional Parameter                                                  |          |                   |
 | integration          | x   |     | Input    | Real      | 0.1     | Integration Parameter in s                                              |          |                   |
-| derivation           | x   |     | Input    | Real      | 0       | Derivation Parameter in s                                               |          |                   |
+| derivation           | x   |     | Input    | Real      | 0.0     | Derivation Parameter in s                                               |          |                   |
 | alarmHigh            | x   |     | Input    | Real      |         | Limit Value for Alarm High                                              |          |                   |
 | warningHigh          | x   |     | Input    | Real      |         | Limit Value for Warning High                                            |          |                   |
 | toleranceHigh        | x   |     | Input    | Real      |         | Limit Value for Tolerance High                                          |          |                   |
