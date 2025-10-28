@@ -48,8 +48,8 @@
 | MonSafePos    | PEA    | Input    | Bool      |         | Behaviour if monitoring error. 1 = safe pos, 0 = hold pos                 |
 | MonStatErr    | PEA    | Output   | Bool      |         | Static monitoring error occurred                                          |
 | MonDynErr     | PEA    | Output   | Bool      |         | Dynamic Monitoring error occurred                                         |
-| MonStatTi     | PEA    | Input    | Real      | 5       | monitor time for static changes, in s                                     |
-| MonDynTi      | PEA    | Input    | Real      | 2       | monitor time for dynamic changes, in s                                    |
+| MonStatTi     | PEA    | Input    | Real      | 5.0     | monitor time for static changes, in s                                     |
+| MonDynTi      | PEA    | Input    | Real      | 2.0     | monitor time for dynamic changes, in s                                    |
 | OpenOp        | POL    | Local    | Bool      |         | Open command by operator                                                  |
 | CloseOp       | POL    | Local    | Bool      |         | Close command by operator                                                 |
 | ResetAut      | PEA    | Input    | Bool      |         | Reset command from controller program                                     | 

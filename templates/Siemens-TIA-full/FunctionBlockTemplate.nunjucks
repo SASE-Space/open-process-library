@@ -20,7 +20,7 @@ VERSION : 0.1
 {%- if FlattenedVariables.mtpInOutVars.length > 0 %}
    VAR_IN_OUT
 {%- for variable in FlattenedVariables.mtpInOutVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
    END_VAR
 {%- endif %}
@@ -28,7 +28,7 @@ VERSION : 0.1
 {%- if FlattenedVariables.mtpInputVars.length > 0 %}
    VAR_INPUT
 {%- for variable in FlattenedVariables.mtpInputVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
    END_VAR
 {%- endif %}
@@ -36,7 +36,7 @@ VERSION : 0.1
 {%- if FlattenedVariables.mtpOutputVars.length > 0 %}
    VAR_OUTPUT
 {%- for variable in FlattenedVariables.mtpOutputVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
    END_VAR
 {%- endif %}
@@ -47,7 +47,7 @@ VERSION : 0.1
 {%- if FlattenedVariables.libraryInOutVars.length > 0 %}
    VAR_IN_OUT
 {%- for variable in FlattenedVariables.libraryInOutVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
    END_VAR
 {%- endif %}
@@ -55,7 +55,7 @@ VERSION : 0.1
 {%- if FlattenedVariables.libraryInputVars.length > 0 %}
    VAR_INPUT
 {%- for variable in FlattenedVariables.libraryInputVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
    END_VAR
 {%- endif %}
@@ -63,35 +63,35 @@ VERSION : 0.1
 {%- if FlattenedVariables.libraryOutputVars.length > 0 %}
    VAR_OUTPUT
 {%- for variable in FlattenedVariables.libraryOutputVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
    END_VAR
 {%- endif %}
 
    VAR
       // Control Variables
-      first_scan : BOOL := TRUE;
-      second_scan : BOOL := FALSE;
+      #first_scan : BOOL := TRUE;
+      #second_scan : BOOL := FALSE;
 {%- if FlattenedVariables.mtpLocalVars.length > 0 %}
       // Local Variables (MTP)
 {%- for variable in FlattenedVariables.mtpLocalVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
 {%- endif %}
 {%- if FlattenedVariables.libraryLocalVars.length > 0 %}
       // Local Variables (OPL)
 {%- for variable in FlattenedVariables.libraryLocalVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
 {%- endif %}
 {%- if FlattenedDelayTimerCount > 0 %}
       // Delay timers
 {%- for i in range(1, FlattenedDelayTimerCount + 1) %}
-      DelayTimer{{ i }} : TON;
+      #DelayTimer{{ i }} : TON;
 {%- endfor %}
 {%- endif %}
 {%- for sync in FlattenedSyncs %}
-      {{ sync.SyncVariable }}Last : {{ Variables[sync.name]['Data Type'] | sclType }};
+      #{{ sync.SyncVariable }}Last : {{ Variables[sync.name]['Data Type'] | sclType }};
 {%- endfor %}
    END_VAR
 {%- else %}
@@ -101,7 +101,7 @@ VERSION : 0.1
 {%- if inoutVars.length > 0 %}
    VAR_IN_OUT
 {%- for variable in inoutVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
    END_VAR
 {%- endif %}
@@ -109,7 +109,7 @@ VERSION : 0.1
 {%- if inputVars.length > 0 %}
    VAR_INPUT
 {%- for variable in inputVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
    END_VAR
 {%- endif %}
@@ -117,7 +117,7 @@ VERSION : 0.1
 {%- if outputVars.length > 0 %}
    VAR_OUTPUT
 {%- for variable in outputVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
    END_VAR
 {%- endif %}
@@ -129,20 +129,20 @@ VERSION : 0.1
 {%- if localVars.length > 0 %}
       // Local Variables
 {%- for variable in localVars %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }}{%- if variable.Default and variable.Default != "" %} := {{ variable.Default | sclValue(variable['Data Type']) }}{%- endif %};{%- if variable.Description %} // {{ variable.Description }}{%- endif %}
 {%- endfor %}
 {%- endif %}
 {%- if DelayTimerCount > 0 %}
       // Delay timers
 {%- for i in range(1, DelayTimerCount + 1) %}
-      DelayTimer{{ i }} : TON;
+      #DelayTimer{{ i }} : TON;
 {%- endfor %}
 {%- endif %}
 {%- for variable in mtpBaseVarsUsed %}
-      {{ variable.name }} : {{ variable['Data Type'] | sclType }};
+      #{{ variable.name }} : {{ variable['Data Type'] | sclType }};
 {%- endfor %}
 {%- for sync in syncs %}
-      {{ sync.SyncVariable }}Last : {{ Variables[sync.name]['Data Type'] | sclType }};
+      #{{ sync.SyncVariable }}Last : {{ Variables[sync.name]['Data Type'] | sclType }};
 {%- endfor %}
    END_VAR
 {%- endif %}
@@ -279,7 +279,7 @@ BEGIN
    {{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
       {#-###### EXPRESSION WITHOUT DELAY ######-#}
       {%- else %}
-   {{ func.key }} := {{ func.expression | sclExpr }};
+   #{{ func.key }} := {{ func.expression | sclExpr }};
       {%- endif -%}
    {#-###### SET ######-#}
    {%- elif func.logicType == 'Set' %}
@@ -289,7 +289,7 @@ BEGIN
       {%- endif %}
       {#- Generate the actual Set logic #}
    IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | sclExpr }}{% endif %} THEN
-      {{ func.key | replace('_Set', '') }} := TRUE;
+      #{{ func.key | replace('_Set', '') }} := TRUE;
    END_IF;
    {#-###### RESET ######-#}
    {%- elif func.logicType == 'Reset' %}
@@ -299,7 +299,7 @@ BEGIN
       {%- endif %}
       {#- Generate the actual Reset logic #}
    IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | sclExpr }}{% endif %} THEN
-      {{ func.key | replace('_Reset', '') }} := FALSE;
+      #{{ func.key | replace('_Reset', '') }} := FALSE;
    END_IF;
    {#-###### STATE MACHINE ######-#}
    {%- elif func.logicType == 'StateMachine' %}
@@ -317,7 +317,7 @@ BEGIN
       {{ stateName }}: // {{ stateData.Name }}
          {%- for targetState, transitionData in stateData.Transitions %}
          IF {% if transitionData.DelayTimerNumber %}DelayTimer{{ transitionData.DelayTimerNumber }}.Q{% else %}{{ transitionData.Condition | safe | sclExpr }}{% endif %} THEN
-            {{ func.key }} := {{ targetState }};
+            #{{ func.key }} := {{ targetState }};
          END_IF;
          {%- endfor %}
       {%- endfor %}
@@ -341,12 +341,12 @@ BEGIN
    // Sync {{ sync.name }} with MTPBase.{{ sync.SyncVariable }}
    IF {{ sync.SyncVariable }}Last <> MTPBase.{{ sync.SyncVariable }} THEN
       // MTPBase variable changed (from HMI) - copy to wrapper input
-      {{ sync.name }} := MTPBase.{{ sync.SyncVariable }};
+      #{{ sync.name }} := MTPBase.{{ sync.SyncVariable }};
    ELSE
       // MTPBase not changed - always copy wrapper input to MTPBase
       MTPBase.{{ sync.SyncVariable }} := {{ sync.name }};
    END_IF;
-   {{ sync.SyncVariable }}Last := MTPBase.{{ sync.SyncVariable }};
+   #{{ sync.SyncVariable }}Last := MTPBase.{{ sync.SyncVariable }};
 {%- endfor %}
 
    // ===========================================================================
@@ -354,11 +354,11 @@ BEGIN
    // ===========================================================================
    // there is no need to execute the MTPBase block here because it gets executed as part of the auto-generated MTP code
 {%- for variable in mtpBaseVarsWrite %}
-   MTPBase.{{ variable.name }} := {{ variable.name }};
+   #MTPBase.{{ variable.name }} := {{ variable.name }};
 {%- endfor %}
 
 {%- for variable in mtpBaseVarsRead %}
-   {{ variable.name }} := MTPBase.{{ variable.name }};
+   #{{ variable.name }} := MTPBase.{{ variable.name }};
 {%- endfor %}
 
    // ===========================================================================
@@ -378,7 +378,7 @@ BEGIN
    {{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
       {#-###### EXPRESSION WITHOUT DELAY ######-#}
       {%- else %}
-   {{ func.key }} := {{ func.expression | sclExpr }};
+   #{{ func.key }} := {{ func.expression | sclExpr }};
       {%- endif -%}
    {#-###### SET ######-#}
    {%- elif func.logicType == 'Set' %}
@@ -388,7 +388,7 @@ BEGIN
       {%- endif %}
       {#- Generate the actual Set logic #}
    IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | sclExpr }}{% endif %} THEN
-      {{ func.key | replace('_Set', '') }} := TRUE;
+      #{{ func.key | replace('_Set', '') }} := TRUE;
    END_IF;
    {#-###### RESET ######-#}
    {%- elif func.logicType == 'Reset' %}
@@ -398,7 +398,7 @@ BEGIN
       {%- endif %}
       {#- Generate the actual Reset logic #}
    IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | sclExpr }}{% endif %} THEN
-      {{ func.key | replace('_Reset', '') }} := FALSE;
+      #{{ func.key | replace('_Reset', '') }} := FALSE;
    END_IF;
    {#-###### STATE MACHINE ######-#}
    {%- elif func.logicType == 'StateMachine' %}
@@ -416,7 +416,7 @@ BEGIN
       {{ stateName }}: // {{ stateData.Name }}
          {%- for targetState, transitionData in stateData.Transitions %}
          IF {% if transitionData.DelayTimerNumber %}DelayTimer{{ transitionData.DelayTimerNumber }}.Q{% else %}{{ transitionData.Condition | safe | sclExpr }}{% endif %} THEN
-            {{ func.key }} := {{ targetState }};
+            #{{ func.key }} := {{ targetState }};
          END_IF;
          {%- endfor %}
       {%- endfor %}
