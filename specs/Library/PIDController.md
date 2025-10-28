@@ -86,7 +86,7 @@
 | PVSclMin          | x          | x   |     | scaleMin                                                                        |                                              |
 | PVSclMax          | x          | x   |     | scaleMax                                                                        |                                              |
 | PVUnit            | x          | x   |     | valueUnit                                                                       |                                              |
-| SPInt             | x          | x   |     | (dynamicSP * BOOL_TO_REAL(dynamicSPAct)) + (fixedSP * BOOL_TO_REAL(fixedSPAct)) |                                              |
+| SPInt             | x          | x   |     | (dynamicSP * INT_TO_REAL(BOOL_TO_INT(dynamicSPAct))) + (fixedSP * INT_TO_REAL(BOOL_TO_INT(fixedSPAct))) |                                              |
 | SPSclMin          | x          | x   |     | scaleMin                                                                        | SP and PV should have same scale             |
 | SPSclMax          | x          | x   |     | scaleMax                                                                        | SP and PV should have same scale             |
 | SPUnit            | x          | x   |     | valueUnit                                                                       | SP and PV should have same unit              |
