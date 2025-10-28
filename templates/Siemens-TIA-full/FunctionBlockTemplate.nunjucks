@@ -211,7 +211,7 @@ BEGIN
    {%- elif func.logicType == 'Expression' -%}
       {#-###### EXPRESSION WITH DELAY ######-#}
       {%- if func.delayTimerNumber %}
-   DelayTimer{{ func.delayTimerNumber }}(IN := {{ func.expression | sclExpr }}, PT := REAL_TO_TIME({{ func.delayVariable }} * 1000.0));
+   DelayTimer{{ func.delayTimerNumber }}(IN := {{ func.expression | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ func.delayVariable }} * 1000.0)));
    {{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
       {#-###### EXPRESSION WITHOUT DELAY ######-#}
       {%- else %}
@@ -221,7 +221,7 @@ BEGIN
    {%- elif func.logicType == 'Set' %}
       {#- Handle SET with optional delay -#}
       {%- if func.setDelayTimerNumber %}
-   DelayTimer{{ func.setDelayTimerNumber }}(IN := {{ func.set | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.setDelayVariable }} * 1000.0));
+   DelayTimer{{ func.setDelayTimerNumber }}(IN := {{ func.set | safe | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ func.setDelayVariable }} * 1000.0)));
       {%- endif %}
       {#- Generate the actual Set logic #}
    IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | sclExpr }}{% endif %} THEN
@@ -231,7 +231,7 @@ BEGIN
    {%- elif func.logicType == 'Reset' %}
       {#- Handle RESET with optional delay -#}
       {%- if func.resetDelayTimerNumber %}
-   DelayTimer{{ func.resetDelayTimerNumber }}(IN := {{ func.reset | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.resetDelayVariable }} * 1000.0));
+   DelayTimer{{ func.resetDelayTimerNumber }}(IN := {{ func.reset | safe | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ func.resetDelayVariable }} * 1000.0)));
       {%- endif %}
       {#- Generate the actual Reset logic #}
    IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | sclExpr }}{% endif %} THEN
@@ -243,7 +243,7 @@ BEGIN
       {%- for stateName, stateData in func.stateMachine %}
          {%- for targetState, transitionData in stateData.Transitions %}
             {%- if transitionData.DelayTimerNumber %}
-   DelayTimer{{ transitionData.DelayTimerNumber }}(IN := {{ transitionData.Condition | safe | sclExpr }}, PT := REAL_TO_TIME({{ transitionData.DelayVariable }} * 1000.0));
+   DelayTimer{{ transitionData.DelayTimerNumber }}(IN := {{ transitionData.Condition | safe | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ transitionData.DelayVariable }} * 1000.0)));
             {%- endif %}
          {%- endfor %}
       {%- endfor %}
@@ -275,7 +275,7 @@ BEGIN
    {%- elif func.logicType == 'Expression' -%}
       {#-###### EXPRESSION WITH DELAY ######-#}
       {%- if func.delayTimerNumber %}
-   DelayTimer{{ func.delayTimerNumber }}(IN := {{ func.expression | sclExpr }}, PT := REAL_TO_TIME({{ func.delayVariable }} * 1000.0));
+   DelayTimer{{ func.delayTimerNumber }}(IN := {{ func.expression | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ func.delayVariable }} * 1000.0)));
    {{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
       {#-###### EXPRESSION WITHOUT DELAY ######-#}
       {%- else %}
@@ -285,7 +285,7 @@ BEGIN
    {%- elif func.logicType == 'Set' %}
       {#- Handle SET with optional delay -#}
       {%- if func.setDelayTimerNumber %}
-   DelayTimer{{ func.setDelayTimerNumber }}(IN := {{ func.set | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.setDelayVariable }} * 1000.0));
+   DelayTimer{{ func.setDelayTimerNumber }}(IN := {{ func.set | safe | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ func.setDelayVariable }} * 1000.0)));
       {%- endif %}
       {#- Generate the actual Set logic #}
    IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | sclExpr }}{% endif %} THEN
@@ -295,7 +295,7 @@ BEGIN
    {%- elif func.logicType == 'Reset' %}
       {#- Handle RESET with optional delay -#}
       {%- if func.resetDelayTimerNumber %}
-   DelayTimer{{ func.resetDelayTimerNumber }}(IN := {{ func.reset | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.resetDelayVariable }} * 1000.0));
+   DelayTimer{{ func.resetDelayTimerNumber }}(IN := {{ func.reset | safe | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ func.resetDelayVariable }} * 1000.0)));
       {%- endif %}
       {#- Generate the actual Reset logic #}
    IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | sclExpr }}{% endif %} THEN
@@ -307,7 +307,7 @@ BEGIN
       {%- for stateName, stateData in func.stateMachine %}
          {%- for targetState, transitionData in stateData.Transitions %}
             {%- if transitionData.DelayTimerNumber %}
-   DelayTimer{{ transitionData.DelayTimerNumber }}(IN := {{ transitionData.Condition | safe | sclExpr }}, PT := REAL_TO_TIME({{ transitionData.DelayVariable }} * 1000.0));
+   DelayTimer{{ transitionData.DelayTimerNumber }}(IN := {{ transitionData.Condition | safe | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ transitionData.DelayVariable }} * 1000.0)));
             {%- endif %}
          {%- endfor %}
       {%- endfor %}
@@ -374,7 +374,7 @@ BEGIN
    {%- elif func.logicType == 'Expression' -%}
       {#-###### EXPRESSION WITH DELAY ######-#}
       {%- if func.delayTimerNumber %}
-   DelayTimer{{ func.delayTimerNumber }}(IN := {{ func.expression | sclExpr }}, PT := REAL_TO_TIME({{ func.delayVariable }} * 1000.0));
+   DelayTimer{{ func.delayTimerNumber }}(IN := {{ func.expression | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ func.delayVariable }} * 1000.0)));
    {{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
       {#-###### EXPRESSION WITHOUT DELAY ######-#}
       {%- else %}
@@ -384,7 +384,7 @@ BEGIN
    {%- elif func.logicType == 'Set' %}
       {#- Handle SET with optional delay -#}
       {%- if func.setDelayTimerNumber %}
-   DelayTimer{{ func.setDelayTimerNumber }}(IN := {{ func.set | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.setDelayVariable }} * 1000.0));
+   DelayTimer{{ func.setDelayTimerNumber }}(IN := {{ func.set | safe | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ func.setDelayVariable }} * 1000.0)));
       {%- endif %}
       {#- Generate the actual Set logic #}
    IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe | sclExpr }}{% endif %} THEN
@@ -394,7 +394,7 @@ BEGIN
    {%- elif func.logicType == 'Reset' %}
       {#- Handle RESET with optional delay -#}
       {%- if func.resetDelayTimerNumber %}
-   DelayTimer{{ func.resetDelayTimerNumber }}(IN := {{ func.reset | safe | sclExpr }}, PT := REAL_TO_TIME({{ func.resetDelayVariable }} * 1000.0));
+   DelayTimer{{ func.resetDelayTimerNumber }}(IN := {{ func.reset | safe | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ func.resetDelayVariable }} * 1000.0)));
       {%- endif %}
       {#- Generate the actual Reset logic #}
    IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe | sclExpr }}{% endif %} THEN
@@ -406,7 +406,7 @@ BEGIN
       {%- for stateName, stateData in func.stateMachine %}
          {%- for targetState, transitionData in stateData.Transitions %}
             {%- if transitionData.DelayTimerNumber %}
-   DelayTimer{{ transitionData.DelayTimerNumber }}(IN := {{ transitionData.Condition | safe | sclExpr }}, PT := REAL_TO_TIME({{ transitionData.DelayVariable }} * 1000.0));
+   DelayTimer{{ transitionData.DelayTimerNumber }}(IN := {{ transitionData.Condition | safe | sclExpr }}, PT := INT_TO_TIME(REAL_TO_INT({{ transitionData.DelayVariable }} * 1000.0)));
             {%- endif %}
          {%- endfor %}
       {%- endfor %}

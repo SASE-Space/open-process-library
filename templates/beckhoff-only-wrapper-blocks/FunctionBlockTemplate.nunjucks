@@ -117,7 +117,7 @@ END_IF;
     {%- elif func.logicType == 'Expression' -%}    
         {#-###### EXPRESSION WITH DELAY ######-#}         
         {%- if func.delayTimerNumber %}
-DelayTimer{{ func.delayTimerNumber }}(IN:= {{ func.expression }}, PT:= REAL_TO_TIME({{ func.delayVariable }} * 1000));
+DelayTimer{{ func.delayTimerNumber }}(IN:= {{ func.expression }}, PT:= INT_TO_TIME(REAL_TO_INT({{ func.delayVariable }} * 1000)));
 {{ func.key }} := DelayTimer{{ func.delayTimerNumber }}.Q;
         {#-###### EXPRESSION WITHOUT DELAY ######-#}  
         {%- else %}
@@ -127,7 +127,7 @@ DelayTimer{{ func.delayTimerNumber }}(IN:= {{ func.expression }}, PT:= REAL_TO_T
     {%- elif func.logicType == 'Set' %}
         {#- Handle SET with optional delay -#}
         {%- if func.setDelayTimerNumber %}
-DelayTimer{{ func.setDelayTimerNumber }}(IN:= {{ func.set | safe }}, PT:= REAL_TO_TIME({{ func.setDelayVariable }} * 1000));
+DelayTimer{{ func.setDelayTimerNumber }}(IN:= {{ func.set | safe }}, PT:= INT_TO_TIME(REAL_TO_INT({{ func.setDelayVariable }} * 1000)));
         {%- endif %}
         {#- Generate the actual Set logic #}
 IF {% if func.setDelayTimerNumber %}DelayTimer{{ func.setDelayTimerNumber }}.Q{% else %}{{ func.set | safe }}{% endif %} THEN
@@ -137,7 +137,7 @@ END_IF;
     {%- elif func.logicType == 'Reset' %}
         {#- Handle RESET with optional delay -#}
         {%- if func.resetDelayTimerNumber %}
-DelayTimer{{ func.resetDelayTimerNumber }}(IN:= {{ func.reset | safe }}, PT:= REAL_TO_TIME({{ func.resetDelayVariable }} * 1000));
+DelayTimer{{ func.resetDelayTimerNumber }}(IN:= {{ func.reset | safe }}, PT:= INT_TO_TIME(REAL_TO_INT({{ func.resetDelayVariable }} * 1000)));
         {%- endif %}
         {#- Generate the actual Reset logic #}
 IF {% if func.resetDelayTimerNumber %}DelayTimer{{ func.resetDelayTimerNumber }}.Q{% else %}{{ func.reset | safe }}{% endif %} THEN
@@ -149,7 +149,7 @@ END_IF;
         {%- for stateName, stateData in func.stateMachine %}
             {%- for targetState, transitionData in stateData.Transitions %}
                 {%- if transitionData.DelayTimerNumber %}
-DelayTimer{{ transitionData.DelayTimerNumber }}(IN:= {{ transitionData.Condition | safe }}, PT:= REAL_TO_TIME({{ transitionData.DelayVariable }} * 1000));
+DelayTimer{{ transitionData.DelayTimerNumber }}(IN:= {{ transitionData.Condition | safe }}, PT:= INT_TO_TIME(REAL_TO_INT({{ transitionData.DelayVariable }} * 1000)));
                 {%- endif %}
             {%- endfor %}
         {%- endfor %}
