@@ -3,5 +3,5 @@
   "generate-mtp-blocks": false,
   "flatten-mtp-into-library": true,
   "mtp-section-marker": "MTP Interface",
-  "output-extension": ""
+  "output-extension": "scl"
 }

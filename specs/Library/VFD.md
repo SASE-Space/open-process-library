@@ -90,7 +90,7 @@
 | RpmUnit           | x          | x   |     | speedUnit                                                                | Fixed on % (TODO: look up int value for %)                  |
 | RpmMin            | x          | x   |     | speedMin                                                                 | Make identical to scale                                     |
 | RpmMax            | x          | x   |     | speedMax                                                                 | Make identical to scale                                     |
-| RpmRbk            | x          | x   |     | speedFeedback                                                            |                                                             |
+| RpmRbk            | x          | x   |     | actualSpeed                                                            |                                                             |
 | actualSpeed       | x          | x   |     | Rpm                                                                      |                                                             |
 | reset             |            | x   |     | False                                                                    | reset = False at the end of the FB                          |
 | MonSafePos        | x          | x   |     | safeHold                                                                 |                                                             |

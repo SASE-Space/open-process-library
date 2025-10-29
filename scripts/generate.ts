@@ -1345,7 +1345,9 @@ async function generateCode() {
             // Default generate-mtp-blocks to true if not specified
             const shouldGenerateMTPBlocks = templateConfig['generate-mtp-blocks'] !== false
             // Get output extension from config, default to 'xml'
-            const outputExtension = templateConfig['output-extension'] || 'xml'
+            const outputExtension = 'output-extension' in templateConfig
+                ? templateConfig['output-extension']
+                : 'xml'
 
             // Configure Nunjucks for this template folder
             const templateEnv = nunjucks.configure([`templates/${templateFolderName}`], {
@@ -1383,7 +1385,9 @@ async function generateCode() {
                             mtpBaseVarsRead: getMTPBaseVariablesRead(processedBlock.MTPBaseVariables),
                             mtpBaseVarsWrite: getMTPBaseVariablesWrite(processedBlock.MTPBaseVariables),
                             mtpBaseVarsUsed: getMTPBaseVariablesUsed(processedBlock.MTPBaseVariables),
-                            _outputFile: `${processedBlock.Name}.${outputExtension}`
+                            _outputFile: outputExtension
+                                ? `${processedBlock.Name}.${outputExtension}`
+                                : processedBlock.Name
                         }
                         
                         const rendered = nunjucks.render(templateName, templateContext)
@@ -1430,7 +1434,9 @@ async function processHelperClassTemplates() {
                 const configPath = `templates/${templateFolderName}/config.json`
                 const configContent = await Deno.readTextFile(configPath)
                 templateConfig = JSON.parse(configContent)
-                outputExtension = templateConfig['output-extension'] || 'txt'
+                outputExtension = 'output-extension' in templateConfig
+                    ? templateConfig['output-extension']
+                    : 'txt'
             } catch {
                 // Config file is optional, continue without it
             }
@@ -1457,12 +1463,16 @@ async function processHelperClassTemplates() {
 
                     // Create template context
                     const templateContext: any = {
-                        _outputFile: `${baseName}.${outputExtension}`
+                        _outputFile: outputExtension
+                            ? `${baseName}.${outputExtension}`
+                            : baseName
                     }
 
                     // Render as Nunjucks template
                     const rendered = nunjucks.render(templateName, templateContext)
-                    const outputFileName = templateContext._outputFile || `${baseName}.${outputExtension}`
+                    const outputFileName = templateContext._outputFile || (outputExtension
+                        ? `${baseName}.${outputExtension}`
+                        : baseName)
 
                     // Output to Library folder alongside function blocks
                     const outputDir = `generated/FunctionBlocks/${templateFolderName}/Library`
